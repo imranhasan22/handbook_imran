@@ -34,3 +34,13 @@
 -> COMMIT -> STAGE -> REPOSITORY
 -> GIT LAB, BIT BUCKET
 =============================================VERSION CONTROL INTRODUCTION END===============================================
+
+=============================================GIT CONFIGURATION START===============================================
+!!we need to connect our git with our github account, we do it using git config
+//set user name : git config --global user.name "your_name"
+//set user email: git config --global user.email "your_email"
+//check config  : get config --list or git config -l
+//to update the data, just reassign the data
+
+!!for the first time after git configuration, when you want to push some document, you need to login/authenticate your github account
+=============================================GIT CONFIGURATION END===============================================
