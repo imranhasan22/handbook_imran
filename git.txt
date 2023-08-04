@@ -50,3 +50,34 @@
 !!git init   -> creating/initializing git repository(current path er vitor .git folder create hoi),here files are untrackable
 !!git status -> displays teh state of teh working directory and staging area
 =============================================INITIALIZING EMPTY REPOSITORY END===============================================
+
+=============================================BASIC COMMAND START===============================================
+!!You must run this command one by one, serially when you are creating completely new repository
+!!CREATING NEW REPOSITORY
+-> echo "write anything you want" >> file_name 
+-> git init
+-> git add file_name
+-> git commit -m "commit_message"
+-> git branch -M branch_name
+-> git remote add origin https://github.com/user_name/repository_name.git
+-> git push -u origin branch_name
+
+!!echo   => create a new file and write something in it
+!!init   => first command to initialized empty git repository
+!!add    => add the file into staging state(from now it track changes)
+!!commit => description of whcih changes did you make
+!!branch => set the branch(you can create any number of branch, default vs code branch is master, github branch is main)
+!!remote => connect local repository with remote repository
+!!push   => send the document to remote repository
+
+
+!!HANDLING WORKING REPOSITORY
+-> git add file_name
+-> git commit -m "commit_message"
+-> git push
+
+!!whenever we made any changes in our working/local repository its recommened push it to remote repository
+!!to push it we need add our changes to staging state
+!!commit description of chnages
+!!send it to remote repository
+=============================================BASIC COMMAND END===============================================
