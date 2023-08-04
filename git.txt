@@ -44,3 +44,9 @@
 
 !!for the first time after git configuration, when you want to push some document, you need to login/authenticate your github account
 =============================================GIT CONFIGURATION END===============================================
+
+=============================================INITIALIZING EMPTY REPOSITORY START===============================================
+!!CREATING DOT GIT FOLDER
+!!git init   -> creating/initializing git repository(current path er vitor .git folder create hoi),here files are untrackable
+!!git status -> displays teh state of teh working directory and staging area
+=============================================INITIALIZING EMPTY REPOSITORY END===============================================
