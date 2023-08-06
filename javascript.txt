@@ -12,7 +12,7 @@
 =====================================================MATH RANDOM END=====================================================
 
 =====================================================SPLICE START=====================================================
-!!ADD NEW ELEMENT IN AN ARRAY - REMOVE NEW ELEMENT FROM AN ARRAY
+!!ADD NEW ELEMENT TO AN ARRAY - REMOVE AN ELEMENT FROM AN ARRAY
 !the splice() method adds/remove new items to an array
 !!original array will be changed
 !!the splice() method returns an array with the deleted items
