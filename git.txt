@@ -98,6 +98,12 @@
 !!git rm --cached file_name
 =============================================STAGING & UNSTAGING  END===============================================
 
+=============================================GITHUB HOSTING START===============================================
+!!in your repository visit setting -> pages -> branch -> "select which branch do you want to host" -> save
+!!this will host your repository at github.io
+!!live view link: github_username.github.io/repository_name
+=============================================GITHUB HOSTING END===============================================
+
 =============================================MARKDOWN START===============================================
 !!Markdown is a lightweight markup language for creating formatted text using a plain-text editor
 !! . md file extension (also written as . markdown) stands for "Markdown documentation"
