@@ -122,7 +122,13 @@
 !!in your repository visit setting -> pages -> branch -> "select which branch do you want to host" -> save
 !!this will host your repository at github.io
 !!live view link: github_username.github.io/repository_name
+
+!!github is CASE SENSITIVE, that's why we have to use exact file name
 =============================================GITHUB HOSTING END===============================================
+
+=============================================GIT ADVANCE COMMAND START===============================================
+!!git remote -v => return the remote repository link
+=============================================GIT ADVANCE COMMAND END===============================================
 
 =============================================MARKDOWN START===============================================
 !!Markdown is a lightweight markup language for creating formatted text using a plain-text editor
