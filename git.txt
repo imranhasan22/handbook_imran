@@ -214,3 +214,16 @@
 //|Masum Billah|masum184e@gmail.com|
 //|Sajib Kar|sajib@gmail.com|
 =============================================MARKDOWN END===============================================
+
+=============================================VISUAL STUDIO CODE START===============================================
+!!OPEN VS CODE THROUGH CMD
+!!visit your target path -> code . +enter
+
+!!VS CODE TERMINAL
+!!ctrl + j
+
+!!KEY CHARACTER
+!!U -> Untracked: nothing is added to staging state
+!!A -> Added: added to staging state but no commit is done
+!!M -> Modify: some changes are made
+=============================================VISUAL STUDIO CODE END===============================================
