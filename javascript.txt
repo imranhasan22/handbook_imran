@@ -18,7 +18,8 @@
 !!the splice() method returns an array with the deleted items
 
 //const cars=['bmw','saab','toyato'];
-//cars.splice(2,0,'tesla','ferrari');
+//cars.splice(2,0,'tesla','ferrari');    // this add some item: [ 'bmw', 'saab', 'tesla', 'ferrari', 'toyato' ]
+//cars.splice(2,0,['tesla','ferrari']);  // this add another array: [ 'bmw', 'saab', [ 'tesla', 'ferrari' ], 'toyato' ]
 
 !!the first parameter(2) defines the position where new elements should be added(spliced in)
 !!the second parameter(0) defines how many element should be removed from the the first parameter
