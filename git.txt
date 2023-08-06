@@ -81,3 +81,78 @@
 !!commit description of chnages
 !!send it to remote repository
 =============================================BASIC COMMAND END===============================================
+
+=============================================MARKDOWN START===============================================
+!!Markdown is a lightweight markup language for creating formatted text using a plain-text editor
+!! . md file extension (also written as . markdown) stands for "Markdown documentation"
+!!mark down allow html syntax
+!!create a file called README.md
+
+!!comment : <!--Mark Down Comment-->
+
+!!new line : use 2 spaces OR press enter or use <br/> tag
+
+!!horizontal rule -> use three hyphen (---) or use <hr/> tag
+//Before Horizontal
+//---
+//After Horizontal
+
+!!heading : use space after a #,every # define a heading(h1->#,h2->##,h3->###),
+!!paragraph : use <p> tag
+!!italic : use <i> tag or use underscore before and after the text //_ITALIC TEXT_
+!!strong/bold->use two underscore before and after teh text //__THIS IS BOLD TEXT__
+!!strikethrough -> use double ~ or <del> tag //~~THIS IS STRIKE THROUGH~~
+
+!!inline code block : use single back tick ( ` ) for single line,trible back tick for multiple line
+//`This Is Code Block`
+//```
+//npm install
+//npm start
+//```
+!!for language specific code use the language name
+//```javascript
+//console.log("Hello Universe");
+//```
+
+!!ORDER list -> you can use html tag or
+//1. Item 1
+//2. Item 2
+//      1. Item 2.1
+//      2. Item 2.2
+
+!!unorder list use one hyphen( - )
+//- Item 1
+//- Item 2
+//    - Item 2.1
+//    - Item 2.2
+
+!!task list -> use angle brackets [] with hyphen( - )
+//- [X] Task 1
+//- [X] Task 2
+//- [X] Task 3
+
+!!HYPERLINK
+!!automatic link : just use the link
+//masum184e@gmail.com
+!!use back tick for disable link : `masum184e@gmail.com`
+!!link : [title](link)
+//[Click me](masum184e@gmail.com)
+
+!!MULTIPLE LINK
+!!create something like variable -> [mail]: masum184e@gmail.com
+!!use the variable               -> [CLICK ME][mail]
+
+!!IMAGE
+!!syntax : ![alt_text](link)
+!!no space between those operator
+!!you can also use the <img> tag
+
+!!use emoji through copy paste
+
+!!TABLE
+!!use pipe symbol
+!!always begin and end with pipe
+//|Name|Email|
+//|Masum Billah|masum184e@gmail.com|
+//|Sajib Kar|sajib@gmail.com|
+=============================================MARKDOWN END===============================================
