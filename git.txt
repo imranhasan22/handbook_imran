@@ -48,7 +48,7 @@
 =============================================INITIALIZING EMPTY REPOSITORY START===============================================
 !!CREATING DOT GIT FOLDER
 !!git init   -> creating/initializing git repository(current path er vitor .git folder create hoi),here files are untrackable
-!!git status -> displays teh state of teh working directory and staging area
+!!git status -> displays the state of the working directory and staging area
 =============================================INITIALIZING EMPTY REPOSITORY END===============================================
 
 =============================================BASIC COMMAND START===============================================
@@ -97,6 +97,26 @@
 !!UNSTAGING
 !!git rm --cached file_name
 =============================================STAGING & UNSTAGING  END===============================================
+
+=============================================DOT GITIGNORE FILE START===============================================
+!!.gitignore force to be untracked
+!!which file that we do not want to share describe inside .gitignore
+!!place the .gitignore file in your root directory
+//ignore.txt      -> ignore the ignore.txt file
+//*.txt           -> ignore all file which have .txt extension
+//temp/           -> ignore the temp folder
+//!main.txt       -> ignore all file except main.txt
+//ignore?.txt     -> ignore all file which are similar to ignore1.txt,ignore2.txt,ignoreA.txt(it will match with one character after ignore)
+//ignore????.txt  -> ignore all file whcih is start with ignore with following 5 character
+//ignore*.txt     -> ignore all file which is start with ignore
+
+!!git status displays working directory and staging area(tracked and untracked ) files
+!!we can check is gitignore is working or not through git status
+!!if it's working, then few file will be untracked
+
+!!when we create a new repository, there have a option to add a .gitignore file
+!!here we can select .gitignore template according to our application like node, android etc
+=============================================DOT GITIGNORE FILE END===============================================
 
 =============================================GITHUB HOSTING START===============================================
 !!in your repository visit setting -> pages -> branch -> "select which branch do you want to host" -> save
