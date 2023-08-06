@@ -35,6 +35,31 @@
 !!to apply splice on string, we need to convert the string into an array
 =====================================================SPLICE END=====================================================
 
+=====================================================SLICE START=====================================================
+!!the slice(start,end+1) method slices out a piece of an array into a new array
+!!original array will not change
+!!it selects elements from the start argument,and up to (but not including) the end argument and return a new array
+!!it returns a shallow copy of a portion of an array into a new array object selected from begin to end+1
+
+!!if end is omitted,slice extracts through the end of the sequence(arr.length)
+!!if end is greater than the length of the sequece,slice extracts through to the end of the sequence(arr.length)
+
+!!if begin is undefined,slice begins from index 0
+!!if begin is greater than the length of the sequence,an empty array is returned
+
+// const cars=['bmw','saab','toyato','tesla'];
+// cars.slice(1,2+1);
+
+!!a negative index can be used,indicating an offset from the end of the sequence-slice(-2) extracts the last two elements in the sequence
+!!a negative index can be used,indicating an offset from the end of the sequence.slice(2,-1) extracts the third(index 2) element through the second to last(second from the end) element in the sequece
+
+//var a=["HELLO(-4)","WORLD(-3)","GOOD(-2)","MORNING(-1)"];
+//var b=a.slice(1,2+1);
+//console.log(a)//array will not modified
+//console.log(b)//return ['WORLD', 'GOOD']
+//b=a.slice(-4,-2+1);//return ['HELLO', 'WORLD', 'GOOD']
+=====================================================SLICE END=====================================================
+
 =====================================================ARRAY DESTRUCTURING START=====================================================
 !!SWAP TWO NUMBER
 var first = 1;var second = 2;
