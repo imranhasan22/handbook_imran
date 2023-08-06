@@ -10,3 +10,27 @@
 }
 //return a random number between min and max (both included)
 =====================================================MATH RANDOM END=====================================================
+
+=====================================================SPLICE START=====================================================
+!!ADD NEW ELEMENT IN AN ARRAY - REMOVE NEW ELEMENT FROM AN ARRAY
+!the splice() method adds/remove new items to an array
+!!original array will be changed
+!!the splice() method returns an array with the deleted items
+
+//const cars=['bmw','saab','toyato'];
+//cars.splice(2,0,'tesla','ferrari');
+
+!!the first parameter(2) defines the position where new elements should be added(spliced in)
+!!the second parameter(0) defines how many element should be removed from the the first parameter
+!!the rest of the parameter('tesla','ferrari') define the new elements to be added
+
+!!with clever parameter setting,you can use splice() to remove elements without leaving 'holes' in the array
+!!delete operator generate holes in an array
+//const my_array=['value_0','value_1','value_2'];my_array.splice(0,1);
+!!the first parameter(0) defines the position where new elements should be added
+!!the second parameter(1) defines how many elements should be removed
+!!the rest of the parameter are omitted.no new elements will be added
+
+!!splice is not work on string as strings are immutable
+!!to apply splice on string, we need to convert the string into an array
+=====================================================SPLICE END=====================================================
