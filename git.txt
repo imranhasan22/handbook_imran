@@ -98,6 +98,16 @@
 !!git rm --cached file_name
 =============================================STAGING & UNSTAGING  END===============================================
 
+=============================================COMMIT & UNCOMMIT START===============================================
+!!COMMIT
+!!git commit -m 'message here' -> moving staging to local repository(message should be clear and understandable)
+!!git log                      -> return the history of git commit(that means you can commit git multiple time)
+!!git commit -am 'message here'-> staging and commiting together
+!!after commiting we are ready to move the local repository to the remote repository
+
+!!UNCOMMIT
+=============================================COMMIT & UNCOMMIT END===============================================
+
 =============================================DOT GITIGNORE FILE START===============================================
 !!.gitignore force to be untracked
 !!which file that we do not want to share describe inside .gitignore
