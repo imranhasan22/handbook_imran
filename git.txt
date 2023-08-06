@@ -82,6 +82,22 @@
 !!send it to remote repository
 =============================================BASIC COMMAND END===============================================
 
+=============================================STAGING & UNSTAGING START===============================================
+!!STAGING
+!!git add file_name      -> take the file into staging state(here files are trackable)
+!!git add -A             -> stage all changed file in directory and subdirectories
+!!git add .              -> stage all changed file in directory but not subdirectories
+!!git add *.extension    -> stage all changed file in directory with specific extension
+!!git add **/*.extension -> stage all changed file in directory and subdirectories with specific extension
+!!after moving staging state, things are trackable, if we made any changes those are trackable
+!!after making any changes, we have move the changes into staging state
+!!git diff               -> return the changes
+!!git restore file_name  -> remove the changes
+
+!!UNSTAGING
+!!git rm --cached file_name
+=============================================STAGING & UNSTAGING  END===============================================
+
 =============================================MARKDOWN START===============================================
 !!Markdown is a lightweight markup language for creating formatted text using a plain-text editor
 !! . md file extension (also written as . markdown) stands for "Markdown documentation"
