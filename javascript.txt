@@ -34,3 +34,14 @@
 !!splice is not work on string as strings are immutable
 !!to apply splice on string, we need to convert the string into an array
 =====================================================SPLICE END=====================================================
+
+=====================================================ARRAY DESTRUCTURING START=====================================================
+!!SWAP TWO NUMBER
+var first = 1;var second = 2;
+[first, second] = [second, first]
+
+!!here, at right, we build array with sequence second, first
+!!at left, we are building a new array
+!!where 0 index will store the the value of 0 index of right array and same for 1 index
+!!for the left array, at index 0 we place a varible, so value will be store at this variable, same for index 1
+=====================================================ARRAY DESTRUCTURING END=====================================================
