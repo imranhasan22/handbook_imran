@@ -71,3 +71,12 @@ var first = 1;var second = 2;
 !!where 0 index will store the the value of 0 index of right array and same for 1 index
 !!for the left array, at index 0 we place a varible, so value will be store at this variable, same for index 1
 =====================================================ARRAY DESTRUCTURING END=====================================================
+
+=====================================================ARRAY START=====================================================
+!!TYPEOF ARRAY
+!!javascript operator typeof returns 'object' for array
+!!then how should we check is a variable is array or not
+!!Array.isArray(variable_name) return true if the variable is an array, else return false
+
+
+=====================================================ARRAY END=====================================================
