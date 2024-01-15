@@ -8,4 +8,5 @@
 !!READ-SELECTION
 !!command: SELECT */column_name FROM table_name;
 !!* return all column
+!!select with limit: SELECT * FROM table_name LIMIT numberOfRows/start,numberOfRows;(top->bottom)
 =====================================================CRUD END=====================================================
