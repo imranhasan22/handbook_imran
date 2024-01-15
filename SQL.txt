@@ -1,0 +1,7 @@
+=====================================================CRUD START=====================================================
+!!CREATE-INSERTION
+!!command: INSERT INTO table_name (columns) VALUES (values);
+!!Rules:
+-> column and value order should be same
+-> any value that goes into a VARCHAR, CHAR, DATE or TEXT column has single quotes
+=====================================================CRUD END=====================================================
