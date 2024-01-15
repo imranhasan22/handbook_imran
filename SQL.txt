@@ -4,4 +4,8 @@
 !!Rules:
 -> column and value order should be same
 -> any value that goes into a VARCHAR, CHAR, DATE or TEXT column has single quotes
+
+!!READ-SELECTION
+!!command: SELECT */column_name FROM table_name;
+!!* return all column
 =====================================================CRUD END=====================================================
