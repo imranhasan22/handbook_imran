@@ -4,6 +4,7 @@
 !!Rules:
 -> column and value order should be same
 -> any value that goes into a VARCHAR, CHAR, DATE or TEXT column has single quotes
+-> you can skip column names but values order should be same as column and can't leave any column
 
 !!READ-SELECTION
 !!command: SELECT */column_name FROM table_name;
