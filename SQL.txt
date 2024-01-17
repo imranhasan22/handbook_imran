@@ -28,3 +28,10 @@
 !!* return all column
 !!select with limit: SELECT * FROM table_name LIMIT numberOfRows/start-1,numberOfRows;(top->bottom)
 =====================================================CRUD END=====================================================
+
+=====================================================WHERE START=====================================================
+!!where is used to access specified data
+!!command: WHERE column_name operator 'value';
+
+!!operators: =,!=,>,<,>=,<=,BETWEEN(between a inclusive range),LIKE(search for a pattern),IN(to specify multiple possible values for a column)
+=====================================================WHERE START=====================================================
