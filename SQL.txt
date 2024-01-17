@@ -1,3 +1,17 @@
+=====================================================INTRODUCTION START=====================================================
+!!sql isn't case sensitive
+!!date, datetime, timestamp, time, blob, text data type required quote
+=====================================================INTRODUCTION END=====================================================
+
+=====================================================DATABASE START=====================================================
+!!CREATE DATABASE
+!!command: CREATE DATABASE databasename;
+!!guidelines for databasename:
+-> start with an alphabet
+-> blank space and single quote are not allowed
+-> reserve words of RDMS/DBMS cann't be used
+=====================================================DATABASE END=====================================================
+
 =====================================================CRUD START=====================================================
 !!CREATE-INSERTION
 !!command: INSERT INTO table_name (columns) VALUES (values);
@@ -5,6 +19,7 @@
 -> column and value order should be same
 -> any value that goes into a VARCHAR, CHAR, DATE or TEXT column has single quotes
 -> you can skip column names but values order should be same as column and can't leave any column
+-> for multiple insertion separate all tuple with comma
 
 !!READ-SELECTION
 !!command: SELECT */column_name FROM table_name;
