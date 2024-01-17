@@ -17,9 +17,11 @@
 !!command: INSERT INTO table_name (columns) VALUES (values);
 !!Rules:
 -> column and value order should be same
+-> it's not mandatory to follow the order of column as same as the order of column during definition, just maintain that it's follow order in sql command
 -> any value that goes into a VARCHAR, CHAR, DATE or TEXT column has single quotes
 -> you can skip column names but values order should be same as column and can't leave any column
 -> for multiple insertion separate all tuple with comma
+-> you can insert data only in specified columns by skipping other column name in sql command
 
 !!READ-SELECTION
 !!command: SELECT */column_name FROM table_name;
