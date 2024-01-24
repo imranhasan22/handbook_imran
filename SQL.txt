@@ -36,6 +36,10 @@
 !!command: SELECT */column_name FROM table_name;
 !!* return all column
 !!select with limit: SELECT * FROM table_name LIMIT numberOfRows/start-1,numberOfRows;(top->bottom)
+
+!!DELETE-DELETION
+!!command: DELETE FROM table_name WHERE column_name=value;
+!!WHERE is necessary otherwise all records will be delete
 =====================================================CRUD END=====================================================
 
 =====================================================WHERE START=====================================================
