@@ -131,3 +131,10 @@
 !!SQRT
 !!it applied on column in each row
 =====================================================FUNCTION END=====================================================
+
+=====================================================KEY START=====================================================
+!!COMPOSITE
+!!A composite key is a combination of two or more columns in a table that can be used to uniquely identify each row in the table
+!!command: PRIMARY KEY(column_name_1,column_name_2)(two different columns work as primary key, this typeof primary key is called composite key)
+!!try to avoid composite key in real world programming
+=====================================================KEY END=====================================================
