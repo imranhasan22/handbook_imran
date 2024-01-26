@@ -16,9 +16,13 @@
 =====================================================DATABASE END=====================================================
 
 =====================================================TABLE START=====================================================
+!!CREATE
+!!command: CREATE TABLE table_name (column_name_1 data_type (size) [constraints],column_name_2 data_type (size) [constraints]);
+!!constraints: NOT NULL, PRIMARY KEY
+!!make sure your are in correct database
+
 !!REMOVE
 !command: DROP TABLE table_name;(make sure you are in correct database)
-
 =====================================================TABLE END=====================================================
 
 =====================================================CRUD START=====================================================
