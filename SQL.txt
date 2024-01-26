@@ -21,6 +21,11 @@
 !!constraints: NOT NULL, PRIMARY KEY
 !!make sure your are in correct database
 
+!!DETAILS-DESCRIBE
+!!command: DESC table_name;
+!!it is onlyy describe the table
+!!describe the structure of table not the information(row) inside table
+
 !!REMOVE
 !command: DROP TABLE table_name;(make sure you are in correct database)
 =====================================================TABLE END=====================================================
