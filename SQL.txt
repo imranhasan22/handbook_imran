@@ -6,15 +6,6 @@
 !!command: mysql -u root -p
 =====================================================INTRODUCTION END=====================================================
 
-=====================================================DATABASE START=====================================================
-!!CREATE DATABASE
-!!command: CREATE DATABASE databasename;
-!!guidelines for databasename:
--> start with an alphabet
--> blank space and single quote are not allowed
--> reserve words of RDMS/DBMS cann't be used
-=====================================================DATABASE END=====================================================
-
 =====================================================DATA TYPE START=====================================================
 !!INT
 !!it holds whole number between -32768 and 32767
@@ -53,6 +44,15 @@
 !!it displays current date time
 =====================================================DATA TYPE END=====================================================
 
+=====================================================DATABASE START=====================================================
+!!CREATE DATABASE
+!!command: CREATE DATABASE databasename;
+!!guidelines for databasename:
+-> start with an alphabet
+-> blank space and single quote are not allowed
+-> reserve words of RDMS/DBMS cann't be used
+=====================================================DATABASE END=====================================================
+
 =====================================================TABLE START=====================================================
 !!CREATE
 !!command: CREATE TABLE table_name (column_name_1 data_type (size) [constraints],column_name_2 data_type (size) [constraints]);
@@ -66,6 +66,10 @@
 
 !!REMOVE
 !command: DROP TABLE table_name;(make sure you are in correct database)
+
+!!RENAME
+!!command: RENAME TABLE old_table_name to new_table_name;
+!!rename one or more table
 =====================================================TABLE END=====================================================
 
 =====================================================CRUD START=====================================================
