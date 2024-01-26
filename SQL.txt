@@ -103,6 +103,11 @@
 !!WHERE is necessary otherwise all records will be delete
 =====================================================CRUD END=====================================================
 
+=====================================================COLUMN START=====================================================
+!!REMOVE - DROP
+!!command for without constraints: ALTER TABLE table_name DROP COLUMN column_name;
+=====================================================COLUMN END=====================================================
+
 =====================================================WHERE START=====================================================
 !!where is used to access specified data
 !!command: WHERE column_name operator 'value';
