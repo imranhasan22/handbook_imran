@@ -42,6 +42,15 @@
 
 !!TEXT
 !!it holds a string with a maximum length of 65535 character
+
+!!DATE
+!!it displays Date values in yyyy-mm-dd format
+
+!!DATETIME
+!!it displays DATETIME values in yyyy-mm-dd hh:mm:ss format
+
+!!TIMESTAMP
+!!it displays current date time
 =====================================================DATA TYPE END=====================================================
 
 =====================================================TABLE START=====================================================
