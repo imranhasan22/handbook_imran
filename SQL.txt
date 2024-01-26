@@ -26,6 +26,22 @@
 !!the total number of digit and the number of digit after decimal point specified in parenthesis: data_type (size, point)
 !!decimal point(.) and negative sign(-) are not counted in size
 !!the maximum size of decimal is 65 and for point is 30, default value for both is 0
+
+!!CHAR
+!!it holds a fixed length string
+!!it can contain letters, numbers and special characters
+!!it can store up to 255 character
+!!length is defined in parenthesis
+
+!!VARCHAR
+!!it holds a variable length string
+!!it can contain letters, numbers and special characters
+!!the maximum length is defined in parenthesis
+!!it can store up to 255 character
+!!if we put greater value than 255, it will be converted to a TEXT type
+
+!!TEXT
+!!it holds a string with a maximum length of 65535 character
 =====================================================DATA TYPE END=====================================================
 
 =====================================================TABLE START=====================================================
