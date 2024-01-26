@@ -15,6 +15,19 @@
 -> reserve words of RDMS/DBMS cann't be used
 =====================================================DATABASE END=====================================================
 
+=====================================================DATA TYPE START=====================================================
+!!INT
+!!it holds whole number between -32768 and 32767
+!!it can not hold a decimal number(fractional)
+!!the number of digit may be specified in parenthesis: data_type (size)
+
+!!DEC
+!!it holds fixed point numbers
+!!the total number of digit and the number of digit after decimal point specified in parenthesis: data_type (size, point)
+!!decimal point(.) and negative sign(-) are not counted in size
+!!the maximum size of decimal is 65 and for point is 30, default value for both is 0
+=====================================================DATA TYPE END=====================================================
+
 =====================================================TABLE START=====================================================
 !!CREATE
 !!command: CREATE TABLE table_name (column_name_1 data_type (size) [constraints],column_name_2 data_type (size) [constraints]);
