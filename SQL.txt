@@ -45,12 +45,15 @@
 =====================================================DATA TYPE END=====================================================
 
 =====================================================DATABASE START=====================================================
-!!CREATE DATABASE
+!!CREATE
 !!command: CREATE DATABASE databasename;
 !!guidelines for databasename:
 -> start with an alphabet
 -> blank space and single quote are not allowed
 -> reserve words of RDMS/DBMS cann't be used
+
+!!DELETE - DROP
+!!command: DROP DATABASE databasename;
 =====================================================DATABASE END=====================================================
 
 =====================================================TABLE START=====================================================
