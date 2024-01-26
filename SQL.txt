@@ -125,6 +125,9 @@
 
 =====================================================FUNCTION START=====================================================
 !!MIN, MAX, SUM, AVG
-!!applied on column
+!!applied on column(sum,avg - numeric column)
 !!return a single value only
+
+!!SQRT
+!!it applied on column in each row
 =====================================================FUNCTION END=====================================================
