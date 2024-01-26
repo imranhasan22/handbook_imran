@@ -80,6 +80,11 @@
 !!COPY - DIFFERENT DATABASE
 !!use the database where you want to cpy the old table
 !!command: CREATE TABLE new_table LIKE old_db.old_table;INSERT new_table SELECT * FROM old_db.old_table;
+
+!!TRUNCATE TABLE
+!!only delete the data inside table, not the table itself
+!!it's like clearing all the table data
+!!command: TRUNCATE TABLE table_name;
 =====================================================TABLE END=====================================================
 
 =====================================================CRUD START=====================================================
