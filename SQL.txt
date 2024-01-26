@@ -73,6 +73,13 @@
 !!RENAME
 !!command: RENAME TABLE old_table_name to new_table_name;
 !!rename one or more table
+
+!!COPY - SAME DATABASE
+!!command: CREATE TABLE new_table LIKE old_table;INSERT new_table SELECT * FROM old_table;
+
+!!COPY - DIFFERENT DATABASE
+!!use the database where you want to cpy the old table
+!!command: CREATE TABLE new_table LIKE old_db.old_table;INSERT new_table SELECT * FROM old_db.old_table;
 =====================================================TABLE END=====================================================
 
 =====================================================CRUD START=====================================================
