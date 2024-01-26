@@ -67,6 +67,11 @@
 !!it is onlyy describe the table
 !!describe the structure of table not the information(row) inside table
 
+!!SHOW COLUMNS
+!!command: SHOW COLUMNS FROM table_name;
+!!show all the columns of table and their data type
+!!it just like DESC table_name;
+
 !!REMOVE
 !command: DROP TABLE table_name;(make sure you are in correct database)
 
