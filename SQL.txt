@@ -158,6 +158,14 @@
 =====================================================FUNCTION END=====================================================
 
 =====================================================KEY START=====================================================
+!!UNIQUE
+!!uniquely identifies each record in database table
+!!can contain NULL values, NULL can't consider as duplicate value(in one column, multiple row may contain NULL value but other value must be UNIQUE)
+!!can be many UNIQUE constraint per table
+!!UNIQUE constraint refers all the value of this column will be unique
+!!each primary key is a unique key, not each unique is primary key
+!!set it like other constraint: CREATE TABLE table_name (column_name_1 data_type (size) UNIQUE KEY);
+
 !!COMPOSITE
 !!A composite key is a combination of two or more columns in a table that can be used to uniquely identify each row in the table
 !!command: PRIMARY KEY(column_name_1,column_name_2)(two different columns work as primary key, this typeof primary key is called composite key)
