@@ -155,6 +155,10 @@
 
 !!SQRT
 !!it applied on column in each row
+
+!!UPPER, LOWER
+!!applied on column
+!!command: SELECT UPPER(column_name) FROM table_name;
 =====================================================FUNCTION END=====================================================
 
 =====================================================KEY START=====================================================
