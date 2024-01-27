@@ -123,14 +123,9 @@
 !!command: WHERE column_name operator 'value';
 
 !!operators: =,!=,>,<,>=,<=,BETWEEN(between a inclusive range),LIKE(search for a pattern),IN(to specify multiple possible values for a column)
-
-!!ORDER BY
-!!command: SELECT * FROM table_name ORDER BY column_name DESC/ASC
-!!DESC - descending order
-!!ASC - ascending order
 =====================================================WHERE START=====================================================
 
-=====================================================OPERATOR START=====================================================
+=====================================================OPERATOR & CONSTRAINT START=====================================================
 !!IN-NOT IN
 !!command: WHERE name IN ('masum','billah')
 !!normally, in where, at condition part we can put single value, but in allow to put multiple value
@@ -141,7 +136,17 @@
 !!command: BETWEEN 5 AND 10
 !!for number it included both
 !!for text it only include first one
-=====================================================OPERATOR END=====================================================
+
+!!ORDER BY
+!!command: SELECT * FROM table_name ORDER BY column_name DESC/ASC
+!!DESC - descending order
+!!ASC - ascending order
+
+!!NOT NULL
+!!by default a table's column can hold NULL values
+!!NOT NULL constraint enforces a record to always contain a value
+!!you cann't make changes without a value
+=====================================================OPERATOR & CONSTRAINT END=====================================================
 
 =====================================================FUNCTION START=====================================================
 !!MIN, MAX, SUM, AVG
