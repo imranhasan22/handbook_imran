@@ -123,6 +123,11 @@
 !!command: WHERE column_name operator 'value';
 
 !!operators: =,!=,>,<,>=,<=,BETWEEN(between a inclusive range),LIKE(search for a pattern),IN(to specify multiple possible values for a column)
+
+!!ORDER BY
+!!command: SELECT * FROM table_name ORDER BY column_name DESC/ASC
+!!DESC - descending order
+!!ASC - ascending order
 =====================================================WHERE START=====================================================
 
 =====================================================OPERATOR START=====================================================
