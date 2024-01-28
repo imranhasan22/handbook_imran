@@ -163,6 +163,10 @@
 !!REVERSE
 !!applied on column
 !!command: SELECT REVERSE(column_name) FROM table_name;
+
+!!NOW
+!!it return the current system date and time
+!!command: SELECT column_name, NOW() FROM table_name;
 =====================================================FUNCTION END=====================================================
 
 =====================================================KEY START=====================================================
