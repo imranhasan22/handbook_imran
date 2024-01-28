@@ -178,6 +178,13 @@
 !!each table can have only ONE primary key
 !!set it like other constraint: CREATE TABLE table_name (column_name_1 data_type (size) NOT NULL PRIMARY KEY);
 !!set it at end: CREATE TABLE table_name (column_name_1 data_type (size) NOT NULL, column_name_2 data_type (size) PRIMARY KEY (column_name_1));
+
+!!FOREIGN
+!!a FOREIGN KEY in on table points to a PRIMARY KEY in another table
+!!if a column in current table, is primary key in another table then the column in current table is called foreign key
+!!column name(foreign key name) can be different
+!!foreign key value can be null, even though primary key value can't
+!!foreign key don't have to be unique in fact, they often aren't
  
 !!COMPOSITE
 !!A composite key is a combination of two or more columns in a table that can be used to uniquely identify each row in the table
