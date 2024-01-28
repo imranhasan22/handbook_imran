@@ -159,6 +159,10 @@
 !!UPPER, LOWER
 !!applied on column
 !!command: SELECT UPPER(column_name) FROM table_name;
+
+!!REVERSE
+!!applied on column
+!!command: SELECT REVERSE(column_name) FROM table_name;
 =====================================================FUNCTION END=====================================================
 
 =====================================================KEY START=====================================================
