@@ -187,6 +187,18 @@
 !!set it like other constraint: CREATE TABLE table_name (column_name_1 data_type (size) NOT NULL PRIMARY KEY);
 !!set it at end: CREATE TABLE table_name (column_name_1 data_type (size) NOT NULL, column_name_2 data_type (size) PRIMARY KEY (column_name_1));
 
+!!CANDIDATE
+!!minmal set of attribute that uniquely identifies a record
+!!it can contain null value but not duplicate value
+!!each can have multiple CANDIDATE key in a table
+!!subset of super key
+!!single key is consider as candidate key, not a group of key
+
+!!SUPER
+!!a single key or a group of multiple key that uniquely identifies a record
+!!group of key must contain one unique key
+!!can contain redundant attribute(are not an element of candidate key) that might not be important for identifying tuples
+
 !!FOREIGN
 !!a FOREIGN KEY in on table points to a PRIMARY KEY in another table
 !!if a column in current table, is primary key in another table then the column in current table is called foreign key
