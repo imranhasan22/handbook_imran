@@ -233,3 +233,12 @@
 !!command: PRIMARY KEY(column_name_1,column_name_2)(two different columns work as primary key, this typeof primary key is called composite key)
 !!try to avoid composite key in real world programming
 =====================================================KEY END=====================================================
+
+=====================================================RELATION START=====================================================
+!!CROSS JOIN - CARTESIAN PRODUCT
+!!it returns every row from one table crossed with every row from the second
+!!may return very large result-sets
+!!each row of a table will pair with every row of another table
+!!the joined table(used after join keyword) will lead the output
+!!command: SELECT * FROM table_name CROSS JOIN table_name;
+=====================================================RELATION END=====================================================
