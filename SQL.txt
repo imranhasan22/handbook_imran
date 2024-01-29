@@ -155,6 +155,12 @@
 !!command: SELECT emp_name, MIN(salary) FROM emp GROUP BY emp_name;
 !!in the table multiple employee have same name(emp_name)
 !!this command will group the table having the minimum salary of multiple employee with same name
+
+!!HAVING
+!!where clause cann't use with aggregate functions
+!!so when we need grouping with certain condition we use having instead of where
+!!it apply condition on a group made by group by
+!!command: SELECT emp_name, MIN(salary) FROM emp GROUP BY emp_name HAVING MIN(salary)>2500;
 =====================================================OPERATOR & CONSTRAINT END=====================================================
 
 =====================================================FUNCTION START=====================================================
