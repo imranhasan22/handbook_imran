@@ -167,6 +167,13 @@
 !!NOW
 !!it return the current system date and time
 !!command: SELECT column_name, NOW() FROM table_name;
+
+!!COUNT
+!!returns the number of values of specified column
+!!NULL values will not be counted
+!!command: SELECT COUNT(column_name) FROM table_name
+!!if column_name is equal (*=> COUNT(*)), then it return the number of record in a table
+!!if column_name is DISTINCT, it return the number of distinct values of the specified column: COUNT(DISTINCT column_name)
 =====================================================FUNCTION END=====================================================
 
 =====================================================KEY START=====================================================
