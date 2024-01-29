@@ -146,6 +146,15 @@
 !!by default a table's column can hold NULL values
 !!NOT NULL constraint enforces a record to always contain a value
 !!you cann't make changes without a value
+
+!!GROUP BY
+!!groups rows that have same values int summary rows
+!!most of the time it used with function
+!!it often used wit aggregate functions like count, max, min, sum, avg
+!!when we use group by, we don't need where clause
+!!command: SELECT emp_name, MIN(salary) FROM emp GROUP BY emp_name;
+!!in the table multiple employee have same name(emp_name)
+!!this command will group the table having the minimum salary of multiple employee with same name
 =====================================================OPERATOR & CONSTRAINT END=====================================================
 
 =====================================================FUNCTION START=====================================================
