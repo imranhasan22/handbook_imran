@@ -227,7 +227,10 @@
 !!column name(foreign key name) can be different
 !!foreign key value can be null, even though primary key value can't
 !!foreign key don't have to be unique in fact, they often aren't
- 
+!!the data type of foreign key will be as same as the primary key, not only data type, each of the property of primary must implemented in foreign key
+!!command: FOREIGN KEY (foreign_key_name) REFERENCES primary_key_holder_table_name(primary_key_holder_column_name)
+!!during the key definition, the number of columns in the child table and parent table specified in the FOREIGN KEY and REFERENCES must be the same
+
 !!COMPOSITE
 !!A composite key is a combination of two or more columns in a table that can be used to uniquely identify each row in the table
 !!command: PRIMARY KEY(column_name_1,column_name_2)(two different columns work as primary key, this typeof primary key is called composite key)
