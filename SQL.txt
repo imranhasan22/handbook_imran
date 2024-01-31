@@ -17,6 +17,7 @@
 !!the total number of digit and the number of digit after decimal point specified in parenthesis: data_type (size, point)
 !!decimal point(.) and negative sign(-) are not counted in size
 !!the maximum size of decimal is 65 and for point is 30, default value for both is 0
+!!command: column_name DEC(number, number)
 
 !!CHAR
 !!it holds a fixed length string
