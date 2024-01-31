@@ -167,6 +167,10 @@
 !!so when we need grouping with certain condition we use having instead of where
 !!it apply condition on a group made by group by
 !!command: SELECT emp_name, MIN(salary) FROM emp GROUP BY emp_name HAVING MIN(salary)>2500;
+
+!!LIKE
+!!search for a specified pattern in a column
+!!command: WHERE column_name LIKE 'pattern';
 =====================================================OPERATOR & CONSTRAINT END=====================================================
 
 =====================================================FUNCTION START=====================================================
