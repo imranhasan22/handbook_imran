@@ -171,6 +171,19 @@
 !!LIKE
 !!search for a specified pattern in a column
 !!command: WHERE column_name LIKE 'pattern';
+
+!!WILDCARDS
+!!use to search for data within a table
+!!these characters are used with the LIKE operator
+!!%           - zero or more character
+!!_           - one single character
+!![charlist]  - sets and ranges of character
+!![!charlist] - matches only a character NOT specified witin the brackets
+
+!!WILDCARD - %
+!!'Geek%' - All starting with geek
+!!'%Geek' - All ending with geek
+!!'%mid%' - All containing with mid
 =====================================================OPERATOR & CONSTRAINT END=====================================================
 
 =====================================================FUNCTION START=====================================================
