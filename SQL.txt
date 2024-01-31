@@ -4,6 +4,11 @@
 
 !!ACCESSING
 !!command: mysql -u root -p
+
+!!DML - Data Manipulation Language
+!!DDL - Data Definition Language
+!!help data manipulation - this command return all the command for DML
+!!help data definition - this command return all the command for DDL
 =====================================================INTRODUCTION END=====================================================
 
 =====================================================DATA TYPE START=====================================================
