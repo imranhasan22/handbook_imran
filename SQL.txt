@@ -129,6 +129,19 @@
 !!command: WHERE column_name operator 'value';
 
 !!operators: =,!=,>,<,>=,<=,BETWEEN(between a inclusive range),LIKE(search for a pattern),IN(to specify multiple possible values for a column)
+!!EXPLORE THIS OPERATOR WITH STRING VS CHARACTER
+
+!!NULL
+!!it represent missing unknown data
+!!NULL != 0
+
+!!IS NULL
+!!it is used to select only the records with NULL values in the column
+!!command: WHERE column_name IS NULL;(no need use column_name=NULL)
+
+!!IS NOT NULL
+!!it is used to select only the records with no NULL values int the column
+!!command: WHERE column_name IS NOT NULL;
 =====================================================WHERE START=====================================================
 
 =====================================================OPERATOR & CONSTRAINT START=====================================================
