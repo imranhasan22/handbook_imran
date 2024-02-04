@@ -197,6 +197,16 @@
 !!'Geek%' - All starting with geek
 !!'%Geek' - All ending with geek
 !!'%mid%' - All containing with mid
+
+!!AUTO INCREMENT
+!!generate an unique number, when a new record is inserted into a table
+!!in a table there will be only one auto incremented column
+!!it ignore NULL value
+!!use for primary key
+!!command: column_name int NOT NULL AUTO_INCREMENT
+!!it's okay if you don't consider any value during insertion. if you put NULL, it will ignored. if you try put a value which is already exist, then new data will be not added, existing data will be keep as it is, new data will be erase
+!!if set value manually, it will override auto incremented value 
+!!its better to not set any size or set max size of auto incremented column
 =====================================================OPERATOR & CONSTRAINT END=====================================================
 
 =====================================================FUNCTION START=====================================================
