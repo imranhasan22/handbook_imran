@@ -207,6 +207,10 @@
 !!it's okay if you don't consider any value during insertion. if you put NULL, it will ignored. if you try put a value which is already exist, then new data will be not added, existing data will be keep as it is, new data will be erase
 !!if set value manually, it will override auto incremented value 
 !!its better to not set any size or set max size of auto incremented column
+
+!!ALIAS
+!!used to temporarily rename a table name or column name
+!!command: SELECT column_name AS alias_column_name FROM table_name AS alias_table_name 
 =====================================================OPERATOR & CONSTRAINT END=====================================================
 
 =====================================================FUNCTION START=====================================================
