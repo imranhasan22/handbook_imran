@@ -211,6 +211,10 @@
 !!ALIAS
 !!used to temporarily rename a table name or column name
 !!command: SELECT column_name AS alias_column_name FROM table_name AS alias_table_name 
+
+!!DISTINCT
+!!used to display unique values
+!!command: SELECT DISTINCT column_name FROM table_name;
 =====================================================OPERATOR & CONSTRAINT END=====================================================
 
 =====================================================FUNCTION START=====================================================
