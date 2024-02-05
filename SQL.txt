@@ -60,6 +60,12 @@
 
 !!DELETE - DROP
 !!command: DROP DATABASE databasename;
+
+!!SHOW CREATE DATABASE
+!!it show the command which you have used while creating the database
+!!command: SHOW CREATE DATABASE database_name;
+!!bassically it return "CREATE DATABASE database_name"
+!!it is used when we need to alter database and we don't want to write same command again
 =====================================================DATABASE END=====================================================
 
 =====================================================TABLE START=====================================================
@@ -96,6 +102,12 @@
 !!only delete the data inside table, not the table itself
 !!it's like clearing all the table data
 !!command: TRUNCATE TABLE table_name;
+
+!!SHOW CREATE TABLE
+!!it show the command which you have used while creating the TABLE
+!!command: SHOW CREATE TABLE table_name;
+!!bassically it return "CREATE TABLE table_name (column_name_1 data_type (size) [constraints],column_name_2 data_type (size) [constraints]);"
+!!it is used when we need to alter table and we don't want to write same command again
 =====================================================TABLE END=====================================================
 
 =====================================================CRUD START=====================================================
