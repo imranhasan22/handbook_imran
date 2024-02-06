@@ -126,6 +126,9 @@
 !!* return all column
 !!select with limit: SELECT * FROM table_name LIMIT numberOfRows/start-1,numberOfRows;(top->bottom)
 
+!!UPDATE-MODIFICATION
+!!command: UPDATE table_name SET column_name=value WHERE column_name=value;
+
 !!DELETE-DELETION
 !!command: DELETE FROM table_name WHERE column_name=value;
 !!WHERE is necessary otherwise all records will be delete
