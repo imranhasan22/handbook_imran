@@ -128,6 +128,11 @@
 
 !!UPDATE-MODIFICATION
 !!command: UPDATE table_name SET column_name=value WHERE column_name=value;
+!!in this way you can update multiple column for a single record
+!!if you want to update multiple record, you have to use CASE
+!!but with CASE, you can only modify one single column
+!!command: UPDATE table_name SET column_name CASE WHEN column_name_1=value THEN new_value END;
+!!column_name value will be updated with new_value
 
 !!DELETE-DELETION
 !!command: DELETE FROM table_name WHERE column_name=value;
