@@ -172,9 +172,11 @@
 
 !!BETWEEN
 !!it selects values within a range, it can be number, text, dates
-!!command: BETWEEN 5 AND 10
+!!command: WHERE column_name BETWEEN 5 AND 10;
 !!for number it included both
 !!for text it only include first one
+!!command: WHERE column_name BETWEEN 'yyyy-mm-dd' AND 'yyyy-mm-dd';
+!!it include both date
 
 !!ORDER BY
 !!command: SELECT * FROM table_name ORDER BY column_name DESC/ASC
