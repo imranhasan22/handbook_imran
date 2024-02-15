@@ -178,6 +178,10 @@
 !!command: WHERE column_name BETWEEN 'yyyy-mm-dd' AND 'yyyy-mm-dd';
 !!it include both date
 
+!!NOT BETWEEN
+!!display data which is not in the range
+!!command: WHERE column_name NOT BETWEEN 5 AND 10;
+
 !!ORDER BY
 !!command: SELECT * FROM table_name ORDER BY column_name DESC/ASC
 !!DESC - descending order
