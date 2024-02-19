@@ -180,7 +180,8 @@
 
 !!NOT BETWEEN
 !!display data which is not in the range
-!!command: WHERE column_name NOT BETWEEN 5 AND 10;
+!!command: WHERE column_name NOT BETWEEN 5/"begining_text" AND 10/"ending_text";
+!!text include begining_text but not include ending_text
 
 !!ORDER BY
 !!command: SELECT * FROM table_name ORDER BY column_name DESC/ASC
