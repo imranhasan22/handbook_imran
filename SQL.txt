@@ -272,6 +272,11 @@
 !!command: SELECT COUNT(column_name) FROM table_name
 !!if column_name is equal (*=> COUNT(*)), then it return the number of record in a table
 !!if column_name is DISTINCT, it return the number of distinct values of the specified column: COUNT(DISTINCT column_name)
+
+!!CONCAT
+!!it join column value
+!!SELECT CONCAT(column_name_1,column_name_2)
+!!SELECT CONCAT(column_name_1,' ',column_name_2)
 =====================================================FUNCTION END=====================================================
 
 =====================================================KEY START=====================================================
