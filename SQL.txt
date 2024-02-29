@@ -212,6 +212,9 @@
 !!search for a specified pattern in a column
 !!command: WHERE column_name LIKE 'pattern';
 
+!!NOT LIKE
+!!return everything except a specified pattern in a column
+
 !!WILDCARDS
 !!use to search for data within a table
 !!these characters are used with the LIKE operator
