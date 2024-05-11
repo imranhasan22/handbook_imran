@@ -8,7 +8,7 @@
 - `android:textColor` - sets the color of the text.
 - `android:textSize` - sets the size of the text.
 - `android:visibility` - control the visibility. Possible values are `visible`, `invisible`, `gone`.
-- `` - 
+- `android:backgroundTint` - 
 
 ### Image View
 
@@ -16,6 +16,8 @@
 - `android:scaleType` -
 - `android:adjustViewBounds` -
 - `android:cropToPadding` - 
+- `android:clickable` - make an image clickable
+- `android:onClick` - specify the method should be invoked when the image is clicked
 
 ### EditText
 
@@ -24,6 +26,7 @@
 - `android:text` - set the initial text
 - `android:maxLength` - specify the maximum length of the text can be entered
 - `android:imeOptions` -
+- `android:textCursorDrawble` -
 - `clearFocus()` - dismiss the soft keyboard if it's open
 
 # Java Handling
