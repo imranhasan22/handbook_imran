@@ -1,4 +1,4 @@
-### View Attribute
+### TextView Attributes
 
 - `android:text` - sets the initial text displayed by the View
 - `android:layout_width` or `android:layout_height` - sets the widht and height of the view. Possible values are:
@@ -7,8 +7,26 @@
 - `android:id` - assigned identifier is used to refer the view in java/kotlin
 - `android:textColor` - sets the color of the text.
 - `android:textSize` - sets the size of the text.
+- `android:visibility` - control the visibility. Possible values are `visible`, `invisible`, `gone`.
+- `` - 
 
-## Java Handling
+### Image View
+
+- `android:src` - specify the image to be displayed
+- `android:scaleType` -
+- `android:adjustViewBounds` -
+- `android:cropToPadding` - 
+
+### EditText
+
+- `android:inputType` - specify the type of the data
+- `android:hint` - set placeholder
+- `android:text` - set the initial text
+- `android:maxLength` - specify the maximum length of the text can be entered
+- `android:imeOptions` -
+- `clearFocus()` - dismiss the soft keyboard if it's open
+
+# Java Handling
 ### Eventlistener
 
 - `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton.
@@ -20,3 +38,4 @@
 - `setText()`, `setTextColor()`, `setTextSize()`, `getText()`, `getTextSize()`, `getTextColors()` - methods works by following their name
 - `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
 - `setTypeface()` - 
+- `editText.
