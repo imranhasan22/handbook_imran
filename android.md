@@ -42,3 +42,17 @@
 - `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
 - `setTypeface()` - 
 - `editText.
+
+# Activity
+Activity is a single screen with UI
+<pre>
+                onCreate -> onStart -> onResume 
+                         <b>OTHER ACTIVITY</b> 
+                        onPause -> onStop
+                            <b>REOPEN</b> 
+               onRestart -> onStart -> onResume
+                    <b>CLOSE APP, BACK BUTTON</b>
+                onPause -> onStop -> onDestroy
+</pre>
+Let's see the 7 lifecycle methods of android activity.
+<img src="https://static.javatpoint.com/images/androidimages/Android-Activity-Lifecycle.png">
