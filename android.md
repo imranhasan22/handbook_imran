@@ -30,6 +30,24 @@
 - `android:textCursorDrawble` -
 - `clearFocus()` - dismiss the soft keyboard if it's open
 
+### Adapter
+Adapter pulls the data from the source & convert into a view and then set the view into ListView/GridView/Spinner. Commonly used adapters are:
+- Array Adapter - single list item
+- Base Adapter - customized list item
+
+```
+ListView listView = findViewById(R.id.listView);
+
+String[] countries = {"USA", "Canada", "UK", "Australia", "Germany","France"};
+
+ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
+
+listView.setAdapter(adapter);
+```
+
+Adapter takes three parameters: the context (`this`), the layout for each item (`android.R.layout.simple_list_item_1` is a `built-in layout` provided by Android for a simple list item), and the array of data.
+`setAdapter()` populates the ListView with the data provided by the adapter.
+
 ### ListView
 ListView is a viewgroup that can display a list of scrollable items. Each of the item is clickable
 - `android:divider` -
@@ -52,23 +70,21 @@ Accessing the data container:
 String[] items = getResources().getStringArray(R.array.list_container);
 ```
 
-### Adapter
-Adapter pulls the data from the source & convert into a view and then set the view into ListView/GridView/Spinner. Commonly used adapters are:
-- Array Adapter - single list item
-- Base Adapter - customized list item
-
+Apply Eventlistner on each item:
 ```
-ListView listView = findViewById(R.id.listView);
+listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String selectedItem = (String) parent.getItemAtPosition(position);
 
-String[] countries = {"USA", "Canada", "UK", "Australia", "Germany","France"};
+        Toast.makeText(MainActivity.this, "Selected item: " + selectedItem, Toast.LENGTH_SHORT).show();
 
-ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
-
-listView.setAdapter(adapter);
+        Intent intent = new Intent(MainActivity.this, AnotherActivity.class);
+        intent.putExtra("SELECTED_ITEM", selectedItem);
+        startActivity(intent);
+                }
+        });
 ```
-
-Adapter takes three parameters: the context (`this`), the layout for each item (`android.R.layout.simple_list_item_1` is a `built-in layout` provided by Android for a simple list item), and the array of data.
-`setAdapter()` populates the ListView with the data provided by the adapter.
 
 # Java Handling
 ### Eventlistener
