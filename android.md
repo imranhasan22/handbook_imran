@@ -1,4 +1,5 @@
-### TextView Attributes
+# View
+### TextView
 
 - `android:text` - sets the initial text displayed by the View
 - `android:layout_width` or `android:layout_height` - sets the widht and height of the view. Possible values are:
@@ -10,7 +11,7 @@
 - `android:visibility` - control the visibility. Possible values are `visible`, `invisible`, `gone`.
 - `android:backgroundTint` - 
 
-### Image View
+### ImageView
 
 - `android:src` - specify the image to be displayed
 - `android:scaleType` -
@@ -56,3 +57,32 @@ Activity is a single screen with UI
 </pre>
 Let's see the 7 lifecycle methods of android activity.
 <img src="https://static.javatpoint.com/images/androidimages/Android-Activity-Lifecycle.png">
+
+### Navigate Activity
+Intent class is used to navigate through activity. Intent class accept two parameter, first one is current activity, and another one is navigated activity.
+```
+Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+```
+
+### Pass Data Between Activity
+__Send__
+
+`intent.putExtra()` - is used to send extra data with key value pair
+```
+intent.putExtra("EXTRA_MESSAGE", "Hello from MainActivity!");
+```
+__Recieve__
+
+`getIntent()` and `getStringExtra()` - is used to retreive data from activity
+```
+Intent intent = getIntent();
+String message = intent.getStringExtra("EXTRA_MESSAGE");
+```
+```
+Bundle bundle = getIntent().getStringExtra("EXTRA_MESSAGE");
+if(bundle!=null){
+    String value=bundle.getString("EXTRA_MESSAGE");
+    textView.setText(value);
+}
+```
