@@ -88,17 +88,50 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 # Java Handling
 ### Eventlistener
-
 - `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton.
-
 - `myButton.setOnClickListener(new View.OnClickListener() { ... })` - sets an OnClickListener on the button myButton.
 
-### View Methods
+### Handling Multiple Eventlistner
 
+- __Implement the Listener Interfaces:__ implement the listener interfaces for the events you want to handle. For example, if you want to handle click events on buttons, you'll implement the View.OnClickListener interface.
+```
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    ...
+}
+```
+- __Register the Listeners:__ Register the listener instances with the appropriate views.
+```
+Button myButton = findViewById(R.id.myButton);
+myButton.setOnClickListener(this);
+```
+
+- __Override the Listener Methods:__ Implement the required methods of the listener interfaces which will contain the logic that you want to execute when the corresponding events occur.
+```
+@Override
+public void onClick(View view) {
+    ...
+}
+```
+__Boilerplate:__
+```
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+  Button myButton = findViewById(R.id.myButton);
+  myButton.setOnClickListener(this);
+
+  @Override
+  public void onClick(View view) {
+    if(v.getId()==R.id.myButton){
+        myText.setText("Button is clicked");
+    }
+  }
+}
+```
+
+### View Methods
 - `setText()`, `setTextColor()`, `setTextSize()`, `getText()`, `getTextSize()`, `getTextColors()` - methods works by following their name
 - `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
 - `setTypeface()` - 
-- `editText.
+- `getId()` -
 
 # Activity
 Activity is a single screen with UI
