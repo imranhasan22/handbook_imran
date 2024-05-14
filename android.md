@@ -127,6 +127,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 }
 ```
 
+### Inner Class
+- __Instantiate the Inner Class and Set the Listener:__ Instantiate an object of the inner class and set it as the listener for the view using the `setOnClickListener` method.
+```
+myButton.setOnClickListener(new MyButtonClickListener());
+```
+- __Define the Inner Class:__ Define an inner class within your activity class. It will implement the interface corresponding to the event you want to handle. In this case, we're handling click events, so the inner class implements View.OnClickListener.
+```
+private class MyButtonClickListener implements View.OnClickListener {
+    @Override
+    public void onClick(View view) {
+        ...
+    }
+}
+
+```
+
+__Boilerplate:__
+```
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ...
+        myButton.setOnClickListener(new MyButtonClickListener());
+    }
+
+    private class MyButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            textView.setText("Hello World");
+        }
+    }
+}
+
+```
+
 ### View Methods
 - `setText()`, `setTextColor()`, `setTextSize()`, `getText()`, `getTextSize()`, `getTextColors()` - methods works by following their name
 - `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
