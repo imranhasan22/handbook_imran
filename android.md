@@ -156,7 +156,9 @@ public class MainActivity extends AppCompatActivity {
     private class MyButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            textView.setText("Hello World");
+            if(v.getId()==R.id.myButton){
+                myText.setText("Button is clicked");
+            }
         }
     }
 }
