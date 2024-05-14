@@ -165,6 +165,18 @@ public class MainActivity extends AppCompatActivity {
 
 ```
 
+### Event Handler in XML
+__XML:__
+```
+<Button ... android:onClick="onButtonClick" />
+```
+__JAVA:__
+```
+public void onButtonClick(View view) {
+  Toast.makeText(this, "Button clicked", Toast.LENGTH_SHORT).show();
+}
+```
+
 ### View Methods
 - `setText()`, `setTextColor()`, `setTextSize()`, `getText()`, `getTextSize()`, `getTextColors()` - methods works by following their name
 - `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
