@@ -183,6 +183,23 @@ public void onButtonClick(View view) {
 - `setTypeface()` - 
 - `getId()` -
 
+# Logging
+It allow developers to track the flow of their application, debug issues, and monitor behavior during runtime. Android provides a built-in logging framework through the `android.util.Log` class, which allows developers to output log messages of varying severity levels.
+
+### Log Levels
+1. __Verbose:__ The least important level, typically used for providing detailed information during debugging.
+2. __Debug:__ Used for debugging messages. These messages are useful during development but should be disabled in production builds.
+3. __Info:__ Used for informational messages that highlight the progress of the application. These messages can be useful for tracking significant application events.
+4. __Warning:__ Used to indicate potential issues that do not prevent the application from functioning but should be addressed.
+
+5. __Error:__ Used to log error conditions that might cause the application to crash or behave unexpectedly.
+
+6. __Assert:__ Used to log assertions, indicating conditions that should never occur. This level is typically used for critical errors.
+
+### Logging Methods
+
+`Log.v()`,`Log.d()`,`Log.i()`,`Log.w()`,`Log.e()`,`Log.wtf()` is used for verbose, debug, informational,  warning, error, assertion message respectively. Each method required a tag and log message.
+
 # Activity
 Activity is a single screen with UI
 <pre>
