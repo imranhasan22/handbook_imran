@@ -32,8 +32,8 @@
 - `android:hint` - set placeholder
 - `android:text` - set the initial text
 - `android:maxLength` - specify the maximum length of the text can be entered
-- `android:imeOptions` -
-- `android:textCursorDrawble` -
+- `android:imeOptions` - specify additional options for an input method editor. This will display a `Go`, `Search`, `Enter`, `Done` button on the keyboard. Possible values are `actionDone`, `actionGo`, `actionNext`, `actionSearch`, `actionSend`, `flagNoFullscreen`
+- `android:textCursorDrawble` - customize the appearance of the cursor. You need to create a custom drawable resource and apply it here.
 - `clearFocus()` - dismiss the soft keyboard if it's open
 
 ### Adapter
