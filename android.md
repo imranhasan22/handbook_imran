@@ -23,7 +23,12 @@
 
 ### EditText
 
-- `android:inputType` - specify the type of the data
+- `android:inputType` - specify the type of the data. Possible values are:
+    - `textCapWords` - Capitalize the first letter of each word.
+    - `textCapCharacters` - Capitalize all characters.
+    - `textCapSentences` - Capitalize the first letter of each sentence.
+    - `textAutoCorrect` - Enable auto-correction.
+    - `textMultiLine` - Allow multiple lines of text input.
 - `android:hint` - set placeholder
 - `android:text` - set the initial text
 - `android:maxLength` - specify the maximum length of the text can be entered
@@ -89,7 +94,7 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 # Java Handling
 ### Eventlistener
-- `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton.
+- `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton. It should be declare outside of `onCreate` and initialize inside it.
 - `myButton.setOnClickListener(new View.OnClickListener() { ... })` - sets an OnClickListener on the button myButton.
 
 ### Handling Multiple Eventlistner
