@@ -19,10 +19,7 @@
     - `fitStart` - scale the image to fit within the view and align it to the top left.
     - `fitStart` - scale the image to fit within the view and align it to the bottom right.
     - `fitStart` - scale the image to fit within the view and center it.
-- `android:adjustViewBounds` -
-- `android:cropToPadding` - 
-- `android:clickable` - make an image clickable
-- `android:onClick` - specify the method should be invoked when the image is clicked
+- `android:adjustViewBounds` - adjust the bounds to maintain the aspect ratio. Possible values are true or false.
 
 ### EditText
 
