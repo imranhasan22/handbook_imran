@@ -18,7 +18,7 @@ Pandas are also able to delete rows that are not relevant, or contains wrong val
 A Pandas Series is like a column in a table. 
 ```
 name=["Jack","John","Mark","Zuck"]
-student_table = pd.Series(a)
+student_table = pd.Series(name)
 ```
 The above script generate name column in student table.
 
@@ -38,7 +38,9 @@ if you use dictornary instead of list, the keys of the dictionary become the lab
 ```
 name={"a":"Jack","b":"John","c":"Mark","d":"Zuck"}
 ```
-if label is set `index` argument is used to get specific item, if not it set label
+if label is set `index` argument is used to get specific item, if not, it set label.
+
+The length of data and the length of `index` argument should be same. The data used in __series__ or __dataframe__ can be anytype.
 
 # DataFrame
 A Pandas DataFrame is a 2 dimensional data structure, like a 2 dimensional array, or a table with rows and columns.
@@ -52,4 +54,11 @@ data = {
 `loc` attribute return one or more specified row
 ```
 print(df.loc[0]) # return first row
+print(df.loc[[0,2]]) # return specified index - 0th, 2nd
+print(df.loc[0:2]) # return list of indexes from 0 to 2
+```
+
+you can also override the label in dataframe also
+```
+df = pd.DataFrame(data, index = ["a", "b", "c","d"])
 ```
