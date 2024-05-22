@@ -1,3 +1,20 @@
+# Layout
+
+### LinearLayout
+It arranges its child views in a single direction, either vertically or horizontally. This makes it a straightforward choice for creating simple layouts where views are stacked in a single column or row.
+
+- `android:orientation` - determine the direction of the child view
+    - `vertical` - stack children from top to bottom
+    - `horizontal` - places children side by side from left to right
+- `android:gravity` - specify how the content should be aligned to all child views within the layout
+- `android:layout_gravity` - specify how the content should be aligned to individual child views.
+- `android:layout_weight` - 
+
+LinearLayout is easy to understand and implement. It provides a predictable way to arrange views in a single direction. Allows for easy alignment of child views along a single axis. But LinearLayout lead to poor performance, as the layout becomes more complex and takes longer to render.
+
+### RelativeLayout
+It allows you to position and size child views in relation to each other or to the parent container.
+
 # View
 ### TextView
 
