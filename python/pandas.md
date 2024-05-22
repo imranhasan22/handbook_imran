@@ -10,9 +10,8 @@ Pandas gives you answers about the data. Like:
 Pandas are also able to delete rows that are not relevant, or contains wrong values, like empty or NULL values. This is called cleaning the data.
 
 - `pandas.__version__` - return the version of pandas 
-- `pandas.read_csv()` - read csv file and store in data frame
 - `pandas.DataFrame()` - 
-- `dataframe.toString()` - return entire dataframe as string representation, it will output the entire DataFrame to the console. If you have a large DataFrame with many rows, without toString() pandas will only return the first 5 rows, and the last 5 rows.
+- `pd.options.display.max_rows` - return or set the system maximum number of row
 
 # Series
 A Pandas Series is like a column in a table. 
@@ -58,7 +57,27 @@ print(df.loc[[0,2]]) # return specified index - 0th, 2nd
 print(df.loc[0:2]) # return list of indexes from 0 to 2
 ```
 
-you can also override the label in dataframe also
+you can override the label in dataframe also
 ```
 df = pd.DataFrame(data, index = ["a", "b", "c","d"])
 ```
+
+# File Reading
+## CSV
+`pandas.read_csv()` - read csv file and store in data frame
+
+If you have a large DataFrame with many rows, Pandas will only return the first 5 rows, and the last 5 rows
+```
+df = pd.read_csv('data.csv')
+print(df)
+```
+`dataframe.toString()` - return entire dataframe as string representation, it will output the entire DataFrame to the console.
+```
+df = pd.read_csv('data.csv')
+print(df.to_string())
+```
+
+## JSON
+`pandas.read_json()` - read json file and store in data frame
+
+JSON objects have the same format as Python dictionaries. If your JSON code is not in a file, but in a Python Dictionary, you can load it into a DataFrame directly:
