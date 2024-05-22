@@ -152,6 +152,29 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         });
 ```
 
+# Toast
+### Custom Toast
+1. __Custom Layout for Toast:__
+```
+<LinearLayout android:id="@+id/customToast">
+    <ImageView android:id="@+id/toast_icon" />
+    <TextView android:id="@+id/toast_message" />
+</LinearLayout>
+```
+2. __Inflate the custom layout for the Toast:__
+```
+LayoutInflater inflater = getLayoutInflater();
+View layout = inflater.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.custom_toast_id));
+```
+3. __Create and show the Toast:__
+```
+Toast customToast = new Toast(MainActivity.this);
+customToast.setDuration(Toast.LENGTH_LONG);
+customToast.setGravity(Gravity.CENTER, 0, 0);
+customToast.setView(layout);
+customToast.show();
+```
+
 # Java Handling
 ### Eventlistener
 - `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton. It should be declare outside of `onCreate` and initialize inside it.
