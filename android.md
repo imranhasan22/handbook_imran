@@ -1,3 +1,38 @@
+# File Structure
+```
+app
+├─ build
+├─ libs
+├─ src
+│   ├─ main
+│   │   ├─ java
+│   │   │   └─ com/example/myapplication
+│   │   │    
+│   │   ├─ res
+│   │   │   ├─ layout - store XML layout files that define the user interface of your activities and fragments.
+│   │   │   │   
+│   │   │   ├─ drawable - store drawable resources such as PNG files, vector graphics, and XML shapes.
+│   │   │   │   
+│   │   │   ├─ values - store XML files that define values like strings, colors, and dimensions. Common files include strings.xml, colors.xml, and dimens.xml.
+│   │   │   │
+│   │   │   ├─ mipmap - store resources for application icons, typically in different resolutions.
+│   │   │   │   
+│   │   │   └─ menu - store XML files that define menus for activities or fragments.
+│   │   │   
+│   │   │  
+│   │   └─ manifests
+│   │       └─ AndroidManifest.xml - It describes essential information about your app, including the package name, components (activities, services, broadcast receivers, content providers), permissions, and other application-level configurations.
+│   ├─ androidTest
+│   │   └─  java
+│   │       └─ com/example/myapplication
+│   │           └─ ExampleInstrumentedTest.java
+│   └─ test
+│      └─ java
+│          └─ com/example/myapplication
+│             
+└─ build.gradle
+
+```
 # Layout
 
 ### LinearLayout
