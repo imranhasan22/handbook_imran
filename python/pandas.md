@@ -81,3 +81,25 @@ print(df.to_string())
 `pandas.read_json()` - read json file and store in data frame
 
 JSON objects have the same format as Python dictionaries. If your JSON code is not in a file, but in a Python Dictionary, you can load it into a DataFrame directly:
+
+# Data Cleaning
+Data cleaning means fixing bad data in your data set. Bad data could be:
+- Empty cells
+- Data in wrong format
+- Wrong data
+- Duplicates
+
+## Remove Rows
+`df.dropna()` - return a new Data Frame with no empty cells
+```
+df = pd.read_csv('data.csv')
+new_df = df.dropna()
+print(new_df.to_string())
+```
+If you want to change the original DataFrame, use the `inplace = True` argument:
+```
+df = pd.read_csv('data.csv')
+df.dropna(inplace = True)
+print(df.to_string())
+```
+It will NOT return a new DataFrame, but it will remove all rows containing NULL values from the original DataFrame.
