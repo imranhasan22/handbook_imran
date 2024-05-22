@@ -95,7 +95,7 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 # Java Handling
 ### Eventlistener
 - `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton. It should be declare outside of `onCreate` and initialize inside it.
-- `myButton.setOnClickListener(new View.OnClickListener() { ... })` - sets an OnClickListener on the button myButton.
+- `myButton.setOnClickListener(new View.OnClickListener() { ... })` - sets an OnClickListener on the button called `myButton`.
 
 ### Handling Multiple Eventlistner
 
@@ -121,13 +121,17 @@ public void onClick(View view) {
 __Boilerplate:__
 ```
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-  Button myButton = findViewById(R.id.myButton);
-  myButton.setOnClickListener(this);
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    Button myButton = findViewById(R.id.myButton);
+    myButton.setOnClickListener(this);
+  }
 
   @Override
   public void onClick(View view) {
     if(v.getId()==R.id.myButton){
-        myText.setText("Button is clicked");
+      myText.setText("Button is clicked");
     }
   }
 }
