@@ -175,3 +175,20 @@ print(df.duplicated())
 ```
 df.drop_duplicates(inplace = True)
 ```
+
+# Inspecting Data
+- `info()` - provide summary
+- `head()` - return the first nth rows
+- `tail()` - return the last nth rows
+- `shape` - return a tuple represent the dimension
+- `describe()` - generates descriptive statistics like max, min, mean, std etc for numerical columns by default.
+- `columns` - returns an Index object containing the column labels 
+- `index` - return the index(row label) range
+- `dtypes` - return data type of each column
+- `isnull()` - return boolean value indicating whether each value is NaN
+- `notnull()` - return boolean value indicating whether each value is not NaN
+- `sum()`,`mean()`,`median()`,`std()`,`min()`,`max()` - apply on each column and return value according to their name
+- `value.counts()` - return a series containing counts of unique values for a given column. Ex: `df['column_name'].value_counts()`
+- `sample()` - return random samples, you can specify the number of row with n attribute
+- `corr()` - computes pairwise correlation of columns, excluding NA/null values.
+- `nunique()` - returns the number of unique values for each column.
