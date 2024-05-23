@@ -159,3 +159,37 @@ plt.bar(categories, values)
 ```
 plt.bar(x, y, color = "#4CAF50", width=0.1)
 ```
+
+# Histograms
+A histogram is a graph showing frequency distributions. It is a graph showing the number of observations within each given interval.
+
+`hist()` function is used to create histograms
+
+```
+x = np.random.normal(170, 10, 250)
+plt.hist(x)
+```
+
+# Pie Charts
+`pie()` is used to draw pie chart
+```
+x = np.array([35, 25, 25, 15])
+plt.pie(x)
+```
+By default the plotting of the first wedge starts from the x-axis and moves counterclockwise
+
+- `labels` argument is used to set label
+- `startangle` argument define the starting angle in degrees. ![Angle Chart](https://www.w3schools.com/python/img_matplotlib_pie_angles.png)
+- `explode` argument allow to stand out the wedges. It must be an array with one value for each wedge. Each value represents how far from the center each wedge is displayed.
+- `shadow` argument set shadow to each edge
+- `color` argument set color to each wedge
+- `legend()` function is use to display a list of explaination for each wedge
+     - `title` argument set a header to the legend
+```
+x = np.array([35, 25, 25, 15])
+mylabels = ["Apples", "Bananas", "Cherries", "Dates"]
+myexplode = [0.2, 0, 0, 0]
+mycolors = ["black", "hotpink", "b", "#4CAF50"]
+plt.pie(x, labels = mylabels,startangle = 90,explode=myexplode, shadow=True,colors=myColors)
+plt.legend(title = "Four Fruits:")
+```
