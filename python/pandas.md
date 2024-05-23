@@ -142,3 +142,25 @@ Cells with data of wrong format can make it difficult, or even impossible, to an
 ```
 df['Date'] = pd.to_datetime(df['Date'])
 ```
+
+# Wrong Data
+Wrong data does not have to be empty cells or wrong format, it can just be wrong, like if someone registered "199" instead of 1.99.
+
+## Replacing Value
+For small data sets you might be able to replace the wrong data one by one, but not for big data set
+```
+df.loc[7, 'Duration'] = 45
+```
+To replace wrong data for larger data sets you can create some rules, e.g. set some boundaries for legal values, and replace any values that are outside of the boundaries.
+```
+for x in df.index:
+  if df.loc[x, "Duration"] > 120:
+    df.loc[x, "Duration"] = 120
+```
+
+## Remove Row
+```
+for x in df.index:
+  if df.loc[x, "Duration"] > 120:
+    df.drop(x, inplace = True)
+```
