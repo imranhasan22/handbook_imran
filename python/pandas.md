@@ -192,3 +192,35 @@ df.drop_duplicates(inplace = True)
 - `sample()` - return random samples, you can specify the number of row with n attribute
 - `corr()` - computes pairwise correlation of columns, excluding NA/null values.
 - `nunique()` - returns the number of unique values for each column.
+
+# Column Selection
+- `df.columnName` or `df["column name"]` return specified column
+- `df[["first","second"]]` select multiple column
+- `df['column_name'].apply(func)` - applies a function to each value in the column.
+
+you can apply all the inspection method to column
+
+## Column Insertion
+1. __Assigning a New Column Directly:__ You can directly assign a new column by specifying the column name and the values. If the column name already exists, this will overwrite the existing column.
+```
+df = pd.DataFrame({
+    "A": [1, 2, 3],
+    "B": [4, 5, 6]
+})
+df["C"] = [7, 8, 9]
+```
+
+2. __insert() method:__ allow to insert a column at a specific location
+```
+df.insert(1, "D", [10, 11, 12])
+```
+
+3. __assign() method:__ return new dataframe with additional column. it does not modify the original dataframe uunless you reassign it.
+```
+df = df.assign(E=[13, 14, 15])
+```
+
+4. __Index Based Assignment:__ you can use `loc()` or `iloc()` method.
+```
+df.loc[:, "F"] = [16, 17, 18]
+```
