@@ -224,3 +224,36 @@ df = df.assign(E=[13, 14, 15])
 ```
 df.loc[:, "F"] = [16, 17, 18]
 ```
+
+## Column Updation
+1. __Direct Assignment:__
+```
+df = pd.DataFrame({
+    "A": [1, 2, 3],
+    "B": [4, 5, 6]
+})
+df["A"] = [10, 20, 30]
+```
+2. __replace():__
+```
+df["A"] = df["A"].replace({10: 100, 99: 999})
+```
+3. __update():__
+```
+update_series = pd.Series([200, 300], index=[0, 2])
+df["A"].update(update_series)
+```
+
+## Column Deletion
+1. __drop():__
+```
+df.drop(columns=['B'], inplace=True)
+```
+2. __del:__
+```
+del df['B']
+```
+3. __pop():__
+```
+droppedRow = df.pop('B')
+```
