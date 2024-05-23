@@ -164,3 +164,14 @@ for x in df.index:
   if df.loc[x, "Duration"] > 120:
     df.drop(x, inplace = True)
 ```
+
+# Removing Duplicates
+- `duplicated()` method returns a Boolean values for each row
+```
+print(df.duplicated())
+```
+
+- `drop_duplicates()` is used to remove duplicate value
+```
+df.drop_duplicates(inplace = True)
+```
