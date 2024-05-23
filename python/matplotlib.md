@@ -145,3 +145,17 @@ plt.scatter(x2, y2)
 ```
 plt.scatter(x, y, color = '#88c999')
 ```
+
+# Bars
+`bar()` method is use to create bar graphs. The categories and their values represented by the first and second argument.
+```
+categories = ["APPLES", "BANANAS"]
+values = [400, 350]
+plt.bar(categories, values)
+```
+`barh()` displayed bars horizontally
+- `color` argument is use to set the color
+- `width` argument set the width, for horizontal bar use `height`
+```
+plt.bar(x, y, color = "#4CAF50", width=0.1)
+```
