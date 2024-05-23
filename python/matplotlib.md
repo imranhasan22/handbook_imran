@@ -142,8 +142,35 @@ plt.scatter(x2, y2)
 
 - `c` argument set the color. You can even set a specific color for each dot by using an array of colors as value for the c argument
 - `s` argument set the size of the dots. just like colors, make sure the array for sizes has the same length as the arrays for the x- and y-axis
+- `alpha` argument is use to adjust the transparency of the dots. Just like colors, make sure the array for sizes has the same length as the arrays for the x- and y-axis.
 ```
-plt.scatter(x, y, color = '#88c999')
+# plt.scatter(x, y, color = '#88c999')
+sizes = np.array([20,50,100,200,500,1000,60,90,10,300,600,800,75])
+colors = np.array(["red","green","blue","yellow","pink","black","orange","purple","beige","brown","gray","cyan","magenta"])
+plt.scatter(x, y, s=sizes,c=colors, alpha=0.5)
+```
+### ColorMap
+The Matplotlib module has a number of available colormaps.
+
+A colormap is like a list of colors, where each color has a value that ranges from 0 to 100.
+
+Here is an example of a colormap: 
+![ColorMap](https://www.w3schools.com/python/img_colorbar.png)
+
+This colormap is called 'viridis' and as you can see it ranges from 0, which is a purple color, up to 100, which is a yellow color.
+[View Available ColorMap](https://www.w3schools.com/python/matplotlib_scatter.asp)
+
+You can specify the colormap with the keyword argument cmap with the value of the colormap, in this case 'viridis' which is one of the built-in colormaps available in Matplotlib.
+
+In addition you have to create an array with values (from 0 to 100), one value for each point in the scatter plot:
+```
+colors = np.array([0, 10, 20, 30, 40, 45, 50, 55, 60, 70, 80, 90, 100])
+plt.scatter(x, y, c=colors, cmap='viridis')
+```
+you can include the colormap in drawing by including `plt.colorbar()`
+```
+plt.scatter(x, y, c=colors, cmap='viridis')
+plt.colorbar()
 ```
 
 # Bars
