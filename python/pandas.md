@@ -103,3 +103,28 @@ df.dropna(inplace = True)
 print(df.to_string())
 ```
 It will NOT return a new DataFrame, but it will remove all rows containing NULL values from the original DataFrame.
+
+## Replace Empty Values
+`fillna()` method allows to replace empty cells with a value.
+```
+df.fillna(130, inplace = True)
+```
+It will replace all empty cells in the whole data frame. If you want to replace empty value on specified column, then specify them.
+```
+df["Calories"].fillna(130, inplace = True)
+```
+__For multiple column:__
+```
+fill_values = {
+    "Calories": 130,
+    "Protein": 0.0,
+    "Fat": 0.0
+}
+df.fillna(value=fill_values, inplace=True)
+```
+
+## Replacing with Mean, Median, Mode
+```
+x = df["Calories"].mean() # you can also use median(), mode()[0]
+df["Calories"].fillna(x, inplace = True)
+```
