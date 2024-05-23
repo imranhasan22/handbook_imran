@@ -104,6 +104,12 @@ print(df.to_string())
 ```
 It will NOT return a new DataFrame, but it will remove all rows containing NULL values from the original DataFrame.
 
+if you want to remove row, based on any specified column, specify it with subset attribute. Like if Date column have null value you want remove the row, then use it
+```
+df.dropna(subset=['Date'], inplace = True)
+```
+if any other column have null value, those will not be removed.
+
 ## Replace Empty Values
 `fillna()` method allows to replace empty cells with a value.
 ```
@@ -127,4 +133,12 @@ df.fillna(value=fill_values, inplace=True)
 ```
 x = df["Calories"].mean() # you can also use median(), mode()[0]
 df["Calories"].fillna(x, inplace = True)
+```
+
+# Wrong Format
+Cells with data of wrong format can make it difficult, or even impossible, to analyze data.
+
+- `to_datetime()` is used to format the date
+```
+df['Date'] = pd.to_datetime(df['Date'])
 ```
