@@ -93,8 +93,8 @@ It is designed to block out an area on the screen to display a single item. Gene
 - `android:scaleType` - control how an image is resized. Possible values are:
     - `fitXY` - scale the image to fit exactly within the view
     - `fitStart` - scale the image to fit within the view and align it to the top left.
-    - `fitStart` - scale the image to fit within the view and align it to the bottom right.
-    - `fitStart` - scale the image to fit within the view and center it.
+    - `fitEnd` - scale the image to fit within the view and align it to the bottom right.
+    - `fitCenter` - scale the image to fit within the view and center it.
 - `android:adjustViewBounds` - adjust the bounds to maintain the aspect ratio. Possible values are true or false.
 
 ### EditText
