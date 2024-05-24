@@ -344,10 +344,82 @@ __Recieve__
 Intent intent = getIntent();
 String message = intent.getStringExtra("EXTRA_MESSAGE");
 ```
+
+### Navigation
+1. Declare Activities in `AndroidManifest.xml`:
 ```
-Bundle bundle = getIntent().getStringExtra("EXTRA_MESSAGE");
-if(bundle!=null){
-    String value=bundle.getString("EXTRA_MESSAGE");
-    textView.setText(value);
+<application ... >
+    <activity android:name=".MainActivity">...</activity>
+    <activity android:name=".SecondActivity" />
+</application>
+```
+2. Handle `MainActivity`:
+__XML File:__
+```
+<EditText android:id="@+id/inputBox" .../>
+<Button android:id="@+id/myButton" onClick="handleNext" .../>
+<TextView android:id="@+id/myView" .../>
+```
+__Java File:__
+```
+public class MainActivity extends AppCompatActivity {
+    ...
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ...
+        myButton=findViewById(R.id.myButton);
+        inputBox=findViewById(R.id.inputBox);
+        myView=findViewById(R.id.myView);
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("ACTIVITY_MESSAGE");
+        if(message!=null){
+            myView.setText("From Second Activity: "+message);
+        }
+
+    }
+
+    public void handleNext(View v){
+        if(v.getId()==R.id.myButton){
+            Intent intent = new Intent(this, SecondActivity.class);
+            intent.putExtra("ACTIVITY_MESSAGE", inputBox.getText().toString());
+            startActivity(intent);
+        }
+    }
+}
+```
+3. Handle `SecondActivity`:
+__XML File:__
+```
+<EditText android:id="@+id/inputSecondBox" .../>
+<Button android:id="@+id/mySecondButton" android:onClick="handlePrev" .../>
+<TextView android:id="@+id/mySecondView" .../>
+```
+__Java File:__
+```
+public class SecondActivity extends AppCompatActivity {
+    ...
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ...
+        mySecondView=findViewById(R.id.mySecondView);
+        inputSecondBox=findViewById(R.id.inputSecondBox);
+        mySecondButton=findViewById(R.id.mySecondButton);
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("ACTIVITY_MESSAGE");
+        if(message!=null){
+            mySecondView.setText("From Main Activity: "+message);
+        }
+
+    }
+
+    public void handlePrev(View v){
+        if(v.getId()==R.id.mySecondButton){
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("ACTIVITY_MESSAGE", inputSecondBox.getText().toString());
+            startActivity(intent);
+        }
+    }
 }
 ```
