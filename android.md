@@ -447,3 +447,27 @@ if(sharedPreferences.contains("key")){
   int number = sharedPreferences.getInt("key",123);
 }
 ```
+## Internal Storage - File
+Use internal storage to store private data within the device's internal memory.
+
+__Store Data:__
+```
+String filename = "myfile.txt";
+String fileContents = "Hello World!";
+FileOutputStream fos = openFileOutput(filename, Context.MODE_PRIVATE);
+fos.write(fileContents.getBytes());
+fos.close();
+```
+__Retrieve Data:__
+```
+String filename = "myfile.txt";
+FileInputStream fis = openFileInput(filename);
+InputStreamReader isr = new InputStreamReader(fis);
+BufferedReader bufferedReader = new BufferedReader(isr);
+StringBuilder sb = new StringBuilder();
+String line;
+while ((line = bufferedReader.readLine()) != null) {
+    sb.append(line);
+}
+String fileContents = sb.toString();
+```
