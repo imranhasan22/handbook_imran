@@ -354,6 +354,7 @@ String message = intent.getStringExtra("EXTRA_MESSAGE");
 </application>
 ```
 2. Handle `MainActivity`:
+
 __XML File:__
 ```
 <EditText android:id="@+id/inputBox" .../>
@@ -389,6 +390,7 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 3. Handle `SecondActivity`:
+
 __XML File:__
 ```
 <EditText android:id="@+id/inputSecondBox" .../>
@@ -425,3 +427,23 @@ public class SecondActivity extends AppCompatActivity {
 ```
 
 `onCreate`, `onStart`, `onResume`, `onPause`, `onStop`, `onRestart`, `onDestroy` all are the instances of activity class. As you use onCreate method for initial rendering.
+
+# Database
+## SharedPreferences
+It is used for storing small amounts of primitive data in key-value pairs. You can use it for storing user setting, last score, location caching
+
+__Store Data:__
+```
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.putString("key", "value");
+editor.putInt("key", 123);
+editor.apply();  // or editor.commit();
+```
+__Retrieve Data:__
+```
+SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+if(sharedPreferences.contains("key")){
+  String value = sharedPreferences.getString("key", "default_value");
+  int number = sharedPreferences.getInt("key",123);
+}
+```
