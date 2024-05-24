@@ -423,3 +423,5 @@ public class SecondActivity extends AppCompatActivity {
     }
 }
 ```
+
+`onCreate`, `onStart`, `onResume`, `onPause`, `onStop`, `onRestart`, `onDestroy` all are the instances of activity class. As you use onCreate method for initial rendering.
