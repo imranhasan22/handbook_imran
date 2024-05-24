@@ -66,9 +66,10 @@ It consists of `TableRow` objects, each representing a row in the table.
 - `android:shrinkColumns`
 - `android:collapseColumns`
 - `android:layout_span`
+- `android:layout_column`
 
 ### FrameLayout
-It is designed to block out an area on the screen to display a single item. Generally, It is used to hold a single child view, but it can also be used to overlay multiple child views, stacking them on top of each other.
+It is designed to block out an area on the screen to display a single item. Generally, It is used to hold a single child view, but it can also be used to overlay multiple child views, stacking them on top of each other. It display view layer by layer and one layer at a time.
 - `android:foreground` 
 - `android:foregroundGravity`
 - `android:measureAllChildren`
