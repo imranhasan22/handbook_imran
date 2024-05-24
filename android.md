@@ -58,6 +58,21 @@ It allows you to position and size child views in relation to each other or to t
 
 It allows for complex layouts where child views can be positioned relative to each other and to the parent. It helps to avoid deeply nested layouts, which can improve performance and useful for responsive designs where the position of views may change based on different screen sizes or orientations.
 
+### TableLayout
+A type of `ViewGroup` that arranges it's child in grid format.  It organizes views into rows and columns, and allows for complex layouts where alignment and spacing are important.
+
+It consists of `TableRow` objects, each representing a row in the table.
+- `android:stretchColumns`
+- `android:shrinkColumns`
+- `android:collapseColumns`
+- `android:layout_span`
+
+### FrameLayout
+It is designed to block out an area on the screen to display a single item. Generally, It is used to hold a single child view, but it can also be used to overlay multiple child views, stacking them on top of each other.
+- `android:foreground` 
+- `android:foregroundGravity`
+- `android:measureAllChildren`
+
 # View
 ### TextView
 
@@ -271,10 +286,10 @@ public void onButtonClick(View view) {
 ```
 
 ### View Methods
-- `setText()`, `setTextColor()`, `setTextSize()`, `getText()`, `getTextSize()`, `getTextColors()` - methods works by following their name
+- `setText()`, `setTextColor()`, `setTextSize()`, `getText()`, `getTextSize()`, `getCurrentTextColor()` - methods works by following their name
 - `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
-- `setTypeface()` - 
-- `getId()` -
+- `setTypeface()` - set the font
+- `getId()` - gets the view ID
 
 # Logging
 It allow developers to track the flow of their application, debug issues, and monitor behavior during runtime. Android provides a built-in logging framework through the `android.util.Log` class, which allows developers to output log messages of varying severity levels.
