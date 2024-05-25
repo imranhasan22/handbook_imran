@@ -265,3 +265,31 @@ del df['B']
 droppedRow = df.pop('B')
 ```
 4. __dropna():__ `axis=1` parameter in `dropna()` method is use to remove column which have empty value, `axis=0` is use to remove row which have empty value. Default value of axis parameter is 0
+
+# Feature Scaling
+Feature Scaling is a technique to standardize the independent features present in the data in a fixed range. 
+### Standardization (Z-score normalization)
+Standardization scales the features such that they have a mean of 0 and a standard deviation of 1. This method is useful when the features have different units or vastly different ranges. It is used when the data follows a normal distribution
+```
+scaler = StandardScaler()
+df_standardized = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+```
+### Min-Max Scaling (Normalization)
+Min-Max scaling scales the features to a fixed range, usually 0 to 1. This method is useful when the data is not normally distributed or the model requires the data in a specific range like neural networks
+```
+scaler = MinMaxScaler()
+df_normalized = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+```
+### Robust Scaling
+Robust scaling uses the median and the interquartile range (IQR) for scaling, making it robust to outliers. This method is useful when the data contains many outliers.
+```
+scaler = RobustScaler()
+df_robust_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+```
+
+### MaxAbs Scaling
+MaxAbs scaling scales each feature by its maximum absolute value, preserving the sparsity of the data. This method is useful for data that is sparse (contains many zeros).
+```
+scaler = MaxAbsScaler()
+df_maxabs_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+```
