@@ -135,6 +135,13 @@ x = df["Calories"].mean() # you can also use median(), mode()[0]
 df["Calories"].fillna(x, inplace = True)
 ```
 
+## Forward & Backward Filling
+Forward filling fills missing values with the last known value that appeared before the NaN. This is useful when you assume that the previous value is the best estimate for the missing value. Backward filling fills missing values with the next known value that appears after the NaN. This is useful when you assume that the next value is the best estimate for the missing value.. It is useful in time series data or other sequential data.
+```
+df_ffilled = df.fillna(method='ffill')
+df_bfilled = df.fillna(method='bfill')
+```
+
 # Wrong Format
 Cells with data of wrong format can make it difficult, or even impossible, to analyze data.
 
@@ -257,3 +264,4 @@ del df['B']
 ```
 droppedRow = df.pop('B')
 ```
+4. __dropna():__ `axis=1` parameter in `dropna()` method is use to remove column which have empty value, `axis=0` is use to remove row which have empty value. Default value of axis parameter is 0
