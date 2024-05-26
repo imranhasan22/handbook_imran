@@ -76,8 +76,9 @@ print(df)
 df = pd.read_csv('data.csv')
 print(df.to_string())
 ```
+`dataframe.to_csv(filename)` - use to generate csv file
 
-## JSON
+## JSON 
 `pandas.read_json()` - read json file and store in data frame
 
 JSON objects have the same format as Python dictionaries. If your JSON code is not in a file, but in a Python Dictionary, you can load it into a DataFrame directly:
