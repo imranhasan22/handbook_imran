@@ -331,3 +331,22 @@ df.loc[df['A'] > 2]
 ```
 filtered_df = df[df['A'].isin([2,4])] # retur data, df['A'].isin([2,4]) return boolean
 ```
+
+# Transformation
+1. __apply():__
+It allows to apply a function along the axis (rows or columns).
+```
+df_sum = df.apply(lambda row: row.sum(), axis=1) # apply on row
+df_sum = df.apply(lambda col: col.sum(), axis=0) # apply on column
+```
+2. __applymap():__
+It allows to apply a function to each element.
+```
+df_incremented = df.applymap(lambda x: x + 1)
+```
+3. __map():__
+It allows to apply a function to each element of a Series.
+```
+df['A'] = df['A'].map(lambda x: x * 2)
+```
+4. __transform():__
