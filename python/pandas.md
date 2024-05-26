@@ -89,6 +89,9 @@ Data cleaning means fixing bad data in your data set. Bad data could be:
 - Wrong data
 - Duplicates
 
+- `isna()` - detect missing values and return boolean datafram
+- `isna().sum()` - detect and count the number of missing values for each column
+
 ## Remove Rows
 `df.dropna()` - return a new Data Frame with no empty cells
 ```
@@ -199,6 +202,17 @@ df.drop_duplicates(inplace = True)
 - `sample()` - return random samples, you can specify the number of row with n attribute
 - `corr()` - computes pairwise correlation of columns, excluding NA/null values.
 - `nunique()` - returns the number of unique values for each column.
+
+all the method ignore `NaN` value while calculating, `skipna=False` argument is use to consider `NaN` value.
+
+__Perform Aggregations:__
+```
+custom_agg=df..agg({
+  "A": ["sum", "mean"],
+  "B": ["min", "max"],
+  "C": "count"
+})
+```
 
 # Column Selection
 - `df.columnName` or `df["column name"]` return specified column
