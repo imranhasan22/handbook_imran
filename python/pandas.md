@@ -241,6 +241,8 @@ df = pd.DataFrame({
 })
 df["A"] = [10, 20, 30]
 ```
+- `df["A"] = 10` - update all value of a column
+- `df.loc[df['A'] == 2, 'B'] = 10` - update specific field of a column
 2. __replace():__
 ```
 df["A"] = df["A"].replace({10: 100, 99: 999})
@@ -262,7 +264,7 @@ del df['B']
 ```
 3. __pop():__
 ```
-droppedRow = df.pop('B')
+droppedCol = df.pop('B')
 ```
 4. __dropna():__ `axis=1` parameter in `dropna()` method is use to remove column which have empty value, `axis=0` is use to remove row which have empty value. Default value of axis parameter is 0
 
