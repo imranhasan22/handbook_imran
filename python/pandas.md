@@ -295,3 +295,25 @@ MaxAbs scaling scales each feature by its maximum absolute value, preserving the
 scaler = MaxAbsScaler()
 df_maxabs_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
 ```
+
+# Filtering
+1. __Boolean Indexing:__
+```
+filtered_df = df[df['A'] > 2] # Filter rows where column __A__ is greater than 2
+```
+2. __query():__
+```
+filtered_df = df.query('A > 2')
+```
+3. __Combining Multiple Conditions:__
+```
+filtered_df = df[(df['A'] > 2) & (df['C'] == 'foo')]
+```
+4. __loc[]:__
+```
+df.loc[df['A'] > 2]
+```
+5. __isin():__ filter rows based on multiple specific values in a column.
+```
+filtered_df = df[df['A'].isin([2,4])] # retur data, df['A'].isin([2,4]) return boolean
+```
