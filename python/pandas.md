@@ -198,7 +198,7 @@ df.drop_duplicates(inplace = True)
 - `isnull()` - return boolean value indicating whether each value is NaN
 - `notnull()` - return boolean value indicating whether each value is not NaN
 - `sum()`,`mean()`,`median()`,`std()`,`min()`,`max()` - apply on each column and return value according to their name
-- `value.counts()` - return a series containing counts of unique values for a given column. Ex: `df['column_name'].value_counts()`
+- `value.counts()` - return a series containing counts of unique values for a given column. Ex: `df['column_name'].value_counts()`, if you want to consider `NaN` as unique value put `dropna=False` argument.
 - `sample()` - return random samples, you can specify the number of row with n attribute
 - `corr()` - computes pairwise correlation of columns, excluding NA/null values.
 - `nunique()` - returns the number of unique values for each column.
