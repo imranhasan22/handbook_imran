@@ -203,6 +203,7 @@ df.drop_duplicates(inplace = True)
 - `sample()` - return random samples, you can specify the number of row with n attribute
 - `corr()` - computes pairwise correlation of columns, excluding NA/null values.
 - `nunique()` - returns the number of unique values for each column.
+- `df['column_name'].str.string_method()` - perform string related operation like `len()`, `upper()`, `lower()`, `substr()`, `replace()` etc.t
 
 all the method ignore `NaN` value while calculating, `skipna=False` argument is use to consider `NaN` value.
 
@@ -351,3 +352,38 @@ It allows to apply a function to each element of a Series.
 df['A'] = df['A'].map(lambda x: x * 2)
 ```
 4. __transform():__
+
+# Merging
+### Inner Join
+only includes rows with matching keys in both DataFrames
+```
+merged_inner = pd.merge(df1, df2, on='id')
+```
+### Left Join
+includes all rows from the left DataFrame and matched rows from the right DataFrame
+```
+merged_left = pd.merge(df1, df2, on='id', how='left')
+```
+### Right Join
+includes all rows from the right DataFrame and matched rows from the left DataFrame
+```
+merged_right = pd.merge(df1, df2, on='id', how='right')
+```
+### Outer Join
+includes all rows when there is a match in one of the DataFrames
+```
+merged_outer = pd.merge(df1, df2, on='id', how='outer')
+```
+if you have common column name, specify it with `on` attribute, if not, then use `left_on` and `right_on` attribute 
+
+`joined = df1.join(df2, how='inner')` is used to join dataframes on their index
+
+# Concatenating
+### Rows
+```
+concat_rows = pd.concat([df1, df2])
+```
+### Columns
+```
+concat_cols = pd.concat([df1, df3], axis=1)
+```
