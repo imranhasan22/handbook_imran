@@ -12,7 +12,7 @@ y = iris.target
 ```
 from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 ```
 - __`X` and `y`:__ The feature matrix and target vector.
 - `test_size:` The proportion of the dataset to include in the test split. It can be a float (0.2 for 20%) or an integer (20 for 20 samples).
@@ -49,3 +49,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 - Anomaly Detection
     - Isolation Forest
     - One-Class SVM
+
+# Model
+- `model = LinearRegression()` - is used to create model
+- `model.fit(X_train, y_train)` - is used to train the model
+- `y_pred = model.predict(X_test)` - is used to make the predection
+- `joblib.dump(model, "file_name.pkl")` - is used to save the train model
