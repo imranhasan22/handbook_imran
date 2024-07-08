@@ -136,6 +136,38 @@ onBackPressedDispatcher.addCallback(this, new OnBackPressedCallback(true) {
 - `android:textCursorDrawble` - customize the appearance of the cursor. You need to create a custom drawable resource and apply it here.
 - `clearFocus()` - dismiss the soft keyboard if it's open
 
+### Alert
+```
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Alert Dialog Title")
+                .setMessage("This is the message of the alert dialog.")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Action for 'OK' Button
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Action for 'Cancel' Button
+                    }
+                })
+                .setNeutralButton("Later", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Action for 'Later' Button
+                    }
+                });
+
+        // Show the AlertDialog
+        AlertDialog alert = builder.create();
+        alert.show();
+```
+
+### Toast
+```
+Toast.makeText(MainActivity.this, "Hello Toast", Toast.LENGTH_SHORT).show();
+```
+
 ### Adapter
 Adapter pulls the data from the source & convert into a view and then set the view into ListView/GridView/Spinner. Commonly used adapters are:
 - Array Adapter - single list item
