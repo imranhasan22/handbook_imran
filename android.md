@@ -471,3 +471,16 @@ while ((line = bufferedReader.readLine()) != null) {
 }
 String fileContents = sb.toString();
 ```
+
+# AndroidManifest.xml
+## Tags
+- `<manifest>` -
+- `<application>` -
+- `<activity>` -
+- `<intent-filter>` -
+
+## Attributes
+- `android:icon` -  Specifies the default icon for the application
+- `android:label` - Specifies the default label (name) for the application
+- `android:roundIcon` - Specifies the round icon for devices that support round icons
+- `android:supportsRtl` - Indicates whether the application supports right-to-left (RTL) layouts. 
