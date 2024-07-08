@@ -530,10 +530,25 @@ String fileContents = sb.toString();
 
 # AndroidManifest.xml
 ## Tags
-- `<manifest>` -
-- `<application>` -
-- `<activity>` -
-- `<intent-filter>` -
+- `<manifest>` - root element. It contains information about the application package and its components, as well as any permissions the application needs. Attributes are `package`, `versionCode`, `versionName`.
+- `<application>` - container for application components such as activities, services, broadcast receivers, and content providers. It also contains various settings, such as application-level resources and metadata.
+- `<activity>` - declares an activity, which is a single screen in an application. Each activity must be declared in the manifest file with certain attributes that define its behavior.
+- `<intent-filter>` - used within `<activity>`, `<service>`, and `<receiver>` to specify the types of intents that the component can respond to. It contains one or more `<action>`, `<category>`, and `<data>` elements.
+    - `<action>`: Declares the action an intent filter can handle.
+        - `android.intent.action.MAIN`: The main entry point for an application. Typically used with the launcher activity.
+        - `android.intent.action.VIEW`: Display data to the user.
+        - `android.intent.action.EDIT`: Allow the user to edit data.
+        - `android.intent.action.SEND`: Send data to another activity.
+        - `android.intent.action.PICK`: Select an item from a list of items.
+        - `android.intent.action.DELETE`: Delete data.
+    - `<category>`: Declares the category an intent filter can handle.
+        - `android.intent.category.DEFAULT`: The default category for activities. Should be included in all intent filters that are meant to respond to implicit intents.
+        - `android.intent.category.LAUNCHER`: Indicates that the activity can be the initial activity of a task and should be displayed in the application launcher.
+        - `android.intent.category.BROWSABLE`: Allows an activity to be started by a web browser to display data referenced by a link.
+        - `android.intent.category.ALTERNATIVE`: Provides an alternative action for the user to choose.
+        - `android.intent.category.SELECTED_ALTERNATIVE`: An alternative action that the user has selected.
+        - `android.intent.category.TAB`: Specifies that an activity can be used as a tab.
+    - `<data>`: Declares the type of data an intent filter can handle.
 
 ## Attributes
 - `android:icon` -  Specifies the default icon for the application
