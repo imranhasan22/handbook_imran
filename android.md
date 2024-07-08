@@ -106,6 +106,20 @@ webSettings.setJavaScriptEnabled(true); // Enable JavaScript
 webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // Disable caching
 webSettings.setDomStorageEnabled(true); // Enable DOM storage
 ```
+- `Handling Back Button` - handleing back button so that it doesn't close the entire application
+```
+OnBackPressedDispatcher onBackPressedDispatcher =getOnBackPressedDispatcher();
+onBackPressedDispatcher.addCallback(this, new OnBackPressedCallback(true) {
+    @Override
+    public void handleOnBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            finish();
+        }
+    }
+});
+```
 
 ### EditText
 
