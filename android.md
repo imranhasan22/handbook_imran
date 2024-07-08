@@ -88,7 +88,6 @@ It is designed to block out an area on the screen to display a single item. Gene
 - `android:backgroundTint` - specify a color overlay to the background of drawable item.
 
 ### ImageView
-
 - `android:src` - specify the image to be displayed
 - `android:scaleType` - control how an image is resized. Possible values are:
     - `fitXY` - scale the image to fit exactly within the view
@@ -96,6 +95,17 @@ It is designed to block out an area on the screen to display a single item. Gene
     - `fitEnd` - scale the image to fit within the view and align it to the bottom right.
     - `fitCenter` - scale the image to fit within the view and center it.
 - `android:adjustViewBounds` - adjust the bounds to maintain the aspect ratio. Possible values are true or false.
+
+### WebView
+- `loadUrl()` - Loads the given URL
+- `webView.setWebViewClient(new WebViewClient())` - Sets a WebViewClient to handle various web events. Enable navigating multiple webpage within the application.
+- `WebSettings` - Configure various settings for the WebView.
+```
+WebSettings webSettings = webView.getSettings();
+webSettings.setJavaScriptEnabled(true); // Enable JavaScript
+webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // Disable caching
+webSettings.setDomStorageEnabled(true); // Enable DOM storage
+```
 
 ### EditText
 
