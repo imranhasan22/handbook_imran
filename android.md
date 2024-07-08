@@ -163,6 +163,8 @@ onBackPressedDispatcher.addCallback(this, new OnBackPressedCallback(true) {
         alert.show();
 ```
 
+- `setcancelable=false` - used to prevent a dialog from being dismissed when the user touches outside of the dialog.
+
 ### Toast
 ```
 Toast.makeText(MainActivity.this, "Hello Toast", Toast.LENGTH_SHORT).show();
@@ -245,6 +247,31 @@ customToast.setDuration(Toast.LENGTH_LONG);
 customToast.setGravity(Gravity.CENTER, 0, 0);
 customToast.setView(layout);
 customToast.show();
+```
+
+# Styling
+Themes are applied to entire activities or applications, while styles are applied to individual views. 
+__Define a Style:__
+```
+<resources>
+    <style name="styleName" parent="parentName">
+        <item name="viewAttribute">attributeValue</item>
+    </style>
+</resources>
+```
+Explore:
+    - style theme
+    - style activity
+    - style view
+    
+Set the style to an activity with `android.theme` attribute
+__Inherit Style:__
+```
+<resources>
+    <style name="styleName" parent="parentStyleName">
+        <item name="viewAttribute">attributeValue</item>
+    </style>
+</resources>
 ```
 
 # Java Handling
