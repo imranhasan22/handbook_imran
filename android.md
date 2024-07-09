@@ -274,6 +274,21 @@ __Inherit Style:__
 </resources>
 ```
 
+## Themes
+- Theme.Holo
+- Theme.Holo.Light
+- Theme.Material
+- Theme.Material.Light
+- Theme.AppCompat
+- Theme.AppCompat.Light
+- Theme.AppCompat.Light.DarkActionBar
+- Theme.AppCompat.DayNight
+- Theme.AppCompat.DayNight.DarkActionBar
+- Theme.AppCompat.NoActionBar
+- Theme.AppCompat.Light.NoActionBar
+- Theme.AppCompat.DayNight.NoActionBar
+
+
 # Java Handling
 ### Eventlistener
 - `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton. It should be declare outside of `onCreate` and initialize inside it.
@@ -582,3 +597,34 @@ String fileContents = sb.toString();
 - `android:label` - Specifies the default label (name) for the application
 - `android:roundIcon` - Specifies the round icon for devices that support round icons
 - `android:supportsRtl` - Indicates whether the application supports right-to-left (RTL) layouts. 
+
+# ActionBar
+### Adding ActionBar
+```
+<application
+    ...
+    android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+    <activity
+        ...
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+    </activity>
+</application>
+```
+### Customize ActionBar
+```<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+</resources>
+
+```
+### Accessing ActionBar
+```
+ActionBar actionBar = getSupportActionBar();
+if (actionBar != null) {
+    actionBar.setTitle("My Title");
+    actionBar.setSubtitle("My Subtitle");
+    actionBar.setDisplayHomeAsUpEnabled(true); // Show the Up button
+    actionBar.setHomeButtonEnabled(true); // Enable the Home button
+}
+```
