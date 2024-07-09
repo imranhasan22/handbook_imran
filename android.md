@@ -43,7 +43,7 @@ It arranges its child views in a single direction, either vertically or horizont
     - `horizontal` - places children side by side from left to right
 - `android:gravity` - specify how the content should be aligned to all child views within the layout
 - `android:layout_gravity` - specify how the content should be aligned to individual child views.
-- `android:layout_weight` - 
+- `android:layout_weight` -  distribute space among child views. It allows you to specify how much of the extra space in the layout should be allocated to each child view. This attribute only works when the size of the view is set to `0dp`
 
 LinearLayout is easy to understand and implement. It provides a predictable way to arrange views in a single direction. Allows for easy alignment of child views along a single axis. But LinearLayout lead to poor performance, as the layout becomes more complex and takes longer to render.
 
