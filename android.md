@@ -627,6 +627,9 @@ if (actionBar != null) {
     actionBar.setSubtitle("My Subtitle");
     actionBar.setDisplayHomeAsUpEnabled(true); // Show the Up button
     actionBar.setHomeButtonEnabled(true); // Enable the Home button
+    actionBar.setLogo(R.drawable.logo); // Set the logo
+    actionBar.setDisplayUseLogoEnabled(true); // Enable display of the logo
+    actionBar.setDisplayShowTitleEnabled(false); // Optionally hide the title if you only want to show the logo
 }
 
 @Override
@@ -647,3 +650,26 @@ public void onBackPressed() {
 }
 ```
 Navigate back without `onOptionsItemSelected` through `android:parentActivityName` attribute in `activity` tag in `AndroidManifest.xml` 
+
+### Adding Actions/Icons to ActionBar
+```
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        android:title="Search"
+        android:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="Settings"
+        android:showAsAction="never" />
+</menu>
+```
+### Inflate the menu in your activity
+```
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_main, menu);
+    return true;
+}
+```
