@@ -122,6 +122,22 @@ onBackPressedDispatcher.addCallback(this, new OnBackPressedCallback(true) {
 });
 ```
 
+### HTML Content
+__WebView:__
+```
+String htmlContent = "<html><body><h1>Hello, World!</h1><p>This is a sample HTML content.</p></body></html>";
+webView.loadData(htmlContent, "text/html", "UTF-8");
+// webView.loadUrl("file:///android_asset/index.html"); // Local file
+```
+__TextView:__
+```
+
+String htmlContent = "<h1>Hello, World!</h1><p>This is <b>bold</b> and <i>italic</i> text.</p>";
+CharSequence styledText = Html.fromHtml(htmlContent);
+textView.setText(styledText);
+textView.setMovementMethod(LinkMovementMethod.getInstance()); // Handle clicks on links
+```
+
 ### EditText
 
 - `android:inputType` - specify the type of the data. Possible values are:
@@ -288,6 +304,14 @@ __Inherit Style:__
 - Theme.AppCompat.NoActionBar
 - Theme.AppCompat.Light.NoActionBar
 - Theme.AppCompat.DayNight.NoActionBar
+
+## Shape
+- `<solid>` tag specifies the fill color of the shape.
+- `<stroke>` tag defines the border width and color.
+- `<corners>` tag allows you to set the radius for rounded corners.
+- `<padding>` tag specifies the padding inside the shape.
+- `<size>` tag can define the width and height of the shape (useful for lines and rings).
+- `<shape>` is the container tag, shape type is set by `android:shape` attribute along with shape tag
 
 
 # Java Handling
