@@ -313,7 +313,15 @@ __Inherit Style:__
 - `<size>` tag can define the width and height of the shape (useful for lines and rings).
 - `<shape>` is the container tag, shape type is set by `android:shape` attribute along with shape tag
 
-
+__Rectangle:__
+```
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#e9ecf3" />
+    <corners android:radius="8dp" />
+    <stroke android:width="2dp" android:color="#c0c0c0" />
+    <padding android:left="10dp" android:top="10dp" android:right="10dp" android:bottom="10dp" />
+</shape>
+```
 # Java Handling
 ### Eventlistener
 - `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton. It should be declare outside of `onCreate` and initialize inside it.
