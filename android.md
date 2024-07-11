@@ -1,3 +1,27 @@
+# Layouts
+## LinearLayout
+It arranges its child views in a single direction, either vertically or horizontally. This makes it a straightforward choice for creating simple layouts where views are stacked in a single column or row.
+
+- `android:orientation` - determine the direction of the child view
+    - `vertical` - stack children from top to bottom
+    - `horizontal` - places children side by side from left to right
+- `android:gravity` - specify how the content should be aligned to all child views within the layout
+- `android:layout_gravity` - specify how the content should be aligned to individual child views.
+- `android:layout_weight` -  distribute space among child views. It allows you to specify how much of the extra space in the layout should be allocated to each child view. This attribute only works when the size of the view is set to `0dp`
+- `android:weightSum` - defines the total weight of all child views.
+
+LinearLayout is easy to understand and implement. It provides a predictable way to arrange views in a single direction. Allows for easy alignment of child views along a single axis. But LinearLayout lead to poor performance, as the layout becomes more complex and takes longer to render.
+## RelativeLayout
+It allows you to position and size child views in relation to each other or to the parent container.
+
+- `android:layout_alignParentTop`, `android:layout_alignParentBottom`, `android:layout_alignParentLeft`, `android:layout_alignParentRight` - Aligns the child view to the corresponding edge of the __parent__.
+- `android:layout_centerInParent`, `android:layout_centerHorizontal`, `android:layout_centerVertical` - Centers the child view in the __parent__, either completely or along one axis.
+- `android:layout_above`, `android:layout_below`, `android:layout_toLeftOf`, `android:layout_toRightOf` - Positions the child view relative to __another child view__.
+- `android:layout_margin`, `android:layout_marginTop`, `android:layout_marginBottom`, `android:layout_marginLeft`, `android:layout_marginRight` - Sets the space around the child view.
+- `android:layout_alignTop`, `android:layout_alignBottom`, `android:layout_alignLeft`, `android:layout_alignRight` - Aligns the edges of __two child views__.
+
+It allows for complex layouts where child views can be positioned relative to each other and to the parent. It helps to avoid deeply nested layouts, which can improve performance and useful for responsive designs where the position of views may change based on different screen sizes or orientations.
+
 # File Structure
 ```
 app
@@ -33,31 +57,6 @@ app
 └─ build.gradle
 
 ```
-# Layout
-
-### LinearLayout
-It arranges its child views in a single direction, either vertically or horizontally. This makes it a straightforward choice for creating simple layouts where views are stacked in a single column or row.
-
-- `android:orientation` - determine the direction of the child view
-    - `vertical` - stack children from top to bottom
-    - `horizontal` - places children side by side from left to right
-- `android:gravity` - specify how the content should be aligned to all child views within the layout
-- `android:layout_gravity` - specify how the content should be aligned to individual child views.
-- `android:layout_weight` -  distribute space among child views. It allows you to specify how much of the extra space in the layout should be allocated to each child view. This attribute only works when the size of the view is set to `0dp`
-- `android:weightSum` - defines the total weight of all child views.
-
-LinearLayout is easy to understand and implement. It provides a predictable way to arrange views in a single direction. Allows for easy alignment of child views along a single axis. But LinearLayout lead to poor performance, as the layout becomes more complex and takes longer to render.
-
-### RelativeLayout
-It allows you to position and size child views in relation to each other or to the parent container.
-
-- `android:layout_alignParentTop`, `android:layout_alignParentBottom`, `android:layout_alignParentLeft`, `android:layout_alignParentRight` - Aligns the child view to the corresponding edge of the __parent__.
-- `android:layout_centerInParent`, `android:layout_centerHorizontal`, `android:layout_centerVertical` - Centers the child view in the __parent__, either completely or along one axis.
-- `android:layout_above`, `android:layout_below`, `android:layout_toLeftOf`, `android:layout_toRightOf` - Positions the child view relative to __another child view__.
-- `android:layout_margin`, `android:layout_marginTop`, `android:layout_marginBottom`, `android:layout_marginLeft`, `android:layout_marginRight` - Sets the space around the child view.
-- ``android:layout_alignTop`, `android:layout_alignBottom`, `android:layout_alignLeft`, `android:layout_alignRight` - Aligns the edges of __two child views__.
-
-It allows for complex layouts where child views can be positioned relative to each other and to the parent. It helps to avoid deeply nested layouts, which can improve performance and useful for responsive designs where the position of views may change based on different screen sizes or orientations.
 
 ### TableLayout
 A type of `ViewGroup` that arranges it's child in grid format.  It organizes views into rows and columns, and allows for complex layouts where alignment and spacing are important.
