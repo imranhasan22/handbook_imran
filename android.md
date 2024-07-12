@@ -22,6 +22,25 @@ It allows you to position and size child views in relation to each other or to t
 
 It allows for complex layouts where child views can be positioned relative to each other and to the parent. It helps to avoid deeply nested layouts, which can improve performance and useful for responsive designs where the position of views may change based on different screen sizes or orientations.
 
+# Views
+## ZoomControls
+```
+//  <ZoomControls android:id="@+id/zoomControls" />
+private ZoomControls zoomControls = findViewById(R.id.zoomControls);
+zoomControls.getChildAt(0).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(MainActivity.this, "Zoom Out", Toast.LENGTH_LONG).show();
+    }
+});
+zoomControls.getChildAt(1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(MainActivity.this, "Zoom In", Toast.LENGTH_LONG).show();
+    }
+});
+```
+
 # File Structure
 ```
 app
