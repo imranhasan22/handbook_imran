@@ -1,3 +1,8 @@
+- ViewGroup
+    - [ListView](https://github.com/masum184e/programming_notes/blob/main/android.md#listview)
+    - [ScrollView](https://github.com/masum184e/programming_notes/blob/main/android.md#scrollview)
+
+
 # Layouts
 ## LinearLayout
 It arranges its child views in a single direction, either vertically or horizontally. This makes it a straightforward choice for creating simple layouts where views are stacked in a single column or row.
@@ -21,7 +26,6 @@ It allows you to position and size child views in relation to each other or to t
 - `android:layout_alignTop`, `android:layout_alignBottom`, `android:layout_alignLeft`, `android:layout_alignRight` - Aligns the edges of __two child views__.
 
 It allows for complex layouts where child views can be positioned relative to each other and to the parent. It helps to avoid deeply nested layouts, which can improve performance and useful for responsive designs where the position of views may change based on different screen sizes or orientations.
-
 # ViewGroup
 ## ListView
 Each item in the list is an instance of View, which by default is a TextView but can be any layout.
