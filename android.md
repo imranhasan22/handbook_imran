@@ -41,7 +41,50 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
    });
 ```
 The `simple_list_item_1` layout is defined in the Android SDK. You don't need to create or modify it. You can directly use it in your adapters. It consists of a single TextView element that is used to display the text of each item in the list. It's the layout for list item, you can use your own layout also
+## ScrollView
+A view group that allows the view hierarchy placed within it to be scrolled vertically. 
+## HorizontalScrollView 
+A view group that allows the view hierarchy placed within it to be scrolled horizontally.
 
+It  can only contain a `single` child view or a single layout. Avoid nesting ScrollView with other scrollable views, as it can lead to performance issues and an unpredictable user experience.
+```
+scrollView.setLayoutParams(new ScrollView.LayoutParams(ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT));
+LinearLayout linearLayout = new LinearLayout(this);
+linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+for (int i = 1; i <= 20; i++) {
+    TextView textView = new TextView(this);
+    textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+    textView.setText("Item " + i);
+    linearLayout.addView(textView);
+}
+scrollView.addView(linearLayout);
+setContentView(scrollView);
+```
+__Attributes:__
+- `android:fillViewport`: If set to true, the ScrollView will stretch its content to fill the viewport.
+- `android:scrollbars`: Allows you to specify the visibility and style of scrollbars (e.g., none, vertical, horizontal).
+__Methods:__
+- `scrollTo(int x, int y)`: Scroll to the specified position.
+- `smoothScrollTo(int x, int y)`: Smoothly scroll to the specified position.
+- `fullScroll(int direction)`: Scroll to the beginning or end of the scroll view.
+__Smooth Scrolling:__
+```
+goBottomButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.smoothScrollTo(0, scrollView.getBottom());
+                //  scrollView.smoothScrollTo(0, 500); // Smooth scroll to 500 pixels down
+                //  horizontalScrollView.smoothScrollTo(horizontalScrollView.getChildAt(0).getWidth(), 0);
+            }
+        });
+    }
+});
+```
 # Views
 ## ZoomControls
 ```
@@ -103,7 +146,6 @@ __XML Layout:__
 ```
 <AnalogClock android:id="@+id/analogClock" />
 ```
-
 ## TextClock
 It shows the current time in a digital format.
 __Attributes:__
@@ -128,7 +170,6 @@ __XML Layout:__
 ```
 <TextClock android:id="@+id/textClock" />
 ```
-
 # File Structure
 ```
 app
