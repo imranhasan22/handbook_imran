@@ -1,6 +1,9 @@
 - ViewGroup
     - [ListView](https://github.com/masum184e/programming_notes/blob/main/android.md#listview)
     - [ScrollView](https://github.com/masum184e/programming_notes/blob/main/android.md#scrollview)
+- Views
+    - [ZoomControls](https://github.com/masum184e/programming_notes/blob/main/android.md#zoomcontrols)
+    - [CalendarView](https://github.com/masum184e/programming_notes/blob/main/android.md#calendarview)
 
 
 # Layouts
@@ -10,8 +13,8 @@ It arranges its child views in a single direction, either vertically or horizont
 - `android:orientation` - determine the direction of the child view
     - `vertical` - stack children from top to bottom
     - `horizontal` - places children side by side from left to right
-- `android:gravity` - specify how the content should be aligned to all child views within the layout
-- `android:layout_gravity` - specify how the content should be aligned to individual child views.
+- `android:gravity` - Aligns the content of a view within its own boundaries.(use in parent)
+- `android:layout_gravity` - Aligns the view itself within its parent's boundaries.(use in child)
 - `android:layout_weight` -  distribute space among child views. It allows you to specify how much of the extra space in the layout should be allocated to each child view. This attribute only works when the size of the view is set to `0dp`
 - `android:weightSum` - defines the total weight of all child views.
 
@@ -110,9 +113,10 @@ zoomControls.getChildAt(1).setOnClickListener(new View.OnClickListener() {
 ## CalendarView
 __Attributes:__
 - `android:firstDayOfWeek`: Sets the first day of the week.
-- `android:minDate`: Sets the minimum date.
-- `android:maxDate`: Sets the maximum date.
+- `android:minDate`: Limits the selectable dates to those on or after the specified date.
+- `android:maxDate`:  Limits the selectable dates to those on or before the specified date.
 - `android:showWeekNumber`: Shows or hides the week numbers.
+
 __Programmatically in Java:__
 ```
 CalendarView calendarView = new CalendarView(this);
@@ -134,6 +138,7 @@ calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
     }
 });
 ```
+To change the color of selector, use theme attribute.
 ## AnalogClock
 It shows the current time using hour, minute, and second hands.
 __Programmatically in Java:__
