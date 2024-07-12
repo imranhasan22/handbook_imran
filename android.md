@@ -174,6 +174,44 @@ __XML Layout:__
 ```
 <TextClock android:id="@+id/textClock" />
 ```
+## WebView
+- `loadUrl()` - Loads the given URL
+- `webView.setWebViewClient(new WebViewClient())` - Sets a WebViewClient to handle various web events. Enable navigating multiple webpage within the application.
+- `WebSettings` - Configure various settings for the WebView.
+```
+WebSettings webSettings = webView.getSettings();
+webSettings.setJavaScriptEnabled(true); // Enable JavaScript
+webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // Disable caching
+webSettings.setDomStorageEnabled(true); // Enable DOM storage
+```
+- `Handling Back Button` - handleing back button so that it doesn't close the entire application
+```
+OnBackPressedDispatcher onBackPressedDispatcher =getOnBackPressedDispatcher();
+onBackPressedDispatcher.addCallback(this, new OnBackPressedCallback(true) {
+    @Override
+    public void handleOnBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            finish();
+        }
+    }
+});
+```
+### HTML Content
+__WebView:__
+```
+String htmlContent = "<html><body><h1>Hello, World!</h1><p>This is a sample HTML content.</p></body></html>";
+webView.loadData(htmlContent, "text/html", "UTF-8");
+// webView.loadUrl("file:///android_asset/index.html"); // Local file
+```
+__TextView:__
+```
+String htmlContent = "<h1>Hello, World!</h1><p>This is <b>bold</b> and <i>italic</i> text.</p>";
+CharSequence styledText = Html.fromHtml(htmlContent);
+textView.setText(styledText);
+textView.setMovementMethod(LinkMovementMethod.getInstance()); // Handle clicks on links
+```
 # File Structure
 ```
 app
@@ -248,47 +286,6 @@ It is designed to block out an area on the screen to display a single item. Gene
     - `fitCenter` - scale the image to fit within the view and center it.
 - `android:adjustViewBounds` - adjust the bounds to maintain the aspect ratio. Possible values are true or false.
 
-### WebView
-- `loadUrl()` - Loads the given URL
-- `webView.setWebViewClient(new WebViewClient())` - Sets a WebViewClient to handle various web events. Enable navigating multiple webpage within the application.
-- `WebSettings` - Configure various settings for the WebView.
-```
-WebSettings webSettings = webView.getSettings();
-webSettings.setJavaScriptEnabled(true); // Enable JavaScript
-webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // Disable caching
-webSettings.setDomStorageEnabled(true); // Enable DOM storage
-```
-- `Handling Back Button` - handleing back button so that it doesn't close the entire application
-```
-OnBackPressedDispatcher onBackPressedDispatcher =getOnBackPressedDispatcher();
-onBackPressedDispatcher.addCallback(this, new OnBackPressedCallback(true) {
-    @Override
-    public void handleOnBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            finish();
-        }
-    }
-});
-```
-
-### HTML Content
-__WebView:__
-```
-String htmlContent = "<html><body><h1>Hello, World!</h1><p>This is a sample HTML content.</p></body></html>";
-webView.loadData(htmlContent, "text/html", "UTF-8");
-// webView.loadUrl("file:///android_asset/index.html"); // Local file
-```
-__TextView:__
-```
-
-String htmlContent = "<h1>Hello, World!</h1><p>This is <b>bold</b> and <i>italic</i> text.</p>";
-CharSequence styledText = Html.fromHtml(htmlContent);
-textView.setText(styledText);
-textView.setMovementMethod(LinkMovementMethod.getInstance()); // Handle clicks on links
-```
-
 ### EditText
 
 - `android:inputType` - specify the type of the data. Possible values are:
@@ -337,24 +334,6 @@ textView.setMovementMethod(LinkMovementMethod.getInstance()); // Handle clicks o
 ```
 Toast.makeText(MainActivity.this, "Hello Toast", Toast.LENGTH_SHORT).show();
 ```
-
-### Adapter
-Adapter pulls the data from the source & convert into a view and then set the view into ListView/GridView/Spinner. Commonly used adapters are:
-- Array Adapter - single list item
-- Base Adapter - customized list item
-
-```
-ListView listView = findViewById(R.id.listView);
-
-String[] countries = {"USA", "Canada", "UK", "Australia", "Germany","France"};
-
-ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
-
-listView.setAdapter(adapter);
-```
-
-Adapter takes three parameters: the context (`this`), the layout for each item (`android.R.layout.simple_list_item_1` is a `built-in layout` provided by Android for a simple list item), and the array of data.
-`setAdapter()` populates the ListView with the data provided by the adapter.
 
 ### ListView
 ListView is a viewgroup that can display a list of scrollable items. Each of the item is clickable
