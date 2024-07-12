@@ -26,7 +26,7 @@ It allows for complex layouts where child views can be positioned relative to ea
 ## ListView
 Each item in the list is an instance of View, which by default is a TextView but can be any layout.
 ### ArrayAdapter
-The Adapter acts as a bridge between the UI Component and the Data Source. It converts data from the data sources into view items that can be displayed into the UI Component. Data Source can be Arrays, HashMap, Database, etc. and UI Components can be ListView, GridView, Spinner, etc. When you have a list of single type items which are stored in an array you can use ArrayAdapter. ArrayAdapter has a layout with a single TextView. If you want to have a more complex layout instead of ArrayAdapter use CustomArrayAdapter. 
+The Adapter acts as a bridge between the UI Component and the Data Source. It converts data from the data sources into view items that can be displayed into the UI Component. Data Source can be Arrays, HashMap, Database, etc. and UI Components can be ListView, GridView, Spinner, etc. When you have a list of single type items which are stored in an array you can use ArrayAdapter. ArrayAdapter has a layout with a single TextView. If you want to have a more complex layout instead of ArrayAdapter use [CustomArrayAdapter](https://www.geeksforgeeks.org/custom-arrayadapter-with-listview-in-android/). 
 ```
 private ListView listView = findViewById(R.id.listView);
 String[] items = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
