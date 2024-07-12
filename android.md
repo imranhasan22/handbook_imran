@@ -4,6 +4,8 @@
 - Views
     - [ZoomControls](https://github.com/masum184e/programming_notes/blob/main/android.md#zoomcontrols)
     - [CalendarView](https://github.com/masum184e/programming_notes/blob/main/android.md#calendarview)
+    - [AnalogClock](https://github.com/masum184e/programming_notes/blob/main/android.md#analogclock)
+    - [TextClock](https://github.com/masum184e/programming_notes/blob/main/android.md#textclock)
 
 
 # Layouts
@@ -138,9 +140,10 @@ calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
     }
 });
 ```
-To change the color of selector, use theme attribute.
+To change the color of selector, use theme attribute and to make more grip on calendar related task explore material design
 ## AnalogClock
 It shows the current time using hour, minute, and second hands.
+
 __Programmatically in Java:__
 ```
 AnalogClock analogClock = new AnalogClock(this);
@@ -158,23 +161,10 @@ __XML Layout:__
 ## TextClock
 It shows the current time in a digital format.
 __Attributes:__
-- `android:format12Hour`: Specifies the format string for 12-hour mode.
-- `android:format24Hour`: Specifies the format string for 24-hour mode.
-- `android:textColor`: Sets the color of the text.
-- `android:textSize`: Sets the size of the text.
-- `android:textStyle`: Sets the style of the text (e.g., bold, italic).
-__Programmatically in Java:__
-```
-TextClock textClock = new TextClock(this);
-textClock.setFormat12Hour("hh:mm:ss a");
-textClock.setFormat24Hour("HH:mm:ss");
-textClock.setLayoutParams(new ViewGroup.LayoutParams(
-    ViewGroup.LayoutParams.WRAP_CONTENT,
-    ViewGroup.LayoutParams.WRAP_CONTENT
-));
-LinearLayout layout = findViewById(R.id.linearLayout);
-layout.addView(textClock);
-```
+- `android:format12Hour`: Specifies the format string for 12-hour mode(hh:mm:ss a).
+- `android:format24Hour`: Specifies the format string for 24-hour mode(HH:mm:ss).
+- `android:timeZone` - Set time zone
+
 __XML Layout:__
 ```
 <TextClock android:id="@+id/textClock" />
