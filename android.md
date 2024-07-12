@@ -60,6 +60,74 @@ zoomControls.getChildAt(1).setOnClickListener(new View.OnClickListener() {
     }
 });
 ```
+## CalendarView
+__Attributes:__
+- `android:firstDayOfWeek`: Sets the first day of the week.
+- `android:minDate`: Sets the minimum date.
+- `android:maxDate`: Sets the maximum date.
+- `android:showWeekNumber`: Shows or hides the week numbers.
+__Programmatically in Java:__
+```
+CalendarView calendarView = new CalendarView(this);
+calendarView.setLayoutParams(new ViewGroup.LayoutParams(
+    ViewGroup.LayoutParams.MATCH_PARENT,
+    ViewGroup.LayoutParams.WRAP_CONTENT
+));
+LinearLayout layout = findViewById(R.id.linearLayout);
+layout.addView(calendarView);
+```
+__Handling Date Selection:__
+```
+CalendarView calendarView = findViewById(R.id.calendarView);
+calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+    @Override
+    public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+        String date = dayOfMonth + "/" + (month + 1) + "/" + year;
+        Toast.makeText(MainActivity.this, "Selected date: " + date, Toast.LENGTH_SHORT).show();
+    }
+});
+```
+## AnalogClock
+It shows the current time using hour, minute, and second hands.
+__Programmatically in Java:__
+```
+AnalogClock analogClock = new AnalogClock(this);
+analogClock.setLayoutParams(new ViewGroup.LayoutParams(
+    ViewGroup.LayoutParams.WRAP_CONTENT,
+    ViewGroup.LayoutParams.WRAP_CONTENT
+));
+LinearLayout layout = findViewById(R.id.linearLayout);
+layout.addView(analogClock);
+```
+__XML Layout:__
+```
+<AnalogClock android:id="@+id/analogClock" />
+```
+
+## TextClock
+It shows the current time in a digital format.
+__Attributes:__
+- `android:format12Hour`: Specifies the format string for 12-hour mode.
+- `android:format24Hour`: Specifies the format string for 24-hour mode.
+- `android:textColor`: Sets the color of the text.
+- `android:textSize`: Sets the size of the text.
+- `android:textStyle`: Sets the style of the text (e.g., bold, italic).
+__Programmatically in Java:__
+```
+TextClock textClock = new TextClock(this);
+textClock.setFormat12Hour("hh:mm:ss a");
+textClock.setFormat24Hour("HH:mm:ss");
+textClock.setLayoutParams(new ViewGroup.LayoutParams(
+    ViewGroup.LayoutParams.WRAP_CONTENT,
+    ViewGroup.LayoutParams.WRAP_CONTENT
+));
+LinearLayout layout = findViewById(R.id.linearLayout);
+layout.addView(textClock);
+```
+__XML Layout:__
+```
+<TextClock android:id="@+id/textClock" />
+```
 
 # File Structure
 ```
