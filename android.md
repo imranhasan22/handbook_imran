@@ -1,3 +1,15 @@
+# XML - eXtensible Markup Language
+It is a versatile markup language primarily designed to store and transport data.
+- XML files often start with a prolog defining the XML version and encoding.(__<?xml version="1.0" encoding="UTF-8"?>__)
+- It allows users to define their own customized tags, similar to HTML, but not need to be predefined.
+- XML documents are structured hierarchically. There is one root element, and all other elements are nested within it.
+- It is `case-sensitive`
+
+XML used in android development primarily for defining the user interface (UI) layouts and resource files.
+
+`xmlns`(XML Namespace) is a mechanism in XML to avoid element name conflicts by qualifying names that may have the same name but different meanings or contexts.
+
+# Index
 - ViewGroup
     - [ListView](https://github.com/masum184e/programming_notes/blob/main/android.md#listview)
     - [ScrollView](https://github.com/masum184e/programming_notes/blob/main/android.md#scrollview)
