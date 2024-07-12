@@ -22,6 +22,26 @@ It allows you to position and size child views in relation to each other or to t
 
 It allows for complex layouts where child views can be positioned relative to each other and to the parent. It helps to avoid deeply nested layouts, which can improve performance and useful for responsive designs where the position of views may change based on different screen sizes or orientations.
 
+# ViewGroup
+## ListView
+Each item in the list is an instance of View, which by default is a TextView but can be any layout.
+### ArrayAdapter
+The Adapter acts as a bridge between the UI Component and the Data Source. It converts data from the data sources into view items that can be displayed into the UI Component. Data Source can be Arrays, HashMap, Database, etc. and UI Components can be ListView, GridView, Spinner, etc. When you have a list of single type items which are stored in an array you can use ArrayAdapter. ArrayAdapter has a layout with a single TextView. If you want to have a more complex layout instead of ArrayAdapter use CustomArrayAdapter. 
+```
+private ListView listView = findViewById(R.id.listView);
+String[] items = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
+ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+listView.setAdapter(adapter);
+listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       @Override
+       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+           String selectedItem = (String) parent.getItemAtPosition(position);
+           Toast.makeText(MainActivity.this, "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+       }
+   });
+```
+The `simple_list_item_1` layout is defined in the Android SDK. You don't need to create or modify it. You can directly use it in your adapters. It consists of a single TextView element that is used to display the text of each item in the list. It's the layout for list item, you can use your own layout also
+
 # Views
 ## ZoomControls
 ```
