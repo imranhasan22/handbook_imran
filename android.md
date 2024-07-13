@@ -23,6 +23,9 @@ XML used in android development primarily for defining the user interface (UI) l
     - [CalendarView](https://github.com/masum184e/programming_notes/blob/main/android.md#calendarview)
     - [AnalogClock](https://github.com/masum184e/programming_notes/blob/main/android.md#analogclock)
     - [TextClock](https://github.com/masum184e/programming_notes/blob/main/android.md#textclock)
+    - [TextView](https://github.com/masum184e/programming_notes/blob/main/android.md#textview)
+    - [ImageView](https://github.com/masum184e/programming_notes/blob/main/android.md#imageview)
+
 
 
 # Layouts
