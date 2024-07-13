@@ -133,6 +133,7 @@ goBottomButton.setOnClickListener(new View.OnClickListener() {
     }
 });
 ```
+
 # Views
 ## ZoomControls
 ```
@@ -246,6 +247,25 @@ CharSequence styledText = Html.fromHtml(htmlContent);
 textView.setText(styledText);
 textView.setMovementMethod(LinkMovementMethod.getInstance()); // Handle clicks on links
 ```
+## TextView
+- `android:text` - sets the initial text displayed by the View
+- `android:layout_width` or `android:layout_height` - sets the widht and height of the view. Possible values are:
+    - `match_parent` - it will set the entire height/width of parent view 
+    - `wrap_content`- it will set the space as much as needed
+- `android:id` - assigned identifier is used to refer the view in java/kotlin
+- `android:textColor` - sets the color of the text.
+- `android:textSize` - sets the font size of the text.
+- `android:visibility` - control the visibility. Possible values are `visible`, `invisible`, `gone`.
+- `android:backgroundTint` - specify a color overlay to the background of drawable item.
+## ImageView
+- `android:src` - specify the image to be displayed
+- `android:scaleType` - control how an image is resized. Possible values are:
+    - `fitXY` - scale the image to fit exactly within the view
+    - `fitStart` - scale the image to fit within the view and align it to the top left.
+    - `fitEnd` - scale the image to fit within the view and align it to the bottom right.
+    - `fitCenter` - scale the image to fit within the view and center it.
+- `android:adjustViewBounds` - adjust the bounds to maintain the aspect ratio. Possible values are true or false.
+
 # File Structure
 ```
 app
@@ -299,26 +319,6 @@ It is designed to block out an area on the screen to display a single item. Gene
 - `android:measureAllChildren`
 
 # View
-### TextView
-
-- `android:text` - sets the initial text displayed by the View
-- `android:layout_width` or `android:layout_height` - sets the widht and height of the view. Possible values are:
-    - `match_parent` - it will set the entire height/width of parent view 
-    - `wrap_content`- it will set the space as much as needed
-- `android:id` - assigned identifier is used to refer the view in java/kotlin
-- `android:textColor` - sets the color of the text.
-- `android:textSize` - sets the font size of the text.
-- `android:visibility` - control the visibility. Possible values are `visible`, `invisible`, `gone`.
-- `android:backgroundTint` - specify a color overlay to the background of drawable item.
-
-### ImageView
-- `android:src` - specify the image to be displayed
-- `android:scaleType` - control how an image is resized. Possible values are:
-    - `fitXY` - scale the image to fit exactly within the view
-    - `fitStart` - scale the image to fit within the view and align it to the top left.
-    - `fitEnd` - scale the image to fit within the view and align it to the bottom right.
-    - `fitCenter` - scale the image to fit within the view and center it.
-- `android:adjustViewBounds` - adjust the bounds to maintain the aspect ratio. Possible values are true or false.
 
 ### EditText
 
