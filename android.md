@@ -43,6 +43,27 @@ It allows you to position and size child views in relation to each other or to t
 - `android:layout_alignTop`, `android:layout_alignBottom`, `android:layout_alignLeft`, `android:layout_alignRight` - Aligns the edges of __two child views__.
 
 It allows for complex layouts where child views can be positioned relative to each other and to the parent. It helps to avoid deeply nested layouts, which can improve performance and useful for responsive designs where the position of views may change based on different screen sizes or orientations.
+## ConstraintLayout
+It allows you to position and size widgets in a flexible way without nesting multiple layouts. Widgets can be constrained to each other or the parent layout. This allows for precise control over the positioning. It reduce the hierchy of view group.
+
+- `tools:layout_editor_absoluteX`, `layout_editor_absoluteY` are ignorable, it has no effect in run time.
+- `Inferror Constraints` button set the view where it is in the layout.
+- Must constraint the view horizontally & vertically
+
+[Explore More](https://www.geeksforgeeks.org/constraintlayout-in-android/)
+
+## GridLayout
+__Parent Attributes:__
+- `android:rowCount`: Specifies the total number of rows in the grid.
+- `android:columnCount`: Specifies the total number of columns in the grid.
+__Child Attributes:__
+- `layout_row`: Defines the row index of a child.
+- `layout_column`: Defines the column index of a child.
+- `layout_rowSpan`: Specifies how many rows the child should span.
+- `layout_columnSpan`: Specifies how many columns the child should span.
+
+It's depricated use __flow__ property of __constraint layout__.
+
 # ViewGroup
 ## ListView
 Each item in the list is an instance of View, which by default is a TextView but can be any layout.
