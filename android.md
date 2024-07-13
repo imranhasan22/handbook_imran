@@ -10,6 +10,11 @@ XML used in android development primarily for defining the user interface (UI) l
 `xmlns`(XML Namespace) is a mechanism in XML to avoid element name conflicts by qualifying names that may have the same name but different meanings or contexts.
 
 # Index
+- Layout
+    - [LinearyLayout](https://github.com/masum184e/programming_notes/blob/main/android.md#linearlayout)
+    - [RelativeLayout](https://github.com/masum184e/programming_notes/blob/main/android.md#relativelayout)
+    - [ConstraintLayout](https://github.com/masum184e/programming_notes/blob/main/android.md#constraintlayout)
+    - [GridLayout](https://github.com/masum184e/programming_notes/blob/main/android.md#gridlayout)
 - ViewGroup
     - [ListView](https://github.com/masum184e/programming_notes/blob/main/android.md#listview)
     - [ScrollView](https://github.com/masum184e/programming_notes/blob/main/android.md#scrollview)
@@ -56,6 +61,7 @@ It allows you to position and size widgets in a flexible way without nesting mul
 __Parent Attributes:__
 - `android:rowCount`: Specifies the total number of rows in the grid.
 - `android:columnCount`: Specifies the total number of columns in the grid.
+
 __Child Attributes:__
 - `layout_row`: Defines the row index of a child.
 - `layout_column`: Defines the column index of a child.
