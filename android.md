@@ -15,6 +15,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [RelativeLayout](https://github.com/masum184e/programming_notes/blob/main/android.md#relativelayout)
     - [ConstraintLayout](https://github.com/masum184e/programming_notes/blob/main/android.md#constraintlayout)
     - [GridLayout](https://github.com/masum184e/programming_notes/blob/main/android.md#gridlayout)
+    - [AbsoluteLayout](https://github.com/masum184e/programming_notes/blob/main/android.md#absolutelayout)
 - ViewGroup
     - [ListView](https://github.com/masum184e/programming_notes/blob/main/android.md#listview)
     - [ScrollView](https://github.com/masum184e/programming_notes/blob/main/android.md#scrollview)
@@ -59,7 +60,6 @@ It allows you to position and size widgets in a flexible way without nesting mul
 - Must constraint the view horizontally & vertically
 
 [Explore More](https://www.geeksforgeeks.org/constraintlayout-in-android/)
-
 ## GridLayout
 __Parent Attributes:__
 - `android:rowCount`: Specifies the total number of rows in the grid.
@@ -72,7 +72,14 @@ __Child Attributes:__
 - `layout_columnSpan`: Specifies how many columns the child should span.
 
 It's depricated use __flow__ property of __constraint layout__.
-
+## AbsoluteLayout
+It allow to specify the exact x and y coordinates for each view within the layout. Each child view is positioned based on its x and y coordinates.
+```
+<AbsoluteLayout>
+    <Button android:layout_x="50dp" android:layout_y="50dp"/>
+</AbsoluteLayout>
+```
+Absolute Layout is __deprecated__ because it does not support screen size and resolution changes well. 
 # ViewGroup
 ## ListView
 Each item in the list is an instance of View, which by default is a TextView but can be any layout.
@@ -136,7 +143,6 @@ goBottomButton.setOnClickListener(new View.OnClickListener() {
     }
 });
 ```
-
 # Views
 ## ZoomControls
 ```
