@@ -27,8 +27,9 @@ XML used in android development primarily for defining the user interface (UI) l
     - [TextView](https://github.com/masum184e/programming_notes/blob/main/android.md#textview)
     - [ImageView](https://github.com/masum184e/programming_notes/blob/main/android.md#imageview)
     - [RatingBar](https://github.com/masum184e/programming_notes/blob/main/android.md#ratingbar)
-
-
+    - [SeekBar](https://github.com/masum184e/programming_notes/blob/main/android.md#seekbar)
+    - [ProgressBar](https://github.com/masum184e/programming_notes/blob/main/android.md#progressbar)
+    - [Switch](https://github.com/masum184e/programming_notes/blob/main/android.md#switch)
 
 # Layouts
 ## LinearLayout
@@ -292,6 +293,76 @@ ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener()
 });
 ```
 
+## SeekBar
+It's as same as input type range in HTML
+- `android:max`: Sets the maximum value of the SeekBar.
+- `android:progress`: Sets the initial progress value of the SeekBar.
+- `android:thumb`: Sets a drawable for the thumb.
+- `android:progressDrawable`: Sets a drawable for the progress line.
+
+__Interact with Java:__
+```
+seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        // Handle progress change
+        Toast.makeText(getApplicationContext(), "Progress: " + progress, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        // Handle start of tracking touch
+        Toast.makeText(MainActivity.this, "Start Track Touched", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        // Handle stop of tracking touch
+        Toast.makeText(MainActivity.this, "Stop Track Touched", Toast.LENGTH_LONG).show();
+    }
+});
+```
+
+- `onProgressChanged` - handle the change of the progress
+- `onStartTrackingTouch` - handle the tracking touch of the progress
+- `onStopTrackingTouch` - handle the stop tracking touch of the progress
+
+## ProgressBar
+-  `android:max`: Sets the maximum value of the determinate ProgressBar.
+-  `android:progress`: Sets the initial progress value of the determinate ProgressBar.
+-  `android:indeterminate`: If set to true, the ProgressBar is indeterminate.
+-  `android:progressDrawable`: Sets a drawable for the progress indicator.
+-  `android:indetermin ateDrawable`: Sets a drawable for the indeterminate progress indicator.
+
+__Interact with Java:__
+- `getProgress()`, `setProgress()` - perform task following their name 
+
+## Switch
+It is a subclass of `CompoundButton`
+- `android:text`: Sets the text label for the Switch.
+- `android:checked`: Sets the initial checked state of the Switch.
+- `android:thumb`: Sets a drawable for the thumb (the part that moves).
+- `android:track`: Sets a drawable for the track (the part that stays fixed).
+- `android:switchTextAppearance`: Sets the text appearance for the Switch.
+- `android:switchMinWidth`: Sets the minimum width of the Switch.
+- `android:switchPadding`: Sets the padding between the switch and the text.
+- `android:showText`: Sets whether to show text (On/Off) inside the switch.
+
+__Interact with Java:__
+```
+switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            // Switch is on
+            Toast.makeText(getApplicationContext(), "Switch is ON", Toast.LENGTH_SHORT).show();
+        } else {
+            // Switch is off
+            Toast.makeText(getApplicationContext(), "Switch is OFF", Toast.LENGTH_SHORT).show();
+        }
+    }
+});
+```
 # File Structure
 ```
 app
