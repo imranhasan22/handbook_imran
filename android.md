@@ -363,6 +363,42 @@ switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() 
     }
 });
 ```
+
+### EditText
+It is a subclass of `TextView` 
+- `android:inputType` - specify the type of the data. Possible values are:
+- `android:textCapWords` - Capitalize the first letter of each word.
+- `android:textCapCharacters` - Capitalize all characters.
+- `android:textCapSentences` - Capitalize the first letter of each sentence.
+- `android:textAutoCorrect` - Enable auto-correction.
+- `android:textMultiLine` - Allow multiple lines of text input.
+- `android:hint` - set placeholder
+- `android:text` - set the initial text
+- `android:maxLength` - specify the maximum length of the text can be entered
+- `android:imeOptions` - specify additional options for an input method editor. This will display a `Go`, `Search`, `Enter`, `Done` button on the keyboard. Possible values are `actionDone`, `actionGo`, `actionNext`, `actionSearch`, `actionSend`, `flagNoFullscreen`
+- `android:textCursorDrawble` - customize the appearance of the cursor. You need to create a custom drawable resource and apply it here.
+- `clearFocus()` - dismiss the soft keyboard if it's open
+- `getText()`, `setText()` - perform task following their name 
+
+__Interact with Java:__
+```
+editText.addTextChangedListener(new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // Do something before text is changed
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        // Do something as the text is being changed
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        // Do something after the text has changed
+    }
+});
+```
 # File Structure
 ```
 app
@@ -416,21 +452,6 @@ It is designed to block out an area on the screen to display a single item. Gene
 - `android:measureAllChildren`
 
 # View
-
-### EditText
-
-- `android:inputType` - specify the type of the data. Possible values are:
-    - `textCapWords` - Capitalize the first letter of each word.
-    - `textCapCharacters` - Capitalize all characters.
-    - `textCapSentences` - Capitalize the first letter of each sentence.
-    - `textAutoCorrect` - Enable auto-correction.
-    - `textMultiLine` - Allow multiple lines of text input.
-- `android:hint` - set placeholder
-- `android:text` - set the initial text
-- `android:maxLength` - specify the maximum length of the text can be entered
-- `android:imeOptions` - specify additional options for an input method editor. This will display a `Go`, `Search`, `Enter`, `Done` button on the keyboard. Possible values are `actionDone`, `actionGo`, `actionNext`, `actionSearch`, `actionSend`, `flagNoFullscreen`
-- `android:textCursorDrawble` - customize the appearance of the cursor. You need to create a custom drawable resource and apply it here.
-- `clearFocus()` - dismiss the soft keyboard if it's open
 
 ### Alert
 ```
