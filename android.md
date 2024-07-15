@@ -26,6 +26,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [TextClock](https://github.com/masum184e/programming_notes/blob/main/android.md#textclock)
     - [TextView](https://github.com/masum184e/programming_notes/blob/main/android.md#textview)
     - [ImageView](https://github.com/masum184e/programming_notes/blob/main/android.md#imageview)
+    - [RatingBar](https://github.com/masum184e/programming_notes/blob/main/android.md#ratingbar)
 
 
 
@@ -274,6 +275,22 @@ textView.setMovementMethod(LinkMovementMethod.getInstance()); // Handle clicks o
     - `fitEnd` - scale the image to fit within the view and align it to the bottom right.
     - `fitCenter` - scale the image to fit within the view and center it.
 - `android:adjustViewBounds` - adjust the bounds to maintain the aspect ratio. Possible values are true or false.
+## RatingBar
+- `android:numStars`: Sets the number of stars in the RatingBar.
+- `android:rating`: Sets the initial rating of the RatingBar.
+- `android:stepSize`: Sets the step size of the rating. For example, if the step size is 0.5, the rating can be 0.5, 1.0, 1.5, etc.
+- `android:isIndicator`: If set to true, the RatingBar is in indicator mode and the user cannot change the rating.
+- `android:progressDrawable`: Sets a drawable(design) to be used for the progress indicator.
+
+__Interact with Java:__
+```
+ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+    @Override
+    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+        Toast.makeText(getApplicationContext(), "Rating: " + rating, Toast.LENGTH_SHORT).show();
+    }
+});
+```
 
 # File Structure
 ```
