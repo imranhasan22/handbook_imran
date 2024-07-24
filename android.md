@@ -1,6 +1,6 @@
 # XML - eXtensible Markup Language
 It is a versatile markup language primarily designed to store and transport data.
-- XML files often start with a prolog defining the XML version and encoding.(__<?xml version="1.0" encoding="UTF-8"?>__)
+- XML files often start with a prolog defining the XML version and encoding.(__< ?xml version="1.0" encoding="UTF-8"? >__)
 - It allows users to define their own customized tags, similar to HTML, but not need to be predefined.
 - XML documents are structured hierarchically. There is one root element, and all other elements are nested within it.
 - It is `case-sensitive`
@@ -30,7 +30,9 @@ XML used in android development primarily for defining the user interface (UI) l
     - [SeekBar](https://github.com/masum184e/programming_notes/blob/main/android.md#seekbar)
     - [ProgressBar](https://github.com/masum184e/programming_notes/blob/main/android.md#progressbar)
     - [Switch](https://github.com/masum184e/programming_notes/blob/main/android.md#switch)
-
+- [Themes](https://github.com/masum184e/programming_notes/blob/main/android.md#themes)
+- [Styling](https://github.com/masum184e/programming_notes/blob/main/android.md#styling)
+- [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
 # Layouts
 ## LinearLayout
 It arranges its child views in a single direction, either vertically or horizontally. This makes it a straightforward choice for creating simple layouts where views are stacked in a single column or row.
@@ -57,11 +59,19 @@ It allows for complex layouts where child views can be positioned relative to ea
 ## ConstraintLayout
 It allows you to position and size widgets in a flexible way without nesting multiple layouts. Widgets can be constrained to each other or the parent layout. This allows for precise control over the positioning. It reduce the hierchy of view group.
 
+- `app:layout_constraintEnd_toEndOf` - make the view constraint from right
+- `app:layout_constraintBottom_toBottomOf` - make the view constraint from bottom
+- `app:layout_constraintStart_toStartOf` - make the view constraint from left
+- `app:layout_constraintTop_toTopOf` - make the view constraint from top
 - `tools:layout_editor_absoluteX`, `layout_editor_absoluteY` are ignorable, it has no effect in run time.
 - `Inferror Constraints` button set the view where it is in the layout.
 - Must constraint the view horizontally & vertically
+- __Chain__ property work like two way constraint
+- __Guideline__ property work like margin
+- View doesn't have `match_parent` property, it use `match_constraint` or `0dp` for similar task
 
 [Explore More](https://www.geeksforgeeks.org/constraintlayout-in-android/)
+
 ## GridLayout
 __Parent Attributes:__
 - `android:rowCount`: Specifies the total number of rows in the grid.
@@ -73,7 +83,7 @@ __Child Attributes:__
 - `layout_rowSpan`: Specifies how many rows the child should span.
 - `layout_columnSpan`: Specifies how many columns the child should span.
 
-It's depricated use __flow__ property of __constraint layout__.
+It's depricated, use __flow__ property of __constraint layout__.
 ## AbsoluteLayout
 It allow to specify the exact x and y coordinates for each view within the layout. Each child view is positioned based on its x and y coordinates.
 ```
@@ -81,12 +91,14 @@ It allow to specify the exact x and y coordinates for each view within the layou
     <Button android:layout_x="50dp" android:layout_y="50dp"/>
 </AbsoluteLayout>
 ```
-Absolute Layout is __deprecated__ because it does not support screen size and resolution changes well. 
+Absolute Layout is __deprecated__.
 # ViewGroup
 ## ListView
 Each item in the list is an instance of View, which by default is a TextView but can be any layout.
 ### ArrayAdapter
-The Adapter acts as a bridge between the UI Component and the Data Source. It converts data from the data sources into view items that can be displayed into the UI Component. Data Source can be Arrays, HashMap, Database, etc. and UI Components can be ListView, GridView, Spinner, etc. When you have a list of single type items which are stored in an array you can use ArrayAdapter. ArrayAdapter has a layout with a single TextView. If you want to have a more complex layout instead of ArrayAdapter use [CustomArrayAdapter](https://www.geeksforgeeks.org/custom-arrayadapter-with-listview-in-android/). 
+The Adapter acts as a bridge between the UI Component and the Data Source. It converts data from the data sources into view items that can be displayed into the UI Component. Data Source can be Arrays, HashMap, Database, etc. and UI Components can be ListView, GridView, Spinner, etc. When you have a list of single type items which are stored in an array you can use ArrayAdapter.
+
+ArrayAdapter has a layout with a single TextView. If you want to have a more complex layout instead of ArrayAdapter use [CustomArrayAdapter](https://www.geeksforgeeks.org/custom-arrayadapter-with-listview-in-android/). 
 ```
 private ListView listView = findViewById(R.id.listView);
 String[] items = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
@@ -100,7 +112,7 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
        }
    });
 ```
-The `simple_list_item_1` layout is defined in the Android SDK. You don't need to create or modify it. You can directly use it in your adapters. It consists of a single TextView element that is used to display the text of each item in the list. It's the layout for list item, you can use your own layout also
+The `simple_list_item_1` layout is defined in the Android SDK. You don't need to create or modify it. You can directly use it in your adapters. It consists of a single TextView element that is used to display the text of each item in the list. It's the layout for list item, you can use your own layout also.
 ## ScrollView
 A view group that allows the view hierarchy placed within it to be scrolled vertically. 
 ## HorizontalScrollView 
@@ -129,6 +141,7 @@ __Methods:__
 - `scrollTo(int x, int y)`: Scroll to the specified position.
 - `smoothScrollTo(int x, int y)`: Smoothly scroll to the specified position.
 - `fullScroll(int direction)`: Scroll to the beginning or end of the scroll view.
+
 __Smooth Scrolling:__
 ```
 goBottomButton.setOnClickListener(new View.OnClickListener() {
@@ -170,16 +183,7 @@ __Attributes:__
 - `android:maxDate`:  Limits the selectable dates to those on or before the specified date.
 - `android:showWeekNumber`: Shows or hides the week numbers.
 
-__Programmatically in Java:__
-```
-CalendarView calendarView = new CalendarView(this);
-calendarView.setLayoutParams(new ViewGroup.LayoutParams(
-    ViewGroup.LayoutParams.MATCH_PARENT,
-    ViewGroup.LayoutParams.WRAP_CONTENT
-));
-LinearLayout layout = findViewById(R.id.linearLayout);
-layout.addView(calendarView);
-```
+
 __Handling Date Selection:__
 ```
 CalendarView calendarView = findViewById(R.id.calendarView);
@@ -191,26 +195,15 @@ calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
     }
 });
 ```
-To change the color of selector, use theme attribute and to make more grip on calendar related task explore material design
+To change the color of selector, use theme attribute and to make more grip on calendar related task explore material design.
 ## AnalogClock
 It shows the current time using hour, minute, and second hands.
-
-__Programmatically in Java:__
-```
-AnalogClock analogClock = new AnalogClock(this);
-analogClock.setLayoutParams(new ViewGroup.LayoutParams(
-    ViewGroup.LayoutParams.WRAP_CONTENT,
-    ViewGroup.LayoutParams.WRAP_CONTENT
-));
-LinearLayout layout = findViewById(R.id.linearLayout);
-layout.addView(analogClock);
-```
-__XML Layout:__
 ```
 <AnalogClock android:id="@+id/analogClock" />
 ```
 ## TextClock
 It shows the current time in a digital format.
+
 __Attributes:__
 - `android:format12Hour`: Specifies the format string for 12-hour mode(hh:mm:ss a).
 - `android:format24Hour`: Specifies the format string for 24-hour mode(HH:mm:ss).
@@ -230,7 +223,9 @@ webSettings.setJavaScriptEnabled(true); // Enable JavaScript
 webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // Disable caching
 webSettings.setDomStorageEnabled(true); // Enable DOM storage
 ```
-- `Handling Back Button` - handleing back button so that it doesn't close the entire application
+__Handling Back Button:__
+
+Handle back button so that it doesn't close the entire application
 ```
 OnBackPressedDispatcher onBackPressedDispatcher =getOnBackPressedDispatcher();
 onBackPressedDispatcher.addCallback(this, new OnBackPressedCallback(true) {
@@ -276,6 +271,8 @@ textView.setMovementMethod(LinkMovementMethod.getInstance()); // Handle clicks o
     - `fitEnd` - scale the image to fit within the view and align it to the bottom right.
     - `fitCenter` - scale the image to fit within the view and center it.
 - `android:adjustViewBounds` - adjust the bounds to maintain the aspect ratio. Possible values are true or false.
+
+Always try to use `png` images while working with android studio.
 ## RatingBar
 - `android:numStars`: Sets the number of stars in the RatingBar.
 - `android:rating`: Sets the initial rating of the RatingBar.
@@ -332,7 +329,7 @@ seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 -  `android:progress`: Sets the initial progress value of the determinate ProgressBar.
 -  `android:indeterminate`: If set to true, the ProgressBar is indeterminate.
 -  `android:progressDrawable`: Sets a drawable for the progress indicator.
--  `android:indetermin ateDrawable`: Sets a drawable for the indeterminate progress indicator.
+-  `android:indeterminateDrawable`: Sets a drawable for the indeterminate progress indicator.
 
 __Interact with Java:__
 - `getProgress()`, `setProgress()` - perform task following their name 
@@ -344,27 +341,23 @@ It is a subclass of `CompoundButton`
 - `android:thumb`: Sets a drawable for the thumb (the part that moves).
 - `android:track`: Sets a drawable for the track (the part that stays fixed).
 - `android:switchTextAppearance`: Sets the text appearance for the Switch.
-- `android:switchMinWidth`: Sets the minimum width of the Switch.
+- `android:switchMinWidth`: Sets the minimum width of the Switch(without text).
 - `android:switchPadding`: Sets the padding between the switch and the text.
 - `android:showText`: Sets whether to show text (On/Off) inside the switch.
 
 __Interact with Java:__
 ```
-switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            // Switch is on
-            Toast.makeText(getApplicationContext(), "Switch is ON", Toast.LENGTH_SHORT).show();
-        } else {
-            // Switch is off
-            Toast.makeText(getApplicationContext(), "Switch is OFF", Toast.LENGTH_SHORT).show();
-        }
+switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+    if (isChecked) {
+        // Switch is on
+        Toast.makeText(getApplicationContext(), "Switch is ON", Toast.LENGTH_LONG).show();
+    } else {
+        // Switch is off
+        Toast.makeText(getApplicationContext(), "Switch is OFF", Toast.LENGTH_LONG).show();
     }
 });
 ```
-
-### EditText
+## EditText
 It is a subclass of `TextView` 
 - `android:inputType` - specify the type of the data. Possible values are:
 - `android:textCapWords` - Capitalize the first letter of each word.
@@ -399,6 +392,159 @@ editText.addTextChangedListener(new TextWatcher() {
     }
 });
 ```
+# Themes
+- Theme.Holo
+- Theme.Holo.Light
+- Theme.Material
+- Theme.Material.Light
+- Theme.AppCompat
+- Theme.AppCompat.Light
+- Theme.AppCompat.Light.DarkActionBar
+- Theme.AppCompat.DayNight
+- Theme.AppCompat.DayNight.DarkActionBar
+- Theme.AppCompat.NoActionBar
+- Theme.AppCompat.Light.NoActionBar
+- Theme.AppCompat.DayNight.NoActionBar
+# Styling
+Themes are applied to entire activities or applications, while styles are applied to individual views. 
+
+__Define a Style:__
+```
+<resources>
+    <style name="styleName" parent="parentName">
+        <item name="viewAttribute">attributeValue</item>
+    </style>
+</resources>
+```
+__Explore:__
+    - style theme
+    - style activity
+    - style view
+    
+Set the style to an activity with `android.theme` attribute
+
+__Inherit Style:__
+```
+<resources>
+    <style name="styleName" parent="parentStyleName">
+        <item name="viewAttribute">attributeValue</item>
+    </style>
+</resources>
+```
+## Shape
+- `<solid>` tag specifies the fill color of the shape.
+- `<stroke>` tag defines the border width and color.
+- `<corners>` tag allows you to set the radius for rounded corners.
+- `<padding>` tag specifies the padding inside the shape.
+- `<size>` tag can define the width and height of the shape (useful for lines and rings).
+- `<shape>` is the container tag, shape type is set by `android:shape` attribute along with shape tag
+
+__Rectangle:__
+```
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#e9ecf3" />
+    <corners android:radius="8dp" />
+    <stroke android:width="2dp" android:color="#c0c0c0" />
+    <padding android:left="10dp" android:top="10dp" android:right="10dp" android:bottom="10dp" />
+</shape>
+```
+# Eventlistener
+- `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton.
+
+    It should be declare outside of `onCreate` and initialize inside it.
+- `myButton.setOnClickListener(new View.OnClickListener() { ... })` - sets an OnClickListener on the button called `myButton`.
+
+## Handling Multiple Eventlistner
+
+- __Implement the Listener Interfaces:__ Implement the listener interfaces for the events you want to handle. For example, if you want to handle click events on buttons, you'll implement the View.OnClickListener interface.
+```
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    ...
+}
+```
+- __Register the Listeners:__ Register the listener instances with the appropriate views.
+```
+Button myButton = findViewById(R.id.myButton);
+myButton.setOnClickListener(this);
+```
+
+- __Override the Listener Methods:__ Implement the required methods of the listener interfaces which will contain the logic that you want to execute when the corresponding events occur.
+```
+@Override
+public void onClick(View view) {
+    ...
+}
+```
+__Boilerplate:__
+```
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    Button myButton = findViewById(R.id.myButton);
+    myButton.setOnClickListener(this);
+  }
+
+  @Override
+  public void onClick(View view) {
+    if(v.getId()==R.id.myButton){
+      myText.setText("Button is clicked");
+    }
+  }
+}
+```
+## Inner Class
+- __Instantiate the Inner Class and Set the Listener:__ Instantiate an object of the inner class and set it as the listener for the view using the `setOnClickListener` method.
+```
+myButton.setOnClickListener(new MyButtonClickListener());
+```
+- __Define the Inner Class:__ Define an inner class within your activity class. It will implement the interface corresponding to the event you want to handle. In this case, we're handling click events, so the inner class implements View.OnClickListener.
+```
+private class MyButtonClickListener implements View.OnClickListener {
+    @Override
+    public void onClick(View view) {
+        ...
+    }
+}
+
+```
+
+__Boilerplate:__
+```
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ...
+        myButton.setOnClickListener(new MyButtonClickListener());
+    }
+
+    private class MyButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if(v.getId()==R.id.myButton){
+                myText.setText("Button is clicked");
+            }
+        }
+    }
+}
+```
+## Event Handler in XML
+__XML:__
+```
+<Button ... android:onClick="onButtonClick" />
+```
+__JAVA:__
+```
+public void onButtonClick(View view) {
+  Toast.makeText(this, "Button clicked", Toast.LENGTH_SHORT).show();
+}
+```
+## View Methods
+- `setText()`, `setTextColor()`, `setTextSize()`, `getText()`, `getTextSize()`, `getCurrentTextColor()` - methods works by following their name
+- `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
+- `setTypeface()` - set the font
+- `getId()` - gets the view ID
 # File Structure
 ```
 app
@@ -508,23 +654,6 @@ Accessing the data container:
 ```
 String[] items = getResources().getStringArray(R.array.list_container);
 ```
-
-Apply Eventlistner on each item:
-```
-listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String selectedItem = (String) parent.getItemAtPosition(position);
-
-        Toast.makeText(MainActivity.this, "Selected item: " + selectedItem, Toast.LENGTH_SHORT).show();
-
-        Intent intent = new Intent(MainActivity.this, AnotherActivity.class);
-        intent.putExtra("SELECTED_ITEM", selectedItem);
-        startActivity(intent);
-                }
-        });
-```
-
 # Toast
 ### Custom Toast
 1. __Custom Layout for Toast:__
@@ -547,163 +676,6 @@ customToast.setGravity(Gravity.CENTER, 0, 0);
 customToast.setView(layout);
 customToast.show();
 ```
-
-# Styling
-Themes are applied to entire activities or applications, while styles are applied to individual views. 
-__Define a Style:__
-```
-<resources>
-    <style name="styleName" parent="parentName">
-        <item name="viewAttribute">attributeValue</item>
-    </style>
-</resources>
-```
-Explore:
-    - style theme
-    - style activity
-    - style view
-    
-Set the style to an activity with `android.theme` attribute
-__Inherit Style:__
-```
-<resources>
-    <style name="styleName" parent="parentStyleName">
-        <item name="viewAttribute">attributeValue</item>
-    </style>
-</resources>
-```
-
-## Themes
-- Theme.Holo
-- Theme.Holo.Light
-- Theme.Material
-- Theme.Material.Light
-- Theme.AppCompat
-- Theme.AppCompat.Light
-- Theme.AppCompat.Light.DarkActionBar
-- Theme.AppCompat.DayNight
-- Theme.AppCompat.DayNight.DarkActionBar
-- Theme.AppCompat.NoActionBar
-- Theme.AppCompat.Light.NoActionBar
-- Theme.AppCompat.DayNight.NoActionBar
-
-## Shape
-- `<solid>` tag specifies the fill color of the shape.
-- `<stroke>` tag defines the border width and color.
-- `<corners>` tag allows you to set the radius for rounded corners.
-- `<padding>` tag specifies the padding inside the shape.
-- `<size>` tag can define the width and height of the shape (useful for lines and rings).
-- `<shape>` is the container tag, shape type is set by `android:shape` attribute along with shape tag
-
-__Rectangle:__
-```
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#e9ecf3" />
-    <corners android:radius="8dp" />
-    <stroke android:width="2dp" android:color="#c0c0c0" />
-    <padding android:left="10dp" android:top="10dp" android:right="10dp" android:bottom="10dp" />
-</shape>
-```
-# Java Handling
-### Eventlistener
-- `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton. It should be declare outside of `onCreate` and initialize inside it.
-- `myButton.setOnClickListener(new View.OnClickListener() { ... })` - sets an OnClickListener on the button called `myButton`.
-
-### Handling Multiple Eventlistner
-
-- __Implement the Listener Interfaces:__ implement the listener interfaces for the events you want to handle. For example, if you want to handle click events on buttons, you'll implement the View.OnClickListener interface.
-```
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    ...
-}
-```
-- __Register the Listeners:__ Register the listener instances with the appropriate views.
-```
-Button myButton = findViewById(R.id.myButton);
-myButton.setOnClickListener(this);
-```
-
-- __Override the Listener Methods:__ Implement the required methods of the listener interfaces which will contain the logic that you want to execute when the corresponding events occur.
-```
-@Override
-public void onClick(View view) {
-    ...
-}
-```
-__Boilerplate:__
-```
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    Button myButton = findViewById(R.id.myButton);
-    myButton.setOnClickListener(this);
-  }
-
-  @Override
-  public void onClick(View view) {
-    if(v.getId()==R.id.myButton){
-      myText.setText("Button is clicked");
-    }
-  }
-}
-```
-
-### Inner Class
-- __Instantiate the Inner Class and Set the Listener:__ Instantiate an object of the inner class and set it as the listener for the view using the `setOnClickListener` method.
-```
-myButton.setOnClickListener(new MyButtonClickListener());
-```
-- __Define the Inner Class:__ Define an inner class within your activity class. It will implement the interface corresponding to the event you want to handle. In this case, we're handling click events, so the inner class implements View.OnClickListener.
-```
-private class MyButtonClickListener implements View.OnClickListener {
-    @Override
-    public void onClick(View view) {
-        ...
-    }
-}
-
-```
-
-__Boilerplate:__
-```
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        ...
-        myButton.setOnClickListener(new MyButtonClickListener());
-    }
-
-    private class MyButtonClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            if(v.getId()==R.id.myButton){
-                myText.setText("Button is clicked");
-            }
-        }
-    }
-}
-
-```
-
-### Event Handler in XML
-__XML:__
-```
-<Button ... android:onClick="onButtonClick" />
-```
-__JAVA:__
-```
-public void onButtonClick(View view) {
-  Toast.makeText(this, "Button clicked", Toast.LENGTH_SHORT).show();
-}
-```
-
-### View Methods
-- `setText()`, `setTextColor()`, `setTextSize()`, `getText()`, `getTextSize()`, `getCurrentTextColor()` - methods works by following their name
-- `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
-- `setTypeface()` - set the font
-- `getId()` - gets the view ID
 
 # Logging
 It allow developers to track the flow of their application, debug issues, and monitor behavior during runtime. Android provides a built-in logging framework through the `android.util.Log` class, which allows developers to output log messages of varying severity levels.
