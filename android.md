@@ -30,9 +30,11 @@ XML used in android development primarily for defining the user interface (UI) l
     - [SeekBar](https://github.com/masum184e/programming_notes/blob/main/android.md#seekbar)
     - [ProgressBar](https://github.com/masum184e/programming_notes/blob/main/android.md#progressbar)
     - [Switch](https://github.com/masum184e/programming_notes/blob/main/android.md#switch)
+    - [DatePicker](https://github.com/masum184e/programming_notes/blob/main/android.md#datepicker)
 - [Themes](https://github.com/masum184e/programming_notes/blob/main/android.md#themes)
 - [Styling](https://github.com/masum184e/programming_notes/blob/main/android.md#styling)
 - [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
+- [Database](https://github.com/masum184e/programming_notes/blob/main/android.md#database)
 # Layouts
 ## LinearLayout
 It arranges its child views in a single direction, either vertically or horizontally. This makes it a straightforward choice for creating simple layouts where views are stacked in a single column or row.
@@ -559,6 +561,49 @@ public void onButtonClick(View view) {
 - `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
 - `setTypeface()` - set the font
 - `getId()` - gets the view ID
+# Database
+## SharedPreferences
+It is used for storing small amounts of primitive data in key-value pairs. You can use it for storing user setting, last score, location caching
+
+__Store Data:__
+```
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.putString("key", "value");
+editor.putInt("key", 123);
+editor.apply();  // or editor.commit();
+```
+__Retrieve Data:__
+```
+SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+if(sharedPreferences.contains("key")){
+  String value = sharedPreferences.getString("key", "default_value");
+  int number = sharedPreferences.getInt("key",123);
+}
+```
+## Internal Storage - File
+Use internal storage to store private data within the device's internal memory.
+
+__Store Data:__
+```
+String filename = "myfile.txt";
+String fileContents = "Hello World!";
+FileOutputStream fos = openFileOutput(filename, Context.MODE_PRIVATE);
+fos.write(fileContents.getBytes());
+fos.close();
+```
+__Retrieve Data:__
+```
+String filename = "myfile.txt";
+FileInputStream fis = openFileInput(filename);
+InputStreamReader isr = new InputStreamReader(fis);
+BufferedReader bufferedReader = new BufferedReader(isr);
+StringBuilder sb = new StringBuilder();
+String line;
+while ((line = bufferedReader.readLine()) != null) {
+    sb.append(line);
+}
+String fileContents = sb.toString();
+```
 # File Structure
 ```
 app
@@ -826,50 +871,6 @@ public class SecondActivity extends AppCompatActivity {
 ```
 
 `onCreate`, `onStart`, `onResume`, `onPause`, `onStop`, `onRestart`, `onDestroy` all are the instances of activity class. As you use onCreate method for initial rendering.
-
-# Database
-## SharedPreferences
-It is used for storing small amounts of primitive data in key-value pairs. You can use it for storing user setting, last score, location caching
-
-__Store Data:__
-```
-SharedPreferences.Editor editor = sharedPreferences.edit();
-editor.putString("key", "value");
-editor.putInt("key", 123);
-editor.apply();  // or editor.commit();
-```
-__Retrieve Data:__
-```
-SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-if(sharedPreferences.contains("key")){
-  String value = sharedPreferences.getString("key", "default_value");
-  int number = sharedPreferences.getInt("key",123);
-}
-```
-## Internal Storage - File
-Use internal storage to store private data within the device's internal memory.
-
-__Store Data:__
-```
-String filename = "myfile.txt";
-String fileContents = "Hello World!";
-FileOutputStream fos = openFileOutput(filename, Context.MODE_PRIVATE);
-fos.write(fileContents.getBytes());
-fos.close();
-```
-__Retrieve Data:__
-```
-String filename = "myfile.txt";
-FileInputStream fis = openFileInput(filename);
-InputStreamReader isr = new InputStreamReader(fis);
-BufferedReader bufferedReader = new BufferedReader(isr);
-StringBuilder sb = new StringBuilder();
-String line;
-while ((line = bufferedReader.readLine()) != null) {
-    sb.append(line);
-}
-String fileContents = sb.toString();
-```
 
 # AndroidManifest.xml
 ## Tags
