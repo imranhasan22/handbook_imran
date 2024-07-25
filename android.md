@@ -31,6 +31,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [ProgressBar](https://github.com/masum184e/programming_notes/blob/main/android.md#progressbar)
     - [Switch](https://github.com/masum184e/programming_notes/blob/main/android.md#switch)
     - [DatePicker](https://github.com/masum184e/programming_notes/blob/main/android.md#datepicker)
+    - [NumberPicker](https://github.com/masum184e/programming_notes/blob/main/android.md#numberpicker)
 - [Themes](https://github.com/masum184e/programming_notes/blob/main/android.md#themes)
 - [Styling](https://github.com/masum184e/programming_notes/blob/main/android.md#styling)
 - [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
@@ -404,6 +405,23 @@ datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
     @Override
     public void onDateChanged(DatePicker datePicker, int year, int month, int date) {
         Toast.makeText(MainActivity.this, year+" "+month+" "+date, Toast.LENGTH_LONG).show();
+    }
+});
+```
+## NumberPicker
+It allow users to select a number from a predefined range.
+- `setMinValue` - Minimum value displayed in the NumberPicker.
+- `setMaxValue` - Maximum value displayed in the NumberPicker.
+- `setValue` - Initial value displayed in the NumberPicker.
+- `setWrapSelectorWheel` - Whether to wrap the selector wheel when reaching the minimum or maximum value.
+
+__Interact with Java:__
+```
+numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+        // Handle value change
+        selectedValueTextView.setText("Selected Value: " + newVal+" "+oldVal);
     }
 });
 ```
