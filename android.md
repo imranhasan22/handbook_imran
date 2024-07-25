@@ -63,6 +63,20 @@ It allows for complex layouts where child views can be positioned relative to ea
 ## ConstraintLayout
 It allows you to position and size widgets in a flexible way without nesting multiple layouts. Widgets can be constrained to each other or the parent layout. This allows for precise control over the positioning. It reduce the hierchy of view group.
 
+__Add Dependency:__
+```
+implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+```
+Now sync your project.
+
+__XML Layout:__
+```
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
 - `app:layout_constraintEnd_toEndOf` - make the view constraint from right
 - `app:layout_constraintBottom_toBottomOf` - make the view constraint from bottom
 - `app:layout_constraintStart_toStartOf` - make the view constraint from left
