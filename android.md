@@ -31,6 +31,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [ProgressBar](https://github.com/masum184e/programming_notes/blob/main/android.md#progressbar)
     - [Switch](https://github.com/masum184e/programming_notes/blob/main/android.md#switch)
     - [DatePicker](https://github.com/masum184e/programming_notes/blob/main/android.md#datepicker)
+    - [TimePicker](https://github.com/masum184e/programming_notes/blob/main/android.md#timepicker)
     - [NumberPicker](https://github.com/masum184e/programming_notes/blob/main/android.md#numberpicker)
 - [Themes](https://github.com/masum184e/programming_notes/blob/main/android.md#themes)
 - [Styling](https://github.com/masum184e/programming_notes/blob/main/android.md#styling)
@@ -408,12 +409,37 @@ datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
     }
 });
 ```
+## TimePicker
+- `android:timePickerMode` - Specifies whether the time picker should use a spinner or a clock-style interface.
+    - `spinner` - shows hours and minutes in a dropdown-style spinner.
+    - `clock` - provides a clock-style interface for selection.
+- `setIs24HourView(true)` - make the time in a 24-hour format.
+
+__Interact with Java:__
+```
+timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+    @Override
+    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+
+        // Format the time to 12-hour format with AM/PM
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+        String time = sdf.format(calendar.getTime());
+
+        // Show the time in a Toast message
+        Toast.makeText(MainActivity.this, "Selected time: " + time, Toast.LENGTH_LONG).show();
+    }
+});
+```
 ## NumberPicker
 It allow users to select a number from a predefined range.
 - `setMinValue` - Minimum value displayed in the NumberPicker.
 - `setMaxValue` - Maximum value displayed in the NumberPicker.
 - `setValue` - Initial value displayed in the NumberPicker.
 - `setWrapSelectorWheel` - Whether to wrap the selector wheel when reaching the minimum or maximum value.
+- `setDisplayedValues` - Sets list of values displayed in the NumberPicker.
 
 __Interact with Java:__
 ```
