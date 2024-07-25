@@ -392,6 +392,20 @@ editText.addTextChangedListener(new TextWatcher() {
     }
 });
 ```
+## DatePicker
+- `android:minDate` - The earliest selectable date.
+- `android:maxDate` - The latest selectable date.
+
+__Interact with Java:__
+```
+datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+    @Override
+    public void onDateChanged(DatePicker datePicker, int year, int month, int date) {
+        Toast.makeText(MainActivity.this, year+" "+month+" "+date, Toast.LENGTH_LONG).show();
+    }
+});
+```
+
 # Themes
 - Theme.Holo
 - Theme.Holo.Light
