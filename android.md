@@ -36,6 +36,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [NumberPicker](https://github.com/masum184e/programming_notes/blob/main/android.md#numberpicker)
     - [RadioGroup](https://github.com/masum184e/programming_notes/blob/main/android.md#radiogroup)
     - [ChipGroup](https://github.com/masum184e/programming_notes/blob/main/android.md#chipgroup)
+    - [AutoCompleteTextView](https://github.com/masum184e/programming_notes/blob/main/android.md#autocompletetextView)
 - [Themes](https://github.com/masum184e/programming_notes/blob/main/android.md#themes)
 - [Styling](https://github.com/masum184e/programming_notes/blob/main/android.md#styling)
 - [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
@@ -552,6 +553,17 @@ btn.setOnClickListener(new View.OnClickListener() {
     }
 });
 ```
+## AutoCompleteTextView
+An AutoCompleteTextView only offers suggestion about the whole text. But `MultiAutoCompleteTextView` offers multiple suggestions for the substring of the text.
+__Interact with Java:__
+```
+ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,countries);
+        AutoCompleteTextView textView=(AutoCompleteTextView)findViewById(R.id.autoComplete);
+        textView.setThreshold(3);
+        //  textViewM.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());  // USED FRO MULTIAUTOCOMPLETETEXTVIEW
+        textView.setAdapter(adapter);
+```
+- `setThreshold` - specify the number of characters after which the dropdown with the autocomplete suggestions list would be displayed. 
 # Themes
 - Theme.Holo
 - Theme.Holo.Light
