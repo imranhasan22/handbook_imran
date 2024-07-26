@@ -34,6 +34,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [DatePicker](https://github.com/masum184e/programming_notes/blob/main/android.md#datepicker)
     - [TimePicker](https://github.com/masum184e/programming_notes/blob/main/android.md#timepicker)
     - [NumberPicker](https://github.com/masum184e/programming_notes/blob/main/android.md#numberpicker)
+    - [RadioGroup](https://github.com/masum184e/programming_notes/blob/main/android.md#radiogroup)
 - [Themes](https://github.com/masum184e/programming_notes/blob/main/android.md#themes)
 - [Styling](https://github.com/masum184e/programming_notes/blob/main/android.md#styling)
 - [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
@@ -472,7 +473,27 @@ numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() 
     }
 });
 ```
-
+## RadioGroup
+Radio buttons are usually placed inside a RadioGroup to ensure that only one button can be selected at a time.
+```
+<RadioGroup
+    android:id="@+id/radioGroup"
+    >
+    <RadioButton android:text="Male" />
+    <RadioButton android:text="Female" />
+    <RadioButton android:text="Other" />
+</RadioGroup>
+```
+__Interact with Java:__
+```
+radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        RadioButton radioButton = findViewById(checkedId);
+        Toast.makeText(getApplicationContext(), "Selected: " + radioButton.getText(), Toast.LENGTH_LONG).show();
+    }
+});
+```
 # Themes
 - Theme.Holo
 - Theme.Holo.Light
