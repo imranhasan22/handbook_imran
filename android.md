@@ -30,6 +30,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [SeekBar](https://github.com/masum184e/programming_notes/blob/main/android.md#seekbar)
     - [ProgressBar](https://github.com/masum184e/programming_notes/blob/main/android.md#progressbar)
     - [Switch](https://github.com/masum184e/programming_notes/blob/main/android.md#switch)
+    - [Spinner](https://github.com/masum184e/programming_notes/blob/main/android.md#spinner)
     - [DatePicker](https://github.com/masum184e/programming_notes/blob/main/android.md#datepicker)
     - [TimePicker](https://github.com/masum184e/programming_notes/blob/main/android.md#timepicker)
     - [NumberPicker](https://github.com/masum184e/programming_notes/blob/main/android.md#numberpicker)
@@ -77,11 +78,18 @@ __XML Layout:__
     android:layout_width="match_parent" android:layout_height="match_parent">
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
+__Constratint:__
 - `app:layout_constraintEnd_toEndOf` - make the view constraint from right
 - `app:layout_constraintBottom_toBottomOf` - make the view constraint from bottom
 - `app:layout_constraintStart_toStartOf` - make the view constraint from left
 - `app:layout_constraintTop_toTopOf` - make the view constraint from top
+
+__Bias:__
+A way to control the position of the view. The bias value ranges from 0(start) to 1(end).
+- `app:layout_constraintHorizontal_bias` - control horizontal positioning.
+- `app:layout_constraintVertical_bias` - control vertical positioning.
 - `tools:layout_editor_absoluteX`, `layout_editor_absoluteY` are ignorable, it has no effect in run time.
+
 - `Inferror Constraints` button set the view where it is in the layout.
 - Must constraint the view horizontally & vertically
 - __Chain__ property work like two way constraint
@@ -307,7 +315,6 @@ ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener()
     }
 });
 ```
-
 ## SeekBar
 It's as same as input type range in HTML
 - `android:max`: Sets the maximum value of the SeekBar.
@@ -341,7 +348,6 @@ seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 - `onProgressChanged` - handle the change of the progress
 - `onStartTrackingTouch` - handle the tracking touch of the progress
 - `onStopTrackingTouch` - handle the stop tracking touch of the progress
-
 ## ProgressBar
 -  `android:max`: Sets the maximum value of the determinate ProgressBar.
 -  `android:progress`: Sets the initial progress value of the determinate ProgressBar.
@@ -351,7 +357,6 @@ seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
 __Interact with Java:__
 - `getProgress()`, `setProgress()` - perform task following their name 
-
 ## Switch
 It is a subclass of `CompoundButton`
 - `android:text`: Sets the text label for the Switch.
@@ -410,6 +415,8 @@ editText.addTextChangedListener(new TextWatcher() {
     }
 });
 ```
+## Spinner
+Spinner is like ListView but it work like `select` tag in html. They both provide a dropdown menu that allows users to select one option from a list of choices.
 ## DatePicker
 - `android:minDate` - The earliest selectable date.
 - `android:maxDate` - The latest selectable date.
