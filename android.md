@@ -35,6 +35,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [TimePicker](https://github.com/masum184e/programming_notes/blob/main/android.md#timepicker)
     - [NumberPicker](https://github.com/masum184e/programming_notes/blob/main/android.md#numberpicker)
     - [RadioGroup](https://github.com/masum184e/programming_notes/blob/main/android.md#radiogroup)
+    - [ChipGroup](https://github.com/masum184e/programming_notes/blob/main/android.md#chipgroup)
 - [Themes](https://github.com/masum184e/programming_notes/blob/main/android.md#themes)
 - [Styling](https://github.com/masum184e/programming_notes/blob/main/android.md#styling)
 - [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
@@ -491,6 +492,63 @@ radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         RadioButton radioButton = findViewById(checkedId);
         Toast.makeText(getApplicationContext(), "Selected: " + radioButton.getText(), Toast.LENGTH_LONG).show();
+    }
+});
+```
+## ChipGroup
+Chips are typically used to display tags, categories, or selections.
+
+__Types of Chips:__
+
+1. __Entry Chip:__ Used for inputting information.
+2. __Filter Chip:__ Used for filtering content.
+3. __Choice Chip:__ Used for single selection from a set.
+4. __Action Chip:__ Used to trigger actions related to primary content.
+
+__Add Dependency:__
+```
+implementation ("com.google.android.material:material:1.4.0")
+```
+Now sync your project.
+
+__XML Layout:__
+```
+<com.google.android.material.chip.ChipGroup >
+    <com.google.android.material.chip.Chip style="@style/Widget.MaterialComponents.Chip.Action" />
+    <com.google.android.material.chip.Chip style="@style/Widget.MaterialComponents.Chip.Entry" />
+    <com.google.android.material.chip.Chip style="@style/Widget.MaterialComponents.Chip.Filter" />
+<com.google.android.material.chip.ChipGroup >
+```
+__ChipGroup Attributes:__
+- `app:singleSelection` - only one chip can be selected at a time.
+- `app:selectionRequired` - at least one chip must be selected.
+
+__Chip Attributes:__
+- `app:chipIcon` - set an icon on the chip.
+- `app:chipBackgroundColor` - set the background color.
+- `app:chipStrokeColor` - set the stroke color.
+- `app:chipStrokeWidth` - set the stroke width.
+- `app:closeIconEnabled` - enable a close icon on the chip.
+- `app:closeIcon` - set a custom close icon.
+
+__Interact with Java:__
+```
+chip_group=findViewById(R.id.chip_group);
+btn=findViewById(R.id.btn);
+btn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Chip chip=new Chip(MainActivity.this);
+        chip.setText("Chip 1");
+        chip.setCloseIconVisible(true);
+
+        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chip_group.removeView(chip);
+            }
+        });
+        chip_group.addView(chip);
     }
 });
 ```
