@@ -143,6 +143,92 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
    });
 ```
 The `simple_list_item_1` layout is defined in the Android SDK. You don't need to create or modify it. You can directly use it in your adapters. It consists of a single TextView element that is used to display the text of each item in the list. It's the layout for list item, you can use your own layout also.
+### BaseAdapter
+__Layout:__
+```
+<LinearLayout>
+    <TextView android:id="@+id/title" />
+    <TextView android:id="@+id/title" />
+</LinearLayout>
+```
+__Model Class:__
+
+`@models/Item`
+```
+public class Item {
+    private String title;
+    private String description;
+
+    public Item(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
+```
+__Custom Adapter:__
+
+`@adapters/ItemAdapter`
+```
+public class ItemAdapter extends BaseAdapter {
+    private Context context;
+    private List<Item> items;
+
+    public ItemAdapter(Context context, List<Item> items) {
+        this.context = context;
+        this.items = items;
+    }
+
+    @Override
+    public int getCount() {
+        return items.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return items.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View view, ViewGroup parent) {
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false);
+            TextView title = view.findViewById(R.id.title);
+            TextView description = view.findViewById(R.id.description);
+
+            Item item = items.get(position);
+            title.setText(item.getTitle());
+            description.setText(item.getDescription());
+        }
+        return view;
+    }
+}
+```
+__Use Custom Adapter:__
+```
+List<Item> listItems = new ArrayList<>();
+listItems.add(new Item("Title 1", "Description 1"));
+listItems.add(new Item("Title 2", "Description 2"));
+listItems.add(new Item("Title 3", "Description 3"));
+listItems.add(new Item("Title 4", "Description 4"));
+
+ItemAdapter itemAdapter=new ItemAdapter(this, listItems);
+ListView listView = findViewById(R.id.listView);
+listView.setAdapter(itemAdapter);
+```
+
 ## ScrollView
 A view group that allows the view hierarchy placed within it to be scrolled vertically. 
 ## HorizontalScrollView 
@@ -737,7 +823,7 @@ public void onButtonClick(View view) {
 # Inflater
 The primary purpose of LayoutInflater is to convert an XML layout file into a view object that can be used in your activity or fragment so that you can access it programmatically.
 
-Each xml inside layout directory is not an activity. If it's an activity you can access it it by it's corresponding java file. But what about those file which is not an activity. There LayoutInflater comes, you can access those layout which are not not an activity by LayoutInflater.
+Each xml inside layout directory is not an activity. If it's an activity you can access it it by it's corresponding java file. But what about those file which is not an activity. There LayoutInflater comes, you can access those layout which are not an activity by LayoutInflater.
 
 __LayoutInflater Instance:__
 ```
