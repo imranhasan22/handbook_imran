@@ -19,6 +19,7 @@ XML used in android development primarily for defining the user interface (UI) l
 - ViewGroup
     - [ListView](https://github.com/masum184e/programming_notes/blob/main/android.md#listview)
     - [ScrollView](https://github.com/masum184e/programming_notes/blob/main/android.md#scrollview)
+    - [CardView](https://github.com/masum184e/programming_notes/blob/main/android.md#cardview)
 - Views
     - [ZoomControls](https://github.com/masum184e/programming_notes/blob/main/android.md#zoomcontrols)
     - [CalendarView](https://github.com/masum184e/programming_notes/blob/main/android.md#calendarview)
@@ -187,6 +188,23 @@ goBottomButton.setOnClickListener(new View.OnClickListener() {
     }
 });
 ```
+## CardView
+It provides a layout that includes rounded corners and a shadow, making it look elevated above other content. 
+__Add Dependency:__
+```
+implementation ("androidx.cardview:cardview:1.0.0")
+```
+__XML Layout:__
+```
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" >
+</androidx.cardview.widget.CardView>
+```
+- `cardCornerRadius`: To set the radius of the corners.
+- `cardElevation`: To set the elevation (shadow) of the card.
+- `cardBackgroundColor`: To set the background color of the card.
+- `cardMaxElevation`: To set the maximum elevation.
+- `cardUseCompatPadding`: To ensure that the content of the CardView doesn’t interfere with the card’s shadow.
+
 # Views
 ## ZoomControls
 ```
