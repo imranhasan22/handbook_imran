@@ -42,6 +42,7 @@ XML used in android development primarily for defining the user interface (UI) l
 - [Styling](https://github.com/masum184e/programming_notes/blob/main/android.md#styling)
 - [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
 - [Inflater](https://github.com/masum184e/programming_notes/blob/main/android.md#inflater)
+- [Toast](https://github.com/masum184e/programming_notes/blob/main/android.md#toast)
 - [Database](https://github.com/masum184e/programming_notes/blob/main/android.md#database)
 # Layouts
 ## LinearLayout
@@ -128,7 +129,7 @@ Each item in the list is an instance of View, which by default is a TextView but
 ### ArrayAdapter
 The Adapter acts as a bridge between the UI Component and the Data Source. It converts data from the data sources into view items that can be displayed into the UI Component. Data Source can be Arrays, HashMap, Database, etc. and UI Components can be ListView, GridView, Spinner, etc. When you have a list of single type items which are stored in an array you can use ArrayAdapter.
 
-ArrayAdapter has a layout with a single TextView. If you want to have a more complex layout instead of ArrayAdapter use [CustomArrayAdapter](https://www.geeksforgeeks.org/custom-arrayadapter-with-listview-in-android/). 
+ArrayAdapter has a layout with a single TextView. If you want to have a more complex layout instead of ArrayAdapter use `CustomArrayAdapter/BaseAdapter`
 ```
 private ListView listView = findViewById(R.id.listView);
 String[] items = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
@@ -228,7 +229,6 @@ ItemAdapter itemAdapter=new ItemAdapter(this, listItems);
 ListView listView = findViewById(R.id.listView);
 listView.setAdapter(itemAdapter);
 ```
-
 ## ScrollView
 A view group that allows the view hierarchy placed within it to be scrolled vertically. 
 ## HorizontalScrollView 
@@ -842,6 +842,33 @@ __Access View:__
 ```
 TextView textView = inflatedView.findViewById(R.id.custom_text);
 ```
+# Toast
+Toast isa lightweight way to display a short message to the user. It appears for a short duration and then disappears automatically. 
+## Basic Usage
+```
+Toast.makeText(context, "Hello, Toast!", Toast.LENGTH_SHORT).show();
+```
+## Custom Toast
+__Custom Layout for Toast:__
+```
+<LinearLayout android:id="@+id/customToast">
+    <ImageView android:id="@+id/toast_icon" />
+    <TextView android:id="@+id/toast_message" />
+</LinearLayout>
+```
+__Inflate the custom layout for the Toast:__
+```
+LayoutInflater inflater = getLayoutInflater();
+View layout = inflater.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.custom_toast_id));
+```
+__Create and show the Toast:__
+```
+Toast customToast = new Toast(MainActivity.this);
+customToast.setDuration(Toast.LENGTH_LONG);
+customToast.setGravity(Gravity.CENTER, 0, 0);
+customToast.setView(layout);
+customToast.show();
+```
 # Database
 ## SharedPreferences
 It is used for storing small amounts of primitive data in key-value pairs. You can use it for storing user setting, last score, location caching
@@ -994,28 +1021,7 @@ Accessing the data container:
 ```
 String[] items = getResources().getStringArray(R.array.list_container);
 ```
-# Toast
-### Custom Toast
-1. __Custom Layout for Toast:__
-```
-<LinearLayout android:id="@+id/customToast">
-    <ImageView android:id="@+id/toast_icon" />
-    <TextView android:id="@+id/toast_message" />
-</LinearLayout>
-```
-2. __Inflate the custom layout for the Toast:__
-```
-LayoutInflater inflater = getLayoutInflater();
-View layout = inflater.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.custom_toast_id));
-```
-3. __Create and show the Toast:__
-```
-Toast customToast = new Toast(MainActivity.this);
-customToast.setDuration(Toast.LENGTH_LONG);
-customToast.setGravity(Gravity.CENTER, 0, 0);
-customToast.setView(layout);
-customToast.show();
-```
+
 
 # Logging
 It allow developers to track the flow of their application, debug issues, and monitor behavior during runtime. Android provides a built-in logging framework through the `android.util.Log` class, which allows developers to output log messages of varying severity levels.
