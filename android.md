@@ -41,6 +41,7 @@ XML used in android development primarily for defining the user interface (UI) l
 - [Themes](https://github.com/masum184e/programming_notes/blob/main/android.md#themes)
 - [Styling](https://github.com/masum184e/programming_notes/blob/main/android.md#styling)
 - [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
+- [Inflater](https://github.com/masum184e/programming_notes/blob/main/android.md#inflater)
 - [Database](https://github.com/masum184e/programming_notes/blob/main/android.md#database)
 # Layouts
 ## LinearLayout
@@ -101,7 +102,6 @@ A way to control the position of the view. The bias value ranges from 0(start) t
 - View doesn't have `match_parent` property, it use `match_constraint` or `0dp` for similar task
 
 [Explore More](https://www.geeksforgeeks.org/constraintlayout-in-android/)
-
 ## GridLayout
 __Parent Attributes:__
 - `android:rowCount`: Specifies the total number of rows in the grid.
@@ -199,12 +199,11 @@ __XML Layout:__
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" >
 </androidx.cardview.widget.CardView>
 ```
-- `cardCornerRadius`: To set the radius of the corners.
-- `cardElevation`: To set the elevation (shadow) of the card.
-- `cardBackgroundColor`: To set the background color of the card.
-- `cardMaxElevation`: To set the maximum elevation.
-- `cardUseCompatPadding`: To ensure that the content of the CardView doesn’t interfere with the card’s shadow.
-
+- `app:cardCornerRadius`: To set the radius of the corners.
+- `app:cardElevation`: To set the elevation (shadow) of the card.
+- `app:cardBackgroundColor`: To set the background color of the card.
+- `app:cardMaxElevation`: To set the maximum elevation.
+- `app:cardUseCompatPadding`: To ensure that the content of the CardView doesn’t interfere with the card’s shadow.
 # Views
 ## ZoomControls
 ```
@@ -735,6 +734,28 @@ public void onButtonClick(View view) {
 - `setOnClickListener()`- sets a listener to be invoked when the TextView is clicked.
 - `setTypeface()` - set the font
 - `getId()` - gets the view ID
+# Inflater
+The primary purpose of LayoutInflater is to convert an XML layout file into a view object that can be used in your activity or fragment so that you can access it programmatically.
+
+Each xml inside layout directory is not an activity. If it's an activity you can access it it by it's corresponding java file. But what about those file which is not an activity. There LayoutInflater comes, you can access those layout which are not not an activity by LayoutInflater.
+
+__LayoutInflater Instance:__
+```
+LayoutInflater inflater = getLayoutInflater();
+//  LayoutInflater inflater = LayoutInflater.from(this);
+```
+__Inflating a Layout:__
+```
+View inflatedView = inflater.inflate(R.layout.my_layout, parent, false);
+```
+- `R.layout.my_layout` - The layout XML file which should be inflated.
+- `parent` - The parent view where the inflated layout will be attached. If there have no parent use `null`.
+- `false` - A boolean indicating whether to attach the inflated layout to the parent view immediately. Typically set to false when you intend to add the view programmatically.
+
+__Access View:__
+```
+TextView textView = inflatedView.findViewById(R.id.custom_text);
+```
 # Database
 ## SharedPreferences
 It is used for storing small amounts of primitive data in key-value pairs. You can use it for storing user setting, last score, location caching
