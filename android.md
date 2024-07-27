@@ -43,6 +43,7 @@ XML used in android development primarily for defining the user interface (UI) l
 - [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
 - [Inflater](https://github.com/masum184e/programming_notes/blob/main/android.md#inflater)
 - [Toast](https://github.com/masum184e/programming_notes/blob/main/android.md#toast)
+- [Intent](https://github.com/masum184e/programming_notes/blob/main/android.md#intent)
 - [Database](https://github.com/masum184e/programming_notes/blob/main/android.md#database)
 # Layouts
 ## LinearLayout
@@ -869,6 +870,104 @@ customToast.setGravity(Gravity.CENTER, 0, 0);
 customToast.setView(layout);
 customToast.show();
 ```
+# Intent
+Intent class is used to navigate through activity. Intent class accept two parameter, first one is current activity, and another one is navigated activity.
+```
+Intent intent = new Intent(this, SecondActivity.class);
+startActivity(intent);
+```
+## Pass Data Between Activity
+__Send:__ `intent.putExtra()` - is used to send extra data with key value pair
+```
+intent.putExtra("EXTRA_MESSAGE", "Hello from MainActivity!");
+```
+__Recieve:__ `getIntent()` and `getStringExtra()` - is used to retreive data from activity
+```
+Intent intent = getIntent();
+String message = intent.getStringExtra("EXTRA_MESSAGE");
+```
+## Navigation
+1. Declare Activities in `AndroidManifest.xml`:
+```
+<application ... >
+    <activity android:name=".MainActivity">...</activity>
+    <activity android:name=".SecondActivity" />
+</application>
+```
+2. Handle `MainActivity`:
+
+__XML File:__
+```
+<EditText android:id="@+id/inputBox" .../>
+<Button android:id="@+id/myButton" onClick="handleNext" .../>
+<TextView android:id="@+id/myView" .../>
+```
+__Java File:__
+```
+public class MainActivity extends AppCompatActivity {
+    ...
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ...
+        myButton=findViewById(R.id.myButton);
+        inputBox=findViewById(R.id.inputBox);
+        myView=findViewById(R.id.myView);
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("ACTIVITY_MESSAGE");
+        if(message!=null){
+            myView.setText("From Second Activity: "+message);
+        }
+
+    }
+
+    public void handleNext(View v){
+        if(v.getId()==R.id.myButton){
+            Intent intent = new Intent(this, SecondActivity.class);
+            intent.putExtra("ACTIVITY_MESSAGE", inputBox.getText().toString());
+            startActivity(intent);
+        }
+    }
+}
+```
+3. Handle `SecondActivity`:
+
+__XML File:__
+```
+<EditText android:id="@+id/inputSecondBox" .../>
+<Button android:id="@+id/mySecondButton" android:onClick="handlePrev" .../>
+<TextView android:id="@+id/mySecondView" .../>
+```
+__Java File:__
+```
+public class SecondActivity extends AppCompatActivity {
+    ...
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ...
+        mySecondView=findViewById(R.id.mySecondView);
+        inputSecondBox=findViewById(R.id.inputSecondBox);
+        mySecondButton=findViewById(R.id.mySecondButton);
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra("ACTIVITY_MESSAGE");
+        if(message!=null){
+            mySecondView.setText("From Main Activity: "+message);
+        }
+
+    }
+
+    public void handlePrev(View v){
+        if(v.getId()==R.id.mySecondButton){
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("ACTIVITY_MESSAGE", inputSecondBox.getText().toString());
+            startActivity(intent);
+        }
+    }
+}
+```
+
+`onCreate`, `onStart`, `onResume`, `onPause`, `onStop`, `onRestart`, `onDestroy` all are the instances of activity class. As you use onCreate method for initial rendering.
 # Database
 ## SharedPreferences
 It is used for storing small amounts of primitive data in key-value pairs. You can use it for storing user setting, last score, location caching
@@ -964,8 +1063,6 @@ It is designed to block out an area on the screen to display a single item. Gene
 - `android:foregroundGravity`
 - `android:measureAllChildren`
 
-# View
-
 ### Alert
 ```
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -1043,121 +1140,17 @@ It allow developers to track the flow of their application, debug issues, and mo
 # Activity
 Activity is a single screen with UI
 <pre>
-                onCreate -> onStart -> onResume 
-                         <b>OTHER ACTIVITY</b> 
-                        onPause -> onStop
-                            <b>REOPEN</b> 
-               onRestart -> onStart -> onResume
-                    <b>CLOSE APP, BACK BUTTON</b>
-                onPause -> onStop -> onDestroy
+    onCreate -> onStart -> onResume 
+             <b>OTHER ACTIVITY</b> 
+            onPause -> onStop
+                <b>REOPEN</b> 
+      onRestart -> onStart -> onResume
+        <b>CLOSE APP, BACK BUTTON</b>
+    onPause -> onStop -> onDestroy
 </pre>
 Let's see the 7 lifecycle methods of android activity.
 <img src="https://static.javatpoint.com/images/androidimages/Android-Activity-Lifecycle.png">
 
-### Navigate Activity
-Intent class is used to navigate through activity. Intent class accept two parameter, first one is current activity, and another one is navigated activity.
-```
-Intent intent = new Intent(this, SecondActivity.class);
-startActivity(intent);
-```
-
-### Pass Data Between Activity
-__Send__
-
-`intent.putExtra()` - is used to send extra data with key value pair
-```
-intent.putExtra("EXTRA_MESSAGE", "Hello from MainActivity!");
-```
-__Recieve__
-
-`getIntent()` and `getStringExtra()` - is used to retreive data from activity
-```
-Intent intent = getIntent();
-String message = intent.getStringExtra("EXTRA_MESSAGE");
-```
-
-### Navigation
-1. Declare Activities in `AndroidManifest.xml`:
-```
-<application ... >
-    <activity android:name=".MainActivity">...</activity>
-    <activity android:name=".SecondActivity" />
-</application>
-```
-2. Handle `MainActivity`:
-
-__XML File:__
-```
-<EditText android:id="@+id/inputBox" .../>
-<Button android:id="@+id/myButton" onClick="handleNext" .../>
-<TextView android:id="@+id/myView" .../>
-```
-__Java File:__
-```
-public class MainActivity extends AppCompatActivity {
-    ...
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        ...
-        myButton=findViewById(R.id.myButton);
-        inputBox=findViewById(R.id.inputBox);
-        myView=findViewById(R.id.myView);
-
-        Intent intent = getIntent();
-        String message = intent.getStringExtra("ACTIVITY_MESSAGE");
-        if(message!=null){
-            myView.setText("From Second Activity: "+message);
-        }
-
-    }
-
-    public void handleNext(View v){
-        if(v.getId()==R.id.myButton){
-            Intent intent = new Intent(this, SecondActivity.class);
-            intent.putExtra("ACTIVITY_MESSAGE", inputBox.getText().toString());
-            startActivity(intent);
-        }
-    }
-}
-```
-3. Handle `SecondActivity`:
-
-__XML File:__
-```
-<EditText android:id="@+id/inputSecondBox" .../>
-<Button android:id="@+id/mySecondButton" android:onClick="handlePrev" .../>
-<TextView android:id="@+id/mySecondView" .../>
-```
-__Java File:__
-```
-public class SecondActivity extends AppCompatActivity {
-    ...
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        ...
-        mySecondView=findViewById(R.id.mySecondView);
-        inputSecondBox=findViewById(R.id.inputSecondBox);
-        mySecondButton=findViewById(R.id.mySecondButton);
-
-        Intent intent = getIntent();
-        String message = intent.getStringExtra("ACTIVITY_MESSAGE");
-        if(message!=null){
-            mySecondView.setText("From Main Activity: "+message);
-        }
-
-    }
-
-    public void handlePrev(View v){
-        if(v.getId()==R.id.mySecondButton){
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("ACTIVITY_MESSAGE", inputSecondBox.getText().toString());
-            startActivity(intent);
-        }
-    }
-}
-```
-
-`onCreate`, `onStart`, `onResume`, `onPause`, `onStop`, `onRestart`, `onDestroy` all are the instances of activity class. As you use onCreate method for initial rendering.
 
 # AndroidManifest.xml
 ## Tags
