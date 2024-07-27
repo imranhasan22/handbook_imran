@@ -43,6 +43,7 @@ XML used in android development primarily for defining the user interface (UI) l
 - [Eventlistener](https://github.com/masum184e/programming_notes/blob/main/android.md#eventlistener)
 - [Inflater](https://github.com/masum184e/programming_notes/blob/main/android.md#inflater)
 - [Toast](https://github.com/masum184e/programming_notes/blob/main/android.md#toast)
+- [Activity](https://github.com/masum184e/programming_notes/blob/main/android.md#activity)
 - [Intent](https://github.com/masum184e/programming_notes/blob/main/android.md#intent)
 - [Database](https://github.com/masum184e/programming_notes/blob/main/android.md#database)
 # Layouts
@@ -870,6 +871,86 @@ customToast.setGravity(Gravity.CENTER, 0, 0);
 customToast.setView(layout);
 customToast.show();
 ```
+# Activity
+Activity is a single screen with UI which serve as the entry point for user interaction with an app.
+
+An activity is a class in Android that is designed to facilitate interaction between the user and the app. It typically consists of:
+
+- `Layout (UI)`: The visual elements displayed to the user, defined in XML files.
+- `Java/Kotlin Code`: The logic behind the activity, managing user interactions, data, and app functionality.
+
+## Activity Lifecycle
+Let's see the 7 lifecycle methods of android activity.
+- `onCreate()`: Called when the activity is first created. Here, you typically initialize UI components and load essential data.
+- `onStart()`: Called when the activity becomes visible to the user.
+- `onResume()`: Called when the activity is ready to interact with the user.
+- `onPause()`: Called when the activity loses focus but is still partially visible (e.g., when a dialog appears).
+- `onStop()`: Called when the activity is no longer visible to the user.
+- `onRestart()`: Called when the activity is restarted after being stopped.
+- `onDestroy()`: Called before the activity is destroyed.
+
+<img align="right" width="40%" src="https://static.javatpoint.com/images/androidimages/Android-Activity-Lifecycle.png" alt="masum184e" />
+<pre>
+    onCreate -> onStart -> onResume 
+             <b>OTHER ACTIVITY</b> 
+            onPause -> onStop
+                <b>REOPEN</b> 
+      onRestart -> onStart -> onResume
+        <b>CLOSE APP, BACK BUTTON</b>
+    onPause -> onStop -> onDestroy
+</pre>
+
+__Interact with Java:__
+```
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_second);
+
+    Toast.makeText(this, "SECOND ACTIVITY - CREATE", Toast.LENGTH_LONG).show();
+}
+
+@Override
+protected void onStart(){
+    super.onStart();
+    Toast.makeText(this, "SECOND ACTIVITY - START", Toast.LENGTH_LONG).show();
+}
+
+@Override
+protected void onResume(){
+    super.onResume();
+    Toast.makeText(this, "SECOND ACTIVITY - RESUME", Toast.LENGTH_LONG).show();
+}
+
+@Override
+protected void onPause(){
+    super.onPause();
+    Toast.makeText(this, "SECOND ACTIVITY - PAUSE", Toast.LENGTH_LONG).show();
+}
+
+@Override
+protected void onStop(){
+    super.onStop();
+    Toast.makeText(this, "SECOND ACTIVITY - STOP", Toast.LENGTH_LONG).show();
+}
+
+@Override
+protected void onRestart(){
+    super.onRestart();
+    Toast.makeText(this, "SECOND ACTIVITY - RESTART", Toast.LENGTH_LONG).show();
+}
+
+@Override
+protected void onDestroy(){
+    super.onDestroy();
+    Toast.makeText(this, "SECOND ACTIVITY - DESTROY", Toast.LENGTH_LONG).show();
+}
+```
+- __Launching  :__ onCreate() -> load activity -> onStart() -> onResume()
+- __Navigation :__ old activity -> onPause() -> current activity -> onCreate() -> load activity -> onStart() -> onResume() -> old activity -> onStop()
+- __Home       :__ current activity -> onPause() -> onStop()
+- __Recents    :__ remove app from recents -> onDestroy()
+
 # Intent
 Intent class is used to navigate through activity. Intent class accept two parameter, first one is current activity, and another one is navigated activity.
 ```
@@ -1136,21 +1217,6 @@ It allow developers to track the flow of their application, debug issues, and mo
 ### Logging Methods
 
 `Log.v()`,`Log.d()`,`Log.i()`,`Log.w()`,`Log.e()`,`Log.wtf()` is used for verbose, debug, informational,  warning, error, assertion message respectively. Each method required a tag and log message.
-
-# Activity
-Activity is a single screen with UI
-<pre>
-    onCreate -> onStart -> onResume 
-             <b>OTHER ACTIVITY</b> 
-            onPause -> onStop
-                <b>REOPEN</b> 
-      onRestart -> onStart -> onResume
-        <b>CLOSE APP, BACK BUTTON</b>
-    onPause -> onStop -> onDestroy
-</pre>
-Let's see the 7 lifecycle methods of android activity.
-<img src="https://static.javatpoint.com/images/androidimages/Android-Activity-Lifecycle.png">
-
 
 # AndroidManifest.xml
 ## Tags
