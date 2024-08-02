@@ -16,3 +16,20 @@ try{
 }
 ```
 In summary, error is a problem and exception is the handling mechanism for such problems.
+## throw
+It is used to create and throw custom errors or exceptions. By using `throw` you are generating an exception that disrupts the normal flow of the code, allowing it to be caught and handled by `try...catch` blocks.
+```
+const age=17;
+try{
+    if(age<18){
+        throw("You are too young");
+        console.log("will not execute");
+    }else{
+        console.log("your are adult");
+    }
+}catch(error){
+    console.log("will not execute");
+    console.log(error);
+}
+```
+It allows you to create and propagate exceptions, enabling you to handle errors and control the flow of your program when something goes wrong.
