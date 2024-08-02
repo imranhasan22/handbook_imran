@@ -33,3 +33,39 @@ try{
 }
 ```
 It allows you to create and propagate exceptions, enabling you to handle errors and control the flow of your program when something goes wrong.
+## Error Object
+The `Error` object is a buit-in object that provides a standarized way to handle and describe errors in a program.
+
+__Properties:__
+- `name` - represent the name of the error type.
+- `message` - describe the error.
+- `stack` - details about the error.
+
+__Handle Error:__
+```
+try{
+    if(age<18){
+        throw new Error("You are too young");
+    }else{
+        console.log("your are adult");
+    }
+}catch(error){
+    console.log(error.name); // Error
+    console.log(error.message); // You are too young
+    console.log(error.stack);
+}
+```
+__Custom Error:__
+```
+class CustomError extends Error{
+    constructor(message){
+        super(message);
+        this.name="Custom Error";
+        this.stack="Error Occured at specific line";
+    }
+}
+let customError=new CustomError("Error Occurred");
+console.log(customError.name) // Custom Error
+console.log(customError.message) // Error Occurred
+console.log(customError.stack) // Error Occured at specific line
+```
