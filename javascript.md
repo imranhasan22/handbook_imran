@@ -69,3 +69,61 @@ console.log(customError.name) // Custom Error
 console.log(customError.message) // Error Occurred
 console.log(customError.stack) // Error Occured at specific line
 ```
+# OOP
+## Class
+Unlike other programming language, there is nothing about `class` programming till ES5. Which create confusion about is it really a oop laguage or not?
+
+But the actual scenario is, yes, it is a oop language, but unlike other language it is not `class` based language. ES6 solved the issue.
+### ES5
+```
+var Parent=function(name, dob){
+    this.name=name;
+    this.dob=dob;
+    this.details=function(){
+        return "name: "+name+" dob:"+dob;
+    }
+}
+```
+### ES6
+```
+class Parent{
+    constructor(name, dob){
+        this.name=name;
+        this.dob=dob;
+    }
+    details=()=>{
+        return `name: ${this.name} age: ${this.dob}`;
+    }
+}
+```
+## Inheritance
+```
+class Teacher extends Parent{
+    constructor(name, dob, subject){
+        super(name, dob);
+        this.subject=subject;
+    }
+    details=()=>{
+        return `name: ${this.name} age: ${this.dob} sub: ${this.subject}`;
+    }
+}
+```
+## Constructor
+### Default Function Constructor
+#### ES5
+```
+var Parent=function(name, dob){
+    name?name=name:name="masum";
+    dob?dob=dob:dob="june";
+
+    this.name=name;
+    this.dob=dob;
+}
+```
+#### ES6
+```
+var Parent=function(name="masum", dob="june"){
+    this.name=name;
+    this.dob=dob;
+}
+```
