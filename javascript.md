@@ -14,6 +14,44 @@ A valid unit of code that resolves to a value.
 A complete unit of execution.
 - do not return a vaule but execute some some logic.
 - Example: `let x=5;`, `if(x<4){`
+# Synchronous vs Asynchronous
+## Synchronous
+It means each statement is executed one after the other, in order they appear in the code(Top to Bottom). Synchronous code `blocks` the execution of subsequent code until the current operation finishes. It's operations is slow and you can predict the order of execution as well.
+```
+const processOrder=(orderNumber)=>{
+    console.log(`Processing Order ${orderNumber}`);
+
+    let currentTime=new Date().getTime();
+    while(currentTime+3000>=new Date().getTime());
+
+    console.log(`Proceed Order ${orderNumber}`);
+}
+console.log("Take Order 1");
+processOrder(1);
+console.log("Completed Order 1");
+console.log("Take Order 1");
+processOrder(2);
+console.log("Completed Order 1");
+```
+## Asynchronous
+It allow to handle operations that take time to complete such as network request, file reading, timers erct `without blocking` the main thread.
+```
+const processOrder=(orderNumber, requiredTime)=>{
+    console.log(`Proces Order Start ${orderNumber}`);
+
+    setTimeout(()=>{
+        console.log(`Processing Order ${orderNumber}`);
+    },requiredTime);
+
+    console.log(`Proceed Order ${orderNumber}`);
+}
+console.log("Take Order 1");
+processOrder(1, 3000);
+console.log("Completed Order 1");
+console.log("Take Order 1");
+processOrder(2,5000);
+console.log("Completed Order 1");
+```
 # Error VS Exception
 ## Error 
 An object that represents an issue that occurs during the execution of a program. It is a buit-in object with several types such as `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
