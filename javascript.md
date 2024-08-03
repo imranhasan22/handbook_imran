@@ -1,3 +1,19 @@
+# Syntactic Sugar
+It refers to syntax that makes code easier to write and read but doesn't add new functionality to the language. It actually a shorthand for a common operation that could be expressed in an alternate.
+- Arrow Functions
+- Template Literals
+- Destructuring Assignments
+- Defautl Parameters
+- Class
+# Expression VS Statement
+## Expresssion
+A valid unit of code that resolves to a value.
+- as simple as a number or a variable or a function.
+- Example: `5`, `x+2`, `Mat.max(1,2)`
+## Statement
+A complete unit of execution.
+- do not return a vaule but execute some some logic.
+- Example: `let x=5;`, `if(x<4){`
 # Error VS Exception
 ## Error 
 An object that represents an issue that occurs during the execution of a program. It is a buit-in object with several types such as `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
