@@ -15,6 +15,8 @@ A complete unit of execution.
 - do not return a vaule but execute some some logic.
 - Example: `let x=5;`, `if(x<4){`
 # Synchronous vs Asynchronous
+Most of the language work synchronously by default. Javascript is a synchronous programming language also but if we want to work with any remote server which is called ajax call, javascript behaves like asynchronous. 
+
 ## Synchronous
 It means each statement is executed one after the other, in order they appear in the code(Top to Bottom). Synchronous code `blocks` the execution of subsequent code until the current operation finishes. It's operations is slow and you can predict the order of execution as well.
 ```
