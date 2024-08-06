@@ -1058,6 +1058,37 @@ public class SecondActivity extends AppCompatActivity {
 ```
 
 `onCreate`, `onStart`, `onResume`, `onPause`, `onStop`, `onRestart`, `onDestroy` all are the instances of activity class. As you use onCreate method for initial rendering.
+# Fragment
+Fragment represents a reusable portion of your application's user interface.
+
+Fragments have their own lifecycle, which is closely tied to the lifecycle of the host activity.
+- `onAttach()` 
+- `onCreate()` 
+- `onCreateView()` 
+- `onActivityCreated()` 
+- `onStart()` 
+- `onResume()` 
+- `onPause()` 
+- `onStop()` 
+- `onDestroyView()` 
+- `onDestroy()` 
+## Static Fragment
+1. __Fragment Class:__
+Create a fragment by extending the Fragment class and overriding key lifecycle methods.
+```
+@Override
+public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.fragment_frag_a, container, false);
+}
+```
+2. __Fragment Layout:__
+By default, FrameLayout is the default layout. But you can use any of the layout to create fragment.
+3. __Merge with Activity:__
+`<fragment>` tag and `name` attribute is used to statically add a fragment to an activity.
+```
+<fragment android:name="com.example.project_name.fragment_name" />
+```
+
 # Database
 ## SharedPreferences
 It is used for storing small amounts of primitive data in key-value pairs. You can use it for storing user setting, last score, location caching
