@@ -46,6 +46,7 @@ XML used in android development primarily for defining the user interface (UI) l
 - [Toast](#toast)
 - [Activity](#activity)
 - [Intent](#intent)
+- [Fragment](#fragment)
 - [Database](#database)
 # Layouts
 ## LinearLayout
@@ -1088,7 +1089,29 @@ By default, FrameLayout is the default layout. But you can use any of the layout
 ```
 <fragment android:name="com.example.project_name.fragment_name" />
 ```
+__Handle Fragment:__
+```
+public View onCreateView(LayoutInflater inflater, ViewGroup container Bundle savedInstanceState) {
+    View view=inflater.inflate(R.layout.fragment_frag_a, container, false);
+    Button btn= view.findViewById(R.id.button);
+    btn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getContext(), "Fragment A", Toast.LENGTH_LONG).show();
+        }
+    });
 
+    return view;
+}
+```
+## Dynamic Fragment
+Just instead using `<fragment>` tag, handle it programmitically.
+```
+FragmentManager fragmentManager=getSupportFragmentManager();
+fragmentManager.beginTransaction().replace(R.id.layout_contaner, new BlankFragment()).commit();
+```
+- `layout_container` - where fragment should stay.
+- `BlankFragment` - class name of new fragment.
 # Database
 ## SharedPreferences
 It is used for storing small amounts of primitive data in key-value pairs. You can use it for storing user setting, last score, location caching
