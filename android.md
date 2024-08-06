@@ -17,6 +17,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [GridLayout](#gridlayout)
     - [AbsoluteLayout](#absolutelayout)
     - [FrameLayout](#framelayout)
+    - [TabLayout](#tablayout)
 - ViewGroup
     - [ListView](#listview)
     - [ScrollView](#scrollview)
@@ -135,6 +136,63 @@ It used as the default layout of fragment container.
 __Control the stack programmitically:__
 ```
 layout.bringToFront();
+```
+## TabLayout
+It provides a horizontal layout to display tabs. It often used in conjuction with `ViewPager` to navigate between different pages.
+
+1. __Fragment__
+Create fragment for each tab item.
+2. __FragmentPagerAdapter__
+```
+public class TabAdapter extends FragmentPagerAdapter {
+    private List<Fragment> fragmentList=new ArrayList<>();
+    private List<String> fragmentTitleList=new ArrayList<>();
+    public TabAdapter(@NonNull FragmentManager fm, int behavior) {
+        super(fm, behavior);
+    }
+
+    @NonNull
+    @Override
+    public Fragment getItem(int position) {
+        return fragmentList.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return fragmentList.size();
+    }
+
+    public void addFragment(Fragment fragment, String title){
+        fragmentList.add(fragment);
+        fragmentTitleList.add(title);
+    }
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return fragmentTitleList.get(position);
+    }
+}
+```
+3. __Merge__
+```
+ViewPager viewPager=findViewById(R.id.view_pager_container);
+TabLayout tab_container=findViewById(R.id.tab_container);
+
+TabAdapter tabAdapter=new TabAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+tabAdapter.addFragment(new FragA(), "BTN A");
+tabAdapter.addFragment(new FragB(), "BTN B");
+
+viewPager.setAdapter(tabAdapter);
+tab_container.setupWithViewPager(viewPager);
+```
+## Layout
+```
+<com.google.android.material.tabs.TabLayout />
+```
+## ViewPager
+It allow the user to swipe left or right through pages of content, typically fragments
+```
+<androidx.viewpager.widget.ViewPager  />
 ```
 # ViewGroup
 ## ListView
