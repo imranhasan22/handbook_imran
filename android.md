@@ -16,6 +16,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [ConstraintLayout](#constraintlayout)
     - [GridLayout](#gridlayout)
     - [AbsoluteLayout](#absolutelayout)
+    - [FrameLayout](#framelayout)
 - ViewGroup
     - [ListView](#listview)
     - [ScrollView](#scrollview)
@@ -125,6 +126,15 @@ It allow to specify the exact x and y coordinates for each view within the layou
 </AbsoluteLayout>
 ```
 Absolute Layout is __deprecated__.
+## FrameLayout
+It is used to display a single child view. It is designed to hold a single child view by default, but if you add more than one child, they will be stacked on top of each other with the most recently added view appearing on top.
+
+It used as the default layout of fragment container.
+
+__Control the stack programmitically:__
+```
+layout.bringToFront();
+```
 # ViewGroup
 ## ListView
 Each item in the list is an instance of View, which by default is a TextView but can be any layout.
