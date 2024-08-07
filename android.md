@@ -1118,7 +1118,9 @@ public class SecondActivity extends AppCompatActivity {
 
 `onCreate`, `onStart`, `onResume`, `onPause`, `onStop`, `onRestart`, `onDestroy` all are the instances of activity class. As you use onCreate method for initial rendering.
 # Fragment
-Fragment represents a reusable portion of your application's user interface.
+Fragment represents a reusable portion of your application's user interface. It is similar to activity but can't run by independently, it needs help of activity. It is child of activity.
+
+For 3-5 fragments use TabLayout, for 5-7 fragments use BottomNavigation, for more than 7 fragments use NavigationDrawer.
 
 Fragments have their own lifecycle, which is closely tied to the lifecycle of the host activity.
 - `onAttach()` 
