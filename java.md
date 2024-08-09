@@ -44,9 +44,69 @@ It refers to the process of calling one constructor from another within the same
 
 # Method
 variables used in method signature are called parameter, and variables used during call are called arguments.
+
+
 ## Method Overloading
 When more than one method with the same name is defined in the same class,it is known as method overloading as long as their parameter declarations are different.
+
+__Method overloading is a way to achieve `static polymorphism` in java.__
+
 ## Method Overriding
 The ability of a subclass to re-implement an instance method inherited from a superclass is called method overriding.
 - overriding method must have same argument list and return type.
 - final, static, constructor method can't be overriden.
+
+__Method overloading is a way to achieve `dynamic polymorphism` in java.__
+
+# Polymorphism
+It refers to the ability of a single interface to represent different underlying forms(data types).
+
+__Types of polymorphism:__
+- Static/Compile-Time Polymorphism
+- Dynamic/Run-Time Polymorphism
+
+## Static(Overloading)
+```
+class Calculator{
+    public int add(int a, int b){ return a+b; }
+    public int add(int a, int b, int c){ return a+b+c; }
+    public int add(int a, int b, int c, int d){ return a+b+c+d; }
+}
+
+public static void main(String[] args){
+    Calculator calc=new Calculator();
+    System.out.println(calc.add(10,20));
+    System.out.println(calc.add(10,20,30));
+    System.out.println(calc.add(10,20,30,40));
+}
+```
+## Dynamic(Overriding)
+```
+class Animal{
+    public void sound(){
+        System.out.println("Animal makes a sound");
+    }
+}
+class Dog extends Animal{
+    @Override
+    public void sound(){
+        System.out.println("Dog makes a sound");
+    }
+}
+class Cat extends Animal{
+    @Override
+    public void sound(){
+        System.out.println("Dog makes a sound");
+    }
+}
+
+public static void main(String[] args){
+    Animal animal=new Animal();
+    Dog dog=new Dog();
+    Cat cat=new Cat();
+
+    animal.sound();
+    dog.sound();
+    cat.sound();
+}
+```
