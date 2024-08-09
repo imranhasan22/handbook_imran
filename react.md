@@ -1,5 +1,52 @@
+# HTML, CSS, JS
+## HTML
+React uses JSX(Javascript XML), a syntax extension for javascript, which looks similar to HTML but allows you to embed HTML within javascript.
+
+Although JSX looks like javascript, it's not. JSX gets compiled to javascript, specially to `React.createElement` calls, which is why it can only be used within a React environment.
+
+__Differences From HTML:__
+- `className` instead of `class`
+- camleCase for Attributes
+- self-closing tags
+
+## CSS
+1. __External CSS:__
+Just import external css file where you want those styles. Those style from the imported files are inherit to all the child component
+2. __Inline Style:__
+You can apply styles directly to elements using the `style` attribute which accepts a javascript object
+3. __Modules:__
+CSS modules are locally scoped CSS files, which means the styles defined in them are only applied to the component that imports them.. This prevents global name collisions.
+
+# Fragments
+It is a way to group multiple elements `without adding extra nodes` to the DOM. They allow to return multiple children from a component without the need to wrap them in an additional HTML like _div_.
+
+__There are tow ways to use fragments:__
+
+1. __Explict Syntax:__
+```
+<React.Fragment>
+</React.Fragment>
+```
+2. __Shorthand Systax:__
+```
+<></>
+```
+The shorthand syntax is more concise and commonly used but doesn't support `key` or other attributes.
+
+Render method can only return only one elements. So when you need to return multiple element at a time but you don't want to add extra node to the DOM, use fragment.
 # Hooks
-Hooks are functions that allow functional components to manage state, perform side effects and other React features. your can call hook only at the top level.
+Hooks are functions that allow functional components to manage state, perform side effects and other React features. 
+- Call hooks at the top level.
+- Call hooks in functional component.
+- Can't be conditional(loop, condition, nested function).
+
+## useState
+It allow you to ad state to your compoents. When the state is updated, react automatically re-renders the component with the new state value, so the UI reflects the updated state.
+
+State generally refers to data or properties that need tracking in an application.
+
+It returs a pair, an array with current state and a function to update it.
+
 ## useEffect
 It lets you perform side effect function(data fetching, timers, DOM manipulation) in functional components. Side effect refers to any operation that affects something outside of the components scope, interacting with external system, global state.
 
