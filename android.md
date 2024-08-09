@@ -40,6 +40,7 @@ XML used in android development primarily for defining the user interface (UI) l
     - [RadioGroup](#radiogroup)
     - [ChipGroup](#chipgroup)
     - [AutoCompleteTextView](#autocompletetextView)
+    - [View](#view)
 - [Themes](#themes)
 - [Styling](#styling)
 - [Eventlistener](#eventlistener)
@@ -738,6 +739,11 @@ ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simp
         textView.setAdapter(adapter);
 ```
 - `setThreshold` - specify the number of characters after which the dropdown with the autocomplete suggestions list would be displayed. 
+
+# View
+Basic building block for user interface. 
+
+It does not display any content on its own, it can be used as a placeholder, a separator, or a background element.
 # Themes
 - Theme.Holo
 - Theme.Holo.Light
@@ -1025,6 +1031,9 @@ Intent class is used to navigate through activity. Intent class accept two param
 Intent intent = new Intent(this, SecondActivity.class);
 startActivity(intent);
 ```
+## Bundle
+`Bundle` is a collection of key-value pairs that is used to pass data between different components of an application such as between activities, fragments. It's a convenient way to package and transmit data because it can hold a variety of data types including primitive types, strings, arrays and even custom parceable objects.
+
 ## Pass Data Between Activity
 __Send:__ `intent.putExtra()` - is used to send extra data with key value pair
 ```
@@ -1033,7 +1042,7 @@ intent.putExtra("EXTRA_MESSAGE", "Hello from MainActivity!");
 __Recieve:__ `getIntent()` and `getStringExtra()` - is used to retreive data from activity
 ```
 Intent intent = getIntent();
-String message = intent.getStringExtra("EXTRA_MESSAGE");
+String message = intent.getStringExtra("EXTRA_MESSAGE","DEFAULT_VALUE);
 ```
 ## Navigation
 1. Declare Activities in `AndroidManifest.xml`:
