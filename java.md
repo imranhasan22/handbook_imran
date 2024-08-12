@@ -70,6 +70,25 @@ The ability of a subclass to re-implement an instance method inherited from a su
 
 __Method overloading is a way to achieve `dynamic polymorphism` in java.__
 # Access Modifier
+```
+== Everywhere ===========
+                        |
+==Same Package========  |
+			         |  |
+== Sub  Class =====  |  |
+			      |  |  |
+==Parent Class==  |  |  |
+|              |  |  |  |
+|   PRIVATE    |  |  |  |
+|		       |  |  |  |
+================  |  |  |
+   PROTECTED      |  |  |
+===================  |  |
+    DEFAULT          |  |
+======================  |
+     PUBLIC             |
+=========================
+```
 ## `static`
 - variable is declare outside method, constructor or any block
 - variable can be used as common property(variable) of all objects of it's class as it's belong to class not object
@@ -82,7 +101,7 @@ __Key Concepts of OOP:__
 - [Encapsulation](#encapsulation)
 - [Inheritance](#inheritance)
 - [Polymorphism](#polymorphism)
-- [Abstraction](#Abstraction)
+- [Abstraction](#abstraction)
 
 ## Encapsulation
 It involves bundling member of class into a single unit. It also invloves restricting access to some of the objects components, which is achieved by using access modifier like `private`, `protected`, `public`. The key idea is keep the internal represention of an object hidden from outside world.
