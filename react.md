@@ -33,7 +33,7 @@ __There are tow ways to use fragments:__
 ```
 The shorthand syntax is more concise and commonly used but doesn't support `key` or other attributes.
 
-Render method can only return only one elements. So when you need to return multiple element at a time but you don't want to add extra node to the DOM, use fragment.
+Render method can return only one elements. So when you need to return multiple element at a time but you don't want to add extra node to the DOM, use fragment.
 # Hooks
 Hooks are functions that allow functional components to manage state, perform side effects and other React features. 
 - Call hooks at the top level.
@@ -65,3 +65,44 @@ A function that allow you to `resue` stateful logic from your components.
 
 - Name must start with `use`.
 - It can return any type of data(array, object, function etc).
+
+# Class Components
+## Class Definition
+A class component is defined as js class that `extends` `React.Component`. It must hve a `render()` method, which returns jsx to be rendered to the DOM.
+```jsx
+class MyApp extends Component{
+    render(){
+        return <h1>Hello World</h1>
+    }
+}
+```
+## State Management
+Class component's have a built-in state object that can be used to store and manage data that affects the components rendering. The state can be updated using the `setState` method, which triggers a re-render of the component
+```jsx
+class Counter extends Component{
+    constructor(props){
+        super(props);
+        this.state={count:0};
+    }
+    increment=()=>{
+        this.setState({count:this.state.count+1});
+    }
+    render(){
+        return(
+            <>
+            <p>Count: {this.state.count}</p>
+            <button onClick={this.increment}>Increment</button>
+            </>
+        )
+    }
+}
+```
+## Props
+Props are used to pass data from a parent component to a child component and access by `this.props`.
+```jsx
+class MyApp extends Component{
+    render(){
+        return <h1>Hello {this.props.name}</h1>
+    }
+}
+```
