@@ -1233,6 +1233,7 @@ It is used for storing small amounts of primitive data in key-value pairs. You c
 
 __Store Data:__
 ```java
+SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 SharedPreferences.Editor editor = sharedPreferences.edit();
 editor.putString("key", "value");
 editor.putInt("key", 123);
@@ -1245,6 +1246,15 @@ if(sharedPreferences.contains("key")){
   String value = sharedPreferences.getString("key", "default_value");
   int number = sharedPreferences.getInt("key",123);
 }
+```
+__Update Data:__ Updating data is same as inserting it.
+
+__Delete Data:__
+```java
+SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+SharedPreferences.Editor editor = sharedPreferences.edit();
+editor.remove("key");
+editor.apply();
 ```
 ## Internal Storage - File
 Use internal storage to store private data within the device's internal memory.
