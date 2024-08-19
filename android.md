@@ -8,6 +8,11 @@ It is a versatile markup language primarily designed to store and transport data
 XML used in android development primarily for defining the user interface (UI) layouts and resource files.
 
 `xmlns`(XML Namespace) is a mechanism in XML to avoid element name conflicts by qualifying names that may have the same name but different meanings or contexts.
+# Android
+## ADB vs AVD
+__AVD(Android Virtual Device)__ refers to the emulator that allows you to simulate an Android device `on your computer`. It helps you test and run Android apps in a virtual environment `without` needing `a physical device`.
+
+__ADB()__ is a command-line tool that allows developers to communicate with an Android device (`physical` or virtual) for debugging and performing various system-level tasks.
 
 # Index
 - Layout
@@ -792,15 +797,32 @@ __Inherit Style:__
 - `<padding>` tag specifies the padding inside the shape.
 - `<size>` tag can define the width and height of the shape (useful for lines and rings).
 - `<shape>` is the container tag, shape type is set by `android:shape` attribute along with shape tag
+- `<gradient>` is used to define a gradient background
 
 __Rectangle:__
-```
+```xml
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="#e9ecf3" />
     <corners android:radius="8dp" />
     <stroke android:width="2dp" android:color="#c0c0c0" />
     <padding android:left="10dp" android:top="10dp" android:right="10dp" android:bottom="10dp" />
 </shape>
+```
+## Layer List
+`<layer-list>` tag is used to define a list of layers (drawable objects) that are drawn on top of each other. It allows you to combine different drawable elements (such as shapes, gradients, images, etc.) into a single drawable.
+```xml
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <stroke android:width="4dp" android:color="#ff0000"/>
+        </shape>
+    </item>
+    <item
+        android:left="30dp"
+        android:drawable="@android:drawable/btn_plus"
+        >
+    </item>
+</layer-list>
 ```
 # Eventlistener
 - `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton.
