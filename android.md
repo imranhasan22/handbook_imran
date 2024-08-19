@@ -49,6 +49,7 @@ XML used in android development primarily for defining the user interface (UI) l
 - [Activity](#activity)
 - [Intent](#intent)
 - [Fragment](#fragment)
+- [Bottom Navigation](#bottom-navigation)
 - [Database](#database)
 # Layouts
 ## LinearLayout
@@ -1159,7 +1160,7 @@ By default, FrameLayout is the default layout. But you can use any of the layout
 <fragment android:name="com.example.project_name.fragment_name" />
 ```
 __Handle Fragment:__
-```
+```java
 public View onCreateView(LayoutInflater inflater, ViewGroup container Bundle savedInstanceState) {
     View view=inflater.inflate(R.layout.fragment_frag_a, container, false);
     Button btn= view.findViewById(R.id.button);
@@ -1175,25 +1176,70 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container Bundle sav
 ```
 ## Dynamic Fragment
 Just instead using `<fragment>` tag, handle it programmitically.
-```
+```java
 FragmentManager fragmentManager=getSupportFragmentManager();
 fragmentManager.beginTransaction().replace(R.id.layout_contaner, new BlankFragment()).commit();
 ```
 - `layout_container` - where fragment should stay.
 - `BlankFragment` - class name of new fragment.
+# Bottom Navigation
+__1. Menu Resource File:__
+```xml
+<menu>
+    <item />
+    <item />
+</menu>
+```
+__2. Fragment:__ Create fragment for each of the item.
+
+__3. XML Layout:__
+```xml
+<FrameLayout
+    android:id="@+id/layout_container"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    />
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/bottomNavigation"
+    android:layout_height="60dp"
+    app:menu="@menu/menu_main"
+    />
+```
+__4. Handling Item Selection:__
+```java
+bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int currentItemId=menuItem.getItemId();
+
+        if(currentItemId==R.id.action_save)load_fragment(new FragmentA());
+        else if(currentItemId==R.id.action_manage)load_fragment(new FragmentB());
+        else if(currentItemId==R.id.action_home)load_fragment(new FragmentC());
+        else if(currentItemId==R.id.action_places)load_fragment(new FragmentD());
+        else load_fragment(new FragmentE());
+
+        return true;
+    }
+});
+bottomNavigation.setSelectedItemId(R.id.action_save);
+```
+
+- `bottomNavigation.setSelectedItemId(R.id.action_save);` - set the inital fragment
+- `return true` - set the active design of selected menu item
+
 # Database
 ## SharedPreferences
 It is used for storing small amounts of primitive data in key-value pairs. You can use it for storing user setting, last score, location caching
 
 __Store Data:__
-```
+```java
 SharedPreferences.Editor editor = sharedPreferences.edit();
 editor.putString("key", "value");
 editor.putInt("key", 123);
 editor.apply();  // or editor.commit();
 ```
 __Retrieve Data:__
-```
+```java
 SharedPreferences sharedPreferences = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 if(sharedPreferences.contains("key")){
   String value = sharedPreferences.getString("key", "default_value");
