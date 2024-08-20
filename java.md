@@ -35,6 +35,7 @@ A class contructor if defined is called whenever a program creates an object of 
 
 It doesn't have any return type, not even void and hence can't return any values. It is used to initialize objects. It is called when an instance of a class is created, and it usually sets initial values for the objects attributes.
 
+It doesn't inherited as it's not part of class member. 
 __Types:__
 1. default constructor
 2. parameterized constructor
@@ -47,12 +48,54 @@ A parameterized constructor accepts parameters, allowing you to initialize the o
 ## Constructor Chaining
 It refers to the process of calling one constructor from another within the same/different class. It is used to reduce code duplication and ensure proper initialization.
 
+Each class calls the constructor of its parent class when it is instantiated, leading to a chain of constructor calls. Constructor doesn't inherited as it's not part of the class member. But in every inheritance constructor of parent class will be called, which result constructor chaining.
+```java
+class SuperParent{
+    SuperParent(){
+        System.out.println("I'm Super Parent");
+    }
+    SuperParent(int x){
+        System.out.println("I'm Super Parent with "+x);
+    }
+}
+class Parent extends SuperParent{
+    Parent(){
+        System.out.println("I'm Parent");
+    }
+    Parent(int x){
+        System.out.println("I'm Parent with "+x);
+    }
+}
+class Child extends Parent{
+    Child(){
+        System.out.println("I'm Child");
+    }
+    Child(int x){
+        System.out.println("I'm Child with "+x);
+    }
+}
+class SuperChild extends Child{
+    SuperChild(){
+        super(4);
+        System.out.println("I'm SuperChild");
+    }
+    SuperChild(int x){
+        System.out.println("I'm SuperChild with "+x);
+    }
+}
+```
 # this, super keyword
 - anywhere in the program
+## this
+## super
+- refer immediate parent class instance variable
 # this(), super() method
 - only inside constructor
 - must be first statement in a constructor.
 - can't be use together
+## this()
+## super()
+- invoke immediate parent class constructor
 
 # Method
 variables used in method signature are called parameter, and variables used during call are called arguments.
@@ -93,9 +136,25 @@ __Method overloading is a way to achieve `dynamic polymorphism` in java.__
 - variable is declare outside method, constructor or any block
 - variable can be used as common property(variable) of all objects of it's class as it's belong to class not object
 - don't make multiple copy for multiple object.
+## `private`
+- accessible within the class it is declared
+- can't accessible not even in child class
+## `protected`
+- accessible anywhere within the same package
+## `default`
+- accessible anywhere within the same package
+# Keywords
 ## `final`
 - class can't be inherited
 - method can't be overriden
+# Interface
+It defines a set of methods that a class must implement. It allows for a form of abstraction, enabling the seperation of what a class can do from how it does it.
+
+- It only contain method signature and declaration.
+- All methods are implicitly `public` and `abstract`
+- All fields are implicitly `public`, `static`, `final`
+- Can't have constructor, meaning you can't instantiate(object creation) direclty
+- One interface can extend another interface, and classes are implment interfaces
 # OOP
 __Key Concepts of OOP:__
 - [Encapsulation](#encapsulation)
