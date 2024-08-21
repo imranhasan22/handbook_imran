@@ -751,45 +751,8 @@ ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simp
 Basic building block for user interface. 
 
 It does not display any content on its own, it can be used as a placeholder, a separator, or a background element.
-# Themes
-- Theme.Holo
-- Theme.Holo.Light
-- Theme.Material
-- Theme.Material.Light
-- Theme.AppCompat
-- Theme.AppCompat.Light
-- Theme.AppCompat.Light.DarkActionBar
-- Theme.AppCompat.DayNight
-- Theme.AppCompat.DayNight.DarkActionBar
-- Theme.AppCompat.NoActionBar
-- Theme.AppCompat.Light.NoActionBar
-- Theme.AppCompat.DayNight.NoActionBar
+
 # Styling
-Themes are applied to entire activities or applications, while styles are applied to individual views. 
-
-__Define a Style:__
-```
-<resources>
-    <style name="styleName" parent="parentName">
-        <item name="viewAttribute">attributeValue</item>
-    </style>
-</resources>
-```
-__Explore:__
-    - style theme
-    - style activity
-    - style view
-    
-Set the style to an activity with `android.theme` attribute
-
-__Inherit Style:__
-```
-<resources>
-    <style name="styleName" parent="parentStyleName">
-        <item name="viewAttribute">attributeValue</item>
-    </style>
-</resources>
-```
 ## Shape
 - `<solid>` tag specifies the fill color of the shape.
 - `<stroke>` tag defines the border width and color.
@@ -823,6 +786,44 @@ __Rectangle:__
         >
     </item>
 </layer-list>
+```
+## Themes
+- Theme.Holo
+- Theme.Holo.Light
+- Theme.Material
+- Theme.Material.Light
+- Theme.AppCompat
+- Theme.AppCompat.Light
+- Theme.AppCompat.Light.DarkActionBar
+- Theme.AppCompat.DayNight
+- Theme.AppCompat.DayNight.DarkActionBar
+- Theme.AppCompat.NoActionBar
+- Theme.AppCompat.Light.NoActionBar
+- Theme.AppCompat.DayNight.NoActionBar
+
+Themes are applied to entire activities or applications, while styles are applied to individual views.
+### Define a New Theme
+```xml
+<resources>
+    <style name="themeName">
+        <item name="viewAttribute">attributeValue</item>
+    </style>
+    <style name="anotherTheme" parent="themeName">
+        <item name="colorPrimary">@color/primaryColor</item>
+    </style>
+</resources>
+```
+All the design from `themeName` inherited to `anotherTheme`.
+### Apply Theme
+__Application:__
+Apply theme to the whole application with `<application>` tag and `android:theme` attribute.
+```xml
+<application android:theme="@style/themeName" ><application>
+```
+__Activity:__
+Apply theme to a specific activity with `<activity>` tag and `android:theme` attribute.
+```xml
+<activity android:theme="@style/themeName" ><activity>
 ```
 # Eventlistener
 - `Button myButton = findViewById(R.id.myButton)` - finds a button with the id `myButton` defined in the layout XML file and assigns it to a variable named myButton.
