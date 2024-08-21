@@ -55,6 +55,7 @@ __ADB()__ is a command-line tool that allows developers to communicate with an A
 - [Intent](#intent)
 - [Fragment](#fragment)
 - [Bottom Navigation](#bottom-navigation)
+- [Toolbar](#toolbar)
 - [Logging](#logging)
 - [Database](#database)
 # Layouts
@@ -1250,6 +1251,23 @@ bottomNavigation.setSelectedItemId(R.id.action_save);
 
 - `bottomNavigation.setSelectedItemId(R.id.action_save);` - set the inital fragment
 - `return true` - set the active design of selected menu item
+# Toolbar
+## Basic Usage
+1. __Set up The Theme:__
+The activity or the whole application, where toolbar should be implement must not contain `NoActionBarTheme`.
+
+`android:label` attribute from `<application>` tag or `<activity>` tag is the default label of toolbar.
+
+2. __Java__
+```
+ActionBar actionBar = getSupportActionBar();
+if (actionBar != null) {
+    actionBar.setTitle("My Title");
+    actionBar.setSubtitle("My Subtitle");
+    actionBar.setDisplayHomeAsUpEnabled(true);
+}
+```
+- `setDisplayHomeAsUpEnabled` - display a back arrow which navigates up in the application's hierarchy.
 # Logging
 It allow developers to track the flow of their application, debug issues, and monitor behavior during runtime. Android provides a built-in logging framework through the `android.util.Log` class, which allows developers to output log messages of varying severity levels.
 
