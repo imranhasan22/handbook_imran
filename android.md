@@ -55,7 +55,7 @@ __ADB()__ is a command-line tool that allows developers to communicate with an A
 - [Intent](#intent)
 - [Fragment](#fragment)
 - [Bottom Navigation](#bottom-navigation)
-- [Toolbar](#toolbar)
+- [Actionbar](#actionbar)
 - [Logging](#logging)
 - [Database](#database)
 # Layouts
@@ -1251,15 +1251,17 @@ bottomNavigation.setSelectedItemId(R.id.action_save);
 
 - `bottomNavigation.setSelectedItemId(R.id.action_save);` - set the inital fragment
 - `return true` - set the active design of selected menu item
-# Toolbar
+# Actionbar
+It is a standard component provided by the `Android framework` that sits at the top of an activity window.  It typically displays the activity’s title, navigation options (like the back button). Automatically provided by Android when you use a theme that supports an ActionBar (e.g., Theme.AppCompat.Light.DarkActionBar).
+
 ## Basic Usage
 1. __Set up The Theme:__
-The activity or the whole application, where toolbar should be implement must not contain `NoActionBarTheme`.
+The activity or the whole application, where toolbar should be implement must contain a theme that support an ActionBar.
 
-`android:label` attribute from `<application>` tag or `<activity>` tag is the default label of toolbar.
+    - `android:label` attribute from `<application>` tag or `<activity>` tag is the default label of toolbar.
 
 2. __Java__
-```
+```java
 ActionBar actionBar = getSupportActionBar();
 if (actionBar != null) {
     actionBar.setTitle("My Title");
@@ -1268,6 +1270,76 @@ if (actionBar != null) {
 }
 ```
 - `setDisplayHomeAsUpEnabled` - display a back arrow which navigates up in the application's hierarchy.
+- `return true;` - means that you have handled the menu item selection.
+- `return false;` - indicates that you have not handled the event, and the system should continue to process it(rare);
+- `return super.onOptionsItemSelected(item);` - allow the superclass to handle the event.
+## Custom Actionbar
+```java
+ActionBar actionBar = getSupportActionBar();
+if (actionBar != null) {
+    actionBar.setDisplayHomeAsUpEnabled(true);
+    actionBar.setDisplayShowCustomEnabled(true);
+    actionBar.setCustomView(R.layout.custom_actionbar);
+}
+```
+## Back Button
+```java
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+
+    if (id == android.R.id.home) {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+        if (currentFragment instanceof HomeFragment) {
+            return true;
+        } else {
+            getOnBackPressedDispatcher().onBackPressed();
+            return true;
+        }
+    }
+
+    return super.onOptionsItemSelected(item);
+}
+```
+## Menu Items
+__Displaying 3 dots in right side of actionbar:__
+```java
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.menu_main, menu);
+    return true;
+}
+```
+__Handling click event on each menu item:__
+```java
+@Override
+public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    int id = item.getItemId();
+
+    // Handle 3-dot menu items
+    if (id == R.id.action_manage) {
+        Toast.makeText(this, "Manage clicked!", Toast.LENGTH_SHORT).show();
+        return true;
+    } else if (id == R.id.action_save) {
+        Toast.makeText(this, "Save clicked!", Toast.LENGTH_SHORT).show();
+        return true;
+    } else if (id == R.id.action_home) {
+        Toast.makeText(this, "Home clicked!", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+}
+```
+## Toolbar
+It is a ViewGroup that can be added to any part of your layout and can act as a complete replacement for the ActionBar.
+
+Toolbar can replace the ActionBar. By using the `setSupportActionBar(Toolbar toolbar)` method in an `AppCompatActivity`, you can promote a Toolbar to act as the app’s ActionBar.
+```java
+setSupportActionBar(toolbar);
+```
 # Logging
 It allow developers to track the flow of their application, debug issues, and monitor behavior during runtime. Android provides a built-in logging framework through the `android.util.Log` class, which allows developers to output log messages of varying severity levels.
 
@@ -1437,11 +1509,6 @@ It is designed to block out an area on the screen to display a single item. Gene
 
 - `setcancelable=false` - used to prevent a dialog from being dismissed when the user touches outside of the dialog.
 
-### Toast
-```
-Toast.makeText(MainActivity.this, "Hello Toast", Toast.LENGTH_SHORT).show();
-```
-
 ### ListView
 ListView is a viewgroup that can display a list of scrollable items. Each of the item is clickable
 - `android:divider` -
@@ -1492,38 +1559,8 @@ String[] items = getResources().getStringArray(R.array.list_container);
 - `android:supportsRtl` - Indicates whether the application supports right-to-left (RTL) layouts. 
 
 # ActionBar
-### Adding ActionBar
-```
-<application
-    ...
-    android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-    <activity
-        ...
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-    </activity>
-</application>
-```
-### Customize ActionBar
-```<resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-    </style>
-</resources>
-
-```
 ### Accessing ActionBar
 ```
-ActionBar actionBar = getSupportActionBar();
-if (actionBar != null) {
-    actionBar.setTitle("My Title");
-    actionBar.setSubtitle("My Subtitle");
-    actionBar.setDisplayHomeAsUpEnabled(true); // Show the Up button
-    actionBar.setHomeButtonEnabled(true); // Enable the Home button
-    actionBar.setLogo(R.drawable.logo); // Set the logo
-    actionBar.setDisplayUseLogoEnabled(true); // Enable display of the logo
-    actionBar.setDisplayShowTitleEnabled(false); // Optionally hide the title if you only want to show the logo
-}
-
 @Override
 public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
