@@ -1,3 +1,8 @@
+# Index
+- [Thread](#thread)
+- [Execution Context](#execution-context)
+- [Synchronous](#synchronous)
+- [Asynchronous](#asynchronous)
 # Syntactic Sugar
 It refers to syntax that makes code easier to write and read but doesn't add new functionality to the language. It actually a shorthand for a common operation that could be expressed in an alternate.
 - Arrow Functions
@@ -14,12 +19,102 @@ A valid unit of code that resolves to a value.
 A complete unit of execution.
 - do not return a vaule but execute some some logic.
 - Example: `let x=5;`, `if(x<4){`
+# Thread
+## Process
+A process is an independent program in execution with its own memory space
+
+## Thread
+A thread is the smallest unit of execution within a process. It allow a program to perform multiple task simultaneously.
+
+## Multithread
+Multiple threads can exist within the same process sharing the same space but executiong independently.
+
+## Threads in Javascript
+Javascript is inherently single-threaded, meaning it execute one operation at a time within a single thread.
+1. __Heap__ is s region of memory where javascript store variables.
+2. __Call Stack__
+
+    Where js keeps track of function calls and their execution context. When a function is invoked, it gets added to the call stack. Once the execution is complete, it gets removed from the stack.
+3. __Execution Context__
+
+    Before any code runs, javascript creates an execution context which is responsible for setting up the environment where your code runs.
+## Multithreads in Javascript
+Modern js environment offer ways to simulate multit-hreading through web workers and other concurrency mechanisms.
+1. __Web Workers__
+
+    It allow js to run scripts in the background, independent of the main execution thread. It enable task that are computionally heavy run without blocking the user interface
+2. __Callback Queue__
+
+    Contain a list of tasks that are waiting to be executed. When an asynchronous operation completes, its callback is placed in the callback queue.
+3. __Event Loop__
+    
+    Its primary job is to continously monitor the call stack and callback queue, managing the execution of code, collectiong and processing events and executiong sub-tasks.
+# Execution Context
+## Types
+- [Global Execution Context](#global-execution-context)
+- [Functon Execution Context](#functon-execution-context)
+- [Eval Execution Context](#eval-execution-context)
+```js
+const root=5;
+const squareNumber=(n)=>{
+    int a=n*n;
+    return a;
+}
+const square=squareNumber(root);
+```
+## Memory Management
+- [Heap](#heap)
+- [Callstack](#callstack)
+## Phases of Execution
+- [Creation Phase](#creation-phase)
+- [Execution Phase](#execution-phase)
+### Global Execution Context
+- Created when javascript starts executing
+- It's the base execution context
+- It hase the global object
+    - `window` in browser
+    - `global` in Node.js
+- `this` pointing the global object
+- variable and functions declared at the global level are stored in this context
+### Functon Execution Context
+- Created whenever a function is invoked
+- Each funtion call has its own execution context
+- contain local variable, `arguments` object
+### Eval Execution Context
+- Created when code is executed inside an `eval` function
+### Creation Phase
+Memory is allocated for variables and functions. Variables are set to `undefined`([Hoisting](#hoisting)), and functions are stored the function body.
+
+__Explaination:__
+- Global Execution Context
+    - memory allocate for `root` and values set to `undefined`
+    - memory allocate for `squareNumber` and values set to the description of the function
+- Function Execution Context
+    - memory allocate for `a` and values set to `undefined`
+    - pushed the new execution context onto the stack
+### Execution Phase
+- Code is executed line by line
+- variables are assigned their actual values(replacing `undefined`)
+
+__Explaination:__
+- Global Execution Context
+    - `root` variable replace it's value with `5` instead of `undefined`
+    - return the value of `squareNumber` whenver it is called
+- Function Execution Context
+    - replace the value of `a` with `n*n`
+    - return the value of `a` when the function is invoked
+## Callstack
+- its also called `Execution Context Stack`
+- whenever a new execution context is created(a function is invoked), it is pushed onto the stack
+- when a function is completes, its execution context is popped off the stack
+## Heap
+- it stores the value of the variables, functions.
 # Synchronous vs Asynchronous
 Most of the language work synchronously by default. Javascript is a synchronous programming language also but if we want to work with any remote server which is called ajax call, javascript behaves like asynchronous. 
 
 ## Synchronous
 It means each statement is executed one after the other, in order they appear in the code(Top to Bottom). Synchronous code `blocks` the execution of subsequent code until the current operation finishes. It's operations is slow and you can predict the order of execution as well.
-```
+```js
 const processOrder=(orderNumber)=>{
     console.log(`Processing Order ${orderNumber}`);
 
@@ -37,7 +132,7 @@ console.log("Completed Order 1");
 ```
 ## Asynchronous
 It allow to handle operations that take time to complete such as network request, file reading, timers erct `without blocking` the main thread.
-```
+```js
 const processOrder=(orderNumber, requiredTime)=>{
     console.log(`Proces Order Start ${orderNumber}`);
 
