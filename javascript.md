@@ -9,6 +9,9 @@
     - [Exception](#exception)
     - [throw](#throw)
     - [Error Object](#error-object)
+    - [Truthy](#truthy)
+    - [Falsy](#falsy)
+    - [Console](#console)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
 - [Synchronous](#synchronous)
@@ -149,6 +152,23 @@ console.log(customError.name) // Custom Error
 console.log(customError.message) // Error Occurred
 console.log(customError.stack) // Error Occured at specific line
 ```
+## Truthy
+A `truthy` value is any value that is considered `true` when encountered a boolean context. All values are truthy unless they are defined as falsy.
+- non-zero numbers
+- no-empty strings
+- objects and arrays even empty object and array
+- any function
+- `new Date()` is truthy
+- `Symbol()` is truthy
+- `Infinity` and `-Infinity` both are truthy
+## Falsy
+A `falsy` value is any value that is considered `false` when encountered a boolean context. There are only few falsy values in javascript:
+- `0`, `-0`, `false` are falsy
+- BigInt zero `0n` is falsy
+- empty string
+- `null`, `undefined`, `NaN` is falsy
+## Console
+- to write multiple line in console use `shift+Enter`
 # Thread
 ## Process
 A process is an independent program in execution with its own memory space
@@ -337,5 +357,3 @@ var Parent=function(name="masum", dob="june"){
     this.dob=dob;
 }
 ```
-# Conditional Statement
-## Truthy Falsy
