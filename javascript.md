@@ -13,6 +13,7 @@
     - [Falsy](#falsy)
     - [Console](#console)
     - [IIFE](#iife)
+    - [Lexical Scoping](#lexical-scoping)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
 - [Synchronous](#synchronous)
@@ -78,10 +79,31 @@ someFunc(){
     console.log(myVariable);
     let myVariable="Hello";
     ```
+
+__ReferenceError__: Occurs when a variable that isn’t declared or isn’t accessible is referenced. This often happens due to misspellings, accessing variables in the temporal dead zone, or outside their scope.
+
+__SyntaxError__: Occurs when code does not conform to the correct syntax of the language. This type of error is detected before the code is executed and typically involves missing or incorrect syntax elements.
+
+__TypeError__: Occurs when a value is not of the expected type, such as calling a non-function as a function, or accessing properties on `null` or `undefined`.
+
+__Explaination:__
+```js
+let i = 50;
+for (let i = 0; i < 5; i++) {
+    console.log(i);
+}
+console.log(i);
+```
+- memory allocate for initial `a` in script object with global scope
+- memory allocate for last `a` in script object with local scope
 ### Temporal Dead Zone
 Variables declared with `var` are hoisted at the top of their function scope. It means they are initialized with `undefined` even before the code execution reaches the declaration.
 
-However, variables declared with `let` and `const` are also hoisted but they are not initialized. Instead, they are placed in the Temporal Dead Zone frome the start ot the block until the declaration is encountered
+However, variables declared with `let` and `const` are also hoisted but they are not initialized. Instead, they are placed in the Temporal Dead Zone frome the start ot the block until the declaration is encountered.
+
+TDZ refers to the period during which a variable is in scope but cannot be accessed because it has not been initialized.
+
+`var` variable allocate memory in global `window` object but `let` and `const` memory allocate memory in `script` object which is why it handle differntly and value is not initialized. you can access `var` variable within `window` object(`window.variable_name`) but you can't access `let`, `const` variable except their name.
 ## Error 
 ### Error 
 An object that represents an issue that occurs during the execution of a program. It is a buit-in object with several types such as `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
@@ -192,6 +214,8 @@ const sum=(function(){
 console.log(sum);
 ```
 `sum` will be `30`, don't need call the function
+# Lexical Scoping
+It determines how variable names are resolved in nested functions which is by their position within the source code, specifically where they are declared within the nested scopes (such as functions or blocks).
 # Thread
 ## Process
 A process is an independent program in execution with its own memory space
