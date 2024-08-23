@@ -1,24 +1,154 @@
 # Index
+- [Javascript](#javascript)
+    - [Syntactic Sugar](#syntactic-sugar)
+    - [Expression](#expression)
+    - [Statement](#statement)
+    - [Variable Declaration](#variable-declaration)
+    - [Temporal Dead Zone](#temporal-dead-zone)
+    - [Error](#error)
+    - [Exception](#exception)
+    - [throw](#throw)
+    - [Error Object](#error-object)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
 - [Synchronous](#synchronous)
 - [Asynchronous](#asynchronous)
-# Syntactic Sugar
+# Javascript
+## Syntactic Sugar
 It refers to syntax that makes code easier to write and read but doesn't add new functionality to the language. It actually a shorthand for a common operation that could be expressed in an alternate.
 - Arrow Functions
 - Template Literals
 - Destructuring Assignments
 - Defautl Parameters
 - Class
-# Expression VS Statement
-## Expresssion
+## Expression and Statement
+Expression produce value, statement perform an action
+### Expression
 A valid unit of code that resolves to a value.
 - as simple as a number or a variable or a function.
+- expression written in a single line
+- a function stored in a variable(`var`, `let`, `const`) will be called expression as it's produce(return) value which may stored in that variable.
 - Example: `5`, `x+2`, `Mat.max(1,2)`
-## Statement
+```js
+const someFunc=()=>{
+    // Function Expression
+}
+```
+### Statement
 A complete unit of execution.
 - do not return a vaule but execute some some logic.
+- a normal function without variable declaration(`var`, `let`, `const`) is a statement as it's perform an action when it is called
 - Example: `let x=5;`, `if(x<4){`
+```js
+someFunc(){
+    // Function Statement
+}
+```
+## Variable Declaration
+- updating/re-assigning `const` variable create `TypeError: Assignment to constant variable.` error.
+    ```js
+    const a="hello";
+    a="hi";
+    ```
+- a variable with same name can be declare twice with `var` but not with `let` and `const`, it will create `SyntaxError: Identifier 'a' has already been declared`.
+    ```JS
+    let a='hello'; // ERROR
+    let a="hi"; // ERROR
+
+    var b="hello";
+    var b="hello";
+    ```
+    a  variable with same name can be declare twice with `let` if both are in different scope, this is not applicable for `const`. 
+    ```js
+    let a=5;
+    console.log(a);
+    {
+        let a=4;
+        console.log(a);
+    }
+    console.log(a);
+    ```
+- `var` maintain function/global scope, `let` and `const` maintain local scope.
+- Using any variable before declaration with `var` return `undefined` due to hoisting but with `let` and `const` it will return an error of `ReferenceError: Cannot access 'myVariable' before initialization` due to temporal deadzone.
+    ```js
+    console.log(myVariable);
+    let myVariable="Hello";
+    ```
+### Temporal Dead Zone
+Variables declared with `var` are hoisted at the top of their function scope. It means they are initialized with `undefined` even before the code execution reaches the declaration.
+
+However, variables declared with `let` and `const` are also hoisted but they are not initialized. Instead, they are placed in the Temporal Dead Zone frome the start ot the block until the declaration is encountered
+## Error 
+### Error 
+An object that represents an issue that occurs during the execution of a program. It is a buit-in object with several types such as `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
+```
+let x=1;
+console.log(y); // ReferenceError
+```
+### Exception
+When an error occurs, it creates an exception that handleed using `try`, `catch`, `finally`.
+```
+try{
+    let x=1;
+    console.log(y); // ReferenceError
+}catch(error){
+    console.log(error)
+}
+```
+In summary, error is a problem and exception is the handling mechanism for such problems.
+### throw
+It is used to create and throw custom errors or exceptions. By using `throw` you are generating an exception that disrupts the normal flow of the code, allowing it to be caught and handled by `try...catch` blocks.
+```
+const age=17;
+try{
+    if(age<18){
+        throw("You are too young");
+        console.log("will not execute");
+    }else{
+        console.log("your are adult");
+    }
+}catch(error){
+    console.log("will not execute");
+    console.log(error);
+}
+```
+It allows you to create and propagate exceptions, enabling you to handle errors and control the flow of your program when something goes wrong.
+### Error Object
+The `Error` object is a buit-in object that provides a standarized way to handle and describe errors in a program.
+
+__Properties:__
+- `name` - represent the name of the error type.
+- `message` - describe the error.
+- `stack` - details about the error.
+
+__Handle Error:__
+```
+try{
+    if(age<18){
+        throw new Error("You are too young");
+    }else{
+        console.log("your are adult");
+    }
+}catch(error){
+    console.log(error.name); // Error
+    console.log(error.message); // You are too young
+    console.log(error.stack);
+}
+```
+__Custom Error:__
+```
+class CustomError extends Error{
+    constructor(message){
+        super(message);
+        this.name="Custom Error";
+        this.stack="Error Occured at specific line";
+    }
+}
+let customError=new CustomError("Error Occurred");
+console.log(customError.name) // Custom Error
+console.log(customError.message) // Error Occurred
+console.log(customError.stack) // Error Occured at specific line
+```
 # Thread
 ## Process
 A process is an independent program in execution with its own memory space
@@ -149,77 +279,6 @@ console.log("Take Order 1");
 processOrder(2,5000);
 console.log("Completed Order 1");
 ```
-# Error VS Exception
-## Error 
-An object that represents an issue that occurs during the execution of a program. It is a buit-in object with several types such as `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
-```
-let x=1;
-console.log(y); // ReferenceError
-```
-## Exception
-When an error occurs, it creates an exception that handleed using `try`, `catch`, `finally`.
-```
-try{
-    let x=1;
-    console.log(y); // ReferenceError
-}catch(error){
-    console.log(error)
-}
-```
-In summary, error is a problem and exception is the handling mechanism for such problems.
-## throw
-It is used to create and throw custom errors or exceptions. By using `throw` you are generating an exception that disrupts the normal flow of the code, allowing it to be caught and handled by `try...catch` blocks.
-```
-const age=17;
-try{
-    if(age<18){
-        throw("You are too young");
-        console.log("will not execute");
-    }else{
-        console.log("your are adult");
-    }
-}catch(error){
-    console.log("will not execute");
-    console.log(error);
-}
-```
-It allows you to create and propagate exceptions, enabling you to handle errors and control the flow of your program when something goes wrong.
-## Error Object
-The `Error` object is a buit-in object that provides a standarized way to handle and describe errors in a program.
-
-__Properties:__
-- `name` - represent the name of the error type.
-- `message` - describe the error.
-- `stack` - details about the error.
-
-__Handle Error:__
-```
-try{
-    if(age<18){
-        throw new Error("You are too young");
-    }else{
-        console.log("your are adult");
-    }
-}catch(error){
-    console.log(error.name); // Error
-    console.log(error.message); // You are too young
-    console.log(error.stack);
-}
-```
-__Custom Error:__
-```
-class CustomError extends Error{
-    constructor(message){
-        super(message);
-        this.name="Custom Error";
-        this.stack="Error Occured at specific line";
-    }
-}
-let customError=new CustomError("Error Occurred");
-console.log(customError.name) // Custom Error
-console.log(customError.message) // Error Occurred
-console.log(customError.stack) // Error Occured at specific line
-```
 # OOP
 ## Class
 Unlike other programming language, there is nothing about `class` programming till ES5. Which create confusion about is it really a oop laguage or not?
@@ -278,3 +337,5 @@ var Parent=function(name="masum", dob="june"){
     this.dob=dob;
 }
 ```
+# Conditional Statement
+## Truthy Falsy
