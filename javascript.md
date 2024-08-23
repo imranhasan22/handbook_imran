@@ -12,6 +12,7 @@
     - [Truthy](#truthy)
     - [Falsy](#falsy)
     - [Console](#console)
+    - [IIFE](#iife)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
 - [Synchronous](#synchronous)
@@ -169,6 +170,28 @@ A `falsy` value is any value that is considered `false` when encountered a boole
 - `null`, `undefined`, `NaN` is falsy
 ## Console
 - to write multiple line in console use `shift+Enter`
+## IIFE
+`Immediatley Invoked Function Expression` is a function that runs as soon as it is defined.
+### Syntax
+```js
+(function(){
+// your code here
+}())
+```
+__OR__
+```js
+(function(){
+// your code here
+})()
+```
+Function Expression also works with IIFE
+```js
+const sum=(function(){
+    return 10+20;
+}())
+console.log(sum);
+```
+`sum` will be `30`, don't need call the function
 # Thread
 ## Process
 A process is an independent program in execution with its own memory space
