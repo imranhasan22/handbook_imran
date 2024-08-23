@@ -18,6 +18,7 @@
 - [Execution Context](#execution-context)
 - [Synchronous](#synchronous)
 - [Asynchronous](#asynchronous)
+- [Callback Function](#callback-function)
 # Javascript
 ## Syntactic Sugar
 It refers to syntax that makes code easier to write and read but doesn't add new functionality to the language. It actually a shorthand for a common operation that could be expressed in an alternate.
@@ -345,6 +346,76 @@ console.log("Completed Order 1");
 console.log("Take Order 1");
 processOrder(2,5000);
 console.log("Completed Order 1");
+```
+# Callback Function
+A callback function is a function that is passed as an `argument` to another function and is `executed after the completion` of that function.
+
+The idea behind a callback function is to make sure that a certain code is executed only after another code has finished executing.
+
+In the script below, due to the asynchronous behaviour of javascript, the processing script run first, then the fetching script. But this shouldn't happen, fetching script should run first, then processing script.
+```js
+const fetchData=()=>{
+    console.log("Fetching Data...")
+    setTimeout(()=>{
+        console.log("Data Fetched")
+    }, 3000)
+}
+const processData=(data)=>{
+    console.log("Processing Data -> "+data);
+}
+fetchData();
+processData("completed");
+```
+Callback function solve this problem by ensuring the execution of argument function before completion the parente function.
+```js
+const fetchData=(callback)=>{
+    console.log("Fetching Data...")
+    setTimeout(()=>{
+        console.log("Data Fetched")
+        callback("Completed")
+    }, 3000)
+}
+const processData=(data)=>{
+    console.log("Processing Data -> "+data);
+}
+fetchData(processData);
+```
+## Callback Hell
+A situation where multiple nested callbacks are used in asynchronous code, resulting look like pyramid, difficult to read, maintain and debug.
+```js
+const readFile=(filename, callback)=>{
+    setTimeout(() => {
+        console.log(`Reading file: ${filename}`);
+        callback(null, "file data");
+    }, 1000);
+}
+const processData=(data, callback)=>{
+    setTimeout(() => {
+        console.log("Processing data");
+        callback(null, "processed data");
+    }, 1000);
+}
+const saveFile=(filename, data, callback)=>{
+    setTimeout(() => {
+        console.log(`Saving file: ${filename}`);
+        callback(null);
+    }, 1000);
+}
+const logSuccess=(filename, callback)=>{
+    setTimeout(() => {
+        console.log(`Success: ${filename} saved successfully`);
+        callback(null);
+    }, 1000);
+}
+readFile('file1.txt', (error, data)=>{
+    processData(data, (error, processedData)=>{
+        saveFile('file2.txt', processedData, (error)=>{
+            logSuccess('file2.txt', (error)=>{
+                console.log("All operations completed successfully!");
+            });
+        });
+    });
+});
 ```
 # OOP
 ## Class
