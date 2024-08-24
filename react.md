@@ -12,6 +12,7 @@
 - [Lifecycle](#lifecycle)
   - [Mounting](#mounting)
     - [Constructor](#constructor)
+    - [static getDerivedStateFromProps](#static-getderivedstatefromprops)
     - [render()](#render)
     - [componentDidMount](#componentdidmount)
   - [Updating](#updating)
@@ -150,13 +151,20 @@ class MyApp extends Component{
 }
 ```
 # Lifecycle
-- [__Mounting__](#mounting): [constructor](#constructor), [getDerivedStateFromProps](#getderivedstatefromprops), [render](#render), [componentDidMount](#componentdidmount)
+- [__Mounting__](#mounting): [constructor](#constructor), [static getDerivedStateFromProps](#static-getderivedstatefromprops), [render](#render), [componentDidMount](#componentdidmount)
 - [__Updating__](#updating): getDerivedStateFromProps, shouldComponentUpdate, render, getSnapshotBeforeUpdate, componentDidUpdate
 - [__Unmounting__](#unmounting): componentWillUnmount
 - [__Error Handling__](#error-handling): componentDidCatch
 ## Mounting
+It refers to the process of rendering a component for the first time and adding it to the DOM
+
+__Mounting Sequence::__
+1. [Constructor](#constructor) - Initializes state and props
+2. [static getDerivedStateFromProps](#static-getderivedstatefromprops) - Update state based on initial props
+3. [render](#render) - create and insert virtual DOM
+4. [componentDidMount](#componentdidmount) - execute any side effects
 ### Constructor
-The constructor method is the first method called when a component is created. It’s used to set up the initial state of the component. It is called before the component mount.
+The constructor method is the first method called when a component is created. It’s used to set up the initial state of the component and bind event hanler. It is called before the component mount.
 ```jsx
 constructor(props) {
   super(props);
@@ -165,6 +173,10 @@ constructor(props) {
   };
 }
 ```
+### static getDerivedStateFromProps()
+It is used to `update the state` before the component mount `based on the props`.
+```jsx
+``` 
 ### render()
 This method is required in every React component. It returns the JSX that describes the component's UI. This method is pure, meaning it should not modify the state or interact with the DOM.
 ```jsx
