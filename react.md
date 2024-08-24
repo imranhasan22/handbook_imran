@@ -1,11 +1,24 @@
 # Index
+- [HTML, CSS, JS](#html-css-js)
 - [Fragments](#fragments)
+- [List Rendering](#list-rendering)
 - [Class Components](#class-components)
+  - [Class Definition](#class-definition)
+  - [State Management](#state-management)
+  - [Props](#props)
 - [Lifecycle](#lifecycle)
+  - [Mounting](#mounting)
+    - [Constructor](#constructor)
+    - [render()](#render)
+    - [componentDidMount](#componentdidmount)
+  - [Updating](#updating)
+  - [Unmounting](#unmounting)
 - [Hooks](#hooks)
     - [useState](#usestate)
     - [useEffect](#useEffect)
     - [Custom Hook](#custom-hook)
+- [Controlled Component](#controlled-component)
+- [Unontrolled Component](#uncontrolled-component)
 # HTML, CSS, JS
 ## HTML
 React uses JSX(Javascript XML), a syntax extension for javascript, which looks similar to HTML but allows you to embed HTML within javascript.
@@ -55,6 +68,10 @@ __There are tow ways to use fragments:__
 The shorthand syntax is more concise and commonly used but doesn't support `key` or other attributes.
 
 Render method can return only one elements. So when you need to return multiple element at a time but you don't want to add extra node to the DOM, use fragment.
+# List Rendering
+React allows you to render lists by mapping over an array of data and returning JSX for each item in the array. The `map()` function is commonly used for this purpose.
+
+ The key prop is a special attribute that helps React identify which items have changed, been added, or removed. It should be unique among the siblings.
 # Class Components
 ## Class Definition
 A class component is defined as js class that `extends` `React.Component`. It must hve a `render()` method, which returns jsx to be rendered to the DOM.
@@ -102,7 +119,7 @@ class MyApp extends Component{
 - [__Error Handling__](#error-handling): componentDidCatch
 ## Mounting
 ### Constructor
-The constructor method is the first method called when a component is created. It’s used to set up the initial state of the component.
+The constructor method is the first method called when a component is created. It’s used to set up the initial state of the component. It is called before the component mount.
 ```jsx
 constructor(props) {
   super(props);
@@ -120,6 +137,8 @@ render() {
 ```
 ### componentDidMount()
 This method is called immediately after the component is inserted into the DOM. It’s typically used for performing side effects like data fetching, setting up subscriptions, or manually modifying the DOM.
+
+It is executed once in a lifecycle of a component which is just after the first `render()`.
 ```jsx
 componentDidMount() {
   fetch('https://api.example.com/data')
@@ -140,6 +159,10 @@ State generally refers to data or properties that need tracking in an applicatio
 
 It returs a pair, an array with current state and a function to update it.
 
+When a state is updated:
+  - the entire state is overwritten, to update specific item, use `spread` operator.
+  - component is re-render
+
 ## useEffect
 It lets you perform side effect function(data fetching, timers, DOM manipulation) in functional components. Side effect refers to any operation that affects something outside of the components scope, interacting with external system, global state.
 
@@ -158,3 +181,29 @@ A function that allow you to `resue` stateful logic from your components.
 
 - Name must start with `use`.
 - It can return any type of data(array, object, function etc).
+
+# Controlled Component
+A controlled component is a component that renders a form element(like an  input, textare) whose value is controlled by React state. It gives you more control over the form elements, allowing to manage user inputs, validation and other behaviors in a predictable way.
+# Uncontrolled Component
+A uncontrolled component is a component that renders a form element whose value is controlled by the DOM directly. Access the input value using a `ref` instead of state.
+```jsx
+import { useRef } from "react";
+const UncontrolledComponent = () => {
+  const name = useRef("");
+  const age = useRef(null);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(name.current.value);
+    console.log(age.current.value);
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="" id="" ref={name} />
+      <input type="text" name="" id="" ref={age} />
+      <input type="submit" value="Submit" />
+    </form>
+  );
+};
+
+export default NotFound;
+```
