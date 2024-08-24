@@ -2,6 +2,9 @@
 - [HTML, CSS, JS](#html-css-js)
 - [Fragments](#fragments)
 - [List Rendering](#list-rendering)
+- [Conditional Rendering](#conditional-rendering)
+- [public Directory](#public-directory)
+- [src Directory](#src-directory)
 - [Class Components](#class-components)
   - [Class Definition](#class-definition)
   - [State Management](#state-management)
@@ -71,8 +74,42 @@ Render method can return only one elements. So when you need to return multiple 
 # List Rendering
 React allows you to render lists by mapping over an array of data and returning JSX for each item in the array. The `map()` function is commonly used for this purpose.
 
- The key prop is a special attribute that helps React identify which items have changed, been added, or removed. It should be unique among the siblings.
+The key prop is a special attribute that helps React identify which items have changed, been added, or removed. It should be unique among the siblings.
+# Conditional Rendering
+IIFE can be used inside jsx to handle conditional rendering with `if-else` logic.
+```jsx
+const Example = () => {
+  const isLoggedIn = true;
+  return (
+    <>
+      {(()=>{
+        if(isLoggedIn){
+          return <h1>Welcome Back</h1>
+        }else{
+          return <h1>Please Login First</h1>
+        }
+      })}
+    </>
+  );
+};
+
+export default Example;
+```
+# `public` Diroctory
+It contains static assets that will be served directly to the browser without being preprocessed by Webpack so you can't use js imports or other advanced features here. Files in this directory are accessible via a direct URL path.
+- `index.html` is the primary HTML file that serves your react application
+- `static file`: any images, font, documents
+- `manifest.json` is used for configuring how your react app appears when installed as a progressive web app(PWA). It defines the icons, name and other setting
+- `robots.txt` tells web crawlers and robots which page to index or ignore on your site.
+
+Everything here is copied directly to the `build` folder when you run `npm run build`. Missing files will not be called at compilation time and will be caused `404` error.
+# `src` Directory
+It is where all your applications components and logic reside. It contains the actual source code that Webpack will process, bundle and optimize. Unlike `public` folder, files in `src` are not accessible via a direct URL path, they need to be imported into your componets to be included in the build.
+- `index.js` is the main entry point where the react app is mounted to the DOM.
+- `App.js` is the root component of the application
+Scripts and stylesheets get minified and bundled together to avoid extra network request. Missing file cause compoiltation error instead of `404` error
 # Class Components
+A component is a reusable piece of tha UI that can be thought as a building block of the application.
 ## Class Definition
 A class component is defined as js class that `extends` `React.Component`. It must hve a `render()` method, which returns jsx to be rendered to the DOM.
 ```jsx
@@ -184,6 +221,12 @@ A function that allow you to `resue` stateful logic from your components.
 
 # Controlled Component
 A controlled component is a component that renders a form element(like an  input, textare) whose value is controlled by React state. It gives you more control over the form elements, allowing to manage user inputs, validation and other behaviors in a predictable way.
+
+- input are handled via callbacks(like `onChange`) that update the state
+- can validate/manipulate input before updating the state
+- give you real-time update
+- give you full controll over the form elements
+- it give your centralized data management specially when using libraries like `redux`
 # Uncontrolled Component
 A uncontrolled component is a component that renders a form element whose value is controlled by the DOM directly. Access the input value using a `ref` instead of state.
 ```jsx
@@ -204,6 +247,8 @@ const UncontrolledComponent = () => {
     </form>
   );
 };
-
 export default NotFound;
 ```
+- Component doesn't manage the input's state directly, instead, it just reads the input's value when needed.
+- Doesn't re-render the component when the input value changes.
+- Can't track value until the form submitted.
