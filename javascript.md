@@ -20,6 +20,16 @@
 - [Asynchronous](#asynchronous)
 - [Callback Function](#callback-function)
 # Javascript
+__Dynamic Typing:__ JavaScript is a dynamically typed language, meaning you don't need to declare variable types explicitly. The type is determined at runtime.
+__Interpreted Language:__ Unlike compiled languages like C or Java, JavaScript code is interpreted by the browser in real-time, which makes development and debugging more flexible and fast.
+__Prototype-based Object Orientation:__ JavaScript uses prototypes rather than classical inheritance models (like in Java or C++). This means objects can inherit properties directly from other objects.
+__First-class Functions:__ Functions in JavaScript are first-class citizens, meaning they can be treated like any other variable. They can be passed as arguments, returned from other functions, and assigned to variables.
+- high-level
+- just-in-time-compiled
+- multi-paradigm
+- event-driven
+- functional
+- imperative-programming-style
 ## Syntactic Sugar
 It refers to syntax that makes code easier to write and read but doesn't add new functionality to the language. It actually a shorthand for a common operation that could be expressed in an alternate.
 - Arrow Functions
@@ -217,6 +227,52 @@ console.log(sum);
 `sum` will be `30`, don't need call the function
 # Lexical Scoping
 It determines how variable names are resolved in nested functions which is by their position within the source code, specifically where they are declared within the nested scopes (such as functions or blocks).
+# Template Literal
+It enclosed by backticks(`) rather than a single quote or double quote.
+1. __String Interppolation__ - embed expressions directly within the string using `${}`
+    ```js
+    const name="Masum";
+    console.log(`Hello ${name}`);
+    consle.log(`The sume of 5 and 6: ${5+6}`)
+    ```
+2. __Multi-line String__ - create multi-line string without using special character like `\n`
+3. __Nesting__
+```js
+const person={name:"Masum",school:"SSS",college:"HAC",university:"NSTU"}
+console.log(`
+Name: ${person.name}
+Education:
+${
+`School: ${person.school},
+College: ${person.school},
+University: ${person.university}
+`}
+`)
+```
+4. __Tagged Template Literals__ - It allow to parse template literals with a function.
+```js
+const tag=(strings,...values)=>{
+    console.log(strings);
+    console.log(values);
+}
+const firstperson="Masum";
+const secondperson="Billah";
+tag`Hello ${firstperson} and ${secondperson}`;
+```
+- `strings` - An array containing the literal portions of the template(the parts of the string that are not expressions)
+- `values` - the rest parameter(`...values`) contains the evaluated values of the embeded expressions(the parts inside `${}`)
+
+__Output:__
+```
+[ 'Hello ', ' and ', '' ]
+[ 'Masum', 'Billah' ]
+```
+Don't forget to call the tagged function with backtick. Regular functin output this.
+```js
+tag(`Hello ${firstperson} and ${secondperson}`)
+// Hello Masum and Billah
+// []
+```
 # Thread
 ## Process
 A process is an independent program in execution with its own memory space
