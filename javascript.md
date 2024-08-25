@@ -20,6 +20,7 @@
 - [Asynchronous](#asynchronous)
 - [Callback Function](#callback-function)
 - [Promise](#promise)
+- [async/await](#asyncawait)
 # Javascript
 __Dynamic Typing:__ JavaScript is a dynamically typed language, meaning you don't need to declare variable types explicitly. The type is determined at runtime.
 __Interpreted Language:__ Unlike compiled languages like C or Java, JavaScript code is interpreted by the browser in real-time, which makes development and debugging more flexible and fast.
@@ -597,6 +598,19 @@ Once the functions return Promises, chain them using `.then()` and `.catch()` me
         .then((orderNumber)=>completeOrder(orderNumber))
         .catch(()=>console.log("Error Occurred"))
     ```
+# async/await
+It is a syntax built on top of Promises that allows writting asynchronous code in a manner that looks synchronouse, making it easier to read and write.
+- `async` is a function that returns promises.
+- `await` - is a keyword which use to pause execution of the function until the promise is resolved or rejected. It can only be used inside `async` function.
+```js
+const handleOrder=async(orderNumber)=>{
+    const takedOrder=await takeOrder(orderNumber);
+    const proceedOrder=await processOrder(takedOrder);
+    const compltedOrder=await completeOrder(proceedOrder);
+}
+handleOrder(1);
+handleOrder(2);
+```
 # OOP
 ## Class
 Unlike other programming language, there is nothing about `class` programming till ES5. Which create confusion about is it really a oop laguage or not?
