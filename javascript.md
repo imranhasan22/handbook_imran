@@ -13,7 +13,9 @@
     - [Falsy](#falsy)
     - [Console](#console)
     - [IIFE](#iife)
+    - [First Class Function](#first-class-function)
     - [Lexical Scoping](#lexical-scoping)
+    - [Template Literal](#template-literal)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
 - [Synchronous](#synchronous)
@@ -227,6 +229,33 @@ const sum=(function(){
 console.log(sum);
 ```
 `sum` will be `30`, don't need call the function
+# First Class Function
+- Function can be used as value like storing in variable, passing as arguments, returning as value.
+## HOF
+High Order Function is a function that either:
+- takes one or more functions as arguments.
+- returns a function as its result.
+
+__Common HOF in Javascript:__
+- [map()](#map)
+- [filter()](#filter)
+- [reduce()](#reduce)
+- [forEach()](#forEach)
+- [sort()](#sort)
+### Custom HOF
+__Example:__
+```js
+const performOperation=(operation)=>{
+    console.log("Operation Request Accepted");
+    return operation;
+}
+const add=(a,b)=>{
+    return a+b;
+}
+const addOperation=performOperation(add);
+console.log(addOperation(4,5));
+```
+`performOperation` is a HOF
 # Lexical Scoping
 It determines how variable names are resolved in nested functions which is by their position within the source code, specifically where they are declared within the nested scopes (such as functions or blocks).
 # Template Literal
