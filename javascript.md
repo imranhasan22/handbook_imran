@@ -19,6 +19,7 @@
 - [Synchronous](#synchronous)
 - [Asynchronous](#asynchronous)
 - [Callback Function](#callback-function)
+- [Promise](#promise)
 # Javascript
 __Dynamic Typing:__ JavaScript is a dynamically typed language, meaning you don't need to declare variable types explicitly. The type is determined at runtime.
 __Interpreted Language:__ Unlike compiled languages like C or Java, JavaScript code is interpreted by the browser in real-time, which makes development and debugging more flexible and fast.
@@ -367,7 +368,7 @@ __Explaination:__
 Most of the language work synchronously by default. Javascript is a synchronous programming language also but if we want to work with any remote server which is called ajax call, javascript behaves like asynchronous. 
 
 ## Synchronous
-It means each statement is executed one after the other, in order they appear in the code(Top to Bottom). Synchronous code `blocks` the execution of subsequent code until the current operation finishes. It's operations is slow and you can predict the order of execution as well.
+It means each statement is executed one after the other, in order they appear in the code(Top to Bottom). Synchronous code `blocks`(whole browser, user can't even click any event) the execution of subsequent code until the current operation finishes. It's operations is slow and you can predict the order of execution as well.
 ```js
 const processOrder=(orderNumber)=>{
     console.log(`Processing Order ${orderNumber}`);
@@ -402,6 +403,53 @@ console.log("Completed Order 1");
 console.log("Take Order 1");
 processOrder(2,5000);
 console.log("Completed Order 1");
+```
+
+But if you look into the output sequence, this doesn't follow proper order, though it execute asynchronously.
+```
+Take Order 1
+Proces Order Start 1
+Proceed Order 1
+Completed Order 1
+Take Order 2
+Proces Order Start 2
+Proceed Order 2
+Completed Order 2
+Processing Order 1
+Processing Order 2
+```
+See the output, order completion execute before processing order. But it should be execute sequentially, like take order, process order, complete order. Callback function solve this problem, with callback function we can execute function sequentially as well as asynchronously.
+
+Look at this example, order 1 and order 2 execute sequentially and asynchroously.
+```js
+const takeOrder=(orderNumber, callback)=>{
+    console.log(`Take Order ${orderNumber}`);
+    callback(orderNumber);
+}
+const processOrder=(orderNumber ,callback)=>{
+    console.log(`Proces Order Start ${orderNumber}`);
+
+    setTimeout(()=>{
+        console.log(`Proceed Order ${orderNumber}`);
+        callback(orderNumber)
+    },3000);
+
+}
+const completeOrder=(orderNumber, callback)=>{
+    console.log(`Completed Order ${orderNumber}`);
+
+}
+
+takeOrder(1,(orderNumber)=>{
+    processOrder(1, (orderNumber)=>{
+        completeOrder(1);
+    })
+})
+takeOrder(2,(orderNumber)=>{
+    processOrder(2, (orderNumber)=>{
+        completeOrder(2);
+    })
+})
 ```
 # Callback Function
 A callback function is a function that is passed as an `argument` to another function and is `executed after the completion` of that function.
@@ -473,6 +521,82 @@ readFile('file1.txt', (error, data)=>{
     });
 });
 ```
+# Promise
+A promise is an object that represent the eventual completion or failure of an `asynchronouse` operation and its resulting value.
+
+## Structure of a Promise
+It is created using the `Promise` constructor, which takes a function(called the executor function) with two parameter: `resolve` and `reject`.
+```js
+const promise=new Promise((resolve, reject)=>{
+    // ASYNCHRONOUS OPERATION
+    const successful=true;
+
+    successful?resolve():reject();
+})
+```
+The value passed in resolve method catch in the callback function of `then()` method and the value passed in reject method catch in the callback function of `catch()` method
+## Using Promise
+Promises are used with `.then()` and `.catch()` method to handle the outcomes.
+- `then()` is called when the promise is fulfilled
+- `catch()` is called when promise is rejected
+```js
+const promise=new Promise((resolve, reject)=>{
+    // ASYNCHRONOUS OPERATION
+    const successful=true;
+
+    successful?resolve("Resolve"):reject("Reject");
+})
+
+promise.then((resolve)=>{
+    console.log(resolve)
+    console.log("Then");
+}).catch(()=>{
+    console.log("Catch");
+}).finally(()=>{
+    console.log("Finally");
+})
+```
+## Promise Chain
+Promises can be chained to run asynchronouse task sequenially which resolve callback hell.
+1. __Convert Functions to Return Promises__
+For each function that uses a callback, refactor it to return a Promise instead.
+    ```js
+    const takeOrder=(orderNumber)=>{
+        return new Promise((resolve)=>{
+            console.log(`Take Order ${orderNumber}`)
+            resolve(orderNumber);
+        })
+    }
+    const processOrder=(orderNumber)=>{
+        return new Promise((resolve)=>{
+            console.log(`Proces Order Start ${orderNumber}`);
+
+            setTimeout(()=>{
+                console.log(`Proceed Order ${orderNumber}`);
+                resolve(orderNumber)
+            },3000);
+        })
+
+    }
+    const completeOrder=(orderNumber)=>{
+        return new Promise((resolve)=>{
+            console.log(`Completed Order ${orderNumber}`);
+            resolve(orderNumber);
+        })
+    }
+    ```
+2. __Chain the Promises__
+Once the functions return Promises, chain them using `.then()` and `.catch()` method.
+    ```js
+    takeOrder(1)
+        .then(orderNumber=>processOrder(orderNumber))
+        .then((orderNumber)=>completeOrder(orderNumber))
+        .catch(()=>console.log("Error Occurred"))
+    takeOrder(2)
+        .then(orderNumber=>processOrder(orderNumber))
+        .then((orderNumber)=>completeOrder(orderNumber))
+        .catch(()=>console.log("Error Occurred"))
+    ```
 # OOP
 ## Class
 Unlike other programming language, there is nothing about `class` programming till ES5. Which create confusion about is it really a oop laguage or not?
