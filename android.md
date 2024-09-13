@@ -1442,83 +1442,98 @@ dependencies {
 }
 ```
 ## GET
-### Define API endpoints
-Define the endpoints in `java/com.example.project_name/data/ApiService.java` file.
-```java
-public interface ApiService {
-    @GET("posts")
-    Call<List<PostRequest>> getAllPosts();
-}
-```
-### Define data model
-Define the data models in `java/com.example.project_name/models/PostRequest.java` file.
-```java
-public class PostRequest {
-    private String title;
-    private String body;
-    
-}
-// Getters and Setters Method
-```
-### Make the call
-Call the API asynchronously and handle the response or failure.
-```java
-Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl("https://jsonplaceholder.typicode.com/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build();
+### All
+1. __Define API endpoints__ Define the endpoints in `java/com.example.project_name/data/ApiService.java` file.
+    ```java
+    public interface ApiService {
+        @GET("posts")
+        Call<List<PostRequest>> getAllPosts();
+    }
+    ```
+2. __Define data model__ Define the data models in `java/com.example.project_name/models/PostRequest.java` file.
+    ```java
+    public class PostRequest {
+        private String title;
+        private String body;
 
-ApiService apiService = retrofit.create(ApiService.class);
+    }
+    // Getters and Setters Method
+    ```
+3. __Make the call__ Call the API asynchronously and handle the response or failure.
+    ```java
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
-Call<List<PostRequest>> call = apiService.getAllPosts();
+    ApiService apiService = retrofit.create(ApiService.class);
 
-call.enqueue(new Callback<List<PostRequest>>() {
-    @Override
-    public void onResponse(Call<List<PostRequest>> call, Response<List<PostRequest>> response) {
-        if (response.isSuccessful()) {
-            List<PostRequest> posts = response.body();
-            for (PostRequest post : posts) {
-                Log.d("Retrofit", "Post Title: " + post.getTitle());
+    Call<List<PostRequest>> call = apiService.getAllPosts();
+
+    call.enqueue(new Callback<List<PostRequest>>() {
+        @Override
+        public void onResponse(Call<List<PostRequest>> call, Response<List<PostRequest>> response) {
+            if (response.isSuccessful()) {
+                List<PostRequest> posts = response.body();
+                for (PostRequest post : posts) {
+                    Log.d("Retrofit", "Post Title: " + post.getTitle());
+                }
+            } else {
+                Log.e("Retrofit", "Request failed. Code: " + response.code());
             }
-        } else {
-            Log.e("Retrofit", "Request failed. Code: " + response.code());
         }
-    }
 
-    @Override
-    public void onFailure(Call<List<PostRequest>> call, Throwable t) {
-        Log.e("Retrofit", "Request failed. Error: " + t.getMessage());
-    }
-});
-```
-### Make the call with id
+        @Override
+        public void onFailure(Call<List<PostRequest>> call, Throwable t) {
+            Log.e("Retrofit", "Request failed. Error: " + t.getMessage());
+        }
+    });
+    ```
+## Single
 1. __Update the endpoint__
-```java
-@GET("posts/{id}")
-Call<PostRequest> getPost(@Path("id") int postId);
-```
-2. __Update the call__
-```java
-Call<PostRequest> call = apiService.getPost(1);
+    ```java
+    @GET("posts/{id}")
+    Call<PostRequest> getPost(@Path("id") int postId);
+    ```
+    2. __Update the call__
+    ```java
+    Call<PostRequest> call = apiService.getPost(1);
 
-call.enqueue(new Callback<PostRequest>() {
-    @Override
-    public void onResponse(Call<PostRequest> call, Response<PostRequest> response) {
-        if (response.isSuccessful()) {
-            PostRequest post = response.body();
-            Log.d("Retrofit", "Post Title: " + post.getTitle());
-        } else {
-            Log.e("Retrofit", "Request failed. Code: " + response.code());
+    call.enqueue(new Callback<PostRequest>() {
+        @Override
+        public void onResponse(Call<PostRequest> call, Response<PostRequest> response) {
+            if (response.isSuccessful()) {
+                PostRequest post = response.body();
+                Log.d("Retrofit", "Post Title: " + post.getTitle());
+            } else {
+                Log.e("Retrofit", "Request failed. Code: " + response.code());
+            }
         }
-    }
 
-    @Override
-    public void onFailure(Call<PostRequest> call, Throwable t) {
-        Log.e("Retrofit", "Request failed. Error: " + t.getMessage());
+        @Override
+        public void onFailure(Call<PostRequest> call, Throwable t) {
+            Log.e("Retrofit", "Request failed. Error: " + t.getMessage());
+        }
+    });
+    ```
+## POST
+1. __Update the endpoint__
+    ```java
+    @POST("posts")
+    Call<PostRequest> createPost(@Body PostRequest post);
+    ```
+2. __Set Constructor in data models__
+    ```java
+    public PostRequest(int userId, String title, String body) {
+        this.title = title;
+        this.body = body;
     }
-});
-```
-
+    ```
+3. __Send the data__
+    ```java
+    PostRequest newPost = new PostRequest("Retrofit POST Request", "This is a POST request example.");
+    Call<PostRequest> call = apiService.createPost(newPost);
+    ```
 # File Structure
 ```
 app
