@@ -58,6 +58,7 @@ __ADB()__ is a command-line tool that allows developers to communicate with an A
 - [Actionbar](#actionbar)
 - [Logging](#logging)
 - [Database](#database)
+- [Retrofit](#retrofit)
 # Layouts
 ## LinearLayout
 It arranges its child views in a single direction, either vertically or horizontally. This makes it a straightforward choice for creating simple layouts where views are stacked in a single column or row.
@@ -1428,6 +1429,96 @@ while ((line = bufferedReader.readLine()) != null) {
 }
 String fileContents = sb.toString();
 ```
+# Retrofit
+Enable internet permissoin.
+```
+<uses-permission android:name="android.permission.INTERNET" />
+```
+Update Dependency
+```
+dependencies {
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+}
+```
+## GET
+### Define API endpoints
+Define the endpoints in `java/com.example.project_name/data/ApiService.java` file.
+```java
+public interface ApiService {
+    @GET("posts")
+    Call<List<PostRequest>> getAllPosts();
+}
+```
+### Define data model
+Define the data models in `java/com.example.project_name/models/PostRequest.java` file.
+```java
+public class PostRequest {
+    private String title;
+    private String body;
+    
+}
+// Getters and Setters Method
+```
+### Make the call
+Call the API asynchronously and handle the response or failure.
+```java
+Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("https://jsonplaceholder.typicode.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build();
+
+ApiService apiService = retrofit.create(ApiService.class);
+
+Call<List<PostRequest>> call = apiService.getAllPosts();
+
+call.enqueue(new Callback<List<PostRequest>>() {
+    @Override
+    public void onResponse(Call<List<PostRequest>> call, Response<List<PostRequest>> response) {
+        if (response.isSuccessful()) {
+            List<PostRequest> posts = response.body();
+            for (PostRequest post : posts) {
+                Log.d("Retrofit", "Post Title: " + post.getTitle());
+            }
+        } else {
+            Log.e("Retrofit", "Request failed. Code: " + response.code());
+        }
+    }
+
+    @Override
+    public void onFailure(Call<List<PostRequest>> call, Throwable t) {
+        Log.e("Retrofit", "Request failed. Error: " + t.getMessage());
+    }
+});
+```
+### Make the call with id
+1. __Update the endpoint__
+```java
+@GET("posts/{id}")
+Call<PostRequest> getPost(@Path("id") int postId);
+```
+2. __Update the call__
+```java
+Call<PostRequest> call = apiService.getPost(1);
+
+call.enqueue(new Callback<PostRequest>() {
+    @Override
+    public void onResponse(Call<PostRequest> call, Response<PostRequest> response) {
+        if (response.isSuccessful()) {
+            PostRequest post = response.body();
+            Log.d("Retrofit", "Post Title: " + post.getTitle());
+        } else {
+            Log.e("Retrofit", "Request failed. Code: " + response.code());
+        }
+    }
+
+    @Override
+    public void onFailure(Call<PostRequest> call, Throwable t) {
+        Log.e("Retrofit", "Request failed. Error: " + t.getMessage());
+    }
+});
+```
+
 # File Structure
 ```
 app
