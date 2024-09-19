@@ -136,6 +136,44 @@ __Method overloading is a way to achieve `dynamic polymorphism` in java.__
 - variable is declare outside method, constructor or any block
 - variable can be used as common property(variable) of all objects of it's class as it's belong to class not object
 - don't make multiple copy for multiple object.
+- method can't use `this` or `super` keyword.
+
+__Belongs to the Class:__ doen't make multiple instances for multiple object.
+```java
+class Parent{
+    static int x=5;
+    void show(){
+        System.out.println(x);
+    }
+}
+class Test{
+    public static void main(String[] args){
+        Parent p1= new Parent();
+        Parent p2= new Parent();
+        p1.x=10;
+        p2.x=10;
+        p1.show();
+        p2.show();
+    }
+}
+```
+As x belongs to the `Parent` class, any modification to `x` through one instance will affect all instances of the class.
+
+__No Access to Instance Variables or Methods:__ Static methods can only access other static methods or static variables of the class. They cannot directly access instance variables or methods because they are not associated with an object (instance) and thus have no knowledge of instance-level data. So, we have to create an instance of the class inside static method to access non-static property.
+```java
+class Test{
+    static int x=5;
+    int y=10;
+    public static void main(String[] args){
+        System.out.println(x);
+        // System.out.println(y); // on-static variable y cannot be referenced from a static context
+
+        Test t=new Test();
+        System.out.println(t.y);
+    }
+}
+```
+
 ## `private`
 - accessible within the class it is declared
 - can't accessible not even in child class
@@ -147,6 +185,7 @@ __Method overloading is a way to achieve `dynamic polymorphism` in java.__
 ## `final`
 - class can't be inherited
 - method can't be overriden
+- variable can be inherited but can't modifyable
 # Interface
 It defines a set of methods that a class must implement. It allows for a form of abstraction, enabling the seperation of what a class can do from how it does it.
 
