@@ -1,4 +1,6 @@
-# XML - eXtensible Markup Language
+# Android
+Android is an open-source mobile operating system based on the Linux kernel and primarily designed for touch-screen devices such as smartphones and tablets.
+## XML - eXtensible Markup Language
 It is a versatile markup language primarily designed to store and transport data.
 - XML files often start with a prolog defining the XML version and encoding.(__< ?xml version="1.0" encoding="UTF-8"? >__)
 - It allows users to define their own customized tags, similar to HTML, but not need to be predefined.
@@ -8,11 +10,18 @@ It is a versatile markup language primarily designed to store and transport data
 XML used in android development primarily for defining the user interface (UI) layouts and resource files.
 
 `xmlns`(XML Namespace) is a mechanism in XML to avoid element name conflicts by qualifying names that may have the same name but different meanings or contexts.
-# Android
 ## ADB vs AVD
 __AVD(Android Virtual Device)__ refers to the emulator that allows you to simulate an Android device `on your computer`. It helps you test and run Android apps in a virtual environment `without` needing `a physical device`.
 
 __ADB()__ is a command-line tool that allows developers to communicate with an Android device (`physical` or virtual) for debugging and performing various system-level tasks.
+
+## .apk
+.APK stands for Android Package (Kit), and it is the file format used by the Android operating system to distribute and install applications. Just like a .exe file in Windows or a .ipa file on iOS, an .apk file contains all the components an app needs to run on an Android device.
+
+__Components of an APK File:__
+1. Manifest File(AndroidManifest.xml) - contains essential metadata about the app.
+2. Dex Files(classes.dex) - contain the compiled code for the app.
+3. Resources - include files such as images, layout files etc.
 
 # Index
 - Layout
