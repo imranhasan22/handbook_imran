@@ -1,3 +1,12 @@
+Index
+- [Class](#class)
+- [Object](#object)
+- [Constructor](#constructor)
+- [Method](#method)
+- [Access Modifier](#access-modifier)
+- [Keywords](#keywords)
+- [Interface](#interface)
+- [OOP](#oop)
 # Class
 A java class is a group of values with a set of operations to manipulate this values.
 
@@ -41,7 +50,7 @@ __Types:__
 2. parameterized constructor
 
 ## Default Constructor
-A default constructor is automatically provided by the java compiler if no constructors are explicitly defined in a class. It initializes object fields with default value(null, 0).
+A default constructor is automatically provided by the java compiler if no constructors are explicitly defined in a class. It initializes object fields with default value(null, 0).It has the same access modifier as the class.
 ## Parameterized Constructor
 A parameterized constructor accepts parameters, allowing you to initialize the objects fields with specific values at the time of creation.
 
@@ -84,18 +93,6 @@ class SuperChild extends Child{
     }
 }
 ```
-# this, super keyword
-- anywhere in the program
-## this
-## super
-- refer immediate parent class instance variable
-# this(), super() method
-- only inside constructor
-- must be first statement in a constructor.
-- can't be use together
-## this()
-## super()
-- invoke immediate parent class constructor
 
 # Method
 variables used in method signature are called parameter, and variables used during call are called arguments.
@@ -112,6 +109,27 @@ The ability of a subclass to re-implement an instance method inherited from a su
 - final, static, constructor method can't be overriden.
 
 __Method overloading is a way to achieve `dynamic polymorphism` in java.__
+
+If a method in a subclass has the same method signature as a method in its superclass, the subclass method overrides the inherited method. If a method in a subclass has the different method signature as a method in its superclass, the subclass method overloads the inherited method. 
+```java
+class SuperParent{
+    static void show(double x){
+        System.out.println("Super Parent");
+    }
+}
+class Parent extends SuperParent{
+    static void show(int x){
+        System.out.println("Parent");
+    }
+}
+class Test extends Parent{
+    public static void main(String[] args){
+        show(4);
+        show(4.5);
+    }
+}
+```
+
 # Access Modifier
 ```
 == Everywhere ===========
@@ -186,6 +204,21 @@ class Test{
 - class can't be inherited
 - method can't be overriden
 - variable can be inherited but can't modifyable
+
+## this, super keyword
+- anywhere in the program
+### this
+- differentiate the local scope and class scope.
+### super
+- refer immediate parent class instance variable
+## this(), super() method
+- only inside constructor
+- must be first statement in a constructor.
+- can't be use together
+### this()
+### super()
+- invoke immediate parent class constructor
+
 # Interface
 It defines a set of methods that a class must implement. It allows for a form of abstraction, enabling the seperation of what a class can do from how it does it.
 
@@ -266,6 +299,7 @@ __Types of polymorphism:__
 - Dynamic/Run-Time Polymorphism
 
 ### Static(Overloading)
+Define in compilation time.
 ```java
 class Calculator{
     public int add(int a, int b){ return a+b; }
@@ -281,6 +315,7 @@ public static void main(String[] args){
 }
 ```
 ### Dynamic(Overriding)
+Effect are shown in run-time.
 ```java
 class Animal{
     public void sound(){
