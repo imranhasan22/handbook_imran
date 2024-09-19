@@ -209,8 +209,46 @@ class Test{
 - anywhere in the program
 ### this
 - differentiate the local scope and class scope.
+__Passing Current Object as Argument:__
+```java
+class ClassB{
+    void show(ClassA a){
+        System.out.println(a.x);
+    }
+}
+class ClassA{
+    int x = 5;
+    ClassB b = new ClassB(); 
+    void show(){
+        b.show(this);
+    }
+}
+class Test{
+    public static void main(String[] args){
+        ClassA a = new ClassA();
+        a.show();
+    }
+}
+```
+__Returning the Current Object:__
+```java
+class ClassA{
+    int x = 5;
+    ClassA show(){
+        return this;
+    }
+}
+class Test{
+    public static void main(String[] args){
+        ClassA a = new ClassA();
+        ClassA s = a.show();
+        System.out.println(s.x);
+    }
+}
+```
 ### super
-- refer immediate parent class instance variable
+- refer immediate parent class
+
 ## this(), super() method
 - only inside constructor
 - must be first statement in a constructor.
