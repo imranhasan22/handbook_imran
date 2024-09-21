@@ -36,6 +36,7 @@ __Components of an APK File:__
     - [ListView](#listview)
     - [ScrollView](#scrollview)
     - [CardView](#cardview)
+    - [RecyclerView](#recyclerView)
 - Views
     - [ZoomControls](#zoomcontrols)
     - [CalendarView](#calendarview)
@@ -380,9 +381,68 @@ __XML Layout:__
 - `app:cardBackgroundColor`: To set the background color of the card.
 - `app:cardMaxElevation`: To set the maximum elevation.
 - `app:cardUseCompatPadding`: To ensure that the content of the CardView doesn’t interfere with the card’s shadow.
+## RecyclerView
+RecyclerView is an advanced and flexible version of ListView.
+
+1. __XML Layout__
+```java
+<androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerView" />
+```
+2. __Item Layout__
+```xml
+<LinearLayout >
+    <TextView android:id="@+id/textView" />
+</LinearLayout>
+```
+3. __ViewHolder and Adapter__
+```java
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+
+    private List<String> itemList;
+
+    public MyAdapter(List<String> itemList) {
+        this.itemList = itemList;
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView textView;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.textView);
+        }
+    }
+
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
+        return new MyViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.textView.setText(itemList.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemList.size();
+    }
+}
+```
+4. __Integration__
+```java
+recyclerView = findViewById(R.id.recyclerView);
+recyclerView.setLayoutManager(new LinearLayoutManager(this));
+itemList = new ArrayList<>();
+for (int i = 1; i <= 20; i++) itemList.add("Item " + i);
+myAdapter = new MyAdapter(itemList);
+recyclerView.setAdapter(myAdapter);
+```
 # Views
 ## ZoomControls
-```
+```java
 //  <ZoomControls android:id="@+id/zoomControls" />
 private ZoomControls zoomControls = findViewById(R.id.zoomControls);
 zoomControls.getChildAt(0).setOnClickListener(new View.OnClickListener() {
