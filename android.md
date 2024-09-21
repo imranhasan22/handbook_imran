@@ -61,6 +61,7 @@ __Components of an APK File:__
 - [Eventlistener](#eventlistener)
 - [Inflater](#inflater)
 - [Toast](#toast)
+- [AlertDialog](#alertdialog)
 - [Activity](#activity)
 - [Intent](#intent)
 - [Fragment](#fragment)
@@ -163,7 +164,7 @@ It provides a horizontal layout to display tabs. It often used in conjuction wit
 1. __Fragment__
 Create fragment for each tab item.
 2. __FragmentPagerAdapter__
-```
+```java
 public class TabAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragmentList=new ArrayList<>();
     private List<String> fragmentTitleList=new ArrayList<>();
@@ -194,7 +195,7 @@ public class TabAdapter extends FragmentPagerAdapter {
 }
 ```
 3. __Merge__
-```
+```java
 ViewPager viewPager=findViewById(R.id.view_pager_container);
 TabLayout tab_container=findViewById(R.id.tab_container);
 
@@ -206,12 +207,12 @@ viewPager.setAdapter(tabAdapter);
 tab_container.setupWithViewPager(viewPager);
 ```
 ## Layout
-```
+```xml
 <com.google.android.material.tabs.TabLayout />
 ```
 ## ViewPager
 It allow the user to swipe left or right through pages of content, typically fragments
-```
+```xml
 <androidx.viewpager.widget.ViewPager  />
 ```
 # ViewGroup
@@ -221,7 +222,7 @@ Each item in the list is an instance of View, which by default is a TextView but
 The Adapter acts as a bridge between the UI Component and the Data Source. It converts data from the data sources into view items that can be displayed into the UI Component. Data Source can be Arrays, HashMap, Database, etc. and UI Components can be ListView, GridView, Spinner, etc. When you have a list of single type items which are stored in an array you can use ArrayAdapter.
 
 ArrayAdapter has a layout with a single TextView. If you want to have a more complex layout instead of ArrayAdapter use `CustomArrayAdapter/BaseAdapter`
-```
+```java
 private ListView listView = findViewById(R.id.listView);
 String[] items = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
 ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
@@ -237,7 +238,7 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 The `simple_list_item_1` layout is defined in the Android SDK. You don't need to create or modify it. You can directly use it in your adapters. It consists of a single TextView element that is used to display the text of each item in the list. It's the layout for list item, you can use your own layout also.
 ### BaseAdapter
 __Layout:__
-```
+```xml
 <LinearLayout>
     <TextView android:id="@+id/title" />
     <TextView android:id="@+id/title" />
@@ -246,7 +247,7 @@ __Layout:__
 __Model Class:__
 
 `@models/Item`
-```
+```java
 public class Item {
     private String title;
     private String description;
@@ -268,7 +269,7 @@ public class Item {
 __Custom Adapter:__
 
 `@adapters/ItemAdapter`
-```
+```java
 public class ItemAdapter extends BaseAdapter {
     private Context context;
     private List<Item> items;
@@ -309,7 +310,7 @@ public class ItemAdapter extends BaseAdapter {
 }
 ```
 __Use Custom Adapter:__
-```
+```java
 List<Item> listItems = new ArrayList<>();
 listItems.add(new Item("Title 1", "Description 1"));
 listItems.add(new Item("Title 2", "Description 2"));
@@ -326,7 +327,7 @@ A view group that allows the view hierarchy placed within it to be scrolled vert
 A view group that allows the view hierarchy placed within it to be scrolled horizontally.
 
 It  can only contain a `single` child view or a single layout. Avoid nesting ScrollView with other scrollable views, as it can lead to performance issues and an unpredictable user experience.
-```
+```java
 scrollView.setLayoutParams(new ScrollView.LayoutParams(ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT));
 LinearLayout linearLayout = new LinearLayout(this);
 linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -350,7 +351,7 @@ __Methods:__
 - `fullScroll(int direction)`: Scroll to the beginning or end of the scroll view.
 
 __Smooth Scrolling:__
-```
+```java
 goBottomButton.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -372,7 +373,7 @@ __Add Dependency:__
 implementation ("androidx.cardview:cardview:1.0.0")
 ```
 __XML Layout:__
-```
+```xml
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" >
 </androidx.cardview.widget.CardView>
 ```
@@ -385,7 +386,7 @@ __XML Layout:__
 RecyclerView is an advanced and flexible version of ListView.
 
 1. __XML Layout__
-```java
+```xml
 <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerView" />
 ```
 2. __Item Layout__
@@ -465,9 +466,8 @@ __Attributes:__
 - `android:maxDate`:  Limits the selectable dates to those on or before the specified date.
 - `android:showWeekNumber`: Shows or hides the week numbers.
 
-
 __Handling Date Selection:__
-```
+```java
 CalendarView calendarView = findViewById(R.id.calendarView);
 calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
     @Override
@@ -480,7 +480,7 @@ calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 To change the color of selector, use theme attribute and to make more grip on calendar related task explore material design.
 ## AnalogClock
 It shows the current time using hour, minute, and second hands.
-```
+```xml
 <AnalogClock android:id="@+id/analogClock" />
 ```
 ## TextClock
@@ -492,14 +492,14 @@ __Attributes:__
 - `android:timeZone` - Set time zone
 
 __XML Layout:__
-```
+```xml
 <TextClock android:id="@+id/textClock" />
 ```
 ## WebView
 - `loadUrl()` - Loads the given URL
 - `webView.setWebViewClient(new WebViewClient())` - Sets a WebViewClient to handle various web events. Enable navigating multiple webpage within the application.
 - `WebSettings` - Configure various settings for the WebView.
-```
+```java
 WebSettings webSettings = webView.getSettings();
 webSettings.setJavaScriptEnabled(true); // Enable JavaScript
 webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // Disable caching
@@ -508,7 +508,7 @@ webSettings.setDomStorageEnabled(true); // Enable DOM storage
 __Handling Back Button:__
 
 Handle back button so that it doesn't close the entire application
-```
+```java
 OnBackPressedDispatcher onBackPressedDispatcher =getOnBackPressedDispatcher();
 onBackPressedDispatcher.addCallback(this, new OnBackPressedCallback(true) {
     @Override
@@ -523,13 +523,13 @@ onBackPressedDispatcher.addCallback(this, new OnBackPressedCallback(true) {
 ```
 ### HTML Content
 __WebView:__
-```
+```java
 String htmlContent = "<html><body><h1>Hello, World!</h1><p>This is a sample HTML content.</p></body></html>";
 webView.loadData(htmlContent, "text/html", "UTF-8");
 // webView.loadUrl("file:///android_asset/index.html"); // Local file
 ```
 __TextView:__
-```
+```java
 String htmlContent = "<h1>Hello, World!</h1><p>This is <b>bold</b> and <i>italic</i> text.</p>";
 CharSequence styledText = Html.fromHtml(htmlContent);
 textView.setText(styledText);
@@ -563,7 +563,7 @@ Always try to use `png` images while working with android studio.
 - `android:progressDrawable`: Sets a drawable(design) to be used for the progress indicator.
 
 __Interact with Java:__
-```
+```java
 ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -579,7 +579,7 @@ It's as same as input type range in HTML
 - `android:progressDrawable`: Sets a drawable for the progress line.
 
 __Interact with Java:__
-```
+```java
 seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -625,7 +625,7 @@ It is a subclass of `CompoundButton`
 - `android:showText`: Sets whether to show text (On/Off) inside the switch.
 
 __Interact with Java:__
-```
+```java
 switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
     if (isChecked) {
         // Switch is on
@@ -653,7 +653,7 @@ It is a subclass of `TextView`
 - `getText()`, `setText()` - perform task following their name 
 
 __Interact with Java:__
-```
+```java
 editText.addTextChangedListener(new TextWatcher() {
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -678,7 +678,7 @@ Spinner is like ListView but it work like `select` tag in html. They both provid
 - `android:maxDate` - The latest selectable date.
 
 __Interact with Java:__
-```
+```java
 datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
     @Override
     public void onDateChanged(DatePicker datePicker, int year, int month, int date) {
@@ -693,7 +693,7 @@ datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
 - `setIs24HourView(true)` - make the time in a 24-hour format.
 
 __Interact with Java:__
-```
+```java
 timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
     @Override
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
@@ -719,7 +719,7 @@ It allow users to select a number from a predefined range.
 - `setDisplayedValues` - Sets list of values displayed in the NumberPicker.
 
 __Interact with Java:__
-```
+```java
 numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
@@ -730,17 +730,15 @@ numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() 
 ```
 ## RadioGroup
 Radio buttons are usually placed inside a RadioGroup to ensure that only one button can be selected at a time.
-```
-<RadioGroup
-    android:id="@+id/radioGroup"
-    >
+```xml
+<RadioGroup android:id="@+id/radioGroup" >
     <RadioButton android:text="Male" />
     <RadioButton android:text="Female" />
     <RadioButton android:text="Other" />
 </RadioGroup>
 ```
 __Interact with Java:__
-```
+```java
 radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -766,7 +764,7 @@ implementation ("com.google.android.material:material:1.4.0")
 Now sync your project.
 
 __XML Layout:__
-```
+```xml
 <com.google.android.material.chip.ChipGroup >
     <com.google.android.material.chip.Chip style="@style/Widget.MaterialComponents.Chip.Action" />
     <com.google.android.material.chip.Chip style="@style/Widget.MaterialComponents.Chip.Entry" />
@@ -786,7 +784,7 @@ __Chip Attributes:__
 - `app:closeIcon` - set a custom close icon.
 
 __Interact with Java:__
-```
+```java
 chip_group=findViewById(R.id.chip_group);
 btn=findViewById(R.id.btn);
 btn.setOnClickListener(new View.OnClickListener() {
@@ -809,7 +807,7 @@ btn.setOnClickListener(new View.OnClickListener() {
 ## AutoCompleteTextView
 An AutoCompleteTextView only offers suggestion about the whole text. But `MultiAutoCompleteTextView` offers multiple suggestions for the substring of the text.
 __Interact with Java:__
-```
+```java
 ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,countries);
         AutoCompleteTextView textView=(AutoCompleteTextView)findViewById(R.id.autoComplete);
         textView.setThreshold(3);
@@ -905,26 +903,26 @@ Apply theme to a specific activity with `<activity>` tag and `android:theme` att
 ## Handling Multiple Eventlistner
 
 - __Implement the Listener Interfaces:__ Implement the listener interfaces for the events you want to handle. For example, if you want to handle click events on buttons, you'll implement the View.OnClickListener interface.
-```
+```java
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ...
 }
 ```
 - __Register the Listeners:__ Register the listener instances with the appropriate views.
-```
+```java
 Button myButton = findViewById(R.id.myButton);
 myButton.setOnClickListener(this);
 ```
 
 - __Override the Listener Methods:__ Implement the required methods of the listener interfaces which will contain the logic that you want to execute when the corresponding events occur.
-```
+```java
 @Override
 public void onClick(View view) {
     ...
 }
 ```
 __Boilerplate:__
-```
+```java
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
   @Override
@@ -943,22 +941,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 ```
 ## Inner Class
 - __Instantiate the Inner Class and Set the Listener:__ Instantiate an object of the inner class and set it as the listener for the view using the `setOnClickListener` method.
-```
+```java
 myButton.setOnClickListener(new MyButtonClickListener());
 ```
 - __Define the Inner Class:__ Define an inner class within your activity class. It will implement the interface corresponding to the event you want to handle. In this case, we're handling click events, so the inner class implements View.OnClickListener.
-```
+```java
 private class MyButtonClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         ...
     }
 }
-
 ```
 
 __Boilerplate:__
-```
+```java
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -979,11 +976,11 @@ public class MainActivity extends AppCompatActivity {
 ```
 ## Event Handler in XML
 __XML:__
-```
+```xml
 <Button ... android:onClick="onButtonClick" />
 ```
 __JAVA:__
-```
+```java
 public void onButtonClick(View view) {
   Toast.makeText(this, "Button clicked", Toast.LENGTH_SHORT).show();
 }
@@ -999,12 +996,12 @@ The primary purpose of LayoutInflater is to convert an XML layout file into a vi
 Each xml inside layout directory is not an activity. If it's an activity you can access it it by it's corresponding java file. But what about those file which is not an activity. There LayoutInflater comes, you can access those layout which are not an activity by LayoutInflater.
 
 __LayoutInflater Instance:__
-```
+```java
 LayoutInflater inflater = getLayoutInflater();
 //  LayoutInflater inflater = LayoutInflater.from(this);
 ```
 __Inflating a Layout:__
-```
+```java
 View inflatedView = inflater.inflate(R.layout.my_layout, parent, false);
 ```
 - `R.layout.my_layout` - The layout XML file which should be inflated.
@@ -1012,35 +1009,71 @@ View inflatedView = inflater.inflate(R.layout.my_layout, parent, false);
 - `false` - A boolean indicating whether to attach the inflated layout to the parent view immediately. Typically set to false when you intend to add the view programmatically.
 
 __Access View:__
-```
+```java
 TextView textView = inflatedView.findViewById(R.id.custom_text);
 ```
 # Toast
 Toast isa lightweight way to display a short message to the user. It appears for a short duration and then disappears automatically. 
 ## Basic Usage
-```
+```java
 Toast.makeText(context, "Hello, Toast!", Toast.LENGTH_SHORT).show();
 ```
 ## Custom Toast
 __Custom Layout for Toast:__
-```
+```xml
 <LinearLayout android:id="@+id/customToast">
     <ImageView android:id="@+id/toast_icon" />
     <TextView android:id="@+id/toast_message" />
 </LinearLayout>
 ```
 __Inflate the custom layout for the Toast:__
-```
+```java
 LayoutInflater inflater = getLayoutInflater();
 View layout = inflater.inflate(R.layout.custom_toast,(ViewGroup)findViewById(R.id.custom_toast_id));
 ```
 __Create and show the Toast:__
-```
+```java
 Toast customToast = new Toast(MainActivity.this);
 customToast.setDuration(Toast.LENGTH_LONG);
 customToast.setGravity(Gravity.CENTER, 0, 0);
 customToast.setView(layout);
 customToast.show();
+```
+# AlertDialog
+__Default AlertDialog__
+```java
+AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+builder.setTitle("Alert")
+        .setMessage("Are you sure you want to proceed?")
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        })
+        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+AlertDialog alertDialog = builder.create();
+alertDialog.show();
+```
+__Custom AlertDialog__
+```java
+LayoutInflater inflater = getLayoutInflater();
+View dialogView = inflater.inflate(R.layout.dialog_layout, null);
+builder.setView(dialogView);
+builder.setTitle("Custom Alert")
+    .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            String input =  dialogView.findViewById(R.id.inputEditText).getText().toString();
+            Toast.makeText(MainActivity.this, "You entered: " + input, Toast.LENGTH_SHORT).show();
+        }
+    })
 ```
 # Activity
 Activity is a single screen with UI which serve as the entry point for user interaction with an app.
@@ -1072,7 +1105,7 @@ Let's see the 7 lifecycle methods of android activity.
 </pre>
 
 __Interact with Java:__
-```
+```java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -1123,7 +1156,7 @@ protected void onDestroy(){
 - __Recents    :__ remove app from recents -> onDestroy()
 # Intent
 Intent class is used to navigate through activity. Intent class accept two parameter, first one is current activity, and another one is navigated activity.
-```
+```java
 Intent intent = new Intent(this, SecondActivity.class);
 startActivity(intent);
 ```
@@ -1132,17 +1165,17 @@ startActivity(intent);
 
 ## Pass Data Between Activity
 __Send:__ `intent.putExtra()` - is used to send extra data with key value pair
-```
+```java
 intent.putExtra("EXTRA_MESSAGE", "Hello from MainActivity!");
 ```
 __Recieve:__ `getIntent()` and `getStringExtra()` - is used to retreive data from activity
-```
+```java
 Intent intent = getIntent();
 String message = intent.getStringExtra("EXTRA_MESSAGE","DEFAULT_VALUE);
 ```
 ## Navigation
 1. Declare Activities in `AndroidManifest.xml`:
-```
+```xml
 <application ... >
     <activity android:name=".MainActivity">...</activity>
     <activity android:name=".SecondActivity" />
@@ -1151,13 +1184,13 @@ String message = intent.getStringExtra("EXTRA_MESSAGE","DEFAULT_VALUE);
 2. Handle `MainActivity`:
 
 __XML File:__
-```
+```xml
 <EditText android:id="@+id/inputBox" .../>
 <Button android:id="@+id/myButton" onClick="handleNext" .../>
 <TextView android:id="@+id/myView" .../>
 ```
 __Java File:__
-```
+```java
 public class MainActivity extends AppCompatActivity {
     ...
     @Override
@@ -1187,13 +1220,13 @@ public class MainActivity extends AppCompatActivity {
 3. Handle `SecondActivity`:
 
 __XML File:__
-```
+```xml
 <EditText android:id="@+id/inputSecondBox" .../>
 <Button android:id="@+id/mySecondButton" android:onClick="handlePrev" .../>
 <TextView android:id="@+id/mySecondView" .../>
 ```
 __Java File:__
-```
+```java
 public class SecondActivity extends AppCompatActivity {
     ...
     @Override
