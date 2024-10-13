@@ -20,6 +20,32 @@
     - [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
     - [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
     - [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
+- [Design Patterns](#design-patterns)
+    - [Creational Design Pattern](#creational-design-pattern)
+        - [Singleton Method Design Pattern](#singleton-method-design-pattern)
+        - [Factory Method Design Pattern](#factory-method-design-pattern)
+        - Abstract Factory Method Design Pattern
+        - Prototype Method Design Pattern
+        - Builder Method Design Pattern
+    - [Structural Design Pattern](#structural-design-pattern)
+        - [Adapter Method Design Pattern](#adapter-method-design-pattern)
+        - Decorator Method Design Pattern
+        - Bridge Method Design Pattern
+        - Composite Method Design Pattern
+        - Facade Method Design Pattern
+        - Flyweight Method Design Pattern
+        - Proxy Method Design Pattern
+    - Behavioral Design Pattern
+        - Chain Of Responsibility Method Design Pattern
+        - Interpreter Method Design Pattern
+        - State Method Design Pattern
+        - Strategy Method Design Pattern
+        - Template Method Design Pattern
+        - Visitor Method Design Pattern
+        - Command Method Design Pattern
+        - Mediator Method Design Pattern
+        - Memento Method Design Patterns
+        - Observer Method Design Pattern
 # Code Smells
 When we work on an application and write codes for it, we see a few patterns that are needed to be refactored. Those patterns either `duplicates`, or might make `code dependent on other code`. Such patterns are called Code Smells and detection of such code is called Code Smelling.
 
@@ -283,6 +309,111 @@ class BackendDeveloper {
     public void develop() {
         databaseConnection.connect();
         System.out.println("Developing backend...");
+    }
+}
+```
+# Design Patterns
+## Creational Design Pattern
+These patterns deal with object creation. They aim to simplify the creation process and provide mechanisms for creating objects in a manner that suits the given situation.
+### Singleton Method Design Pattern
+Ensures that a class has only one instance and provides a global point of access to it.
+```java
+public class Singleton {
+    // Step 1: Create a private static instance of the class.
+    private static Singleton instance;
+
+    // Step 2: Make the constructor private to prevent instantiation.
+    private Singleton() {
+        // ...
+    }
+
+    // Step 3: Provide a public static method to get the instance.
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+```
+### Factory Method Design Pattern
+Defines an interface for creating an object but lets subclasses alter the type of object that will be created. This pattern is useful when the creation process varies based on input conditions.
+```java
+// Product interface
+interface Animal {
+    void speak();
+}
+
+// Concrete Products
+class Dog implements Animal {
+    public void speak() {
+        System.out.println("Bark!");
+    }
+}
+
+class Cat implements Animal {
+    public void speak() {
+        System.out.println("Meow!");
+    }
+}
+
+// Factory
+class AnimalFactory {
+    public Animal getAnimal(String type) {
+        if ("Dog".equalsIgnoreCase(type)) {
+            return new Dog();
+        } else if ("Cat".equalsIgnoreCase(type)) {
+            return new Cat();
+        }
+        return null;
+    }
+}
+```
+## Structural Design Pattern
+Structural patterns deal with object composition and typically help simplify the structure by identifying relationships.
+### Adapter Method Design Pattern
+Allows objects with incompatible interfaces to work together by wrapping one of the objects with an adapter that performs the necessary conversions.
+```java
+// Target interface
+interface MediaPlayer {
+    void play(String audioType, String fileName);
+}
+
+// Adaptee
+class VLCPlayer {
+    public void playVLC(String fileName) {
+        System.out.println("Playing VLC file: " + fileName);
+    }
+}
+
+// Adapter
+class MediaAdapter implements MediaPlayer {
+    private VLCPlayer vlcPlayer;
+
+    public MediaAdapter() {
+        vlcPlayer = new VLCPlayer();
+    }
+
+    @Override
+    public void play(String audioType, String fileName) {
+        if (audioType.equalsIgnoreCase("vlc")) {
+            vlcPlayer.playVLC(fileName);
+        }
+    }
+}
+
+// Client
+class AudioPlayer implements MediaPlayer {
+    private MediaAdapter mediaAdapter;
+
+    @Override
+    public void play(String audioType, String fileName) {
+        if (audioType.equalsIgnoreCase("vlc")) {
+            mediaAdapter = new MediaAdapter();
+            mediaAdapter.play(audioType, fileName);
+        } else {
+            System.out.println("Unsupported media type.");
+        }
     }
 }
 ```
