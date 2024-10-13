@@ -1,4 +1,4 @@
-# Index
+# Content
 - [Code Smells](#code-smells)
     - [Within Classes](#code-smells-within-classes)
         - [Comment](#comment)
@@ -14,6 +14,12 @@
         - [Refused Bequest](#refused-bequest)
         - [Lazy Class](#lazy-class)
         - [Shotgun Surgery](#shotgun-surgery)
+- [Solid Principle](#solid-principle)
+    - [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
+    - [Open/Closed Principle (OCP)](#openclosed-principle-ocp)
+    - [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
+    - [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
+    - [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
 # Code Smells
 When we work on an application and write codes for it, we see a few patterns that are needed to be refactored. Those patterns either `duplicates`, or might make `code dependent on other code`. Such patterns are called Code Smells and detection of such code is called Code Smelling.
 
@@ -214,3 +220,69 @@ __Soultion:__ Remove unnecessary part, or merge the use full part with a releven
 Shotgun Surgery is a code smell that occurs when a change in one part of the code requires making several small changes across multiple classes or methods.
 
 __Solution:__ Consolidate related behavior into a single class or fewer classes. Group related data into classes, and hide unnecessary dependencies.
+# Solid Principle
+The SOLID principles are a set of five design principles intended to make object-oriented software designs more understandable, flexible, and maintainable
+
+The SOLID principle helps in reducing tight coupling. Tight coupling means a group of classes are highly dependent on one another which you should avoid in your code.
+
+Opposite of tight coupling is loose coupling and your code is considered as a good code when it has loosely-coupled classes.
+Loosely coupled classes minimize changes in your code, helps in making code more reusable, maintainable, flexible and stable.
+## Single Responsibility Principle (SRP)
+A class should have only one reason to change, meaning it should only have one job or responsibility.
+## Open/Closed Principle (OCP)
+Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
+## Liskov Substitution Principle (LSP)
+Objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program.
+## Interface Segregation Principle (ISP)
+Clients should not be forced to depend on interfaces they do not use. Instead of one large interface, multiple smaller and more specific interfaces are preferable.
+## Dependency Inversion Principle (DIP)
+High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details, and details should depend on abstractions.
+
+__Example__: Suppose a class `BackendDeveloper` directly depends on another class `Database`. This creates tight coupling between the two classes.
+
+__Violation of DIP:__
+```java
+class Database {
+    public void connect() {
+        System.out.println("Connected to database");
+    }
+}
+
+class BackendDeveloper {
+    private Database database;
+
+    public BackendDeveloper(Database database) {
+        this.database = database;
+    }
+
+    public void develop() {
+        database.connect();
+        System.out.println("Developing backend...");
+    }
+}
+```
+__Applying DIP:__
+```java
+interface DatabaseConnection {
+    void connect();
+}
+
+class MySQLConnection implements DatabaseConnection {
+    public void connect() {
+        System.out.println("Connected to MySQL database");
+    }
+}
+
+class BackendDeveloper {
+    private DatabaseConnection databaseConnection;
+
+    public BackendDeveloper(DatabaseConnection databaseConnection) {
+        this.databaseConnection = databaseConnection;
+    }
+
+    public void develop() {
+        databaseConnection.connect();
+        System.out.println("Developing backend...");
+    }
+}
+```
