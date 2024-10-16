@@ -330,6 +330,15 @@ tag(`Hello ${firstperson} and ${secondperson}`)
 // Hello Masum and Billah
 // []
 ```
+## Comparison: Concatenation vs. Template Literals
+| Feature                        | Concatenation                                       | Template Literals                                       |
+|--------------------------------|----------------------------------------------------|--------------------------------------------------------|
+| **Syntax**                     | Uses `+` operator                                   | Uses backticks (`` ` ``) and `${}` for expressions      |
+| **Readability**                | Can become cluttered with long strings and variables| More readable, especially with embedded variables and expressions |
+| **Multi-line Strings**         | Requires `\n` or concatenation of multiple lines    | Supports multi-line strings directly                    |
+| **Embedded Expressions**       | Difficult to include logic or calculations directly | Can embed expressions, e.g., `${2 + 3}` = `5`           |
+| **Performance**                | No significant performance difference in most cases | Similar to concatenation in terms of performance        |
+
 ## Spread Opertor
 It's commonly used to create a shallow copy of an array without altering the original array.
 
