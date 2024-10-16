@@ -543,6 +543,17 @@ const processData=(data)=>{
 }
 fetchData(processData);
 ```
+__Real Example:__ How api works
+```js
+function getSomeData(url, callback) {
+  setTimeout(() => {
+    const fakeData = 'Fetched data from ' + url;
+    callback(fakeData);
+  }, 2000);
+}
+
+getSomeData('https://api.example.com', (data) => console.log(data));
+```
 ## Callback Hell
 A situation where multiple nested callbacks are used in asynchronous code, resulting look like pyramid, difficult to read, maintain and debug.
 ```js
@@ -613,6 +624,21 @@ promise.then((resolve)=>{
     console.log("Catch");
 }).finally(()=>{
     console.log("Finally");
+})
+```
+## Promise.all()
+Promise is used to resolve callback hell which occur during multiple function call sequentially. What if there have multiple funtionality where multiple function called sequentialy. Then for each of the sequential call we need a promise. So, when there have multiple promise and this promises also have a sequence, we need to use `Promise.all()`
+```js
+const promise1 = new Promise((resolve, reject) => {
+    const successful=true;
+    successful?resolve("Resolve 1"):reject("Reject 1");
+})
+const promise2 = new Promise((resolve, reject) => {
+    const successful=true;
+    successful?resolve("Resolve 2"):reject("Reject 2");
+})
+Promise.all([promise1, promise2]).then((data)=>{
+    console.log(data)
 })
 ```
 ## Promise Chain
