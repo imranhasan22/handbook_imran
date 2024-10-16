@@ -40,7 +40,9 @@ __First-class Functions:__ Functions in JavaScript are first-class citizens, mea
 - functional
 - imperative-programming-style
 ## ECMAScript
-It is the standard that defines JavaScript, providing guidelines for its implementation and the syntax that modern JavaScript adheres to.
+It is the standard that defines JavaScript, providing guidelines for its implementation and the syntax that modern JavaScript adheres to. It is the specification of scripting language which set rules.
+
+Javascript first introduced in 1995 as `LiveScript`, but during development it called `Mocha`. But in the next year, in 1995 it changed to `Javascript`.
 
 __Key Features of ES6:__
 - Arrow Functions
@@ -137,6 +139,12 @@ However, variables declared with `let` and `const` are also hoisted but they are
 TDZ refers to the period during which a variable is in scope but cannot be accessed because it has not been initialized.
 
 `var` variable allocate memory in global `window` object but `let` and `const` memory allocate memory in `script` object which is why it handle differntly and value is not initialized. you can access `var` variable within `window` object(`window.variable_name`) but you can't access `let`, `const` variable except their name.
+```js
+console.log(x)
+console.log(y) // ReferenceError
+var x=5;
+let y=6;
+```
 ## Error 
 ### Error 
 An object that represents an issue that occurs during the execution of a program. It is a buit-in object with several types such as `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
