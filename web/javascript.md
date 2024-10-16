@@ -23,6 +23,9 @@
 - [Callback Function](#callback-function)
 - [Promise](#promise)
 - [async/await](#asyncawait)
+- [Class](#class)
+- [Constructor](#constructor)
+- [OOP](#oop)
 # Javascript
 __Dynamic Typing:__ JavaScript is a dynamically typed language, meaning you don't need to declare variable types explicitly. The type is determined at runtime.
 __Interpreted Language:__ Unlike compiled languages like C or Java, JavaScript code is interpreted by the browser in real-time, which makes development and debugging more flexible and fast.
@@ -122,13 +125,13 @@ TDZ refers to the period during which a variable is in scope but cannot be acces
 ## Error 
 ### Error 
 An object that represents an issue that occurs during the execution of a program. It is a buit-in object with several types such as `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
-```
+```js
 let x=1;
 console.log(y); // ReferenceError
 ```
 ### Exception
 When an error occurs, it creates an exception that handleed using `try`, `catch`, `finally`.
-```
+```js
 try{
     let x=1;
     console.log(y); // ReferenceError
@@ -139,7 +142,7 @@ try{
 In summary, error is a problem and exception is the handling mechanism for such problems.
 ### throw
 It is used to create and throw custom errors or exceptions. By using `throw` you are generating an exception that disrupts the normal flow of the code, allowing it to be caught and handled by `try...catch` blocks.
-```
+```js
 const age=17;
 try{
     if(age<18){
@@ -163,7 +166,7 @@ __Properties:__
 - `stack` - details about the error.
 
 __Handle Error:__
-```
+```js
 try{
     if(age<18){
         throw new Error("You are too young");
@@ -177,7 +180,7 @@ try{
 }
 ```
 __Custom Error:__
-```
+```js
 class CustomError extends Error{
     constructor(message){
         super(message);
@@ -294,7 +297,7 @@ tag`Hello ${firstperson} and ${secondperson}`;
 - `values` - the rest parameter(`...values`) contains the evaluated values of the embeded expressions(the parts inside `${}`)
 
 __Output:__
-```
+```js
 [ 'Hello ', ' and ', '' ]
 [ 'Masum', 'Billah' ]
 ```
@@ -640,13 +643,12 @@ const handleOrder=async(orderNumber)=>{
 handleOrder(1);
 handleOrder(2);
 ```
-# OOP
-## Class
+# Class
 Unlike other programming language, there is nothing about `class` programming till ES5. Which create confusion about is it really a oop laguage or not?
 
 But the actual scenario is, yes, it is a oop language, but unlike other language it is not `class` based language. ES6 solved the issue.
-### ES5
-```
+## ES5
+```js
 var Parent=function(name, dob){
     this.name=name;
     this.dob=dob;
@@ -655,8 +657,8 @@ var Parent=function(name, dob){
     }
 }
 ```
-### ES6
-```
+## ES6
+```js
 class Parent{
     constructor(name, dob){
         this.name=name;
@@ -667,8 +669,50 @@ class Parent{
     }
 }
 ```
-## Inheritance
+# Constructor
+## Default Function Constructor
+### ES5
+```js
+var Parent=function(name, dob){
+    name?name=name:name="masum";
+    dob?dob=dob:dob="june";
+
+    this.name=name;
+    this.dob=dob;
+}
 ```
+### ES6
+```js
+var Parent=function(name="masum", dob="june"){
+    this.name=name;
+    this.dob=dob;
+}
+```
+# OOP
+- [Encapsulation](#encapsulation)
+- [Inheritance](#inheritance)
+- [Polymorphism](#polymorphism)
+- [Abstraction](#abstraction)
+## Encapsulation
+Encapsulation is about bundling the data (properties) and methods that operate on that data within a single unit, typically an object or a class.
+```js
+class BankAccount {
+  #accountNumber;  // Private field using #
+
+  constructor(accountNumber) {
+    this.#accountNumber = accountNumber;
+  }
+
+  getAccountNumber() {
+    return this.#accountNumber;
+  }
+}
+```
+- `public` - all properties and methods of a class are public by default.
+- `private` - Properties or methods defined with `#` cannot be accessed or modified outside the class
+- `protected`- Properties or methods defined with `_` can be accessible within the class and its subclasses but not from outside.
+## Inheritance
+```js
 class Teacher extends Parent{
     constructor(name, dob, subject){
         super(name, dob);
@@ -679,22 +723,71 @@ class Teacher extends Parent{
     }
 }
 ```
-## Constructor
-### Default Function Constructor
-#### ES5
-```
-var Parent=function(name, dob){
-    name?name=name:name="masum";
-    dob?dob=dob:dob="june";
+## Polymorphism
+Polymorphism allows methods to do different things based on the object they are called on. It allows a child class to provide a specific implementation of a method already defined in its parent class.
+```js
+class Animal {
+  speak() {
+    return 'The animal makes a sound.';
+  }
+}
 
-    this.name=name;
-    this.dob=dob;
+class Dog extends Animal {
+  speak() {
+    return 'The dog barks.';
+  }
 }
-```
-#### ES6
-```
-var Parent=function(name="masum", dob="june"){
-    this.name=name;
-    this.dob=dob;
+
+class Cat extends Animal {
+  speak() {
+    return 'The cat meows.';
+  }
 }
+
+const myDog = new Dog();
+const myCat = new Cat();
+
+console.log(myDog.speak());
+console.log(myCat.speak());
 ```
+## Abstraction
+Abstraction means hiding the complexity of the implementation and exposing only the essential details.
+```js
+class BankAccount {
+  constructor(balance) {
+    this._balance = balance; // Private variable (conventionally)
+  }
+
+  deposit(amount) {
+    if (amount > 0) {
+      this._balance += amount;
+      console.log(`Deposited: $${amount}`);
+    } else {
+      console.log('Invalid deposit amount.');
+    }
+  }
+
+  withdraw(amount) {
+    if (amount > 0 && amount <= this._balance) {
+      this._balance -= amount;
+      console.log(`Withdrew: $${amount}`);
+    } else {
+      console.log('Invalid withdrawal amount.');
+    }
+  }
+
+  getBalance() {
+    return this._balance;
+  }
+}
+
+const account = new BankAccount(1000);
+account.deposit(500);
+console.log(account.getBalance()); // Output: 1500
+account.withdraw(300);
+console.log(account.getBalance()); // Output: 1200
+```
+__Explaination:__
+- The `_balance` property is conventionally treated as private (though it can still be accessed directly). This encapsulates the balance from direct modification.
+- `deposit()`, `withdraw()`, and `getBalance()` methods provide controlled ways to interact with _balance.
+- The user of the `BankAccount` class doesn't need to know how the balance is updated internally—they just use the methods
