@@ -16,6 +16,7 @@
     - [First Class Function](#first-class-function)
     - [Lexical Scoping](#lexical-scoping)
     - [Template Literal](#template-literal)
+    - [Spread Opertor](#spread-opertor)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
 - [Synchronous](#synchronous)
@@ -307,6 +308,31 @@ tag(`Hello ${firstperson} and ${secondperson}`)
 // Hello Masum and Billah
 // []
 ```
+## Spread Opertor
+It's commonly used to create a shallow copy of an array without altering the original array.
+
+__Reference:__ It create a new copy of the original array with a new reference. So when you change the copy of the array it update the new reference, doesn't affect the original array
+```js
+const x = [1,2,3]
+const z = [...x]
+console.log(z)
+z.push(100)
+console.log(z)
+console.log(x)
+```
+
+__Shallow copy__ meaning that it copies the elements at the top level of the array but does not deeply clone nested objects or arrays. If the array contains objects, only the references to those objects are copied, not the objects themselves. Changes to nested objects will affect both arrays.
+```js
+const originalArray = [{ a: 1 }, { b: 2 }];
+const copiedArray = [...originalArray];
+
+copiedArray[0].a = 10;
+console.log(originalArray); // Output: [{ a: 10 }, { b: 2 }]
+console.log(copiedArray);   // Output: [{ a: 10 }, { b: 2 }]
+```
+
+- It can be used with strings to treat each character of a string as an individual element. 
+
 # Thread
 ## Process
 A process is an independent program in execution with its own memory space
