@@ -1,5 +1,6 @@
 # Index
 - [Javascript](#javascript)
+    - [ECMAScript](#ecmascript)
     - [Syntactic Sugar](#syntactic-sugar)
     - [Expression](#expression)
     - [Statement](#statement)
@@ -38,6 +39,19 @@ __First-class Functions:__ Functions in JavaScript are first-class citizens, mea
 - event-driven
 - functional
 - imperative-programming-style
+## ECMAScript
+It is the standard that defines JavaScript, providing guidelines for its implementation and the syntax that modern JavaScript adheres to.
+
+__Key Features of ES6:__
+- Arrow Functions
+- Classes
+- Template Literals
+- Destructuring Assignment
+- Default Parameters
+- Modules
+- Promises
+- Let and Const
+- Rest and Spread Operators
 ## Syntactic Sugar
 It refers to syntax that makes code easier to write and read but doesn't add new functionality to the language. It actually a shorthand for a common operation that could be expressed in an alternate.
 - Arrow Functions
