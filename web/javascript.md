@@ -284,7 +284,7 @@ console.log(addOperation(4,5));
 `performOperation` is a HOF
 # Lexical Scoping
 It determines how variable names are resolved in nested functions which is by their position within the source code, specifically where they are declared within the nested scopes (such as functions or blocks).
-# Template Literal
+## Template Literal
 It enclosed by backticks(`) rather than a single quote or double quote.
 1. __String Interppolation__ - embed expressions directly within the string using `${}`
     ```js
@@ -330,7 +330,7 @@ tag(`Hello ${firstperson} and ${secondperson}`)
 // Hello Masum and Billah
 // []
 ```
-## Comparison: Concatenation vs. Template Literals
+### Comparison: Concatenation vs. Template Literals
 | Feature                        | Concatenation                                       | Template Literals                                       |
 |--------------------------------|----------------------------------------------------|--------------------------------------------------------|
 | **Syntax**                     | Uses `+` operator                                   | Uses backticks (`` ` ``) and `${}` for expressions      |
@@ -338,7 +338,6 @@ tag(`Hello ${firstperson} and ${secondperson}`)
 | **Multi-line Strings**         | Requires `\n` or concatenation of multiple lines    | Supports multi-line strings directly                    |
 | **Embedded Expressions**       | Difficult to include logic or calculations directly | Can embed expressions, e.g., `${2 + 3}` = `5`           |
 | **Performance**                | No significant performance difference in most cases | Similar to concatenation in terms of performance        |
-
 ## Spread Opertor
 It's commonly used to create a shallow copy of an array without altering the original array.
 
@@ -363,7 +362,31 @@ console.log(copiedArray);   // Output: [{ a: 10 }, { b: 2 }]
 ```
 
 - It can be used with strings to treat each character of a string as an individual element. 
+## Map
+It is a built-in object that allow to store key-value pairs, where any value (both objects and primitive values) can be used as either a key or a value. Unlike plain JavaScript objects, a Map retains the __order__ of the keys and allows keys of any data type.
+- Maps remember the original insertion order of the keys. This means if you iterate over a Map, the items will be iterated in the order they were added.
+- Unlike objects, where keys are automatically converted to strings, a Map can use keys of any type, such as objects, functions, or primitive types like numbers and strings
+- __Map Methods__: `Map` comes with various built-in methods that make it easier to interact with its data. Some of the most used methods are:
+- `set(key, value)`: Adds or updates a key-value pair.
+- `get(key)`: Retrieves the value for a given key.
+- `has(key)`: Checks if a key exists in the `Map`.
+- `delete(key)`: Removes a specific key-value pair.
+- `clear()`: Removes all key-value pairs.
+- `keys()`: Returns an iterator for keys.
+- `values()`: Returns an iterator for values.
+- `entries()`: Returns an iterator for `[key, value]` pairs.
+```js
+const map = new Map();
 
+map.set('name', 'Alice');
+map.set('age', 30);
+map.set(true, 'boolean key');
+map.set({ id: 1 }, 'object key');
+
+for (let [key, value] of map.entries()) {
+    console.log(`${key}: ${value}`);
+}
+```
 # Thread
 ## Process
 A process is an independent program in execution with its own memory space
