@@ -19,6 +19,7 @@
     - [Lexical Scoping](#lexical-scoping)
     - [Template Literal](#template-literal)
     - [Spread Opertor](#spread-opertor)
+    - [Map](#map)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
 - [Synchronous](#synchronous)
@@ -155,6 +156,7 @@ However, __only declarations are hoisted, not initializations__. The declaration
 __1.Variable Hoisting__:
     - Variables declared with `var` are hoisted to the top of their scope but are initialized with `undefined` until they are assigned a value.
     - `let` and `const` declarations are hoisted but are not initialized. They are in a "temporal dead zone" (TDZ) from the start of the block until the declaration is encountered.
+
 __2.Function Hoisting__:
     - Function declarations are fully hoisted. This means you can call the function even before it is declared in the code.
     - Function expressions assigned to variables (using `var`, `let`, or `const`) are not hoisted in the same way as function declarations
@@ -320,6 +322,7 @@ It enclosed by backticks(`) rather than a single quote or double quote.
     console.log(`Hello ${name}`);
     consle.log(`The sume of 5 and 6: ${5+6}`)
     ```
+    It memorize space, new line and display as you written it like `<pre>` tag in html
 2. __Multi-line String__ - create multi-line string without using special character like `\n`
 3. __Nesting__
 ```js
@@ -414,6 +417,15 @@ map.set({ id: 1 }, 'object key');
 for (let [key, value] of map.entries()) {
     console.log(`${key}: ${value}`);
 }
+```
+## String
+- [repeat](#repeat)
+String methods are only used with string, never use it with other data type
+### repeat
+It is used to repeat a string multiple time
+```js
+console.log(`${'Alhamdulillah '.repeat(5)}`)
+// Alhamdulillah Alhamdulillah Alhamdulillah Alhamdulillah Alhamdulillah
 ```
 # Thread
 ## Process
