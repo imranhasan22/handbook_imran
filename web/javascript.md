@@ -1,6 +1,7 @@
 # Index
 - [Javascript](#javascript)
     - [ECMAScript](#ecmascript)
+    - [DOM](#dom)
     - [Syntactic Sugar](#syntactic-sugar)
     - [Expression](#expression)
     - [Statement](#statement)
@@ -56,6 +57,15 @@ __Key Features of ES6:__
 - Promises
 - Let and Const
 - Rest and Spread Operators
+## DOM
+The Document Object Model (DOM) is a programming interface for web documents(XML/HTML). It represents the structure of a web page in a tree-like model, allowing developers to access and manipulate elements on a page using JavaScript.
+
+__Key Concepts of DOM:__
+- Tree Structure
+- Nodes and Elements
+- DOM Manipulation
+
+NodeJS doesn't have DOM, DOM can only be accessed in the browser.
 ## Syntactic Sugar
 It refers to syntax that makes code easier to write and read but doesn't add new functionality to the language. It actually a shorthand for a common operation that could be expressed in an alternate.
 - Arrow Functions
