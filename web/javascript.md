@@ -145,6 +145,33 @@ console.log(y) // ReferenceError
 var x=5;
 let y=6;
 ```
+## Hoisting
+It's a mechanism where variables and function declarations are moved to the top of their containing scope during the compile phase, before the code is executed. This means that you can use functions and variables before they are declared in the code.
+
+However, __only declarations are hoisted, not initializations__. The declaration is moved to the top, but the assignment or initialization stays in its place.
+
+### Types of Hoisting
+__1.Variable Hoisting__:
+    - Variables declared with `var` are hoisted to the top of their scope but are initialized with `undefined` until they are assigned a value.
+    - `let` and `const` declarations are hoisted but are not initialized. They are in a "temporal dead zone" (TDZ) from the start of the block until the declaration is encountered.
+__2.Function Hoisting__:
+    - Function declarations are fully hoisted. This means you can call the function even before it is declared in the code.
+    - Function expressions assigned to variables (using `var`, `let`, or `const`) are not hoisted in the same way as function declarations
+    ```js
+    greet(); // Output: Hello, World!
+
+    function greet() {
+      console.log("Hello, World!");
+    }
+    ```
+    __Function Expression:__
+    ```js
+    sayHello(); // TypeError: sayHello is not a function
+
+    var sayHello = function() {
+      console.log("Hello!");
+    };
+    ```
 ## Error 
 ### Error 
 An object that represents an issue that occurs during the execution of a program. It is a buit-in object with several types such as `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
