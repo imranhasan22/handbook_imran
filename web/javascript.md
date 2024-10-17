@@ -6,6 +6,7 @@
     - [Statement](#statement)
     - [Variable Declaration](#variable-declaration)
     - [Temporal Dead Zone](#temporal-dead-zone)
+    - [Hoisting](#hoisting)
     - [Error](#error)
     - [Exception](#exception)
     - [throw](#throw)
@@ -157,21 +158,21 @@ __1.Variable Hoisting__:
 __2.Function Hoisting__:
     - Function declarations are fully hoisted. This means you can call the function even before it is declared in the code.
     - Function expressions assigned to variables (using `var`, `let`, or `const`) are not hoisted in the same way as function declarations
-    ```js
-    greet(); // Output: Hello, World!
+```js
+greet(); // Output: Hello, World!
 
-    function greet() {
-      console.log("Hello, World!");
-    }
-    ```
-    __Function Expression:__
-    ```js
-    sayHello(); // TypeError: sayHello is not a function
+ function greet() {
+  console.log("Hello, World!");
+}
+```
+__Function Expression:__
+```js
+sayHello(); // TypeError: sayHello is not a function
 
-    var sayHello = function() {
-      console.log("Hello!");
-    };
-    ```
+ var sayHello = function() {
+  console.log("Hello!");
+};
+```
 ## Error 
 ### Error 
 An object that represents an issue that occurs during the execution of a program. It is a buit-in object with several types such as `TypeError`, `ReferenceError`, `SyntaxError`, `RangeError`.
