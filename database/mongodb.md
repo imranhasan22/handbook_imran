@@ -128,6 +128,48 @@ db.users.deleteOne({ "name": "Charlie" });
 db.users.deleteMany({ "age": { "$lt": 30 } });
 ```
 
+# Query
+## Comparison
+```shell
+db.users.find({ "age": { "$eq": 28 } });
+```
+- `$gt` - Greater Than
+- `$gte` - Greater Than or Equal
+- `$gt` - Less Than
+- `$lte` - Less Than or Equal 
+- `$ne` - Not Equal
+- `$in` - In
+- `$nin` - Not In
+## Logical
+```shell
+db.users.find({
+   "$and": [
+      { "age": { "$gt": 25 } },
+      { "age": { "$lt": 30 } }
+   ]
+});
+```
+- `$and` - Finds documents that match all conditions in the query.
+- `$or` - Finds documents that match any condition in the query.
+- `$not` - Negates a condition to find documents that do not match the specified query.
+- `$nor` - Finds documents that do not match any of the specified conditions.
+## Sorting
+__Ascending:__
+```shell
+db.users.find().sort({ "age": 1 });
+```
+__Descending:__
+```shell
+db.users.find().sort({ "age": -1 });
+```
+## Pagination
+- `limit()` - Limits the number of documents returned.
+- `skip()` - Skips a specified number of documents.
+
+## Combined
+```shell
+db.users.find().sort({ "age": 1 }).skip(5).limit(10);
+```
 # Bulk Operations
 
 Bulk operations in MongoDB allow you to execute multiple write operations (inserts, updates, deletes) in a single request.
