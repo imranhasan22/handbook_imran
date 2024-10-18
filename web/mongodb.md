@@ -40,3 +40,25 @@ __BSON:__
    }
 }
 ```
+# CRUD
+## Create
+### `insertOne()`
+```shell
+db.users.insertOne({
+   "name": "Alice",
+   "age": 28,
+});
+```
+### `insertMany()`
+```shell
+db.users.insertMany([
+   {
+      "name": "Bob",
+      "age": 32
+   },
+   {
+      "name": "Charlie",
+      "age": 25
+   }
+]);
+```
