@@ -417,3 +417,103 @@ class AudioPlayer implements MediaPlayer {
     }
 }
 ```
+### Decorator Method Design Pattern
+It allows behavior to be added to individual objects, either statically or dynamically, without affecting the behavior of other objects from the same class. It’s useful when you want to add responsibilities to objects at runtime without modifying their code.
+
+__Component:__
+```java
+interface Beverage {
+    String getDescription();
+    double cost();
+}
+```
+__ConcreteComponent:__
+```java
+class Espresso implements Beverage {
+    @Override
+    public String getDescription() {
+        return "Espresso";
+    }
+
+    @Override
+    public double cost() {
+        return 1.99;
+    }
+}
+```
+__Decorator:__
+```java
+abstract class AddOnDecorator implements Beverage {
+    protected Beverage beverage;
+
+    public AddOnDecorator(Beverage beverage) {
+        this.beverage = beverage;
+    }
+
+    @Override
+    public String getDescription() {
+        return beverage.getDescription();
+    }
+
+    @Override
+    public double cost() {
+        return beverage.cost();
+    }
+}
+```
+__ConcreteDecorators:__
+```java
+// ConcreteDecorator 1: Adds milk
+class MilkDecorator extends AddOnDecorator {
+
+    public MilkDecorator(Beverage beverage) {
+        super(beverage);
+    }
+
+    @Override
+    public String getDescription() {
+        return beverage.getDescription() + ", Milk";
+    }
+
+    @Override
+    public double cost() {
+        return beverage.cost() + 0.50;
+    }
+}
+
+// ConcreteDecorator 2: Adds sugar
+class SugarDecorator extends AddOnDecorator {
+
+    public SugarDecorator(Beverage beverage) {
+        super(beverage);
+    }
+
+    @Override
+    public String getDescription() {
+        return beverage.getDescription() + ", Sugar";
+    }
+
+    @Override
+    public double cost() {
+        return beverage.cost() + 0.20;
+    }
+}
+```
+__Implementation:__
+```java
+public class CoffeeShop {
+    public static void main(String[] args) {
+        // Order an Espresso
+        Beverage beverage = new Espresso();
+        System.out.println(beverage.getDescription() + " $" + beverage.cost());
+
+        // Add milk to the espresso
+        beverage = new MilkDecorator(beverage);
+        System.out.println(beverage.getDescription() + " $" + beverage.cost());
+
+        // Add sugar to the espresso with milk
+        beverage = new SugarDecorator(beverage);
+        System.out.println(beverage.getDescription() + " $" + beverage.cost());
+    }
+}
+```
