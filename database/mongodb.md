@@ -2,7 +2,9 @@
 
 - [BSON](#bson)
 - [CRUD](#crud)
+- [Query](#query)
 - [Bulk Operations](#bulk-operations)
+- [Relationships](#relationships)
 
 # BSON
 
