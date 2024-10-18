@@ -62,3 +62,93 @@ public class Main {
     }
 }
 ```
+# UML
+Unified Modeling Language (UML) is a standardized visual language used to model the structure and behavior of software systems. 
+## Structural Diagrams
+### Class Diagram
+It shows the classes, their attributes, methods, and relationships.
+```
++-----------------+       +------------------+
+|    Library      |       |    LibraryMember  |
++-----------------+       +------------------+
+| name            |       | name             |
+| address         |       | membershipId     |
++-----------------+       +------------------+
+| addBook()       |       | borrowBook()     |
+| removeBook()    |       | returnBook()     |
++-----------------+       +------------------+
+        |                         |
+        +-------------------------+
+                Association (Library contains LibraryMembers)
+```
+### Object Diagram
+It shows a snapshot of the objects at a particular point in time, their states, and their relationships. Similar to class diagrams, but shows actual instances (objects) rather than class definitions.
+```
++-----------------+           +------------------+
+|    Library1     |           |  Member1: John    |
++-----------------+           +------------------+
+| name: CityLib   |           | name: John Doe    |
+| address: City A |           | membershipId: 123 |
++-----------------+           +------------------+
+                Library1 has Member1 (object relationship)
+```
+## Behavioral Diagrams
+It represents the system's functional requirements from an end-user's perspective.
+
+__Components:__
+- __Actors:__ External entities (users, systems) that interact with the system.
+- __Use Cases:__ Functions or services the system provides.
+- __Relationships:__ Shows how actors interact with use cases.
+```
++----------------------------+
+|        Library System       |
++----------------------------+
+|  [Borrow Book]              |
+|  [Return Book]              |
+|  [Search Catalog]           |
++----------------------------+
+      ^          ^
+     /            \
+Member         Librarian
+```
+## Sequence Diagram
+It shows how objects interact in a time-sequenced manner.
+
+__Components:__
+- `Lifelines:` Represent objects or actors.
+- `Messages:` Interactions (method calls) exchanged between lifelines over time.
+```
+Member          Library       Book
+ |                |            |
+ |   borrowBook() |            |
+ |--------------->|            |
+ |                | checkAvail |
+ |                |----------->|
+ |                | avail=true |
+ |<---------------|            |
+ |                | lendBook() |
+```
+## Activity Diagram
+It represents workflows and the sequence of activities.
+
+__Components:__
+- `Activities:` Actions performed.
+- `Transitions:` Movement between activities.
+- `Decision Points:` Forks where different paths may be taken.
+```
+[Start] --> Borrow Book --> [Is Book Available?] --No--> [End]
+                                  |
+                                 Yes
+                                  |
+                                Issue Book --> [End]
+```
+## State Diagram
+It models the different states an object can be in and the transitions between those states.
+
+__Components:__
+- `States:` Different statuses an object can have.
+- `Transitions:` Triggers causing a change from one state to another.
+```
+[Available] --borrowBook()--> [Checked Out]
+ [Checked Out] --returnBook()--> [Available]
+```
