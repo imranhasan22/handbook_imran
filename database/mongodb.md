@@ -218,3 +218,127 @@ db.users.bulkWrite([
    }}
 ], { ordered: false });
 ```
+# Relationships
+## One-to-One
+```shell
+const mongoose = require('mongoose');
+
+// Define the User schema
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    profile: { type: mongoose.Schema.Types.ObjectId, ref: 'Profile' }, // Reference to Profile
+});
+
+// Define the Post schema
+const postSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Reference to User
+});
+
+// Create models
+const User = mongoose.model('User', userSchema);
+const Post = mongoose.model('Post', postSchema);
+```
+__Read:__
+```js
+const user = await User.findById(req.params.id).populate('profile');
+```
+## One-to-Many
+```shell
+import mongoose from 'mongoose';
+
+// Define the User schema
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }], // Array of Post IDs
+});
+
+// Define the Post schema
+const postSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    content: {
+        type: String,
+        required: true,
+    },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Reference to User
+});
+
+// Create models
+const User = mongoose.model('User', userSchema);
+const Post = mongoose.model('Post', postSchema);
+```
+__Read:__
+```js
+const user = await User.findById(req.params.id).populate('posts');
+```
+## Many-to-Many
+```shell
+// Define the Student schema
+const studentSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }], // Array of Course IDs
+});
+
+// Define the Course schema
+const courseSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+    },
+    students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }], // Array of Student IDs
+});
+
+// Create models
+const Student = mongoose.model('Student', studentSchema);
+const Course = mongoose.model('Course', courseSchema);
+```
+__Create and Read:__
+```shell
+// Enroll a Student in a Course
+app.post('/enroll', async (req, res) => {
+    const { studentId, courseId } = req.body;
+    try {
+        await Student.findByIdAndUpdate(studentId, { $addToSet: { courses: courseId } });
+        await Course.findByIdAndUpdate(courseId, { $addToSet: { students: studentId } });
+        res.status(200).json({ message: 'Student enrolled successfully' });
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+// Get Student with Courses
+app.get('/students/:id', async (req, res) => {
+    try {
+        const student = await Student.findById(req.params.id).populate('courses'); // Populate courses
+        res.status(200).json(student);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+```
