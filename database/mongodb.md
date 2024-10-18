@@ -80,6 +80,54 @@ db.users.insertMany([
 ]);
 ```
 
+## Read
+
+### `find()`
+
+```shell
+db.users.find({ "name": "Alice" });
+```
+
+### `findOne()`
+
+```shell
+db.users.findOne({ "name": "Alice" });
+```
+
+## Update
+
+### `updateOne()`
+
+```shell
+db.users.updateOne(
+   { "name": "Alice" },
+   { "$set": { "age": 29 } }
+);
+```
+
+### `update()`
+
+```
+db.users.updateMany(
+   { "age": { "$lt": 30 } },
+   { "$set": { "status": "young" } }
+);
+```
+
+## Delete
+
+### `deleteOne()`
+
+```shell
+db.users.deleteOne({ "name": "Charlie" });
+```
+
+### `delete()`
+
+```shell
+db.users.deleteMany({ "age": { "$lt": 30 } });
+```
+
 # Bulk Operations
 
 Bulk operations in MongoDB allow you to execute multiple write operations (inserts, updates, deletes) in a single request.
