@@ -4,6 +4,7 @@
 - [CRUD](#crud)
 - [Query](#query)
 - [Bulk Operations](#bulk-operations)
+- [Aggregation Pipeline](#aggregation-pipeline)
 - [Relationships](#relationships)
 - [Middleware](#middleware)
 
@@ -247,7 +248,137 @@ db.users.bulkWrite(
   { ordered: false }
 );
 ```
+# Aggregation Pipeline
+An aggregation pipeline is a sequence of stages that are applied to a collection of documents. Each stage processes the input documents and produces an output that serves as the input for the next stage. The result of the pipeline is the outcome after the last stage processes the data.
+## Common Stages in Aggregation Pipelines
+1. `$match`: Filters documents based on specified conditions, similar to the `find` query.
+2. `$group`: Groups input documents by a specified identifier and applies accumulators (like sum, average).
+3. `$project`: Reshapes documents by including or excluding fields, creating computed fields, or reformatting data.
+4. `$sort`: Sorts documents by a specified field in ascending or descending order.
+5. `$limit`: Limits the number of documents passing through the pipeline.
+6. `$skip`: Skips a specified number of documents.
+7. `$unwind`: Deconstructs an array field into multiple documents, one per array element.
+8. `$lookup`: Performs a left outer join with another collection, allowing data from related documents to be combined.
+9. `$addFields`: Adds new fields to the documents.
 
+__Example Document:__
+```json
+[
+  { "_id": 1, "product": "Laptop", "price": 1000, "quantity": 2, "date": "2024-01-10" },
+  { "_id": 2, "product": "Phone", "price": 500, "quantity": 5, "date": "2024-01-11" },
+  { "_id": 3, "product": "Tablet", "price": 300, "quantity": 7, "date": "2024-01-12" },
+  { "_id": 4, "product": "Laptop", "price": 1100, "quantity": 1, "date": "2024-01-13" },
+  { "_id": 5, "product": "Phone", "price": 600, "quantity": 3, "date": "2024-01-14" }
+]
+```
+__Example:__
+```js
+db.sales.aggregate([
+  // Stage 1: Calculate total revenue for each sale
+  {
+    $project: {
+      product: 1,
+      revenue: { $multiply: ["$price", "$quantity"] }
+    }
+  },
+  // Stage 2: Group by product and sum the revenues
+  {
+    $group: {
+      _id: "$product",
+      totalRevenue: { $sum: "$revenue" }
+    }
+  },
+  // Stage 3: Sort by total revenue in descending order
+  {
+    $sort: {
+      totalRevenue: -1
+    }
+  }
+]);
+```
+__Explaination:__
+1. __Stage 1 - `$project`:__
+  - This stage uses the $project operator to reshape each document, creating a new field called revenue by multiplying the price and quantity fields.
+  - The output of this stage includes the product and the revenue calculated for each document.
+  ```js
+  [
+    { "_id": 1, "product": "Laptop", "revenue": 2000 },
+    { "_id": 2, "product": "Phone", "revenue": 2500 },
+    { "_id": 3, "product": "Tablet", "revenue": 2100 },
+    { "_id": 4, "product": "Laptop", "revenue": 1100 },
+    { "_id": 5, "product": "Phone", "revenue": 1800 }
+  ]
+  ```
+2. __Stage 2 - `$group`:__
+  - Groups the documents by the `product` field (using `_id: "$product"`) and calculates the total revenue for each product using `$sum`.
+  - The result of this stage aggregates the revenue for each product type.
+  ```js
+  [
+    { "_id": "Phone", "totalRevenue": 4300 },
+    { "_id": "Laptop", "totalRevenue": 3100 },
+    { "_id": "Tablet", "totalRevenue": 2100 }
+  ]
+  ```
+3. __Stage 3 - `$sort`:__
+  - Sorts the results from the previous stage in descending order of `totalRevenue`.
+  - This stage helps identify the product with the highest revenue.
+  ```js
+  [
+    { "_id": "Phone", "totalRevenue": 4300 },
+    { "_id": "Laptop", "totalRevenue": 3100 },
+    { "_id": "Tablet", "totalRevenue": 2100 }
+  ]
+  ```
+### `$match`
+```js
+db.sales.aggregate([
+  {
+    $match: { product: "Laptop" }
+  }
+]);
+```
+__Output:__
+```json
+[
+  { "_id": 1, "product": "Laptop", "price": 1000, "quantity": 2, "date": "2024-01-10" },
+  { "_id": 4, "product": "Laptop", "price": 1100, "quantity": 1, "date": "2024-01-13" },
+]
+```
+### `$unwind`
+__Example Document:__
+```json
+[
+  { "_id": 1, "product": "Phone", "tags": ["electronics", "mobile"] },
+  { "_id": 2, "product": "Laptop", "tags": ["electronics", "computer"] }
+]
+```
+__Implementation__
+```js
+{
+  $unwind: "$tags"
+}
+```
+```json
+[
+  { "_id": 1, "product": "Phone", "tags": "electronics" },
+  { "_id": 1, "product": "Phone", "tags": "mobile" },
+  { "_id": 2, "product": "Laptop", "tags": "electronics" },
+  { "_id": 2, "product": "Laptop", "tags": "computer" }
+]
+```
+### `$lookup`
+```js
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customerId",
+      foreignField: "_id",
+      as: "customerDetails"
+    }
+  }
+]);
+```
 # Relationships
 
 ## One-to-One
