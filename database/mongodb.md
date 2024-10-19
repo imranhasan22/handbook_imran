@@ -260,7 +260,62 @@ An aggregation pipeline is a sequence of stages that are applied to a collection
 7. `$unwind`: Deconstructs an array field into multiple documents, one per array element.
 8. `$lookup`: Performs a left outer join with another collection, allowing data from related documents to be combined.
 9. `$addFields`: Adds new fields to the documents.
-
+## Operators
+- __Arithmetic:__ `$add`, `$subtract`, `$multiply`, `$divide`
+  ```js
+  finalPrice: { $subtract: ["$price", "$discount"] },
+  ```
+- __String:__ `$concat`
+  ```js
+  fullName: { $concat: ["$firstName", " ", "$lastName"] }
+  ```
+- __Date:__ `$year`, `$month`
+  __Example Document:__
+  ```js
+  [
+    { "_id": 1, "orderDate": ISODate("2024-01-15T10:00:00Z") },
+    { "_id": 2, "orderDate": ISODate("2024-02-20T14:30:00Z") }
+  ]
+  ```
+  __Implementation:__
+  ```js
+  $project: {
+    year: { $year: "$orderDate" },
+    month: { $month: "$orderDate" }
+  }
+  ```
+  __Output:__
+  ```js
+  [
+    { "_id": 1, "year": 2024, "month": 1 },
+    { "_id": 2, "year": 2024, "month": 2 }
+  ]
+  ```
+- __Conditional:__ `$cond`
+  ```js
+  status: {
+    $cond: { if: { $gte: ["$score", 60] }, then: "Pass", else: "Fail" }
+  }
+  ```
+- __Array:__ `$size`
+  __Example Document:__
+  ```js
+  [
+    { "_id": 1, "title": "Book A", "authors": ["Author 1", "Author 2"] },
+    { "_id": 2, "title": "Book B", "authors": ["Author 3"] }
+  ]
+  ```
+  __Implementation:__
+  ```js
+  db.books.aggregate([
+    {
+      $project: {
+        title: 1,
+        numberOfAuthors: { $size: "$authors" }
+      }
+    }
+  ]);
+  ```
 __Example Document:__
 ```json
 [
