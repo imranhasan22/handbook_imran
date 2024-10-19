@@ -149,6 +149,49 @@ db.users.deleteOne({ name: "Charlie" });
 db.users.deleteMany({ age: { $lt: 30 } });
 ```
 
+## replace
+It is used to replace an entire document in a collection with a new document. It performs an update operation by replacing the matched document with the new data provided. Unlike the `updateOne()` method, which can modify specific fields within a document, `replaceOne()` completely overwrites the existing document, except for the `_id` field, which remains unchanged.
+
+__Syntax:__
+```js
+db.collection.replaceOne(
+   <filter>,
+   <replacement>,
+)
+```
+- __filter__: A query to select the document you want to replace.
+- __replacement__: The new document that will replace the old one.
+
+### Key Points
+- The replacement document must completely replace the existing document.
+- The replacement document cannot contain any update operators like `$set`, `$inc`, etc. It must be a full, valid document.
+- If the document to replace does not exist and the `upsert` option is set to `true`, a new document will be created.
+### Example
+__Existing Document:__
+```js
+{
+  "_id": ObjectId("5f8d0d55b54764421b7156d9"),
+  "name": "John",
+  "age": 23,
+  "major": "Computer Science"
+}
+```
+__Implementation:__
+```js
+db.students.replaceOne(
+   { name: "John" },  // Filter
+   { name: "John Doe", age: 24, major: "Software Engineering" }  // New document
+)
+```
+__Output:__
+```js
+{
+  "_id": ObjectId("5f8d0d55b54764421b7156d9"),  // _id remains unchanged
+  "name": "John Doe",
+  "age": 24,
+  "major": "Software Engineering"
+}
+```
 # Query
 
 ## Comparison
