@@ -1,5 +1,5 @@
 # Content
-
+- [NoSQL](#nosql)
 - [BSON](#bson)
 - [CRUD](#crud)
 - [Query](#query)
@@ -7,6 +7,28 @@
 - [Aggregation Pipeline](#aggregation-pipeline)
 - [Relationships](#relationships)
 - [Middleware](#middleware)
+
+# NoSQL
+NoSQL stands for "Not Only SQL," which reflects its flexibility beyond the structured, tabular format of SQL databases. They are particularly useful for handling unstructured or semi-structured data, scaling easily across distributed systems, and supporting a variety of data models. 
+
+NoSQL databases are flexible in terms of structure. There is no fixed schema, which means you can insert data without a predefined structure.
+
+## Common Types of NoSQL Databases:
+- Document-based Databases
+- Key-Value Databases
+- Column-family Databases
+- Graph Databases
+
+## MongoDB
+MongoDB is a document-based NoSQL database. It stores data in flexible, JSON-like documents called BSON (Binary JSON), making it easy to handle semi-structured data. Unlike relational databases, where you need to define tables and relationships beforehand, MongoDB allows you to store documents with varying structures in the same collection.
+
+In MongoDB, data is stored in a document format, which uses BSON for storing these documents, and for representing data it just uses JSON-like structure.
+
+### Key Concepts in MongoDB
+- __Document:__ A basic unit of data, which is similar to a row in a relational database. It is represented in BSON format, allowing rich data types and nested structures.
+- __Collection:__ A group of MongoDB documents, similar to a table in a relational database.
+- __Database:__ A container for collections, similar to a relational database schema.
+- __Field:__ A key-value pair within a document, similar to a column in a table.
 
 # BSON
 
@@ -19,8 +41,6 @@ BSON supports all JSON types and includes additional data types such as:
 - **Binary Data**: Stores binary data like images or files.
 - **MinKey/MaxKey**: Special types used for comparing BSON elements.
 - **Int32, Int64, Double**: Different numeric types for storing integer and floating-point numbers.
-
-In MongoDB, data is stored in a document format, which uses BSON for storing these documents, and for representing data it just uses JSON-like structure.
 
 **Example:**
 When you insert a JSON-like document into MongoDB, it converts it into BSON format for internal storage.
