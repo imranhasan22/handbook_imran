@@ -5,6 +5,7 @@
 - [Query](#query)
 - [Bulk Operations](#bulk-operations)
 - [Relationships](#relationships)
+- [Middleware](#middleware)
 
 # BSON
 
@@ -60,25 +61,25 @@ When you insert a JSON-like document into MongoDB, it converts it into BSON form
 
 ### `insertOne()`
 
-```shell
+```js
 db.users.insertOne({
-   "name": "Alice",
-   "age": 28
+  name: "Alice",
+  age: 28,
 });
 ```
 
 ### `insertMany()`
 
-```shell
+```js
 db.users.insertMany([
-   {
-      "name": "Bob",
-      "age": 32
-   },
-   {
-      "name": "Charlie",
-      "age": 25
-   }
+  {
+    name: "Bob",
+    age: 32,
+  },
+  {
+    name: "Charlie",
+    age: 25,
+  },
 ]);
 ```
 
@@ -86,25 +87,22 @@ db.users.insertMany([
 
 ### `find()`
 
-```shell
-db.users.find({ "name": "Alice" });
+```js
+db.users.find({ name: "Alice" });
 ```
 
 ### `findOne()`
 
-```shell
-db.users.findOne({ "name": "Alice" });
+```js
+db.users.findOne({ name: "Alice" });
 ```
 
 ## Update
 
 ### `updateOne()`
 
-```shell
-db.users.updateOne(
-   { "name": "Alice" },
-   { "$set": { "age": 29 } }
-);
+```js
+db.users.updateOne({ name: "Alice" }, { $set: { age: 29 } });
 ```
 
 ### `update()`
@@ -120,58 +118,70 @@ db.users.updateMany(
 
 ### `deleteOne()`
 
-```shell
-db.users.deleteOne({ "name": "Charlie" });
+```js
+db.users.deleteOne({ name: "Charlie" });
 ```
 
 ### `delete()`
 
-```shell
-db.users.deleteMany({ "age": { "$lt": 30 } });
+```js
+db.users.deleteMany({ age: { $lt: 30 } });
 ```
 
 # Query
+
 ## Comparison
-```shell
-db.users.find({ "age": { "$eq": 28 } });
+
+```js
+db.users.find({ age: { $eq: 28 } });
 ```
+
 - `$gt` - Greater Than
 - `$gte` - Greater Than or Equal
 - `$gt` - Less Than
-- `$lte` - Less Than or Equal 
+- `$lte` - Less Than or Equal
 - `$ne` - Not Equal
 - `$in` - In
 - `$nin` - Not In
+
 ## Logical
-```shell
+
+```js
 db.users.find({
-   "$and": [
-      { "age": { "$gt": 25 } },
-      { "age": { "$lt": 30 } }
-   ]
+  $and: [{ age: { $gt: 25 } }, { age: { $lt: 30 } }],
 });
 ```
+
 - `$and` - Finds documents that match all conditions in the query.
 - `$or` - Finds documents that match any condition in the query.
 - `$not` - Negates a condition to find documents that do not match the specified query.
 - `$nor` - Finds documents that do not match any of the specified conditions.
+
 ## Sorting
-__Ascending:__
-```shell
-db.users.find().sort({ "age": 1 });
+
+**Ascending:**
+
+```js
+db.users.find().sort({ age: 1 });
 ```
-__Descending:__
-```shell
-db.users.find().sort({ "age": -1 });
+
+**Descending:**
+
+```js
+db.users.find().sort({ age: -1 });
 ```
+
 ## Pagination
+
 - `limit()` - Limits the number of documents returned.
 - `skip()` - Skips a specified number of documents.
 
 ## Combined
-```shell
-db.users.find().sort({ "age": 1 }).skip(5).limit(10);
+
+```js
+db.users.find().sort({ age: 1 }).skip(5).limit(10);
 ```
+
 # Bulk Operations
 
 Bulk operations in MongoDB allow you to execute multiple write operations (inserts, updates, deletes) in a single request.
@@ -185,162 +195,245 @@ Bulk operations in MongoDB allow you to execute multiple write operations (inser
 
 **Ordered:**
 
-```shell
+```js
 db.users.bulkWrite([
-     {
-      insertOne: {
-       "document": {
-         "name": "Alice",
-         "age": 28
-       }
-   }}, { updateOne: {
-       "filter": { "name": "Alice" },
-       "update": { $set: { "age": 28 } }
-   }}, { deleteOne: {
-       "filter": { "name": "Alice" }
-   }}
+  {
+    insertOne: {
+      document: {
+        name: "Alice",
+        age: 28,
+      },
+    },
+  },
+  {
+    updateOne: {
+      filter: { name: "Alice" },
+      update: { $set: { age: 28 } },
+    },
+  },
+  {
+    deleteOne: {
+      filter: { name: "Alice" },
+    },
+  },
 ]);
 ```
 
 **Unordered:**
 
-```shell
-db.users.bulkWrite([
-     {
+```js
+db.users.bulkWrite(
+  [
+    {
       insertOne: {
-       "document": {
-         "name": "Alice",
-         "age": 28
-       }
-   }}, { updateOne: {
-       "filter": { "name": "Alice" },
-       "update": { $set: { "age": 28 } }
-   }}, { deleteOne: {
-       "filter": { "name": "Alice" }
-   }}
-], { ordered: false });
+        document: {
+          name: "Alice",
+          age: 28,
+        },
+      },
+    },
+    {
+      updateOne: {
+        filter: { name: "Alice" },
+        update: { $set: { age: 28 } },
+      },
+    },
+    {
+      deleteOne: {
+        filter: { name: "Alice" },
+      },
+    },
+  ],
+  { ordered: false }
+);
 ```
+
 # Relationships
+
 ## One-to-One
-```shell
-const mongoose = require('mongoose');
+
+```js
+const mongoose = require("mongoose");
 
 // Define the User schema
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    profile: { type: mongoose.Schema.Types.ObjectId, ref: 'Profile' }, // Reference to Profile
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  profile: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" }, // Reference to Profile
 });
 
 // Define the Post schema
 const postSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-    },
-    content: {
-        type: String,
-        required: true,
-    },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Reference to User
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to User
 });
 
 // Create models
-const User = mongoose.model('User', userSchema);
-const Post = mongoose.model('Post', postSchema);
+const User = mongoose.model("User", userSchema);
+const Post = mongoose.model("Post", postSchema);
 ```
-__Read:__
+
+**Read:**
+
 ```js
-const user = await User.findById(req.params.id).populate('profile');
+const user = await User.findById(req.params.id).populate("profile");
 ```
+
 ## One-to-Many
-```shell
-import mongoose from 'mongoose';
+
+```js
+import mongoose from "mongoose";
 
 // Define the User schema
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }], // Array of Post IDs
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }], // Array of Post IDs
 });
 
 // Define the Post schema
 const postSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-    },
-    content: {
-        type: String,
-        required: true,
-    },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Reference to User
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to User
 });
 
 // Create models
-const User = mongoose.model('User', userSchema);
-const Post = mongoose.model('Post', postSchema);
+const User = mongoose.model("User", userSchema);
+const Post = mongoose.model("Post", postSchema);
 ```
-__Read:__
+
+**Read:**
+
 ```js
-const user = await User.findById(req.params.id).populate('posts');
+const user = await User.findById(req.params.id).populate("posts");
 ```
+
 ## Many-to-Many
-```shell
+
+```js
 // Define the Student schema
 const studentSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }], // Array of Course IDs
+  name: {
+    type: String,
+    required: true,
+  },
+  courses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }], // Array of Course IDs
 });
 
 // Define the Course schema
 const courseSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-    },
-    students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }], // Array of Student IDs
+  title: {
+    type: String,
+    required: true,
+  },
+  students: [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }], // Array of Student IDs
 });
 
 // Create models
-const Student = mongoose.model('Student', studentSchema);
-const Course = mongoose.model('Course', courseSchema);
+const Student = mongoose.model("Student", studentSchema);
+const Course = mongoose.model("Course", courseSchema);
 ```
-__Create and Read:__
-```shell
+
+**Create and Read:**
+
+```js
 // Enroll a Student in a Course
-app.post('/enroll', async (req, res) => {
-    const { studentId, courseId } = req.body;
-    try {
-        await Student.findByIdAndUpdate(studentId, { $addToSet: { courses: courseId } });
-        await Course.findByIdAndUpdate(courseId, { $addToSet: { students: studentId } });
-        res.status(200).json({ message: 'Student enrolled successfully' });
-    } catch (err) {
-        res.status(400).json({ message: err.message });
-    }
+app.post("/enroll", async (req, res) => {
+  const { studentId, courseId } = req.body;
+  try {
+    await Student.findByIdAndUpdate(studentId, {
+      $addToSet: { courses: courseId },
+    });
+    await Course.findByIdAndUpdate(courseId, {
+      $addToSet: { students: studentId },
+    });
+    res.status(200).json({ message: "Student enrolled successfully" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 });
 
 // Get Student with Courses
-app.get('/students/:id', async (req, res) => {
-    try {
-        const student = await Student.findById(req.params.id).populate('courses'); // Populate courses
-        res.status(200).json(student);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
+app.get("/students/:id", async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.id).populate("courses"); // Populate courses
+    res.status(200).json(student);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+```
+
+# Middleware
+
+## Types of Middleware in Mongoose
+
+- **Document Middleware** (Pre/Post Hooks)
+  - Executed before or after a document is saved, updated, validated, or deleted.
+  - Common methods: save, validate, remove, updateOne, deleteOne.
+- **Query Middleware** (Pre/Post Hooks)
+  - Executed before or after executing a query.
+  - Common methods: find, findOne, findOneAndUpdate, findOneAndDelete, etc.
+
+## Document Middleware
+
+```js
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+});
+
+// Pre-save middleware to hash the password before saving
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    this.password = await hashPassword(this.password); // Assume `hashPassword` is a function that hashes passwords.
+  }
+  next();
+});
+
+// Post-save middleware to show message after saving
+userSchema.post("save", function (doc, next) {
+  console.log(`User ${doc.name} has been saved.`);
+  next();
+});
+```
+
+## Query Middleware
+
+```js
+userSchema.pre("find", function (next) {
+  this.where({ isActive: true }); // Only find active users.
+  next();
+});
+
+userSchema.post("find", function (docs, next) {
+  console.log(`Found ${docs.length} users.`);
+  next();
 });
 ```
