@@ -64,7 +64,27 @@ public class Main {
 ```
 # UML
 Unified Modeling Language (UML) is a standardized visual language used to model the structure and behavior of software systems. 
-## Structural Diagrams
+
+- [Structural Diagram](#structural-diagram)
+  - [Class Diagram](#class-diagram)
+  - Component Diagram
+  - Composite Structure Diagram
+  - Deployment Diagram
+  - Package Diagram
+  - [Object Diagram](#object-diagram)
+  - Profile Diagram
+- [Behavioural Diagram](#behavioral-diagrams)
+  - [Activity Diagram](#activity-diagram)
+  - State Machine Diagram
+  - Interaction Diagram
+    - Communication Diagram
+    - [Sequence Diagram](#sequence-diagram)
+    - Interaction Overview Diagram
+    - Timing Diagram
+  - [Use Case Diagram](#use-case-diagram)
+
+## Structural Diagram
+Structure Diagrams focus on the static aspects of the system, specifically how the system is organized and how its components interact with each other. They define the physical structure of the system, including the arrangement of classes, objects, and packages.
 ### Class Diagram
 It shows the classes, their attributes, methods, and relationships.
 ```
@@ -93,6 +113,8 @@ It shows a snapshot of the objects at a particular point in time, their states, 
                 Library1 has Member1 (object relationship)
 ```
 ## Behavioral Diagrams
+Behavior Diagrams are used to model the dynamic aspects of a system—essentially, how the system behaves over time. They represent interactions, activities, and the flow of information or control within the system. These diagrams are particularly helpful for understanding what actions the system or its objects perform and how they interact.
+### Use Case Diagram
 It represents the system's functional requirements from an end-user's perspective.
 
 __Components:__
