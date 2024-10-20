@@ -1,3 +1,7 @@
+# Content
+- [Generalization](#generalization)
+- [UML](#uml)
+
 # Generalization
 Generalization is a fundamental concept in object-oriented programming (OOP). It refers to the process of extracting shared characteristics (attributes and behaviors) from two or more specific classes to create a more general class, which can serve as their parent or base class. This parent class is considered a "generalized" version of the more specific child classes.
 
@@ -115,23 +119,65 @@ It shows a snapshot of the objects at a particular point in time, their states, 
 ## Behavioral Diagrams
 Behavior Diagrams are used to model the dynamic aspects of a system—essentially, how the system behaves over time. They represent interactions, activities, and the flow of information or control within the system. These diagrams are particularly helpful for understanding what actions the system or its objects perform and how they interact.
 ### Use Case Diagram
-It represents the system's functional requirements from an end-user's perspective.
+It represents the system's functional requirements from an end-user's perspective and the interactions between actors (users or external systems) and a system to achieve specific goals. It gather the system needs and depicts the external view of the system.
 
 __Components:__
 - __Actors:__ External entities (users, systems) that interact with the system.
 - __Use Cases:__ Functions or services the system provides.
 - __Relationships:__ Shows how actors interact with use cases.
+    - __Association:__ Connects actors to use cases, indicating that an actor participates in a use case.
+    - __Include:__ A relationship where a use case is always included as part of another use case.
+    - __Extend:__ Indicates optional behavior that extends the functionality of a use case.
+- __System Boundary:__ Defines the scope of the system being modeled.
+
+#### Example
+Merge this two diagram and build one single diagram.
 ```
-+----------------------------+
-|        Library System       |
-+----------------------------+
-|  [Borrow Book]              |
-|  [Return Book]              |
-|  [Search Catalog]           |
-+----------------------------+
-      ^          ^
-     /            \
-Member         Librarian
++-----------------------------------------+
+|          Library Management System      |
+|-----------------------------------------|
+|                                         |
+|  Student/Member                         |
+|   ├── Search Book                       |
+|   ├── Borrow Book                       |
+|   |     └── (include) Search Book       |
+|   ├── Return Book                       |
+|   |     └── (extend) Pay Fine           |
+|   ├── Reserve Book                      |
+|   └── Pay Fine                          |
+|                                         |
+|  Librarian                              |
+|   ├── Issue Book                        |
+|   |     └── (include) Search Book       |
+|   ├── Receive Returned Book             |
+|   ├── Manage Book Records               |
+|   └── Manage Member Records             |
+|                                         |
+|  Admin                                  |
+|   ├── Generate Reports                  |
+|   └── Add Librarian                     |
+|                                         |
++-----------------------------------------+
+
++-----------------------------------------+
+|       Library Management System         |
++-----------------------------------------+
+|  [Search Book]                          |
+|  [Borrow Book]                          | <-- include --> [Search Book]
+|  [Return Book]                          | <-- extend --> [Pay Fine]
+|  [Reserve Book]                         |
+|  [Pay Fine]                             |
+|  [Manage Book Records]                  |
+|  [Issue Book]                           | <-- include --> [Search Book]
+|  [Receive Returned Book]                |
+|  [Manage Member Records]                |
+|  [Generate Reports]                     |
+|  [Add Librarian]                        |
++-----------------------------------------+
+     ^            ^            ^
+    /              |             \
+Student/Member   Librarian       Admin
+
 ```
 ## Sequence Diagram
 It shows how objects interact in a time-sequenced manner.
