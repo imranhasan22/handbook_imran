@@ -13,6 +13,8 @@ NoSQL stands for "Not Only SQL," which reflects its flexibility beyond the struc
 
 NoSQL databases are flexible in terms of structure. There is no fixed schema, which means you can insert data without a predefined structure.
 
+It is known for its ability to scale horizontally through sharding and supports a rich querying language for various use cases, including real-time analytics, content management, and catalog applications.
+
 ## Common Types of NoSQL Databases:
 - Document-based Databases
 - Key-Value Databases
@@ -29,6 +31,35 @@ In MongoDB, data is stored in a document format, which uses BSON for storing the
 - __Collection:__ A group of MongoDB documents, similar to a table in a relational database.
 - __Database:__ A container for collections, similar to a relational database schema.
 - __Field:__ A key-value pair within a document, similar to a column in a table.
+- __Replica Set:__ A replica set is a group of MongoDB servers that maintain the same dataset, providing redundancy and high availability.
+
+  A replica set consists of:
+  - __Primary Node:__ Handles all write operations and, by default, read operations.
+  - __Secondary Nodes:__ Maintain copies of the primary’s data and can serve read operations (if configured).
+  - __Arbiter:__ Participates in elections to choose a new primary if the current one fails but does not store data.
+
+- __Sharding:__ Sharding is MongoDB’s method for horizontal scaling, distributing data across multiple servers (shards). A shard is a subset of data. MongoDB partitions data into chunks, and each chunk is distributed across shards.
+  - __Shard Key:__ A field or fields that determine how data is distributed across shards.
+  - __Config Servers:__ Store metadata and manage the distribution of data in the sharded cluster.
+  - __Mongos:__ Acts as a query router, directing client requests to the appropriate shard.
+
+### MongoDB Shell
+The __MongoDB Shell__ (`mongosh`) is an interactive command-line interface that allows users to interact with MongoDB servers. It is built on JavaScript, which means you can use JavaScript syntax and methods to interact with the database.
+#### Start the MongoDB Shell
+```js
+mongosh
+```
+This command starts the shell and attempts to connect to a MongoDB instance running on localhost at the default port 27017.
+
+If you need to connect to a MongoDB instance running on a different host or port, you can specify it like this:
+```js
+mongosh "mongodb://<host>:<port>"
+```
+
+#### Operations
+- `show dbs` - List all databases on the connected MongoDB server.
+- `use <database_name>` - Switch to a Database or Create One
+- `db.createCollection("<collection_name>")` - Create a collection
 
 # BSON
 
