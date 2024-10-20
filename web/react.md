@@ -16,7 +16,13 @@
     - [render()](#render)
     - [componentDidMount](#componentdidmount)
   - [Updating](#updating)
+    - getDerivedStateFromProps()
+    - shouldComponentUpdate()
+    - render()
+    - getSnapshotBeforeUpdate()
+    - componentDidUpdate()
   - [Unmounting](#unmounting)
+    - componentWillUnmount()
 - [Hooks](#hooks)
     - [useState](#usestate)
     - [useEffect](#useEffect)
@@ -34,6 +40,26 @@ __Differences From HTML:__
 - camleCase for Attributes
 - self-closing tags
 
+### JSX
+JSX is a syntax extension for JavaScript that resembles HTML. It allows you to write elements and components in a more readable and familiar way. JSX is neither a string nor HTML; it is JavaScript that gets compiled to `React.createElement()` calls by Babel (a JavaScript compiler).
+
+__How JSX Works:__
+JSX is converted into JavaScript function calls. For example:
+```jsx
+const element = <h1>Hello, world!</h1>;
+```
+is compiled to:
+```jsx
+const element = React.createElement('h1', null, 'Hello, world!');
+```
+### Rendering a React Element
+__Example:__
+```jsx
+const element = <h1>Hello, world!</h1>;
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(element);
+```
 ## CSS
 1. __External CSS:__
 Just import external css file where you want those styles. Those style from the imported files are inherit to all the child component
@@ -61,12 +87,12 @@ It is a way to group multiple elements `without adding extra nodes` to the DOM. 
 __There are tow ways to use fragments:__
 
 1. __Explict Syntax:__
-```
+```jsx
 <React.Fragment>
 </React.Fragment>
 ```
 2. __Shorthand Systax:__
-```
+```jsx
 <></>
 ```
 The shorthand syntax is more concise and commonly used but doesn't support `key` or other attributes.
@@ -232,7 +258,7 @@ A function that allow you to `resue` stateful logic from your components.
 - It can return any type of data(array, object, function etc).
 
 # Controlled Component
-A controlled component is a component that renders a form element(like an  input, textare) whose value is controlled by React state. It gives you more control over the form elements, allowing to manage user inputs, validation and other behaviors in a predictable way.
+A controlled component is a component that renders a form element(like an  input, textarea) whose value is controlled by React state. It gives you more control over the form elements, allowing to manage user inputs, validation and other behaviors in a predictable way.
 
 - input are handled via callbacks(like `onChange`) that update the state
 - can validate/manipulate input before updating the state
