@@ -180,35 +180,138 @@ Student/Member   Librarian       Admin
 
 ```
 ## Sequence Diagram
-It shows how objects interact in a time-sequenced manner.
+It shows how objects interact in a time-sequenced manner. It captures the flow of messages between objects or components, representing their interactions in a time-ordered sequence. Sequence diagrams are often used to model the logic of methods, functions, and use cases, especially to show how various parts of a system collaborate.
 
 __Components:__
-- `Lifelines:` Represent objects or actors.
-- `Messages:` Interactions (method calls) exchanged between lifelines over time.
+- __Actors/Objects:__ Represent the entities (objects, users, or external systems) that interact in the scenario.
+- __Lifelines:__ Vertical dashed lines that represent the life span of an object during the interaction.
+- __Activation Bars:__ Thicker vertical rectangles(__not dashed__) along a lifeline showing the time an object is active and performing a task.
+- __Messages:__ Horizontal arrows between lifelines that represent communication (method calls, responses, or signals). These can be:
+    - __Synchronous__ (solid line with a filled arrowhead): Represents a call where the sender waits for a response.
+    - __Asynchronous__ (solid line with an open arrowhead): Represents a call where the sender does not wait for a response.
+    - __Return Messages__ (dashed line): Represents the return of control or data from the receiver back to the sender.
+
+__Example:__
 ```
-Member          Library       Book
- |                |            |
- |   borrowBook() |            |
- |--------------->|            |
- |                | checkAvail |
- |                |----------->|
- |                | avail=true |
- |<---------------|            |
- |                | lendBook() |
+Student          LibrarySystem           Librarian           Database
+   |                   |                     |                    |
+   |------------------>|                     |                    |
+   |   Search Book     |                     |                    |
+   |                   |-------------------->|                    |
+   |                   |   Verify Availability                    |
+   |                   |                     |------------------->|
+   |                   |                     |  Check Book Stock  |
+   |                   |                     |<-------------------|
+   |                   |<--------------------|                    |
+   |   Book Found      |                     |                    |
+   |                   |                     |                    |
+   |------------------>|                     |                    |
+   |   Borrow Book     |                     |                    |
+   |                   |-------------------->|                    |
+   |                   |   Validate User     |                    |
+   |                   |                     |                    |
+   |                   |                     |------------------->|
+   |                   |                     |   Update Records   |
+   |                   |                     |<-------------------|
+   |                   |<--------------------|                    |
+   |   Borrow Success  |                     |                    |
+   |<------------------|                     |                    |
+   |   Confirmation    |                     |                    |
+```
+### Other Symbol
+__Conditional:__
+```
+----------------
+| alt |        | 
+|------        | 
+|              |
+|  condition   |
+|              |
+|---------------
+|              |
+|   else       |
+|              |
+|---------------
+```
+__Loop:__
+```
+----------------
+| loop |       | 
+|------        | 
+|              |
+|  statement   |
+|              |
+|---------------
+```
+__Activation Bar__
+```
+        |
+        |
+        |
+        |
+        |
+        |
+        |
+        |
+        |
+        |
+```
+__Message:__
+```
+    ---
+    | |
+    ---
 ```
 ## Activity Diagram
-It represents workflows and the sequence of activities.
+It represents workflows and the sequence of activities. It define what activities user perform during a use case.
+
+Each use case in a use case diagram can be further explored by creating an activity diagram. It's common to create an activity diagram for each use case identified in the use case diagram.
 
 __Components:__
-- `Activities:` Actions performed.
-- `Transitions:` Movement between activities.
-- `Decision Points:` Forks where different paths may be taken.
+- __Activities:__ Represent tasks or actions performed in the workflow. Each activity is denoted by a rounded rectangle.
+- __Start Node:__ Indicates the beginning of a process. It is represented by a filled black circle.
+- __End Node:__ Marks the end of the process flow. It is represented by a black circle with a surrounding border.
+- __Transitions/Arrows:__ Arrows show the flow or transition from one activity to the next.
+- __Decision Node:__ Depicted as a diamond shape, it represents branching in the workflow based on conditions. Each outgoing arrow is labeled with a condition.
+- __Merge Node:__ A diamond shape without conditions where multiple flows join back together.
+- __Fork Node:__ Represented as a thick horizontal or vertical line, it splits a single flow into multiple parallel flows.
+- __Join Node:__ A thick line that synchronizes multiple parallel flows into a single flow.
+- __Swimlanes:__ Vertical or horizontal partitions used to organize activities by the responsible actors or departments. This helps in visually associating actions with particular actors.
+### Example
 ```
-[Start] --> Borrow Book --> [Is Book Available?] --No--> [End]
-                                  |
-                                 Yes
-                                  |
-                                Issue Book --> [End]
++-------------------------+   +---------------------+   +---------------------+
+|        Start            |-->|   Search Book       |-->| Book Available?     |
++-------------------------+   +---------------------+   +---------+-----------+
+                                                     |           |
+                                                     |           v
+                                                     |   +---------------------+
+                                                     |   | Book Not Available  |
+                                                     |   | Notify User         |
+                                                     |   +---------------------+
+                                                     |           |
+                                                     |           v
+                                                     |   +---------------------+
+                                                     |   |  End                |
+                                                     |   +---------------------+
+                                                     |
+                                                     v
++-------------------------+   +---------------------+   +---------------------+
+|  Verify Membership      |-->|  Valid Member?      |-->|  Borrow Book        |
++-------------------------+   +---------+-----------+   +---------------------+
+                                        |                   
+                                        |                   +---------------------+
+                                        |                   |  Record Borrowing   |
+                                        v                   +---------------------+
+                              +---------------------+                   |
+                              |  Not a Member       |                   |
+                              |  Notify User        |                   v
+                              +---------------------+   +---------------------+
+                                        |               |  Issue Receipt       |
+                                        v               +---------------------+
+                                  +------------------+             |
+                                  |        End       |<-------------+
+                                  +------------------+
+
 ```
 ## State Diagram
 It models the different states an object can be in and the transitions between those states.
