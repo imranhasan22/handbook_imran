@@ -413,3 +413,96 @@ class Circle implements Shape{
     public void display(){ System.out.println("This is a shape"); }
 }
 ```
+# Multitasking
+Multitasking is the capability of performing multiple tasks simultaneously. In Java, multitasking can be achieved using two main approaches:
+1. [Process-based multitasking (Heavyweight)](#process-based-multitasking)
+2. Thread-based multitasking (Lightweight)
+## Process-based Multitasking
+- Each process has its own memory space.
+- Processes do not share memory space with each other.
+- Switching between processes is more expensive because the operating system must save the state of one process and load the state of another.
+- Java doesn't directly support process-based multitasking but it can create new processes using classes like `ProcessBuilder` or `Runtime`.
+
+__Example:__ Running external programs like opening a file using `Runtime.getRuntime().exec()`.
+## Thread-based Multitasking
+- A thread is a lightweight sub-process and is the smallest unit of a program that can execute independently.
+- All threads of a process share the same memory space.
+- Switching between threads is more efficient compared to processes.
+- Java provides built-in support for threads through:
+    - java.lang.Thread class
+    - java.lang.Runnable interface
+This is the most common form of multitasking in Java, and it is what we generally mean when we refer to multitasking in Java.
+
+# Thread
+## Creation
+There are two ways to create threads in Java:
+1. Extending the `Thread` class
+2. Implementing the `Runnable` interface
+### Extending `Thread`
+- This approach involves creating a subclass of the `Thread` class and overriding its `run()` method.
+- The `run()` method contains the code that defines the task that the thread will execute.
+
+__Example:__
+```java
+class MyThread extends Thread {
+    public void run() {
+        // Code that the thread will execute
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Thread " + Thread.currentThread().getId() + " is running: " + i);
+            try {
+                Thread.sleep(500); // Sleep for 500 milliseconds
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+public class ThreadExample {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread(); // Create first thread
+        MyThread t2 = new MyThread(); // Create second thread
+        
+        t1.start(); // Start the first thread
+        t2.start(); // Start the second thread
+    }
+}
+```
+### Implementing `Runnable`
+- This approach involves creating a class that implements the `Runnable` interface and defining the `run()` method.
+- It allows more flexibility because your class does not need to extend `Thread` (which is beneficial when you want to extend another class).
+
+__Example:__
+```java
+class MyRunnable implements Runnable {
+    public void run() {
+        // Code that the thread will execute
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Thread " + Thread.currentThread().getId() + " is running: " + i);
+            try {
+                Thread.sleep(500); // Sleep for 500 milliseconds
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+public class RunnableExample {
+    public static void main(String[] args) {
+        MyRunnable myRunnable = new MyRunnable();
+        
+        Thread t1 = new Thread(myRunnable); // Create first thread
+        Thread t2 = new Thread(myRunnable); // Create second thread
+        
+        t1.start(); // Start the first thread
+        t2.start(); // Start the second thread
+    }
+}
+```
+## LifeCycle
+- __New:__ Thread object is created but `start()` is not yet called.
+- __Runnable:__ After `start()`, the thread is ready to run but might not be running if the CPU is busy.
+- __Running:__ The thread is executing its `run()` method.
+- __Blocked/Waiting:__ The thread is paused, waiting for a resource or a condition to become true.
+- __Terminated:__ The thread finishes execution or is stopped.
