@@ -7,6 +7,8 @@ Index
 - [Keywords](#keywords)
 - [Interface](#interface)
 - [OOP](#oop)
+- [Multitasking](#multitasking)
+- [Thread](#thread)
 # Class
 A java class is a group of values with a set of operations to manipulate this values.
 
@@ -420,6 +422,7 @@ Multitasking is the capability of performing multiple tasks simultaneously. In J
 ## Process-based Multitasking
 - Each process has its own memory space.
 - Processes do not share memory space with each other.
+- Each task is a seperate independent program(process).
 - Switching between processes is more expensive because the operating system must save the state of one process and load the state of another.
 - Java doesn't directly support process-based multitasking but it can create new processes using classes like `ProcessBuilder` or `Runtime`.
 
@@ -427,10 +430,11 @@ __Example:__ Running external programs like opening a file using `Runtime.getRun
 ## Thread-based Multitasking
 - A thread is a lightweight sub-process and is the smallest unit of a program that can execute independently.
 - All threads of a process share the same memory space.
+- Each task is a seperate independent part of same program
 - Switching between threads is more efficient compared to processes.
 - Java provides built-in support for threads through:
-    - java.lang.Thread class
-    - java.lang.Runnable interface
+    - `java.lang.Thread` class
+    - `java.lang.Runnable` interface
 This is the most common form of multitasking in Java, and it is what we generally mean when we refer to multitasking in Java.
 
 # Thread
@@ -506,3 +510,19 @@ public class RunnableExample {
 - __Running:__ The thread is executing its `run()` method.
 - __Blocked/Waiting:__ The thread is paused, waiting for a resource or a condition to become true.
 - __Terminated:__ The thread finishes execution or is stopped.
+## Methods
+### Creation and Control
+- `start()` - Starts a new thread by calling its `run()` method. It transitions the thread from the new state to the runnable state.
+- `run()` - Contains the code that is executed by the thread. This method should be overridden.
+- `yield()` - Suggests to the JVM that the current thread is willing to yield its current use of a processor. It makes the currently running thread move to the runnable state to allow other threads of the same priority to execute.
+- `sleep(long millis)` - Causes the current thread to sleep (pause execution) for the specified number of milliseconds.
+### Status and Information
+- `isAlive()` - Returns true if the thread is still alive (has been started and has not yet terminated).
+- `isInterrupted()` - Returns true if the thread has been interrupted. It does not clear the interrupted status of the thread.
+- `getId()` - Returns the unique ID of the thread.
+- `getName() / setName(String name)` - Gets or sets the name of the thread.
+- `getPriority() / setPriority(int newPriority)` - Gets or sets the priority of the thread (values between `Thread.MIN_PRIORITY` (1) and `Thread.MAX_PRIORITY` (10)). The default is `Thread.NORM_PRIORITY` (5).
+- `getState()` - Returns the current state of the thread as an instance of `Thread.State` enum (e.g., `NEW`, `RUNNABLE`, `BLOCKED`, `WAITING`, `TIMED_WAITING`, `TERMINATED`).getId():
+Returns the unique ID of the thread.
+### Thread Management
+- `currentThread()` (Static method) - Returns a reference to the currently executing thread object.
