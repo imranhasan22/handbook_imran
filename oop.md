@@ -90,7 +90,26 @@ Unified Modeling Language (UML) is a standardized visual language used to model 
 ## Structural Diagram
 Structure Diagrams focus on the static aspects of the system, specifically how the system is organized and how its components interact with each other. They define the physical structure of the system, including the arrangement of classes, objects, and packages.
 ### Class Diagram
-It shows the classes, their attributes, methods, and relationships.
+It describe the structure of a system by showing its classes, attributes, methods, and the relationships between them.
+#### Components
+- __Class:__ The basic building block of a class diagram, representing a blueprint of an object in the system. A class is typically depicted as a rectangle divided into three sections:
+    - __Class Name:__ The top section contains the class name, usually written in bold.
+    - __Attributes:__ The middle section lists the data members or properties of the class.
+    - __Methods:__ The bottom section lists the functions or operations that the class can perform.
+- __Attributes:__ The data stored within a class (also known as fields or properties). Attributes have types (e.g., String, Integer) and can have visibility modifiers:
+    - Public (`+`): Can be accessed from outside the class.
+    - Private (`-`): Can only be accessed within the class.
+    - Protected (`#`): Can be accessed within the class and its subclasses.
+- __Methods:__ The operations or functions a class can perform. Like attributes, methods can also have visibility modifiers. Methods define the behavior of the class and typically manipulate its attributes.
+- __Relationships between Classes:__
+    - __Association:__ A general relationship between two classes. It can be unidirectional or bidirectional(A `Member` can borrow multiple `Book`, and a `Book` can be borrowed by multiple `Member` (over time)).
+    - __Multiplicity:__ Defines how many instances of one class can be associated with instances of another class (e.g., 1..*, 0..1).
+    - __Inheritance (Generalization):__ A "is-a" relationship where a subclass inherits from a parent class(`Member` and `Librarian` classes can inherit from a common base class called `Person` since both share attributes like name, contact information, etc).
+    - __Aggregation:__ A "has-a" relationship where one class is composed of another class but can exist independently.(`Library` "has" multiple `Section`.)
+    - __Composition:__ A stronger form of aggregation where the contained class cannot exist independently(The `Library` consists of `Book`. If the library is closed or removed, the books associated with it are also gone, so this is a strong composition relationship. The library is responsible for maintaining the collection of books).
+    - __Dependency:__ A weaker relationship indicating that one class depends on another, but only temporarily(A `Member` depends on `BorrowTransaction` to borrow or return books. )
+#### Example
+__Example:__
 ```
 +-----------------+       +------------------+
 |    Library      |       |    LibraryMember  |
@@ -104,6 +123,51 @@ It shows the classes, their attributes, methods, and relationships.
         |                         |
         +-------------------------+
                 Association (Library contains LibraryMembers)
+```
+__Example:__
+```
++------------------+    1    +------------------+
+|    Library       |<--------|    Section        |
++------------------+         +------------------+
+| - name: String   |         | - sectionName: String |
++------------------+         +------------------+
+| + addBook()      |         | + listBooks()        |
+| + removeBook()   |         +------------------+
++------------------+    
+      |  *
+      |
+      |  *        
++------------------+        *      +------------------+
+|    Book          |<----------------|    BorrowTransaction |
++------------------+                 +------------------+
+| - title: String  |                 | - transactionId: String |
+| - author: String |                 | - issueDate: Date   |
+| - ISBN: String   |                 | - returnDate: Date  |
++------------------+                 +------------------+
+| + getDetails()   |                 | + issueBook()      |
++------------------+                 | + returnBook()     |
+                                     +------------------+
+                                           |
+                                           | 1..*  
+                                           |  
++------------------+      *              +------------------+
+|    Person        |<---------------------|    Member        |
++------------------+                      +------------------+
+| - name: String   |                      | - memberId: String|
+| - address: String|                      +------------------+
++------------------+                      | + borrowBook()    |
+| + getDetails()    |                     | + returnBook()    |
++------------------+                      +------------------+
+                                           |
+                                           | 1
+                                           | 
+                                  +------------------+
+                                  |   Librarian       |
+                                  +------------------+
+                                  | - employeeId: String|
+                                  +------------------+
+                                  | + manageBooks()    |
+                                  +------------------+
 ```
 ### Object Diagram
 It shows a snapshot of the objects at a particular point in time, their states, and their relationships. Similar to class diagrams, but shows actual instances (objects) rather than class definitions.
