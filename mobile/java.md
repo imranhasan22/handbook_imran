@@ -667,6 +667,13 @@ public class RunnableExample {
 - `currentThread()` (Static method) - Returns a reference to the currently executing thread object.
 
 # File Handling
+- [File](#file)
+- [FileReader](#filereader)
+- [BufferedReader](#bufferedreader)
+- [FileWriter](#filewriter)
+- [BufferedWriter](#bufferedwriter)
+- [FileInputStream](#fileinputstream)
+- [FileOutputStream](#fileoutputstream)
 ## `File`
 It represents both file and directory pathnames in an abstract manner. It allows us to create, delete, and manipulate files and directories, as well as check file properties.
 ### Common Methods
@@ -775,6 +782,168 @@ public class FileReaderExample {
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file: " + e.getMessage());
+        }
+    }
+}
+```
+## `BufferedReader`
+It is used for reading text from an input stream (like a file). It buffers the input, which means it reads large chunks of data at once and keeps it in memory, reducing the number of reads required directly from the underlying source.
+### Common Methods
+- `read()` - Reads a single character or an array of characters.
+- `readLine()` - Reads a line of text, returning null when the end of the stream is reached.
+- `close()` - Closes the BufferedReader and releases any associated resources.
+- `ready()` - Checks if the BufferedReader is ready to be read from without blocking.
+- `skip(long n)` - Skips n characters from the input.
+### Example
+```java
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class BufferedReaderExample {
+    public static void main(String[] args) {
+        // Step 1: Create a BufferedReader object
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("example.txt"))) {
+            
+            // Step 2: Read the file line by line
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+            
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
+            e.printStackTrace();
+        }
+    }
+}
+```
+## `FileWriter`
+It is used to write character-based data to a file. 
+### Common Methods
+- `write(String str)`: Writes the entire string to the file.
+- `write(char[] cbuf)`: Writes a character array to the file.
+- `close()`: Closes the file writer and releases any system resources associated with the file.
+- `flush()`: Ensures that any buffered data is written to the file.
+### Example
+```java
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileWriterExample {
+    public static void main(String[] args) {
+        String data = "Hello, this is a test of FileWriter in Java!";
+        
+        // Try-with-resources ensures the FileWriter is closed automatically
+        try (FileWriter fileWriter = new FileWriter("output.txt")) {
+            // Writing string data to the file
+            fileWriter.write(data);
+            System.out.println("Data has been written to the file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+## `BufferedWriter`
+It is used to write text to a character output stream (like a file) in an efficient way. It buffers the output, meaning it collects characters in memory before writing them to the output stream.
+### Common Methods
+- `write(int c)` - Writes a single character.
+- `write(char[] cbuf)` - Writes an array of characters.
+- `write(String s)` - Writes a string.
+- `newLine()` - Writes a line separator (new line).
+- `flush()` - Flushes the buffered output to the file, forcing any buffered characters to be written.
+- `close()` - Closes the BufferedWriter and releases any associated resources.
+### Example
+```java
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class BufferedWriterExample {
+    public static void main(String[] args) {
+        // Step 1: Create a BufferedWriter object
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("output.txt"))) {
+            
+            // Step 2: Write data to the file
+            bufferedWriter.write("Hello, World!");
+            bufferedWriter.newLine();  // Writes a newline
+            bufferedWriter.write("Welcome to the BufferedWriter example.");
+            bufferedWriter.newLine();
+            bufferedWriter.write("This is the third line of text.");
+            
+            // Step 3: Flush the writer (optional, as try-with-resources handles it)
+            bufferedWriter.flush();
+            
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+}
+```
+## `FileInputStream`
+It is used for reading raw byte data from a file. It is particularly useful for reading binary data, such as images, audio files, or any type of file that isn't purely text. Since it reads bytes directly, it is not the best choice for reading character data like plain text files. 
+### Common Methods
+- `int read()` - Reads a single byte of data and returns it as an integer (0-255) or -1 if the end of the file is reached.
+- `int read(byte[] b)` - Reads up to b.length bytes of data into the specified byte array.
+- `int available()` - Returns the number of remaining bytes that can be read from the stream.
+- `void close()` - Closes the input stream and releases any associated system resources.
+- `long skip(long n)` - Skips over and discards n bytes of data from the input stream.
+### Example
+```java
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class FileInputStreamExample {
+    public static void main(String[] args) {
+        // Step 1: Create a FileInputStream object
+        try (FileInputStream fileInputStream = new FileInputStream("input.txt")) {
+            
+            // Step 2: Read data from the file
+            int byteData;
+            while ((byteData = fileInputStream.read()) != -1) {
+                // Step 3: Print the read byte data as characters
+                System.out.print((char) byteData);
+            }
+            
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
+            e.printStackTrace();
+        }
+    }
+}
+```
+## `FileOutputStream`
+It is used for writing raw byte data to a file. It is often used for writing binary data like images, audio files, or serialized objects.
+### Common Methods
+- `void write(int b)` - Writes a single byte to the file.
+- `void write(byte[] b)` - Writes a byte array to the file.
+- `void write(byte[] b, int off, int len)` - Writes len bytes from the specified byte array starting at off to the file.
+- `void close()` - Closes the output stream and releases any associated system resources.
+- `void flush()` - Flushes the output stream, ensuring that all data is written to the file.
+### Example
+```java
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FileOutputStreamExample {
+    public static void main(String[] args) {
+        // Step 1: Create a FileOutputStream object
+        try (FileOutputStream fileOutputStream = new FileOutputStream("output.txt")) {
+            
+            // Step 2: Convert string data to byte array
+            String data = "Hello, World!";
+            byte[] byteData = data.getBytes();
+            
+            // Step 3: Write byte array to the file
+            fileOutputStream.write(byteData);
+            
+            System.out.println("Data has been written to the file successfully.");
+            
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
         }
     }
 }
