@@ -102,12 +102,23 @@ It describe the structure of a system by showing its classes, attributes, method
     - Protected (`#`): Can be accessed within the class and its subclasses.
 - __Methods:__ The operations or functions a class can perform. Like attributes, methods can also have visibility modifiers. Methods define the behavior of the class and typically manipulate its attributes.
 - __Relationships between Classes:__
-    - __Association:__ A general relationship between two classes. It can be unidirectional or bidirectional(A `Member` can borrow multiple `Book`, and a `Book` can be borrowed by multiple `Member` (over time)).
+    - __Association:__ A general relationship between two classes. It can be unidirectional or bidirectional(A `Member` can borrow multiple `Book`, and a `Book` can be borrowed by multiple `Member` (over time)). It is represented by a line between the classes followed by an arrow that navigates the direction, and when the arrow is on both sides, it is then called a bidirectional association. We can specify the multiplicity of an association by adding the adornments on the line that will denote the association.
     - __Multiplicity:__ Defines how many instances of one class can be associated with instances of another class (e.g., 1..*, 0..1).
     - __Inheritance (Generalization):__ A "is-a" relationship where a subclass inherits from a parent class(`Member` and `Librarian` classes can inherit from a common base class called `Person` since both share attributes like name, contact information, etc).
-    - __Aggregation:__ A "has-a" relationship where one class is composed of another class but can exist independently.(`Library` "has" multiple `Section`.)
-    - __Composition:__ A stronger form of aggregation where the contained class cannot exist independently(The `Library` consists of `Book`. If the library is closed or removed, the books associated with it are also gone, so this is a strong composition relationship. The library is responsible for maintaining the collection of books).
+    - __Aggregation:__ A "has-a" relationship where one class is composed of another class but can exist independently.(`Library` "has" multiple `Section`.) It is represented by a straight line with an empty diamond at one end.
+    - __Composition:__ A stronger form of aggregation where the contained class cannot exist independently(The `Library` consists of `Book`. If the library is closed or removed, the books associated with it are also gone, so this is a strong composition relationship. The library is responsible for maintaining the collection of books). It is represented by a straight line with a black diamond at one end.
     - __Dependency:__ A weaker relationship indicating that one class depends on another, but only temporarily(A `Member` depends on `BorrowTransaction` to borrow or return books. )
+
+| **Association** | **Aggregation** | **Composition** |
+|-----------------|-----------------|-----------------|
+| Association relationship is represented using an arrow. | Aggregation relationship is represented by a straight line with an empty diamond at one end. | The composition relationship is represented by a straight line with a black diamond at one end. |
+| In UML, it can exist between two or more classes. | It is a part of the association relationship. | It is a part of the aggregation relationship. |
+| It incorporates one-to-one, one-to-many, many-to-one, and many-to-many association between the classes. | It exhibits a kind of weak relationship. | It exhibits a strong type of relationship. |
+| It can associate one more objects together. | In an aggregation relationship, the associated objects exist independently within the scope of the system. | In a composition relationship, the associated objects cannot exist independently within the scope of the system. |
+| In this, objects are linked together. | In this, the linked objects are independent of each other. | Here the linked objects are dependent on each other. |
+| It may or may not affect the other associated element if one element is deleted. | Deleting one element in the aggregation relationship does not affect other associated elements. | It affects the other element if one of its associated element is deleted. |
+| **Example**: A tutor can associate with multiple students, or one student can associate with multiple teachers. | **Example**: A car needs a wheel for its proper functioning, but it may not require the same wheel. It may function with another wheel as well. | **Example**: If a file is placed in a folder and that folder is deleted, the file residing inside that folder will also get deleted at the time of folder deletion. |
+
 #### Example
 __Example:__
 ```
