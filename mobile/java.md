@@ -438,6 +438,36 @@ __Example:__ Running external programs like opening a file using `Runtime.getRun
 This is the most common form of multitasking in Java, and it is what we generally mean when we refer to multitasking in Java.
 
 # Thread
+## Main Thread
+It is the initial thread that starts when a Java program begins its execution. It is created by the Java Virtual Machine (JVM) to start running the main() method of a program.
+
+It serves as the entry point for all Java programs and controls the life cycle of other threads if they are created within the main() method.
+### Characteristics of the Main Thread
+- __Automatically Created:__ The JVM automatically creates the main thread when the program starts.
+- __Entry Point:__ It is the entry point of every Java application, starting with the `main()` method.
+- __Thread Name:__ By default, the name of the main thread is `main`.
+- __Default Priority:__ The main thread has a default priority of `5` (normal priority).
+- __Control Over Other Threads:__ The main thread can create, start, and manage other threads. It continues to run until either the `main()` method completes or the JVM is instructed to exit.
+- __Execution Order:__ Even though the main thread is the first to start, it does not necessarily finish first, especially if it creates other threads that continue running. The order in which threads finish depends on their tasks and execution.
+
+__Examplee:__
+```java
+public class Man {
+    public static void main(String[] args) {
+        // Getting a reference to the main thread
+        Thread mainThread = Thread.currentThread();
+        System.out.println("Main thread name: " + mainThread.getName());
+        System.out.println("Main thread priority: " + mainThread.getPriority());
+        System.out.println("Is main thread alive? " + mainThread.isAlive());
+        
+        // Setting the name of the main thread
+        mainThread.setName("PrimaryThread");
+        System.out.println("Renamed main thread: " + mainThread.getName());
+        
+        System.out.println("Main thread is ending.");
+    }
+}
+```
 ## Creation
 There are two ways to create threads in Java:
 1. Extending the `Thread` class
@@ -516,6 +546,11 @@ public class RunnableExample {
 - `run()` - Contains the code that is executed by the thread. This method should be overridden.
 - `yield()` - Suggests to the JVM that the current thread is willing to yield its current use of a processor. It makes the currently running thread move to the runnable state to allow other threads of the same priority to execute.
 - `sleep(long millis)` - Causes the current thread to sleep (pause execution) for the specified number of milliseconds.
+- `join()` - Waits for the thread on which this method is called to die (finish execution). This can be used to ensure that a thread completes before the execution of another thread continues.
+    - Overloads:
+        - `join()` - Waits indefinitely.
+        - `join(long millis)` - Waits for the specified milliseconds.
+        - `join(long millis, int nanos)` - Waits for the specified time in milliseconds and nanoseconds.
 ### Status and Information
 - `isAlive()` - Returns true if the thread is still alive (has been started and has not yet terminated).
 - `isInterrupted()` - Returns true if the thread has been interrupted. It does not clear the interrupted status of the thread.
