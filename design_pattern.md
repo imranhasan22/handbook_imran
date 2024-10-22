@@ -604,101 +604,119 @@ class AudioPlayer implements MediaPlayer {
 ```
 ### Decorator Method Design Pattern
 It allows behavior to be added to individual objects, either statically or dynamically, without affecting the behavior of other objects from the same class. It’s useful when you want to add responsibilities to objects at runtime without modifying their code.
-
-__Component:__
+#### Structure
+- __Component__: This is the interface or abstract class that defines the behavior that can be dynamically extended.
+- __Concrete Component__: The base class that implements the component interface. It can be decorated with additional responsibilities.
+- __Decorator__: This abstract class or interface extends the component class and has a reference to the component object. It delegates calls to the component and adds new behavior before or after delegating.
+- __Concrete Decorators__: These classes implement the decorator and add specific behavior to the component.
+#### Example
 ```java
-interface Beverage {
+// Component Interface
+interface Coffee {
     String getDescription();
     double cost();
 }
-```
-__ConcreteComponent:__
-```java
-class Espresso implements Beverage {
+
+// ConcreteComponent
+class SimpleCoffee implements Coffee {
     @Override
     public String getDescription() {
-        return "Espresso";
+        return "Simple Coffee";
     }
 
     @Override
     public double cost() {
-        return 1.99;
+        return 2.0;  // Base cost of simple coffee
     }
 }
-```
-__Decorator:__
-```java
-abstract class AddOnDecorator implements Beverage {
-    protected Beverage beverage;
 
-    public AddOnDecorator(Beverage beverage) {
-        this.beverage = beverage;
+// Decorator Class (implements the Coffee interface and holds a reference to a Coffee object)
+abstract class CoffeeDecorator implements Coffee {
+    protected Coffee decoratedCoffee;  // Coffee object to be decorated
+
+    public CoffeeDecorator(Coffee coffee) {
+        this.decoratedCoffee = coffee;
     }
 
     @Override
     public String getDescription() {
-        return beverage.getDescription();
+        return decoratedCoffee.getDescription();
     }
 
     @Override
     public double cost() {
-        return beverage.cost();
+        return decoratedCoffee.cost();
     }
 }
-```
-__ConcreteDecorators:__
-```java
-// ConcreteDecorator 1: Adds milk
-class MilkDecorator extends AddOnDecorator {
 
-    public MilkDecorator(Beverage beverage) {
-        super(beverage);
+// Concrete Decorator for adding milk
+class MilkDecorator extends CoffeeDecorator {
+    public MilkDecorator(Coffee coffee) {
+        super(coffee);
     }
 
     @Override
     public String getDescription() {
-        return beverage.getDescription() + ", Milk";
+        return decoratedCoffee.getDescription() + ", Milk";
     }
 
     @Override
     public double cost() {
-        return beverage.cost() + 0.50;
+        return decoratedCoffee.cost() + 0.5;  // Milk adds $0.5 to the cost
     }
 }
 
-// ConcreteDecorator 2: Adds sugar
-class SugarDecorator extends AddOnDecorator {
-
-    public SugarDecorator(Beverage beverage) {
-        super(beverage);
+// Concrete Decorator for adding sugar
+class SugarDecorator extends CoffeeDecorator {
+    public SugarDecorator(Coffee coffee) {
+        super(coffee);
     }
 
     @Override
     public String getDescription() {
-        return beverage.getDescription() + ", Sugar";
+        return decoratedCoffee.getDescription() + ", Sugar";
     }
 
     @Override
     public double cost() {
-        return beverage.cost() + 0.20;
+        return decoratedCoffee.cost() + 0.2;  // Sugar adds $0.2 to the cost
     }
 }
-```
-__Implementation:__
-```java
-public class CoffeeShop {
+
+// Concrete Decorator for adding whipped cream
+class WhipDecorator extends CoffeeDecorator {
+    public WhipDecorator(Coffee coffee) {
+        super(coffee);
+    }
+
+    @Override
+    public String getDescription() {
+        return decoratedCoffee.getDescription() + ", Whipped Cream";
+    }
+
+    @Override
+    public double cost() {
+        return decoratedCoffee.cost() + 0.7;  // Whipped Cream adds $0.7 to the cost
+    }
+}
+
+public class Main {
     public static void main(String[] args) {
-        // Order an Espresso
-        Beverage beverage = new Espresso();
-        System.out.println(beverage.getDescription() + " $" + beverage.cost());
+        // Create a simple coffee
+        Coffee coffee = new SimpleCoffee();
+        System.out.println(coffee.getDescription() + " $" + coffee.cost());
 
-        // Add milk to the espresso
-        beverage = new MilkDecorator(beverage);
-        System.out.println(beverage.getDescription() + " $" + beverage.cost());
+        // Add milk to the coffee
+        coffee = new MilkDecorator(coffee);
+        System.out.println(coffee.getDescription() + " $" + coffee.cost());
 
-        // Add sugar to the espresso with milk
-        beverage = new SugarDecorator(beverage);
-        System.out.println(beverage.getDescription() + " $" + beverage.cost());
+        // Add sugar to the coffee
+        coffee = new SugarDecorator(coffee);
+        System.out.println(coffee.getDescription() + " $" + coffee.cost());
+
+        // Add whipped cream to the coffee
+        coffee = new WhipDecorator(coffee);
+        System.out.println(coffee.getDescription() + " $" + coffee.cost());
     }
 }
 ```
