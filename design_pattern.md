@@ -390,116 +390,98 @@ It provides an interface for creating families of related or dependent objects w
 #### Example
 ```java
 // Abstract product for Button
-interface Button {
-    void paint();
+interface Button{
+    public void paint();
 }
 
 // Abstract product for Checkbox
-interface Checkbox {
-    void paint();
+interface CheckBox{
+    public void paint();
 }
 
 // Concrete product for Windows Button
-class WindowsButton implements Button {
-    @Override
-    public void paint() {
-        System.out.println("Rendering a button in Windows style.");
+class WindowsButton implements Button{
+    public void paint(){
+        System.out.println("Windows Button");
     }
 }
 
 // Concrete product for MacOS Button
-class MacOSButton implements Button {
-    @Override
-    public void paint() {
-        System.out.println("Rendering a button in MacOS style.");
+class MacButton implements Button{
+    public void paint(){
+        System.out.println("Mac Button");
     }
 }
 
 // Concrete product for Windows Checkbox
-class WindowsCheckbox implements Checkbox {
-    @Override
-    public void paint() {
-        System.out.println("Rendering a checkbox in Windows style.");
+class WindowsCheckbox implements CheckBox{
+    public void paint(){
+        System.out.println("Windows Checkbox");
     }
 }
 
 // Concrete product for MacOS Checkbox
-class MacOSCheckbox implements Checkbox {
-    @Override
-    public void paint() {
-        System.out.println("Rendering a checkbox in MacOS style.");
+class MacCheckbox implements CheckBox{
+    public void paint(){
+        System.out.println("Mac Checkbox");
     }
 }
 
 // Abstract factory
-interface GUIFactory {
-    Button createButton();
-    Checkbox createCheckbox();
+interface GUIFactory{
+    public Button createButton();
+    public CheckBox createCheckbox();
 }
 
 // Concrete factory for Windows
-class WindowsFactory implements GUIFactory {
-    @Override
-    public Button createButton() {
+class WindowsFactory implements GUIFactory{
+    public Button createButton(){
         return new WindowsButton();
     }
-
-    @Override
-    public Checkbox createCheckbox() {
+    public CheckBox createCheckbox(){
         return new WindowsCheckbox();
     }
 }
 
 // Concrete factory for MacOS
-class MacOSFactory implements GUIFactory {
-    @Override
-    public Button createButton() {
-        return new MacOSButton();
+class MacFactory implements GUIFactory{
+    public Button createButton(){
+        return new MacButton();
     }
-
-    @Override
-    public Checkbox createCheckbox() {
-        return new MacOSCheckbox();
+    public CheckBox createCheckbox(){
+        return new MacCheckbox();
     }
 }
 
 // Client class
-class Application {
+class Client{
     private Button button;
-    private Checkbox checkbox;
+    private CheckBox checkBox;
 
-    // The client code doesn't need to know which factory it works with
-    public Application(GUIFactory factory) {
+    Client(GUIFactory factory){
         button = factory.createButton();
-        checkbox = factory.createCheckbox();
+        checkBox = factory.createCheckbox();
     }
 
-    public void paint() {
+    public void paint(){
         button.paint();
-        checkbox.paint();
+        checkBox.paint();
     }
 }
 
-public class Main {
-    private static Application configureApplication() {
-        Application app;
+// Implementation
+class Main{
+    public static void main(String[] args){
         GUIFactory factory;
-
-        // Simulating environment detection
         String osName = System.getProperty("os.name").toLowerCase();
         if (osName.contains("mac")) {
-            factory = new MacOSFactory();
-        } else {
+            factory = new MacFactory();
+        }else{
             factory = new WindowsFactory();
         }
 
-        app = new Application(factory);
-        return app;
-    }
-
-    public static void main(String[] args) {
-        Application app = configureApplication();
-        app.paint();  // Paints the UI components
+        Client client = new Client(factory);
+        client.paint();
     }
 }
 ```
