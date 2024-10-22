@@ -29,7 +29,7 @@
         - Builder Method Design Pattern
     - [Structural Design Pattern](#structural-design-pattern)
         - [Adapter Method Design Pattern](#adapter-method-design-pattern)
-        - Decorator Method Design Pattern
+        - [Decorator Method Design Pattern](#decorator-method-design-pattern)
         - Bridge Method Design Pattern
         - Composite Method Design Pattern
         - Facade Method Design Pattern
@@ -317,6 +317,11 @@ class BackendDeveloper {
 These patterns deal with object creation. They aim to simplify the creation process and provide mechanisms for creating objects in a manner that suits the given situation.
 ### Singleton Method Design Pattern
 Ensures that a class has only one instance and provides a global point of access to it.
+#### Structure
+- `Private constructor`: This prevents other classes from creating new instances.
+- `Static private instance`: This holds the single instance of the class.
+- `Static method (getInstance)`: Provides a global point of access to the instance.
+#### Example
 ```java
 public class Singleton {
     // Step 1: Create a private static instance of the class.
@@ -338,6 +343,11 @@ public class Singleton {
 ```
 ### Factory Method Design Pattern
 Defines an interface for creating an object but lets subclasses alter the type of object that will be created. This pattern is useful when the creation process varies based on input conditions.
+#### Structure
+- `Product (interface)`: Defines the interface for objects created by the factory method.
+- `Concrete Product`: Implements the product interface.
+- `Factory`: Declares the factory method, which returns an object of type Product. It may also define the default implementation of the factory method.
+#### Example
 ```java
 // Product interface
 interface Animal {
