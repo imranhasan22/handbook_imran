@@ -552,6 +552,12 @@ public class Main {
 Structural patterns deal with object composition and typically help simplify the structure by identifying relationships.
 ### Adapter Method Design Pattern
 Allows objects with incompatible interfaces to work together by wrapping one of the objects with an adapter that performs the necessary conversions.
+#### Structure
+- `Target Interface`: This is the interface that the client expects and uses.
+- `Adaptee`: This is the class with an incompatible interface that needs to be adapted.
+- `Adapter`: This class implements the target interface and wraps the adaptee. It translates the requests from the client into the method calls that are understood by the adaptee.
+- `Client`: The client interacts with the system using the target interface, unaware that an adapter is being used behind the scenes.
+#### Example
 ```java
 // Target interface
 interface MediaPlayer {
