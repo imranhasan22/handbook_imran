@@ -24,7 +24,7 @@
     - [Creational Design Pattern](#creational-design-pattern)
         - [Singleton Method Design Pattern](#singleton-method-design-pattern)
         - [Factory Method Design Pattern](#factory-method-design-pattern)
-        - Abstract Factory Method Design Pattern
+        - [Abstract Factory Method Design Pattern](#abstract-factory-design-pattern)
         - Prototype Method Design Pattern
         - Builder Method Design Pattern
     - [Structural Design Pattern](#structural-design-pattern)
@@ -376,6 +376,226 @@ class AnimalFactory {
             return new Cat();
         }
         return null;
+    }
+}
+```
+### Abstract Factory Design Pattern
+It provides an interface for creating families of related or dependent objects without specifying their concrete classes. This pattern is especially useful when your system needs to create different types of objects that belong to a group, where each object group is logically related but differs in concrete implementation.
+#### Structure
+- `Abstract Product`: Declares an interface for a type of product object.
+    ```java
+    // Abstract product for Button
+    interface Button {
+        void paint();
+    }
+    
+    // Abstract product for Checkbox
+    interface Checkbox {
+        void paint();
+    }
+    ```
+- `Abstract Factory`: Declares an interface for creating abstract products.
+    ```java
+    // Abstract factory
+    interface GUIFactory {
+        Button createButton();
+        Checkbox createCheckbox();
+    }
+    ```
+- `Concrete Product`: Implements the interface to create specific products.
+    ```java
+    // Concrete product for Windows Button
+    class WindowsButton implements Button {
+        @Override
+        public void paint() {
+            System.out.println("Rendering a button in Windows style.");
+        }
+    }
+
+    // Concrete product for MacOS Button
+    class MacOSButton implements Button {
+        @Override
+        public void paint() {
+            System.out.println("Rendering a button in MacOS style.");
+        }
+    }
+
+    // Concrete product for Windows Checkbox
+    class WindowsCheckbox implements Checkbox {
+        @Override
+        public void paint() {
+            System.out.println("Rendering a checkbox in Windows style.");
+        }
+    }
+
+    // Concrete product for MacOS Checkbox
+    class MacOSCheckbox implements Checkbox {
+        @Override
+        public void paint() {
+            System.out.println("Rendering a checkbox in MacOS style.");
+        }
+    }
+    ```
+- `Concrete Factory`: Implements the interface to create concrete products.
+    ```java
+    // Concrete factory for Windows
+    class WindowsFactory implements GUIFactory {
+        @Override
+        public Button createButton() {
+            return new WindowsButton();
+        }
+
+        @Override
+        public Checkbox createCheckbox() {
+            return new WindowsCheckbox();
+        }
+    }
+
+    // Concrete factory for MacOS
+    class MacOSFactory implements GUIFactory {
+        @Override
+        public Button createButton() {
+            return new MacOSButton();
+        }
+
+        @Override
+        public Checkbox createCheckbox() {
+            return new MacOSCheckbox();
+        }
+    }
+    ```
+- `Client`: Uses the factory methods to create objects but remains unaware of their concrete implementation.
+    ```java
+    // Client class
+    class Application {
+        private Button button;
+        private Checkbox checkbox;
+
+        // The client code doesn't need to know which factory it works with
+        public Application(GUIFactory factory) {
+            button = factory.createButton();
+            checkbox = factory.createCheckbox();
+        }
+
+        public void paint() {
+            button.paint();
+            checkbox.paint();
+        }
+    }
+    ```
+#### Example
+```java
+// Abstract product for Button
+interface Button {
+    void paint();
+}
+
+// Abstract product for Checkbox
+interface Checkbox {
+    void paint();
+}
+
+// Concrete product for Windows Button
+class WindowsButton implements Button {
+    @Override
+    public void paint() {
+        System.out.println("Rendering a button in Windows style.");
+    }
+}
+
+// Concrete product for MacOS Button
+class MacOSButton implements Button {
+    @Override
+    public void paint() {
+        System.out.println("Rendering a button in MacOS style.");
+    }
+}
+
+// Concrete product for Windows Checkbox
+class WindowsCheckbox implements Checkbox {
+    @Override
+    public void paint() {
+        System.out.println("Rendering a checkbox in Windows style.");
+    }
+}
+
+// Concrete product for MacOS Checkbox
+class MacOSCheckbox implements Checkbox {
+    @Override
+    public void paint() {
+        System.out.println("Rendering a checkbox in MacOS style.");
+    }
+}
+
+// Abstract factory
+interface GUIFactory {
+    Button createButton();
+    Checkbox createCheckbox();
+}
+
+// Concrete factory for Windows
+class WindowsFactory implements GUIFactory {
+    @Override
+    public Button createButton() {
+        return new WindowsButton();
+    }
+
+    @Override
+    public Checkbox createCheckbox() {
+        return new WindowsCheckbox();
+    }
+}
+
+// Concrete factory for MacOS
+class MacOSFactory implements GUIFactory {
+    @Override
+    public Button createButton() {
+        return new MacOSButton();
+    }
+
+    @Override
+    public Checkbox createCheckbox() {
+        return new MacOSCheckbox();
+    }
+}
+
+// Client class
+class Application {
+    private Button button;
+    private Checkbox checkbox;
+
+    // The client code doesn't need to know which factory it works with
+    public Application(GUIFactory factory) {
+        button = factory.createButton();
+        checkbox = factory.createCheckbox();
+    }
+
+    public void paint() {
+        button.paint();
+        checkbox.paint();
+    }
+}
+
+public class Main {
+    private static Application configureApplication() {
+        Application app;
+        GUIFactory factory;
+
+        // Simulating environment detection
+        String osName = System.getProperty("os.name").toLowerCase();
+        if (osName.contains("mac")) {
+            factory = new MacOSFactory();
+        } else {
+            factory = new WindowsFactory();
+        }
+
+        app = new Application(factory);
+        return app;
+    }
+
+    public static void main(String[] args) {
+        Application app = configureApplication();
+        app.paint();  // Paints the UI components
     }
 }
 ```
