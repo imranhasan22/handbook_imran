@@ -142,3 +142,24 @@ __Syntax:__
 ```
 #define constantName value
 ```
+## String
+There are two main types of strings in Arduino:
+- Character arrays (C-style strings).
+- String objects (from the `String` class).
+### Character Arrays
+A character array is an array of characters terminated by a null character (`\0`). It is a C-style string.
+
+__Declaring a Character Array:__
+```cpp
+char myString[] = "Hello, World!";
+```
+This is equivalent to:
+```cpp
+char myString[] = {'H', 'e', 'l', 'l', 'o', ',', ' ', 'W', 'o', 'r', 'l', 'd', '!', '\0'};
+```
+You can manipulate character arrays using functions from the C library (`string.h`), such as `strlen()`, `strcpy()`, and `strcat()`.
+### String Class
+__Declaring a String Object:__
+```cpp
+String myString = "Hello, Arduino!";
+```
