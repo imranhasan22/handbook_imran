@@ -46,6 +46,8 @@
         - Mediator Method Design Pattern
         - Memento Method Design Patterns
         - Observer Method Design Pattern
+        - [Iterator Method Design Pattern](#iterator-method-design-pattern)
+        - [Null Object Design Pattern](#null-object-design-pattern)
 # Code Smells
 When we work on an application and write codes for it, we see a few patterns that are needed to be refactored. Those patterns either `duplicates`, or might make `code dependent on other code`. Such patterns are called Code Smells and detection of such code is called Code Smelling.
 
@@ -1254,6 +1256,163 @@ public class Main {
         // Turn the light OFF
         remote.setCommand(lightOff);
         remote.pressButton();  // Output: Light is OFF
+    }
+}
+```
+### Iterator Method Design Pattern
+It provides a way to access the elements of an aggregate object sequentially without exposing its underlying representation. This pattern allows for traversing elements of a collection (like lists, sets, etc.) without needing to understand the details of the collection’s implementation.
+#### Structure
+- `Iterator Interface`: Defines the methods for traversing elements.
+- `Concrete Iterator`: Implements the iterator interface to iterate over the collection.
+- `Aggregate Interface`: Defines a method to create an iterator.
+- `Concrete Aggregate`: Implements the aggregate interface to provide the appropriate iterator.
+- `Client`: Uses the iterator to traverse the collection.
+#### Example
+```java
+// Iterator Interface
+interface Iterator {
+    boolean hasNext();
+    Object next();
+}
+
+// Aggregate Interface
+interface BookCollection {
+    Iterator createIterator();
+}
+
+// Concrete Iterator for BookCollection
+class BookIterator implements Iterator {
+    private Book[] books;
+    private int position;
+
+    public BookIterator(Book[] books) {
+        this.books = books;
+        this.position = 0;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return position < books.length && books[position] != null;
+    }
+
+    @Override
+    public Object next() {
+        return hasNext() ? books[position++] : null;
+    }
+}
+
+// Concrete Aggregate
+class Library implements BookCollection {
+    private Book[] books;
+    private int count;
+
+    public Library(int size) {
+        books = new Book[size];
+        count = 0;
+    }
+
+    public void addBook(Book book) {
+        if (count < books.length) {
+            books[count++] = book;
+        } else {
+            System.out.println("Library is full. Cannot add more books.");
+        }
+    }
+
+    @Override
+    public Iterator createIterator() {
+        return new BookIterator(books);
+    }
+}
+
+// Book class (the element)
+class Book {
+    private String title;
+
+    public Book(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+}
+
+// Client code
+public class Main {
+    public static void main(String[] args) {
+        Library library = new Library(5);
+        library.addBook(new Book("1984"));
+        library.addBook(new Book("To Kill a Mockingbird"));
+        library.addBook(new Book("The Great Gatsby"));
+
+        // Create an iterator for the library
+        Iterator iterator = library.createIterator();
+
+        // Traverse the collection
+        while (iterator.hasNext()) {
+            Book book = (Book) iterator.next();
+            System.out.println("Book Title: " + book.getTitle());
+        }
+    }
+}
+```
+### Null Object Design Pattern
+It uses a special instance of a class that acts as a default or `null` object, eliminating the need for `null` checks in the code. Instead of returning null or an empty value, the pattern provides a neutral object that implements the same interface as the other objects, allowing methods to be called without checking for null.
+#### Structure
+- `Subject Interface`: Defines the behavior that concrete objects must implement.
+- `Real Object`: A concrete implementation of the subject interface that performs the intended behavior.
+- `Null Object`: A concrete implementation of the subject interface that does nothing or provides default behavior.
+#### Example
+```java
+// Subject Interface
+interface Logger {
+    void log(String message);
+}
+
+// Real Object
+class ConsoleLogger implements Logger {
+    @Override
+    public void log(String message) {
+        System.out.println("ConsoleLogger: " + message);
+    }
+}
+
+// Null Object
+class NullLogger implements Logger {
+    @Override
+    public void log(String message) {
+        // Do nothing
+    }
+}
+
+// Client Class
+class Application {
+    private Logger logger;
+
+    // Constructor that accepts a logger
+    public Application(Logger logger) {
+        this.logger = logger != null ? logger : new NullLogger();  // Use NullLogger if logger is null
+    }
+
+    public void run() {
+        logger.log("Application is starting...");
+        // Other application logic
+        logger.log("Application is running...");
+    }
+}
+
+// Main Class
+public class Main {
+    public static void main(String[] args) {
+        // Using a real logger
+        Logger consoleLogger = new ConsoleLogger();
+        Application appWithLogger = new Application(consoleLogger);
+        appWithLogger.run();
+
+        // Using a null logger
+        Application appWithoutLogger = new Application(null);
+        appWithoutLogger.run();
     }
 }
 ```
