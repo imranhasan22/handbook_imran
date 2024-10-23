@@ -163,3 +163,125 @@ __Declaring a String Object:__
 ```cpp
 String myString = "Hello, Arduino!";
 ```
+## Common Methods
+
+### 1. Basic Functions
+
+| **Function**               | **Usage**                                                                                         |
+|----------------------------|---------------------------------------------------------------------------------------------------|
+| `setup()`                  | Called once when the Arduino starts. Used to initialize variables, pin modes, libraries, etc.      |
+| `loop()`                   | Called repeatedly after `setup()`. Contains the main logic of the program.                        |
+| `pinMode(pin, mode)`       | Sets the mode of a pin (e.g., INPUT, OUTPUT).                                                     |
+| `digitalWrite(pin, value)` | Sets a digital pin to HIGH or LOW (ON/OFF).                                                      |
+| `digitalRead(pin)`         | Reads the value from a digital pin (HIGH or LOW).                                                 |
+| `analogWrite(pin, value)`  | Writes an analog value (PWM) to a pin. Values range from 0 to 255.                              |
+| `analogRead(pin)`          | Reads the value from an analog pin (range: 0-1023).                                               |
+| `delay(ms)`                | Pauses the program for a specified number of milliseconds.                                        |
+| `millis()`                 | Returns the number of milliseconds since the program started running.                             |
+
+---
+
+### 2. Mathematical Functions
+
+| **Function**               | **Usage**                                                                                         |
+|----------------------------|---------------------------------------------------------------------------------------------------|
+| `min(x, y)`                | Returns the smaller of two numbers.                                                               |
+| `max(x, y)`                | Returns the larger of two numbers.                                                                |
+| `abs(x)`                   | Returns the absolute value of a number.                                                           |
+| `pow(base, exponent)`      | Returns the result of raising `base` to `exponent`.                                               |
+| `sqrt(x)`                  | Returns the square root of a number.                                                              |
+| `map(value, fromLow, fromHigh, toLow, toHigh)` | Maps a number from one range to another.                                   |
+| `constrain(x, a, b)`       | Constrains a value to lie between two limits (a and b).                                           |
+| `random(max)`              | Returns a random number between 0 and the specified maximum.                                      |
+| `random(min, max)`         | Returns a random number between the specified minimum and maximum.                                |
+| `randomSeed(seed)`         | Initializes the random number generator with a seed value.                                        |
+
+---
+
+### 3. Timing Functions
+
+| **Function**               | **Usage**                                                                                         |
+|----------------------------|---------------------------------------------------------------------------------------------------|
+| `delay(ms)`                | Pauses the program for a specified number of milliseconds.                                        |
+| `millis()`                 | Returns the number of milliseconds since the program started running.                             |
+| `micros()`                 | Returns the number of microseconds since the program started.                                     |
+| `delayMicroseconds(us)`    | Pauses the program for a specified number of microseconds.                                        |
+
+---
+
+### 4. Serial Communication
+
+| **Function**                | **Usage**                                                                                       |
+|-----------------------------|-------------------------------------------------------------------------------------------------|
+| `Serial.begin(baudrate)`    | Initializes serial communication with the specified baud rate (e.g., 9600).                     |
+| `Serial.print(data)`         | Sends data to the serial port (without a newline).                                              |
+| `Serial.println(data)`       | Sends data to the serial port (with a newline at the end).                                      |
+| `Serial.read()`              | Reads incoming data from the serial buffer.                                                    |
+| `Serial.available()`         | Returns the number of bytes available in the serial buffer.                                     |
+| `Serial.flush()`             | Waits for outgoing serial data to be transmitted.                                              |
+| `Serial.end()`               | Disables serial communication.                                                                 |
+
+---
+
+### 5. Analog I/O
+
+| **Function**                | **Usage**                                                                                      |
+|-----------------------------|------------------------------------------------------------------------------------------------|
+| `analogRead(pin)`           | Reads the value from an analog pin (range: 0-1023).                                            |
+| `analogWrite(pin, value)`   | Writes a PWM signal to an analog pin (range: 0-255).                                           |
+
+---
+
+### 6. Digital I/O
+
+| **Function**               | **Usage**                                                                                      |
+|----------------------------|------------------------------------------------------------------------------------------------|
+| `pinMode(pin, mode)`       | Configures a digital pin to be either an INPUT or OUTPUT.                                       |
+| `digitalWrite(pin, value)` | Sets a digital pin to HIGH or LOW.                                                             |
+| `digitalRead(pin)`         | Reads the value from a digital pin (HIGH or LOW).                                              |
+
+---
+
+### 7. Interrupt Functions
+
+| **Function**               | **Usage**                                                                                     |
+|----------------------------|-----------------------------------------------------------------------------------------------|
+| `attachInterrupt(pin, ISR, mode)` | Attaches an interrupt to a pin. The ISR is a function that runs when the interrupt occurs. |
+| `detachInterrupt(pin)`      | Disables the interrupt for a specified pin.                                                   |
+| `noInterrupts()`            | Disables all interrupts.                                                                      |
+| `interrupts()`              | Re-enables interrupts after they have been disabled.                                          |
+
+---
+
+### 8. Bitwise Operations
+
+| **Function**               | **Usage**                                                                                              |
+|----------------------------|-------------------------------------------------------------------------------------------------------|
+| `bitRead(value, bit)`      | Reads a bit from a value.                                                                            |
+| `bitWrite(value, bit, bitValue)` | Writes a bit to a value.                                                                   |
+| `bitSet(value, bit)`       | Sets a bit to 1 in a value.                                                                          |
+| `bitClear(value, bit)`     | Clears a bit to 0 in a value.                                                                        |
+| `bit(bitNumber)`           | Returns the value of a given bit number (e.g., bit(3) returns 0b1000 or 8).                         |
+
+---
+
+### 9. Other Common Functions
+
+| **Function**               | **Usage**                                                                                         |
+|----------------------------|---------------------------------------------------------------------------------------------------|
+| `isnan(x)`                 | Returns `true` if the argument is NaN (Not a Number).                                             |
+| `isinf(x)`                 | Returns `true` if the argument is infinity.                                                       |
+| `lowByte(x)`               | Returns the low byte of an integer.                                                               |
+| `highByte(x)`              | Returns the high byte of an integer.                                                              |
+| `shiftOut(dataPin, clockPin, bitOrder, value)` | Shifts out a byte of data one bit at a time.                                |
+
+---
+
+### 10. Library-Related Methods
+
+| **Function**               | **Usage**                                                                                           |
+|----------------------------|-----------------------------------------------------------------------------------------------------|
+| `#include <library.h>`     | Includes a library in your sketch.                                                                  |
+| `libraryObject.begin()`    | Initializes the library, usually in the `setup()` function.                                         |
+| `libraryObject.read()`     | Reads data from the hardware component controlled by the library.                                  |
+| `libraryObject.write(data)`| Sends data to the hardware component controlled by the library.                                    |
