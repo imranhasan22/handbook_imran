@@ -93,3 +93,27 @@ void loop() {
   delay(1000);
 }
 ```
+## Variable Declaration & Data Type
+__Common Data Types:__
+- `int` 
+- `unsigned int`
+- `long`
+- `unsigned long`
+- `float`
+- `char`
+- `boolean`
+- `byte`
+- `string`
+
+__Synatx:__
+```
+dataType variableName = initialValue;
+```
+
+__Example:__
+```cpp
+int sensorValue = 0;
+float pi = 3.14;
+char grade = 'A';
+boolean isOn = true;
+```
