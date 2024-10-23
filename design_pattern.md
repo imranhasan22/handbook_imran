@@ -38,7 +38,7 @@
     - Behavioral Design Pattern
         - [Chain Of Responsibility Method Design Pattern](#chain-of-responsibility-method-design-pattern)
         - Interpreter Method Design Pattern
-        - State Method Design Pattern
+        - [State Method Design Pattern](#state-method-design-pattern)
         - Strategy Method Design Pattern
         - Template Method Design Pattern
         - Visitor Method Design Pattern
@@ -902,6 +902,105 @@ public class Main {
 
         System.out.println("\nClient sends an unknown request:");
         lowLevel.handleRequest("Unknown");
+    }
+}
+```
+### State Method Design Pattern
+It allow an object to alter its behavior when its internal state changes. This pattern is particularly useful for implementing state machines, where the object behaves differently based on its current state. Instead of using a large number of conditional statements to manage state changes, this pattern encapsulates state-specific behavior in separate classes.
+#### Structure
+- __Context__: The class that has a current state and can change its behavior based on that state.
+- __State Interface__: An interface that defines the methods that concrete state classes must implement.
+- __Concrete States__: Classes that implement the `State` interface and define the behavior for a specific state.
+#### Example
+```java
+// State Interface
+interface TrafficLightState {
+    void change(TrafficLight context);  // Method to change state
+    String getColor();                   // Method to get the current color
+}
+
+// Concrete State for Red Light
+class RedLightState implements TrafficLightState {
+    @Override
+    public void change(TrafficLight context) {
+        System.out.println("Changing light from Red to Green.");
+        context.setState(new GreenLightState()); // Change to Green state
+    }
+
+    @Override
+    public String getColor() {
+        return "Red"; // Return current color
+    }
+}
+
+// Concrete State for Green Light
+class GreenLightState implements TrafficLightState {
+    @Override
+    public void change(TrafficLight context) {
+        System.out.println("Changing light from Green to Yellow.");
+        context.setState(new YellowLightState()); // Change to Yellow state
+    }
+
+    @Override
+    public String getColor() {
+        return "Green"; // Return current color
+    }
+}
+
+// Concrete State for Yellow Light
+class YellowLightState implements TrafficLightState {
+    @Override
+    public void change(TrafficLight context) {
+        System.out.println("Changing light from Yellow to Red.");
+        context.setState(new RedLightState()); // Change to Red state
+    }
+
+    @Override
+    public String getColor() {
+        return "Yellow"; // Return current color
+    }
+}
+
+// Context Class
+class TrafficLight {
+    private TrafficLightState currentState; // Current state of the traffic light
+
+    public TrafficLight() {
+        currentState = new RedLightState(); // Initial state
+    }
+
+    public void setState(TrafficLightState state) {
+        this.currentState = state; // Change the current state
+    }
+
+    public void change() {
+        currentState.change(this); // Delegate to the current state's change method
+    }
+
+    public String getColor() {
+        return currentState.getColor(); // Delegate to the current state's getColor method
+    }
+}
+
+// Client code
+public class Main {
+    public static void main(String[] args) {
+        TrafficLight trafficLight = new TrafficLight();
+
+        // Current color
+        System.out.println("Current Light: " + trafficLight.getColor());
+        
+        // Change the light
+        trafficLight.change();
+        System.out.println("Current Light: " + trafficLight.getColor());
+
+        // Change the light
+        trafficLight.change();
+        System.out.println("Current Light: " + trafficLight.getColor());
+
+        // Change the light
+        trafficLight.change();
+        System.out.println("Current Light: " + trafficLight.getColor());
     }
 }
 ```
