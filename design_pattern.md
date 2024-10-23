@@ -39,10 +39,10 @@
         - [Chain Of Responsibility Method Design Pattern](#chain-of-responsibility-method-design-pattern)
         - Interpreter Method Design Pattern
         - [State Method Design Pattern](#state-method-design-pattern)
-        - Strategy Method Design Pattern
-        - Template Method Design Pattern
+        - [Strategy Method Design Pattern](#strategy-method-design-pattern)
+        - [Template Method Design Pattern](#template-method-design-pattern)
         - Visitor Method Design Pattern
-        - Command Method Design Pattern
+        - [Command Method Design Pattern](#command-method-design-pattern)
         - Mediator Method Design Pattern
         - Memento Method Design Patterns
         - Observer Method Design Pattern
@@ -1100,6 +1100,160 @@ public class Main {
         // Set QuickSort strategy
         sorter.setStrategy(new QuickSort());
         sorter.sort(numbers); // Sort using Quick Sort
+    }
+}
+```
+### Template Method Design Pattern
+It defines the skeleton of an algorithm in a base class, allowing subclasses to override specific steps of the algorithm without changing its overall structure. This pattern is useful when you have a common algorithm that can be implemented in different ways by subclasses.
+#### Structure
+- __Abstract Class__: Contains the template method that defines the algorithm's structure and may include some abstract methods that subclasses must implement.
+- __Concrete Classes__: Subclasses that implement the abstract methods defined in the base class, providing specific behavior for those steps.
+#### Example
+```java
+// Template Interface
+interface Meal {
+    // Template method
+    default void prepareMeal() {
+        gatherIngredients(); // Step 1: Gather ingredients
+        cook();              // Step 2: Cooking
+        serve();             // Step 3: Serving
+    }
+
+    // Method signatures for specific steps
+    void gatherIngredients();
+    void cook();
+
+    // Default method for serving the meal
+    default void serve() {
+        System.out.println("Serving the meal.");
+    }
+}
+
+// Concrete Class for preparing a Pasta dish
+class Pasta implements Meal {
+    @Override
+    public void gatherIngredients() {
+        System.out.println("Gathering ingredients for Pasta: pasta, tomato sauce, cheese.");
+    }
+
+    @Override
+    public void cook() {
+        System.out.println("Cooking Pasta: boiling pasta and adding sauce.");
+    }
+}
+
+// Concrete Class for preparing a Salad dish
+class Salad implements Meal {
+    @Override
+    public void gatherIngredients() {
+        System.out.println("Gathering ingredients for Salad: lettuce, tomatoes, cucumber, dressing.");
+    }
+
+    @Override
+    public void cook() {
+        System.out.println("Tossing the Salad ingredients together.");
+    }
+}
+
+// Client code
+public class Main {
+    public static void main(String[] args) {
+        Meal pasta = new Pasta();
+        pasta.prepareMeal(); // Prepare Pasta
+
+        System.out.println(); // New line for separation
+
+        Meal salad = new Salad();
+        salad.prepareMeal(); // Prepare Salad
+    }
+}
+```
+### Command Method Design Pattern
+It encapsulates a request as an object, thereby allowing for parameterization of clients with queues, requests, and operations. This pattern decouples the sender of a request from its receiver, allowing for better flexibility and control over the execution of requests.
+#### Structure
+- __Command Interface__: Declares a method for executing a command.
+- __Concrete Command__: Implements the command interface and defines the binding between a receiver and an action.
+- __Receiver__: Knows how to perform the operations associated with the command.
+- __Invoker__: Asks the command to execute the request.
+- __Client__: Creates the command and associates it with a receiver.
+#### Example
+```java
+// Command Interface
+interface Command {
+    void execute();
+}
+
+// Concrete Command for turning on the light
+class LightOnCommand implements Command {
+    private Light light;
+
+    public LightOnCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.turnOn();
+    }
+}
+
+// Concrete Command for turning off the light
+class LightOffCommand implements Command {
+    private Light light;
+
+    public LightOffCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.turnOff();
+    }
+}
+
+// Receiver class
+class Light {
+    public void turnOn() {
+        System.out.println("Light is ON");
+    }
+
+    public void turnOff() {
+        System.out.println("Light is OFF");
+    }
+}
+
+// Invoker class
+class RemoteControl {
+    private Command command;
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    public void pressButton() {
+        command.execute();
+    }
+}
+
+// Client code
+public class Main {
+    public static void main(String[] args) {
+        Light livingRoomLight = new Light();
+
+        // Create Command Objects
+        Command lightOn = new LightOnCommand(livingRoomLight);
+        Command lightOff = new LightOffCommand(livingRoomLight);
+
+        // Create Invoker
+        RemoteControl remote = new RemoteControl();
+
+        // Turn the light ON
+        remote.setCommand(lightOn);
+        remote.pressButton();  // Output: Light is ON
+
+        // Turn the light OFF
+        remote.setCommand(lightOff);
+        remote.pressButton();  // Output: Light is OFF
     }
 }
 ```
