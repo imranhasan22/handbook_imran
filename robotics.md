@@ -105,7 +105,7 @@ __Common Data Types:__
 - `byte`
 - `string`
 
-__Synatx:__
+__Variable Declaration Synatx:__
 ```
 dataType variableName = initialValue;
 ```
@@ -116,4 +116,29 @@ int sensorValue = 0;
 float pi = 3.14;
 char grade = 'A';
 boolean isOn = true;
+```
+## Constant
+### Predefined Constants
+Arduino provides some built-in constants that have predefined values. Examples include:
+- `HIGH` (1): Represents a high voltage (on).
+- `LOW` (0): Represents a low voltage (off).
+- `INPUT`, `OUTPUT`, and `INPUT_PULLUP`: Used for setting pin modes.
+
+__Example:__
+```cpp
+pinMode(ledPin, OUTPUT);  // Set ledPin as an output
+```
+### `const` Keyword
+Declares a variable as a constant, meaning its value cannot be changed once it’s assigned.
+
+__Syntax:__
+```
+const dataType variableName = value;
+```
+### `#define` Preprocessor Directive
+Defines a symbolic constant that is replaced by its value during the program's preprocessing step.
+
+__Syntax:__
+```
+#define constantName value
 ```
