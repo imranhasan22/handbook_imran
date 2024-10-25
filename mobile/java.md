@@ -8,7 +8,8 @@ Index
 - [Keywords](#keywords)
 - [Interface](#interface)
 - [OOP](#oop)
-- [Exception](#exceptions)
+- [String](#string)
+- [Exceptions](#exceptions)
 - [Multitasking](#multitasking)
 - [Thread](#thread)
 - [File Handling](#file-handling)
@@ -494,9 +495,115 @@ class Circle implements Shape{
 }
 ```
 
+# String
+
+## String
+
+The `String` class in Java represents an immutable sequence of characters. Immutable means once a `String` object is created, it cannot be changed. It's a sequence of characters but not a character array.
+
+## StringBuffer
+
+`StringBuffer` is a mutable sequence of characters. Unlike `String`, `StringBuffer` allows modifications without creating new objects. It’s synchronized, meaning thread-safe (safe to use in multithreaded contexts).
+
+### Common Methods
+
+- `append(String str)`: Adds the given string to the end of the existing string.
+- `insert(int offset, String str)`: Inserts a string at the specified position.
+- `replace(int start, int end, String str)`: Replaces characters between the start and end positions with the given string.
+- `delete(int start, int end)`: Deletes characters from start to end positions.
+- `reverse()`: Reverses the string.
+
+### Example
+
+```java
+class Main {
+    public static void main(String[] args) {
+        StringBuffer sb = new StringBuffer("Hello");
+        sb.append(" World");
+        sb.replace(6, 11, "Earth");
+        System.out.println("StringBuffer Output: " + sb);
+    }
+}
+```
+
+## StringBuilder
+
+`StringBuilder` is also a mutable sequence of characters, similar to `StringBuffer`, but it’s not synchronized (not thread-safe)
+
+## String Constructor
+
+The `String` class provides multiple constructors that allow you to create `String` objects from various data types and sources.
+
+### Types of `String` Constructor
+
+1. **Default constructor:**
+
+   - `String()`: Creates an empty string `""`.
+
+2. **String from another string:**
+
+   - `String(String str)`: Creates a new string that is a copy of the argument str.
+
+3. **String from a character array:**
+
+   - `String(char[] value)`: Converts a character array to a string.
+
+4. **String from a part of a character array:**
+
+   - `String(char[] value, int offset, int count)`: Creates a string from a subset of a character array.
+
+5. **String from a byte array:**
+
+   - `String(byte[] bytes)`: Converts a byte array to a string.
+
+### Example
+
+```java
+public class StringConstructorExample {
+    public static void main(String[] args) {
+        // Default constructor (empty string)
+        String str1 = new String();
+        System.out.println("str1: \"" + str1 + "\"");
+
+        // String from another string
+        String str2 = new String("Hello");
+        System.out.println("str2: " + str2);
+
+        // String from a character array
+        char[] charArray = {'J', 'a', 'v', 'a'};
+        String str3 = new String(charArray);
+        System.out.println("str3: " + str3);
+
+        // String from a part of a character array
+        String str4 = new String(charArray, 1, 2);
+        System.out.println("str4: " + str4);
+
+        // String from a byte array
+        byte[] byteArray = {72, 101, 108, 108, 111};  // ASCII codes for 'Hello'
+        String str5 = new String(byteArray);
+        System.out.println("str5: " + str5);
+    }
+}
+```
+
+## Comparison Table
+
+| Feature           | String                                  | StringBuffer                                | StringBuilder                                | String Constructor                                          |
+| ----------------- | --------------------------------------- | ------------------------------------------- | -------------------------------------------- | ----------------------------------------------------------- |
+| **Mutability**    | Immutable                               | Mutable                                     | Mutable                                      | Immutable                                                   |
+| **Thread Safety** | Thread-safe (Immutable)                 | Synchronized (Thread-safe)                  | Non-synchronized (Not thread-safe)           | Depends on `String` itself                                  |
+| **Performance**   | Slow for modifications                  | Moderate, due to synchronization            | Fastest for single-threaded                  | Depends on `String` behavior                                |
+| **Best Use**      | Constant strings, minimal modifications | Multi-threaded scenarios with modifications | Single-threaded scenarios with modifications | Creating new `String` instances from different data sources |
+
 # Exceptions
 
 An exception is an event that disrupts the normal flow of a program's execution. It is an object that represents an error or an unexpected situation that occurs during the execution of a program.
+
+**Why exception occurs:**
+
+- User error
+- Programmer error
+- Resources error
 
 ## Exception Hierarchy
 
