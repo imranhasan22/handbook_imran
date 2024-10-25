@@ -8,9 +8,11 @@ Index
 - [Keywords](#keywords)
 - [Interface](#interface)
 - [OOP](#oop)
+- [Exception](#exceptions)
 - [Multitasking](#multitasking)
 - [Thread](#thread)
 - [File Handling](#file-handling)
+
 # Class
 
 A java class is a group of values with a set of operations to manipulate this values.
@@ -492,6 +494,131 @@ class Circle implements Shape{
 }
 ```
 
+# Exceptions
+
+An exception is an event that disrupts the normal flow of a program's execution. It is an object that represents an error or an unexpected situation that occurs during the execution of a program.
+
+## Exception Hierarchy
+
+The Exception Hierarchy in Java is structured under the Throwable class, which is the superclass for all errors and exceptions. This hierarchy helps developers understand how different types of errors and exceptions are related and how they can be handled in Java applications.
+
+The Throwable class has two main subclasses.
+
+### Error
+
+Errors in Java represent serious problems that an application should not attempt to catch or handle. They are typically external to the application and represent critical problems, such as hardware failures or JVM issues. Errors are generally not recoverable.
+
+**Examples:**
+
+- `OutOfMemoryError`: Occurs when the JVM runs out of memory.
+- `StackOverflowError`: Occurs when the application recurses too deeply, causing the call stack to overflow.
+
+### Exception
+
+Exceptions represent conditions that a typical application can recover from.
+
+#### Types of Exceptions
+
+##### Checked Exceptions
+
+Checked exceptions are exceptions that are checked at compile-time. The Java compiler ensures that these exceptions are either handled using a `try-catch` block or declared in the method signature using the `throws` keyword. If a method can throw a checked exception, it must be handled explicitly in the code, otherwise, the program will not compile.
+
+These exceptions typically represent scenarios that are out of the program's control but can be expected, such as reading from a file or database access issues.
+
+**Common Examples of Checked Exceptions:**
+
+- `IOException`
+- `SQLException`
+- `ClassNotFoundException`
+- `FileNotFoundException`
+
+**Example:**
+
+```java
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class CheckedExceptionExample {
+    public static void main(String[] args) {
+        try {
+            // Trying to open a file that may not exist
+            File file = new File("non_existent_file.txt");
+            Scanner scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            // Handling the FileNotFoundException
+            System.out.println("File not found: " + e.getMessage());
+        }
+    }
+}
+```
+
+##### Unchecked exceptions
+
+Unchecked exceptions are exceptions that are not checked at compile-time. These exceptions occur at runtime and are not required to be explicitly handled or declared. Unchecked exceptions are typically caused by programming errors or unforeseen conditions, such as dividing by zero or accessing an array element out of bounds.
+
+Unchecked exceptions are subclasses of `RuntimeException` and typically represent logic errors in the program that could have been avoided through better coding practices.
+
+**Common Examples of Unchecked Exceptions:**
+
+- `NullPointerException`
+- `ArrayIndexOutOfBoundsException`
+- `ArithmeticException`
+- `IllegalArgumentException`
+
+**Example:**
+
+```java
+public class UncheckedExceptionExample {
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 0;
+
+        // No try-catch block needed
+        int result = num1 / num2;  // Will throw ArithmeticException at runtime
+
+        System.out.println("Result: " + result);
+    }
+}
+```
+
+##### Key Differences
+
+| Checked Exceptions                                                                        | Unchecked Exceptions                                                           |
+| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Checked at compile-time.                                                                  | Checked at runtime.                                                            |
+| Must be handled using `try-catch` or declared with `throws`.                              | Handling is optional, though recommended.                                      |
+| Inherits from `Exception` but not from `RuntimeException`.                                | Inherits from `RuntimeException`.                                              |
+| Represents conditions that a well-written application should anticipate and recover from. | Represents programming errors or runtime issues that are harder to anticipate. |
+| Examples: `IOException`, `SQLException`.                                                  | Examples: `NullPointerException`, `ArithmeticException`.                       |
+
+## Complete Exception Hierarchy
+
+```
+java.lang.Object
+   └── java.lang.Throwable
+         ├── java.lang.Error
+         │     ├── OutOfMemoryError
+         │     ├── StackOverflowError
+         │     └── ...
+         └── java.lang.Exception
+               ├── java.lang.RuntimeException
+               │     ├── NullPointerException
+               │     ├── ArithmeticException
+               │     └── ...
+               ├── IOException
+               ├── SQLException
+               └── ...
+```
+
+## Handling Exceptions
+
+- `try`: A block of code that might throw an exception.
+- `catch`: A block of code that handles the exception.
+- `finally`: A block of code that executes after the `try-catch` block, regardless of whether an exception was thrown.
+- `throw`: Used to explicitly throw an exception.
+- `throws`: Used in method signatures to indicate that a method might throw an exception.
+
 # Multitasking
 
 Multitasking is the capability of performing multiple tasks simultaneously. In Java, multitasking can be achieved using two main approaches:
@@ -667,6 +794,7 @@ public class RunnableExample {
 - `currentThread()` (Static method) - Returns a reference to the currently executing thread object.
 
 # File Handling
+
 - [File](#file)
 - [FileReader](#filereader)
 - [BufferedReader](#bufferedreader)
@@ -674,9 +802,13 @@ public class RunnableExample {
 - [BufferedWriter](#bufferedwriter)
 - [FileInputStream](#fileinputstream)
 - [FileOutputStream](#fileoutputstream)
+
 ## `File`
+
 It represents both file and directory pathnames in an abstract manner. It allows us to create, delete, and manipulate files and directories, as well as check file properties.
+
 ### Common Methods
+
 1. `exists()`: Checks if a file or directory exists.
 2. `createNewFile()`: Creates a new file if it does not exist.
 3. `delete()`: Deletes a file or directory.
@@ -687,7 +819,9 @@ It represents both file and directory pathnames in an abstract manner. It allows
 8. `canRead()`, `canWrite()`, `canExecute()`: Checks if the file is readable, writable, or executable.
 9. `isFile()` and `isDirectory()`: Checks if the `File` object represents a file or a directory.
 10. `list()` and `listFiles()`: Lists files and directories inside a director
+
 ### Example
+
 ```java
 import java.io.File;
 import java.io.IOException;
@@ -754,13 +888,19 @@ public class FileClassExample {
     }
 }
 ```
+
 ## `FileReader`
+
 It is used to read the contents of a file as a stream of characters. It is designed for reading character files and is typically used for reading text data.
+
 ### Common Methods
+
 1. `read()` - Reads a single character from the file.
 2. `close()` - Closes the file reader and releases any system resources associated with it.
 3. `ready()` - Tells whether the input stream is ready to be read.
+
 ### Example
+
 ```java
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -770,11 +910,11 @@ public class FileReaderExample {
     public static void main(String[] args) {
         // Specify the file name to read
         String fileName = "example.txt";
-        
+
         // Using try-with-resources to ensure the file is closed automatically
         try (FileReader fileReader = new FileReader(fileName);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-            
+
             String line;
             // Read the file line by line
             while ((line = bufferedReader.readLine()) != null) {
@@ -786,15 +926,21 @@ public class FileReaderExample {
     }
 }
 ```
+
 ## `BufferedReader`
+
 It is used for reading text from an input stream (like a file). It buffers the input, which means it reads large chunks of data at once and keeps it in memory, reducing the number of reads required directly from the underlying source.
+
 ### Common Methods
+
 - `read()` - Reads a single character or an array of characters.
 - `readLine()` - Reads a line of text, returning null when the end of the stream is reached.
 - `close()` - Closes the BufferedReader and releases any associated resources.
 - `ready()` - Checks if the BufferedReader is ready to be read from without blocking.
 - `skip(long n)` - Skips n characters from the input.
+
 ### Example
+
 ```java
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -804,13 +950,13 @@ public class BufferedReaderExample {
     public static void main(String[] args) {
         // Step 1: Create a BufferedReader object
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("example.txt"))) {
-            
+
             // Step 2: Read the file line by line
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 System.out.println(line);
             }
-            
+
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file.");
             e.printStackTrace();
@@ -818,14 +964,20 @@ public class BufferedReaderExample {
     }
 }
 ```
+
 ## `FileWriter`
-It is used to write character-based data to a file. 
+
+It is used to write character-based data to a file.
+
 ### Common Methods
+
 - `write(String str)`: Writes the entire string to the file.
 - `write(char[] cbuf)`: Writes a character array to the file.
 - `close()`: Closes the file writer and releases any system resources associated with the file.
 - `flush()`: Ensures that any buffered data is written to the file.
+
 ### Example
+
 ```java
 import java.io.FileWriter;
 import java.io.IOException;
@@ -833,7 +985,7 @@ import java.io.IOException;
 public class FileWriterExample {
     public static void main(String[] args) {
         String data = "Hello, this is a test of FileWriter in Java!";
-        
+
         // Try-with-resources ensures the FileWriter is closed automatically
         try (FileWriter fileWriter = new FileWriter("output.txt")) {
             // Writing string data to the file
@@ -845,16 +997,22 @@ public class FileWriterExample {
     }
 }
 ```
+
 ## `BufferedWriter`
+
 It is used to write text to a character output stream (like a file) in an efficient way. It buffers the output, meaning it collects characters in memory before writing them to the output stream.
+
 ### Common Methods
+
 - `write(int c)` - Writes a single character.
 - `write(char[] cbuf)` - Writes an array of characters.
 - `write(String s)` - Writes a string.
 - `newLine()` - Writes a line separator (new line).
 - `flush()` - Flushes the buffered output to the file, forcing any buffered characters to be written.
 - `close()` - Closes the BufferedWriter and releases any associated resources.
+
 ### Example
+
 ```java
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -864,17 +1022,17 @@ public class BufferedWriterExample {
     public static void main(String[] args) {
         // Step 1: Create a BufferedWriter object
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("output.txt"))) {
-            
+
             // Step 2: Write data to the file
             bufferedWriter.write("Hello, World!");
             bufferedWriter.newLine();  // Writes a newline
             bufferedWriter.write("Welcome to the BufferedWriter example.");
             bufferedWriter.newLine();
             bufferedWriter.write("This is the third line of text.");
-            
+
             // Step 3: Flush the writer (optional, as try-with-resources handles it)
             bufferedWriter.flush();
-            
+
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
@@ -882,15 +1040,21 @@ public class BufferedWriterExample {
     }
 }
 ```
+
 ## `FileInputStream`
-It is used for reading raw byte data from a file. It is particularly useful for reading binary data, such as images, audio files, or any type of file that isn't purely text. Since it reads bytes directly, it is not the best choice for reading character data like plain text files. 
+
+It is used for reading raw byte data from a file. It is particularly useful for reading binary data, such as images, audio files, or any type of file that isn't purely text. Since it reads bytes directly, it is not the best choice for reading character data like plain text files.
+
 ### Common Methods
+
 - `int read()` - Reads a single byte of data and returns it as an integer (0-255) or -1 if the end of the file is reached.
 - `int read(byte[] b)` - Reads up to b.length bytes of data into the specified byte array.
 - `int available()` - Returns the number of remaining bytes that can be read from the stream.
 - `void close()` - Closes the input stream and releases any associated system resources.
 - `long skip(long n)` - Skips over and discards n bytes of data from the input stream.
+
 ### Example
+
 ```java
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -899,14 +1063,14 @@ public class FileInputStreamExample {
     public static void main(String[] args) {
         // Step 1: Create a FileInputStream object
         try (FileInputStream fileInputStream = new FileInputStream("input.txt")) {
-            
+
             // Step 2: Read data from the file
             int byteData;
             while ((byteData = fileInputStream.read()) != -1) {
                 // Step 3: Print the read byte data as characters
                 System.out.print((char) byteData);
             }
-            
+
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file.");
             e.printStackTrace();
@@ -914,15 +1078,21 @@ public class FileInputStreamExample {
     }
 }
 ```
+
 ## `FileOutputStream`
+
 It is used for writing raw byte data to a file. It is often used for writing binary data like images, audio files, or serialized objects.
+
 ### Common Methods
+
 - `void write(int b)` - Writes a single byte to the file.
 - `void write(byte[] b)` - Writes a byte array to the file.
 - `void write(byte[] b, int off, int len)` - Writes len bytes from the specified byte array starting at off to the file.
 - `void close()` - Closes the output stream and releases any associated system resources.
 - `void flush()` - Flushes the output stream, ensuring that all data is written to the file.
+
 ### Example
+
 ```java
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -931,16 +1101,16 @@ public class FileOutputStreamExample {
     public static void main(String[] args) {
         // Step 1: Create a FileOutputStream object
         try (FileOutputStream fileOutputStream = new FileOutputStream("output.txt")) {
-            
+
             // Step 2: Convert string data to byte array
             String data = "Hello, World!";
             byte[] byteData = data.getBytes();
-            
+
             // Step 3: Write byte array to the file
             fileOutputStream.write(byteData);
-            
+
             System.out.println("Data has been written to the file successfully.");
-            
+
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
