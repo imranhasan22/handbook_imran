@@ -12,7 +12,7 @@ Index
 - [Exceptions](#exceptions)
 - [Multitasking](#multitasking)
 - [Thread](#thread)
-- [File Handling](#file-handling)
+- [I/O Streams](#io-streams)
 
 # Class
 
@@ -230,10 +230,12 @@ class Test{
 
 - accessible within the class it is declared
 - can't accessible not even in child class
+- can't use in class/interface
 
 ## `protected`
 
 - accessible anywhere within the same package
+- can't use in class/interface
 
 ## `default`
 
@@ -749,8 +751,10 @@ Multitasking is the capability of performing multiple tasks simultaneously. In J
 - All threads of a process share the same memory space.
 - Each task is a seperate independent part of same program
 - Switching between threads is more efficient compared to processes.
-- Java provides built-in support for threads through: - `java.lang.Thread` class - `java.lang.Runnable` interface
-  This is the most common form of multitasking in Java, and it is what we generally mean when we refer to multitasking in Java.
+- Java provides built-in support for threads through:
+  - `java.lang.Thread` class
+  - `java.lang.Runnable` interface
+    This is the most common form of multitasking in Java, and it is what we generally mean when we refer to multitasking in Java.
 
 # Thread
 
@@ -900,21 +904,27 @@ public class RunnableExample {
 
 - `currentThread()` (Static method) - Returns a reference to the currently executing thread object.
 
-# File Handling
+# I/O Streams
 
-- [File](#file)
-- [FileReader](#filereader)
-- [BufferedReader](#bufferedreader)
-- [FileWriter](#filewriter)
-- [BufferedWriter](#bufferedwriter)
-- [FileInputStream](#fileinputstream)
-- [FileOutputStream](#fileoutputstream)
+I/O (Input/Output) streams are used to read and write data from various sources, such as files, network connections, or even the console.
 
-## `File`
+## Types
+
+1. **Character Streams**: Handle data in characters, ideal for text data. These streams are capable of handling Unicode characters.
+   - [File](#file)
+   - [FileReader](#filereader)
+   - [BufferedReader](#bufferedreader)
+   - [FileWriter](#filewriter)
+   - [BufferedWriter](#bufferedwriter)
+2. **Byte Streams**: Handle data in bytes, which is suitable for handling binary data like images or audio files. These streams read and write data one byte at a time.
+   - [FileInputStream](#fileinputstream)
+   - [FileOutputStream](#fileoutputstream)
+
+### `File`
 
 It represents both file and directory pathnames in an abstract manner. It allows us to create, delete, and manipulate files and directories, as well as check file properties.
 
-### Common Methods
+#### Common Methods
 
 1. `exists()`: Checks if a file or directory exists.
 2. `createNewFile()`: Creates a new file if it does not exist.
@@ -927,7 +937,7 @@ It represents both file and directory pathnames in an abstract manner. It allows
 9. `isFile()` and `isDirectory()`: Checks if the `File` object represents a file or a directory.
 10. `list()` and `listFiles()`: Lists files and directories inside a director
 
-### Example
+#### Example
 
 ```java
 import java.io.File;
@@ -996,17 +1006,17 @@ public class FileClassExample {
 }
 ```
 
-## `FileReader`
+### `FileReader`
 
 It is used to read the contents of a file as a stream of characters. It is designed for reading character files and is typically used for reading text data.
 
-### Common Methods
+#### Common Methods
 
 1. `read()` - Reads a single character from the file.
 2. `close()` - Closes the file reader and releases any system resources associated with it.
 3. `ready()` - Tells whether the input stream is ready to be read.
 
-### Example
+#### Example
 
 ```java
 import java.io.FileReader;
@@ -1034,11 +1044,11 @@ public class FileReaderExample {
 }
 ```
 
-## `BufferedReader`
+### `BufferedReader`
 
 It is used for reading text from an input stream (like a file). It buffers the input, which means it reads large chunks of data at once and keeps it in memory, reducing the number of reads required directly from the underlying source.
 
-### Common Methods
+#### Common Methods
 
 - `read()` - Reads a single character or an array of characters.
 - `readLine()` - Reads a line of text, returning null when the end of the stream is reached.
@@ -1046,7 +1056,7 @@ It is used for reading text from an input stream (like a file). It buffers the i
 - `ready()` - Checks if the BufferedReader is ready to be read from without blocking.
 - `skip(long n)` - Skips n characters from the input.
 
-### Example
+#### Example
 
 ```java
 import java.io.BufferedReader;
@@ -1072,18 +1082,18 @@ public class BufferedReaderExample {
 }
 ```
 
-## `FileWriter`
+### `FileWriter`
 
 It is used to write character-based data to a file.
 
-### Common Methods
+#### Common Methods
 
 - `write(String str)`: Writes the entire string to the file.
 - `write(char[] cbuf)`: Writes a character array to the file.
 - `close()`: Closes the file writer and releases any system resources associated with the file.
 - `flush()`: Ensures that any buffered data is written to the file.
 
-### Example
+#### Example
 
 ```java
 import java.io.FileWriter;
@@ -1105,11 +1115,11 @@ public class FileWriterExample {
 }
 ```
 
-## `BufferedWriter`
+### `BufferedWriter`
 
 It is used to write text to a character output stream (like a file) in an efficient way. It buffers the output, meaning it collects characters in memory before writing them to the output stream.
 
-### Common Methods
+#### Common Methods
 
 - `write(int c)` - Writes a single character.
 - `write(char[] cbuf)` - Writes an array of characters.
@@ -1118,7 +1128,7 @@ It is used to write text to a character output stream (like a file) in an effici
 - `flush()` - Flushes the buffered output to the file, forcing any buffered characters to be written.
 - `close()` - Closes the BufferedWriter and releases any associated resources.
 
-### Example
+#### Example
 
 ```java
 import java.io.BufferedWriter;
@@ -1148,11 +1158,11 @@ public class BufferedWriterExample {
 }
 ```
 
-## `FileInputStream`
+### `FileInputStream`
 
 It is used for reading raw byte data from a file. It is particularly useful for reading binary data, such as images, audio files, or any type of file that isn't purely text. Since it reads bytes directly, it is not the best choice for reading character data like plain text files.
 
-### Common Methods
+#### Common Methods
 
 - `int read()` - Reads a single byte of data and returns it as an integer (0-255) or -1 if the end of the file is reached.
 - `int read(byte[] b)` - Reads up to b.length bytes of data into the specified byte array.
@@ -1160,7 +1170,7 @@ It is used for reading raw byte data from a file. It is particularly useful for 
 - `void close()` - Closes the input stream and releases any associated system resources.
 - `long skip(long n)` - Skips over and discards n bytes of data from the input stream.
 
-### Example
+#### Example
 
 ```java
 import java.io.FileInputStream;
@@ -1186,11 +1196,11 @@ public class FileInputStreamExample {
 }
 ```
 
-## `FileOutputStream`
+### `FileOutputStream`
 
 It is used for writing raw byte data to a file. It is often used for writing binary data like images, audio files, or serialized objects.
 
-### Common Methods
+#### Common Methods
 
 - `void write(int b)` - Writes a single byte to the file.
 - `void write(byte[] b)` - Writes a byte array to the file.
@@ -1198,7 +1208,7 @@ It is used for writing raw byte data to a file. It is often used for writing bin
 - `void close()` - Closes the output stream and releases any associated system resources.
 - `void flush()` - Flushes the output stream, ensuring that all data is written to the file.
 
-### Example
+#### Example
 
 ```java
 import java.io.FileOutputStream;
