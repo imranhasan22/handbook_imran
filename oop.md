@@ -119,6 +119,17 @@ __Example:__
 ```
 ### Object Diagram
 It shows a snapshot of the objects at a particular point in time, their states, and their relationships. Similar to class diagrams, but shows actual instances (objects) rather than class definitions.
+
+__Syntax:__
+```
++------------------------+   
+| objectName : ClassName |
++------------------------+   
+|   attributes = value   |
++------------------------+   
+```
+
+__Example:__
 ```
 +-----------------+           +------------------+
 |    Library1     |           |  Member1: John    |
