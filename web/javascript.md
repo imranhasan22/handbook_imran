@@ -1,6 +1,7 @@
 # Index
 - [Javascript](#javascript)
     - [ECMAScript](#ecmascript)
+    - [Array](#array)
     - [DOM](#dom)
     - [Syntactic Sugar](#syntactic-sugar)
     - [Expression](#expression)
@@ -57,6 +58,36 @@ __Key Features of ES6:__
 - Promises
 - Let and Const
 - Rest and Spread Operators
+## Array
+### `map()`
+- __creates a new array__ by applying a function to each element of the original array.
+- It does not modify the original array
+- callback return transformed value
+### `filter()`
+- __creates a new array__ with all elements that pass a test (specified by a function).
+- It does not modify the original array
+- callback return boolean value
+### `reduce()`
+- __applies a function against an accumulator__ and each element in the array (from left to right) to reduce it to a single value.
+- callback return updated accumulator
+### Differences
+| Aspect                | `map()`                                  | `filter()`                               | `reduce()`                               |
+|-----------------------|------------------------------------------|------------------------------------------|------------------------------------------|
+| **Purpose**           | Transforms each element in the array     | Selects elements that pass a test        | Reduces all elements to a single value   |
+| **Return Value**      | New array with transformed elements      | New array with filtered elements         | Single accumulated value                 |
+| **Callback Behavior** | Callback should return a transformed value for each element | Callback should return `true` or `false` (indicating whether the element should be included) | Callback should return an updated accumulator |
+| **Use Cases**         | Data transformation, like multiplying each element | Filtering out elements, like even numbers | Aggregating values, like calculating sum or product |
+| **Callback Parameters** | Element, index (optional), and array (optional) | Element, index (optional), and array (optional) | Accumulator, element, index (optional), and array (optional) |
+| **Initial Value Needed** | No                                     | No                                       | Yes (recommended but not required)      |
+### `some()`
+It tests whether __at least one element__ in the array passes the condition defined in the callback function. If it finds an element that satisfies the condition, it returns `true`; otherwise, it returns `false`.
+### `every()`
+It tests whether __all elements__ in the array passes the condition defined in the callback function. If it finds all elements that satisfies the condition, it returns `true`; otherwise, it returns `false`.
+### Differences
+| Method     | Description                                                                 | Stops at         |
+|------------|-----------------------------------------------------------------------------|------------------|
+| `some()`   | Returns `true` if at least one element satisfies the condition.             | First `true`     |
+| `every()`  | Returns `true` only if all elements satisfy the condition.                  | First `false`    |
 ## DOM
 The Document Object Model (DOM) is a programming interface for web documents(XML/HTML). It represents the structure of a web page in a tree-like model, allowing developers to access and manipulate elements on a page using JavaScript.
 
