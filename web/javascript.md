@@ -26,6 +26,8 @@
   - [Template Literal](#template-literal)
   - [Spread Opertor](#spread-opertor)
   - [Map](#map)
+  - [String](#string)
+  - [Type Conversion](#type-conversion)
 - [Prototype](#prototype)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
@@ -517,7 +519,7 @@ console.log(addOperation(4, 5));
 
 `performOperation` is a HOF
 
-# Lexical Scoping
+## Lexical Scoping
 
 It determines how variable names are resolved in nested functions which is by their position within the source code, specifically where they are declared within the nested scopes (such as functions or blocks).
 
@@ -662,6 +664,38 @@ console.log(`${"Alhamdulillah ".repeat(5)}`);
 // Alhamdulillah Alhamdulillah Alhamdulillah Alhamdulillah Alhamdulillah
 ```
 
+## Type Conversion 
+It happens in two forms:
+- [Implicit Conversion (Type Coercion)](#implicit-conversion-type-coercion)
+- [Explicit Conversion](#explicit-conversion)
+### Implicit Conversion (Type Coercion)
+JavaScript automatically converts types when needed. This can happen with operations like addition, comparison, or when using logical operators.
+
+1. JavaScript will convert a value to a string when it is used with the `+` operator alongside a string.
+  ```js
+  let result1 = 'Hello' + 5;
+  console.log(result1); // Output: "Hello5"
+  let result2 = '10' + 20 + 30;
+  console.log(result2); // Output: "102030"
+  let result3 = 20 + 30 + "40";
+  console.log(result3); // Output: "5040"
+  ```
+2. When using arithmetic operators other than `+` (like `-`, `*`, `/`, `%`), JavaScript converts non-numeric values to numbers.
+  ```js
+  let result1 = '5' - 2;
+  console.log(result1); // Output: 3
+  let result2 = '10' * '2';
+  console.log(result2); // Output: 20
+  ```
+3. JavaScript considers certain values as __truthy__ or __falsy__.
+4. JavaScript performs implicit conversion in loose equality checks (`==`). It tries to make both values the same type before comparing them.
+
+### Explicit Conversion
+Explicit conversion is done manually using JavaScript's built-in functions. Common methods include:
+- `String()` to convert to string
+- `Number()` to convert to number
+- `Boolean()` to convert to boolean
+- `parseInt()` and `parseFloat()` to convert strings to numbers
 # Prototype
 
 It is a mechanism by which objects inherit properties and methods from other objects. JavaScript is prototype-based, meaning that inheritance is achieved through prototypes rather than traditional classes (although ES6 introduced `class` syntax, it’s still built on prototypes under the hood).
