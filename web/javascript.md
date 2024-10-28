@@ -3,6 +3,7 @@
 - [Javascript](#javascript)
   - [ECMAScript](#ecmascript)
   - [Array](#array)
+  - [Loop](#loop)
   - [REPL](#repl)
   - [Console](#console)
   - [DOM](#dom)
@@ -25,6 +26,7 @@
   - [Template Literal](#template-literal)
   - [Spread Opertor](#spread-opertor)
   - [Map](#map)
+- [Prototype](#prototype)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
 - [Synchronous](#synchronous)
@@ -113,6 +115,18 @@ It tests whether **all elements** in the array passes the condition defined in t
 | `some()`  | Returns `true` if at least one element satisfies the condition. | First `true`  |
 | `every()` | Returns `true` only if all elements satisfy the condition.      | First `false` |
 
+## Loop
+
+### Differences between `for...of` and `for...in`
+
+| Feature           | `for...of`                              | `for...in`                         |
+| ----------------- | --------------------------------------- | ---------------------------------- |
+| Works with        | Iterables (arrays, strings, maps, etc.) | Objects and their keys             |
+| Iterates over     | Values                                  | Keys (property names)              |
+| Suitable for      | Arrays, strings, Maps, Sets             | Objects                            |
+| Prototype chain   | Does not include prototype properties   | Includes properties from prototype |
+| Example Structure | `for (const item of iterable) {}`       | `for (const key in object) {}`     |
+
 ## REPL
 
 REPL stands for Read-Eval-Print Loop, and it’s an interactive programming environment often used for testing code snippets. In JavaScript, REPL allows you to execute code line by line and see the output immediately, which is especially useful for debugging, experimenting, and learning how JavaScript works
@@ -131,6 +145,7 @@ If you have Node.js installed, you can access its REPL environment by simply typ
 In most browsers, you can open the developer console (usually via F12 or Ctrl+Shift+J/Cmd+Option+J) to access a JavaScript REPL. Here, you can type JavaScript code and get instant feedback just like in Node.js.
 
 ## Console
+
 In the JavaScript console, if you assign a value to a variable, you might notice that the console outputs `undefined` on the next line. This behavior happens because the console evaluates the entire expression, but variable assignment itself doesn’t have a return value, which results in `undefined`.
 
 So, seeing `undefined` is just a signal that the variable was assigned successfully, and there was no value to display from that operation itself.
@@ -163,6 +178,17 @@ The Document Object Model (DOM) is a programming interface for web documents(XML
 - DOM Manipulation
 
 NodeJS doesn't have DOM, DOM can only be accessed in the browser.
+
+### DOM Tree Structure
+
+The DOM tree represents the hierarchical structure of an HTML document, where:
+
+- **Nodes**: Each part of the document is a "node" in the DOM tree. There are different types of nodes:
+  - **Element Nodes**: Represent HTML elements (like `<div>`, `<p>`, `<a>`, etc.).
+  - **Attribute Nodes**: Represent the attributes of elements (like `id`, `class`, `src`).
+  - **Text Nodes**: Represent the actual text within elements.
+  - **Document Node**: The root of the tree, representing the entire document.
+- **Parent-Child Relationship**: The DOM tree establishes parent-child relationships based on the HTML structure. For instance, if an element is nested within another element, it becomes a child of that element in the DOM tree.
 
 ## Syntactic Sugar
 
@@ -636,7 +662,40 @@ console.log(`${"Alhamdulillah ".repeat(5)}`);
 // Alhamdulillah Alhamdulillah Alhamdulillah Alhamdulillah Alhamdulillah
 ```
 
-# Thread
+# Prototype
+
+It is a mechanism by which objects inherit properties and methods from other objects. JavaScript is prototype-based, meaning that inheritance is achieved through prototypes rather than traditional classes (although ES6 introduced `class` syntax, it’s still built on prototypes under the hood).
+## Key Concepts
+1. __Prototype Chain__: Every JavaScript object has an internal link to another object called its prototype. This chain of linked objects continues until it reaches an object with a `null` prototype, known as the end of the prototype chain. When a property or method is accessed on an object, JavaScript will look for it on the object itself first, then on its prototype, and so forth, traversing up the chain until it finds the property or reaches the end of the chain.
+
+2. __Prototype Property__ (__proto__ and __.prototype__):
+
+  - __proto__: Every JavaScript object has a hidden __proto__ property, which points to its prototype.
+  - __.prototype__: Only functions (constructor functions) have the __.prototype__ property. This property allows you to add properties and methods that should be inherited by all instances created from the constructor.
+
+3. __Inheritance in JavaScript__: By using prototypes, objects can share properties and methods without duplicating them for each instance. This is memory-efficient and allows methods to be updated or modified once on the prototype, affecting all instances that inherit from it.
+## Example
+```js
+// Step 1: Create a constructor function
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+// Step 2: Add a method to the prototype
+Person.prototype.greet = function() {
+  console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+};
+
+// Step 3: Create instances of Person
+const person1 = new Person("Alice", 25);
+const person2 = new Person("Bob", 30);
+
+// Step 4: Call the prototype method
+person1.greet(); // Output: Hello, my name is Alice and I am 25 years old.
+person2.greet(); // Output: Hello, my name is Bob and I am 30 years old.
+```
+ # Thread
 
 ## Process
 
@@ -1020,7 +1079,8 @@ Promises can be chained to run asynchronouse task sequenially which resolve call
 
 1.  **Convert Functions to Return Promises**
     For each function that uses a callback, refactor it to return a Promise instead.
-    ```js
+
+    ````js
     const takeOrder=(orderNumber)=>{
         return new Promise((resolve)=>{
             console.log(`Take Order ${orderNumber}`)
@@ -1046,18 +1106,20 @@ Promises can be chained to run asynchronouse task sequenially which resolve call
         }
         ```
 
+    ````
+
 2.  **Chain the Promises**
     Once the functions return Promises, chain them using `.then()` and `.catch()` method.
     `js
-    takeOrder(1)
-        .then(orderNumber=>processOrder(orderNumber))
-        .then((orderNumber)=>completeOrder(orderNumber))
-        .catch(()=>console.log("Error Occurred"))
-    takeOrder(2)
-        .then(orderNumber=>processOrder(orderNumber))
-        .then((orderNumber)=>completeOrder(orderNumber))
-        .catch(()=>console.log("Error Occurred"))
-    `
+takeOrder(1)
+    .then(orderNumber=>processOrder(orderNumber))
+    .then((orderNumber)=>completeOrder(orderNumber))
+    .catch(()=>console.log("Error Occurred"))
+takeOrder(2)
+    .then(orderNumber=>processOrder(orderNumber))
+    .then((orderNumber)=>completeOrder(orderNumber))
+    .catch(()=>console.log("Error Occurred"))
+`
 
 # async/await
 
