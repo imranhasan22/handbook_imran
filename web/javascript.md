@@ -7,6 +7,7 @@
   - [REPL](#repl)
   - [Console](#console)
   - [DOM](#dom)
+  - [Window Object](#window-object)
   - [Syntactic Sugar](#syntactic-sugar)
   - [Expression](#expression)
   - [Statement](#statement)
@@ -193,18 +194,32 @@ The DOM tree represents the hierarchical structure of an HTML document, where:
 - **Parent-Child Relationship**: The DOM tree establishes parent-child relationships based on the HTML structure. For instance, if an element is nested within another element, it becomes a child of that element in the DOM tree.
 
 ### `document` object
+
 It is a part of the Document Object Model (DOM), which represents the structure of an HTML or XML document. This object serves as the entry point for accessing and manipulating the elements, attributes, and content of the webpage, allowing developers to dynamically change the HTML structure, style, and content of a page.
 
 ### Key Aspects of the Document Object
-1. __Accessing Elements__: The `document` object provides methods for accessing HTML elements by ID, class, tag name, or other selectors.
 
-2. __Modifying Content__: You can change the text, HTML, and other attributes of elements on the page.
+1. **Accessing Elements**: The `document` object provides methods for accessing HTML elements by ID, class, tag name, or other selectors.
 
-3. __Handling Events__: You can add event listeners to elements to handle user interactions.
+2. **Modifying Content**: You can change the text, HTML, and other attributes of elements on the page.
 
-4. __Creating and Removing Elements__: The `document` object allows you to create new elements and remove existing ones from the DOM.
+3. **Handling Events**: You can add event listeners to elements to handle user interactions.
 
-The document object is structured like a tree, with the document itself as the root node, containing various nodes (HTML elements) as branches and leaves. 
+4. **Creating and Removing Elements**: The `document` object allows you to create new elements and remove existing ones from the DOM.
+
+The document object is structured like a tree, with the document itself as the root node, containing various nodes (HTML elements) as branches and leaves.
+
+## `window` object
+
+It is the global object that represents the browser's window or the environment in which JavaScript code is running. It's the top-level object in the browser’s hierarchy, meaning every other object (like `document`, `console`, etc.) is part of the `window` object.
+
+### Key Aspects of the `window` Object
+
+1. **Global Scope**: Variables and functions declared globally in JavaScript are added as properties or methods of the `window` object.
+
+2. **Browser Environment Access**: The `window` object provides methods and properties to interact with the browser, such as setting timeouts, managing browser history, handling alerts, and more.
+
+3. **Global Properties**: Properties like `document`, `location`, `navigator`, `screen`, and `history` are part of the `window` object, providing access to various browser functionalities.
 
 ## Syntactic Sugar
 
@@ -678,51 +693,66 @@ console.log(`${"Alhamdulillah ".repeat(5)}`);
 // Alhamdulillah Alhamdulillah Alhamdulillah Alhamdulillah Alhamdulillah
 ```
 
-## Type Conversion 
+## Type Conversion
+
 It happens in two forms:
+
 - [Implicit Conversion (Type Coercion)](#implicit-conversion-type-coercion)
 - [Explicit Conversion](#explicit-conversion)
+
 ### Implicit Conversion (Type Coercion)
+
 JavaScript automatically converts types when needed. This can happen with operations like addition, comparison, or when using logical operators.
 
 1. JavaScript will convert a value to a string when it is used with the `+` operator alongside a string.
-  ```js
-  let result1 = 'Hello' + 5;
-  console.log(result1); // Output: "Hello5"
-  let result2 = '10' + 20 + 30;
-  console.log(result2); // Output: "102030"
-  let result3 = 20 + 30 + "40";
-  console.log(result3); // Output: "5040"
-  ```
+
+```js
+let result1 = "Hello" + 5;
+console.log(result1); // Output: "Hello5"
+let result2 = "10" + 20 + 30;
+console.log(result2); // Output: "102030"
+let result3 = 20 + 30 + "40";
+console.log(result3); // Output: "5040"
+```
+
 2. When using arithmetic operators other than `+` (like `-`, `*`, `/`, `%`), JavaScript converts non-numeric values to numbers.
-  ```js
-  let result1 = '5' - 2;
-  console.log(result1); // Output: 3
-  let result2 = '10' * '2';
-  console.log(result2); // Output: 20
-  ```
-3. JavaScript considers certain values as __truthy__ or __falsy__.
+
+```js
+let result1 = "5" - 2;
+console.log(result1); // Output: 3
+let result2 = "10" * "2";
+console.log(result2); // Output: 20
+```
+
+3. JavaScript considers certain values as **truthy** or **falsy**.
 4. JavaScript performs implicit conversion in loose equality checks (`==`). It tries to make both values the same type before comparing them.
 
 ### Explicit Conversion
+
 Explicit conversion is done manually using JavaScript's built-in functions. Common methods include:
+
 - `String()` to convert to string
 - `Number()` to convert to number
 - `Boolean()` to convert to boolean
 - `parseInt()` and `parseFloat()` to convert strings to numbers
+
 # Prototype
 
 It is a mechanism by which objects inherit properties and methods from other objects. JavaScript is prototype-based, meaning that inheritance is achieved through prototypes rather than traditional classes (although ES6 introduced `class` syntax, it’s still built on prototypes under the hood).
+
 ## Key Concepts
-1. __Prototype Chain__: Every JavaScript object has an internal link to another object called its prototype. This chain of linked objects continues until it reaches an object with a `null` prototype, known as the end of the prototype chain. When a property or method is accessed on an object, JavaScript will look for it on the object itself first, then on its prototype, and so forth, traversing up the chain until it finds the property or reaches the end of the chain.
 
-2. __Prototype Property__ (__proto__ and __.prototype__):
+1. **Prototype Chain**: Every JavaScript object has an internal link to another object called its prototype. This chain of linked objects continues until it reaches an object with a `null` prototype, known as the end of the prototype chain. When a property or method is accessed on an object, JavaScript will look for it on the object itself first, then on its prototype, and so forth, traversing up the chain until it finds the property or reaches the end of the chain.
 
-  - __proto__: Every JavaScript object has a hidden __proto__ property, which points to its prototype.
-  - __.prototype__: Only functions (constructor functions) have the __.prototype__ property. This property allows you to add properties and methods that should be inherited by all instances created from the constructor.
+2. **Prototype Property** (**proto** and **.prototype**):
 
-3. __Inheritance in JavaScript__: By using prototypes, objects can share properties and methods without duplicating them for each instance. This is memory-efficient and allows methods to be updated or modified once on the prototype, affecting all instances that inherit from it.
+- **proto**: Every JavaScript object has a hidden **proto** property, which points to its prototype.
+- **.prototype**: Only functions (constructor functions) have the **.prototype** property. This property allows you to add properties and methods that should be inherited by all instances created from the constructor.
+
+3. **Inheritance in JavaScript**: By using prototypes, objects can share properties and methods without duplicating them for each instance. This is memory-efficient and allows methods to be updated or modified once on the prototype, affecting all instances that inherit from it.
+
 ## Example
+
 ```js
 // Step 1: Create a constructor function
 function Person(name, age) {
@@ -731,7 +761,7 @@ function Person(name, age) {
 }
 
 // Step 2: Add a method to the prototype
-Person.prototype.greet = function() {
+Person.prototype.greet = function () {
   console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
 };
 
@@ -743,7 +773,8 @@ const person2 = new Person("Bob", 30);
 person1.greet(); // Output: Hello, my name is Alice and I am 25 years old.
 person2.greet(); // Output: Hello, my name is Bob and I am 30 years old.
 ```
- # Thread
+
+# Thread
 
 ## Process
 
