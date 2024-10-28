@@ -192,6 +192,20 @@ The DOM tree represents the hierarchical structure of an HTML document, where:
   - **Document Node**: The root of the tree, representing the entire document.
 - **Parent-Child Relationship**: The DOM tree establishes parent-child relationships based on the HTML structure. For instance, if an element is nested within another element, it becomes a child of that element in the DOM tree.
 
+### `document` object
+It is a part of the Document Object Model (DOM), which represents the structure of an HTML or XML document. This object serves as the entry point for accessing and manipulating the elements, attributes, and content of the webpage, allowing developers to dynamically change the HTML structure, style, and content of a page.
+
+### Key Aspects of the Document Object
+1. __Accessing Elements__: The `document` object provides methods for accessing HTML elements by ID, class, tag name, or other selectors.
+
+2. __Modifying Content__: You can change the text, HTML, and other attributes of elements on the page.
+
+3. __Handling Events__: You can add event listeners to elements to handle user interactions.
+
+4. __Creating and Removing Elements__: The `document` object allows you to create new elements and remove existing ones from the DOM.
+
+The document object is structured like a tree, with the document itself as the root node, containing various nodes (HTML elements) as branches and leaves. 
+
 ## Syntactic Sugar
 
 It refers to syntax that makes code easier to write and read but doesn't add new functionality to the language. It actually a shorthand for a common operation that could be expressed in an alternate.
