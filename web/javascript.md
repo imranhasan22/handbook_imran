@@ -29,6 +29,7 @@
   - [Map](#map)
   - [String](#string)
   - [Type Conversion](#type-conversion)
+  - [Math Object](#math-object)Math Object
 - [Prototype](#prototype)
 - [Thread](#thread)
 - [Execution Context](#execution-context)
@@ -735,6 +736,36 @@ Explicit conversion is done manually using JavaScript's built-in functions. Comm
 - `Number()` to convert to number
 - `Boolean()` to convert to boolean
 - `parseInt()` and `parseFloat()` to convert strings to numbers
+
+## Math Object
+It's not a constructor, so we don't use `new Math()`. Instead, we call the methods and properties directly on `Math`.
+### Constants
+- Math.PI
+- Math.E
+- Math.LN2
+- Math.LN10
+- Math.SQRT2
+### Rounding Methods
+- Math.round(x)
+- Math.ceil(x)
+- Math.floor(x)
+- Math.trunc(x)
+### Arithmetic Methods
+- Math.abs(x)
+- Math.pow(base, exponent)
+- Math.sqrt(x)
+- Math.cbrt(x)
+- Math.max(a, b, ..., n)
+- Math.min(a, b, ..., n)
+### Trigonometric Methods
+- `Math.sin(x)`, `Math.cos(x)`, and `Math.tan(x)` – Return the sine, cosine, and tangent of `x` (in radians).
+- `Math.asin(x)`, `Math.acos(x)`, `Math.atan(x)` – Return the inverse sine, cosine, and tangent of `x`.
+- `Math.atan2(y, x)` – Returns the angle (in radians) between the positive x-axis and the point `(x, y)`.
+### Logarithmic and Exponential Methods
+- `Math.exp(x)` – Returns Euler’s number raised to the power of `x`.
+- `Math.log(x)` – Returns the natural logarithm (base e) of `x`.
+- `Math.log10(x)` – Returns the base-10 logarithm of `x`.
+- `Math.log2(x)` – Returns the base-2 logarithm of `x`.
 
 # Prototype
 
