@@ -13,6 +13,7 @@ Index
 - [Multitasking](#multitasking)
 - [Thread](#thread)
 - [I/O Streams](#io-streams)
+- [Memory Management](#memory-management)
 
 # Class
 
@@ -1235,3 +1236,40 @@ public class FileOutputStreamExample {
     }
 }
 ```
+# Memory Management
+## Stack
+The stack is a region of memory that stores temporary variables created by each function (method) as it executes. Each thread in a JVM has its own stack, which contains frames. A frame is created whenever a method is called and contains the method's local variables, operand stack, and references to other objects in the heap.
+
+__Characteristics of Stack Memory__:
+- __Thread-specific__: Each thread has its own stack memory, isolated from others.
+- __Memory allocation and deallocation are automatic__: Memory for variables in the stack is allocated when a method is called and released when the method completes.
+- __LIFO__ (Last-In-First-Out): Stack follows the LIFO order, meaning the last frame pushed onto the stack is the first one removed.
+- __Stores__:
+    - Local variables
+    - Method calls
+    - Primitive values (like `int`, `float`, etc.)
+    - References to objects in the heap
+## Heap
+The heap is a region of memory used for dynamic memory allocation. All objects and their corresponding instance variables are stored in the heap. Unlike stack memory, which is thread-specific, the heap is shared among all threads within the application.
+
+__Characteristics of Heap Memory__:
+- __Shared among all threads__: Any object created is accessible to any thread (with proper synchronization).
+- __Used for dynamic memory allocation__: Objects created using `new` are stored here.
+- __Garbage collection__: Unused or unreferenced objects in the heap are automatically deallocated by the JVM’s garbage collector.
+- __Stores__:
+    - Objects
+    - Instance variables
+    - Arrays
+## Key Differences
+| Feature                | Stack                                      | Heap                                  |
+|------------------------|--------------------------------------------|---------------------------------------|
+| **Memory Allocation**  | Static or Fixed during execution           | Dynamic, based on runtime requirements|
+| **Thread Safety**      | Thread-specific (No concurrency issues)    | Shared (Needs synchronization)        |
+| **Storage Contents**   | Local variables, references to objects     | Objects, instance variables           |
+| **Access Speed**       | Faster access due to small, fixed size     | Slower due to large, dynamic size     |
+| **Lifetime**           | Exists only for the duration of method calls | Exists as long as the object is in use |
+| **Management**         | Managed by stack frames (automatic)        | Managed by garbage collection         |
+
+
+
+
