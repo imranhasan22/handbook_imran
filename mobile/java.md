@@ -882,7 +882,7 @@ public class RunnableExample {
 ### Creation and Control
 
 - `start()` - Starts a new thread by calling its `run()` method. It transitions the thread from the new state to the runnable state.
-- `run()` - Contains the code that is executed by the thread. This method should be overridden.
+- `run()` - Contains the code that is executed by the thread. This method should be overridden, overloading doesn't work here. Directly calling `t1.run()` method consider as normal method of Thread class.
 - `yield()` - Suggests to the JVM that the current thread is willing to yield its current use of a processor. It makes the currently running thread move to the runnable state to allow other threads of the same priority to execute.
 - `sleep(long millis)` - Causes the current thread to sleep (pause execution) for the specified number of milliseconds.
 - `join()` - Waits for the thread on which this method is called to die (finish execution). This can be used to ensure that a thread completes before the execution of another thread continues.
@@ -896,7 +896,7 @@ public class RunnableExample {
 - `isAlive()` - Returns true if the thread is still alive (has been started and has not yet terminated).
 - `isInterrupted()` - Returns true if the thread has been interrupted. It does not clear the interrupted status of the thread.
 - `getId()` - Returns the unique ID of the thread.
-- `getName() / setName(String name)` - Gets or sets the name of the thread.
+- `getName() / setName(String name)` - Gets or change the name of the thread.
 - `getPriority() / setPriority(int newPriority)` - Gets or sets the priority of the thread (values between `Thread.MIN_PRIORITY` (1) and `Thread.MAX_PRIORITY` (10)). The default is `Thread.NORM_PRIORITY` (5).
 - `getState()` - Returns the current state of the thread as an instance of `Thread.State` enum (e.g., `NEW`, `RUNNABLE`, `BLOCKED`, `WAITING`, `TIMED_WAITING`, `TERMINATED`).getId():
   Returns the unique ID of the thread.
