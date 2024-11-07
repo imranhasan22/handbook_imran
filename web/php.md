@@ -3,6 +3,7 @@
 - [Basic](#basic)
 - [JSON](#json)
 - [Standard PHP Library](#standard-php-library)
+- [Form Handling](#form-handling)
 
 # Basic
 
@@ -226,7 +227,9 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 ```
 
 # Standard PHP Library
+
 ## SplStack (Stack)
+
 ```php
 $stack = new SplStack();
 
@@ -240,9 +243,12 @@ echo $stack->pop(); // Output: third
 echo $stack->pop(); // Output: second
 echo $stack->pop(); // Output: first
 ```
+
 - `$stack->push()` adds elements to the stack.
 - `$stack->pop()` removes and returns the top element.
+
 ## SplQueue (Queue)
+
 ```php
 $queue = new SplQueue();
 
@@ -256,9 +262,12 @@ echo $queue->dequeue(); // Output: first
 echo $queue->dequeue(); // Output: second
 echo $queue->dequeue(); // Output: third
 ```
+
 - `$queue->enqueue()` adds elements to the end of the queue.
 - `$queue->dequeue()` removes and returns elements from the front of the queue.
+
 ## SplDoublyLinkedList
+
 ```php
 $list = new SplDoublyLinkedList();
 
@@ -280,13 +289,242 @@ foreach ($list as $item) {
     echo $item . "\n"; // Output: third, second, first
 }
 ```
+
 - `$list->push()` adds elements to the end of the list.
 - `rewind()` and `next()` allow for forward traversal.
+
 ## Summary of Key SPL Data Structures
-1. __SplStack__: LIFO stack.
-2. __SplQueue__: FIFO queue.
-3. __SplDoublyLinkedList__: Doubly linked list allowing bidirectional traversal.
-4. __SplFixedArray__: Array with a fixed size.
-5. __SplHeap__: Priority-based sorting with `SplMinHeap` and `SplMaxHeap`.
-6. __SplObjectStorage__: Stores objects as keys with optional associated data.
-7. __SplPriorityQueue__: Queue with element priorities.
+
+1. **SplStack**: LIFO stack.
+2. **SplQueue**: FIFO queue.
+3. **SplDoublyLinkedList**: Doubly linked list allowing bidirectional traversal.
+4. **SplFixedArray**: Array with a fixed size.
+5. **SplHeap**: Priority-based sorting with `SplMinHeap` and `SplMaxHeap`.
+6. **SplObjectStorage**: Stores objects as keys with optional associated data.
+7. **SplPriorityQueue**: Queue with element priorities.
+
+# Form Handling
+
+## Common superglobals
+
+### `$_GET`
+
+The `$_GET` superglobal is used to collect data sent via URL parameters, typically from a form submission using the GET method or from a URL query string. Data sent via GET is visible in the URL, which makes it suitable for non-sensitive data, like search queries or pagination.
+
+```html
+<form action="handleForm.php" method="get">
+  Name: <input type="text" name="name" /> Age: <input type="text" name="age" />
+  <input type="submit" value="Submit" />
+</form>
+```
+
+```php
+<?php
+// handleForm.php
+// Retrieve the values passed in the URL
+$name = $_GET['name']; // "Alice"
+$age = $_GET['age'];   // "25"
+
+echo "Name: " . $name . "<br>"; // Output: Name: Alice
+echo "Age: " . $age;            // Output: Age: 25
+?>
+```
+
+### `$_POST`
+
+The `$_POST` superglobal collects data submitted through a form using the POST method. Unlike GET, data sent with POST is not visible in the URL, making it more suitable for sensitive data like passwords or large text inputs.
+
+```html
+<form action="handleForm.php" method="post">
+  Name: <input type="text" name="name" /> Age: <input type="text" name="age" />
+  <input type="submit" value="Submit" />
+</form>
+```
+
+```php
+<?php
+// handleForm.php
+// Retrieve form data submitted via POST
+$name = $_POST['name'];
+$age = $_POST['age'];
+
+echo "Name: " . $name . "<br>"; // Output: Name: (user input)
+echo "Age: " . $age;            // Output: Age: (user input)
+?>
+```
+
+### `$_REQUEST`
+
+The `$_REQUEST` superglobal is a combination of `$_GET`, `$_POST`, and `$_COOKIE`. It contains data from both GET and POST requests, as well as cookie data, if available. It can be convenient if you don’t know the method used to send data, but it’s usually recommended to use `$_GET` or `$_POST` directly to avoid ambiguity.
+
+```php
+<?php
+// handleForm.php
+// Retrieve data regardless of the method used (GET or POST)
+$name = $_REQUEST['name'];
+$age = $_REQUEST['age'];
+
+echo "Name: " . $name . "<br>";
+echo "Age: " . $age;
+?>
+```
+
+### `$_SERVER`
+
+The $\_SERVER superglobal contains server and environment information, providing details about the server, the request, and the client making the request. It includes information like the client’s IP address, the request method, script location, and more. $\_SERVER is used to access server-level data rather than form data.
+
+### Common Values
+
+- `$_SERVER['REQUEST_METHOD']` – The request method used (GET, POST, etc.).
+- `$_SERVER['SERVER_NAME']` – The name of the server.
+- `$_SERVER['REMOTE_ADDR']` – The IP address of the client.
+- `$_SERVER['HTTP_USER_AGENT']` – Information about the client’s browser.
+- `$_SERVER['PHP_SELF']` – The filename of the currently executing script.
+- `$_SERVER['REQUEST_URI']` – The URI used to access the page.
+
+## Validation VS Sanitization
+
+### Validation
+
+Validation is the process of checking if the input data meets certain criteria or expectations
+
+- Checking if input is empty.
+- Verifying if an email is in the correct format.
+- Validating if a string contains only specific characters (e.g., only letters and numbers).
+- Ensuring that numbers are within a particular range.
+
+- `filter_var($email, FILTER_VALIDATE_EMAIL)` checks if `$email` is in a valid email format.
+- `filter_var($age, FILTER_VALIDATE_INT, ["options" => ["min_range" => 18, "max_range" => 100]])` ensures that `$age` is an integer between 18 and 100.
+
+### Sanitization
+
+Sanitization involves cleaning the input data by removing or encoding unwanted characters. This helps prevent security issues such as SQL injection, XSS (Cross-Site Scripting), and other attacks.
+
+- `filter_var($username, FILTER_SANITIZE_STRING)` removes HTML tags and special characters from `$username`, which helps prevent XSS attacks.
+- `filter_var($url, FILTER_SANITIZE_URL)` removes any characters that would make the URL invalid.
+
+### XSS Protection
+
+We use `htmlspecialchars()` to prevent XSS (Cross-Site Scripting) by encoding any special characters that could potentially execute JavaScript if output directly into HTML.
+
+### Example
+
+```php
+<?php
+// Validate and sanitize user inputs from $_POST superglobal
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Step 1: Retrieve data
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $age = $_POST['age'];
+
+    // Step 2: Sanitize and Validate 'name'
+    $name = filter_var($name, FILTER_SANITIZE_STRING);  // Sanitizing name (removes any HTML tags)
+
+    if (empty($name)) {
+        echo "Name is required.<br>";
+    } else {
+        // Validate name (checks that it only contains letters and spaces)
+        if (!preg_match("/^[a-zA-Z ]*$/", $name)) {
+            echo "Only letters and spaces are allowed in the name.<br>";
+        }
+    }
+
+    // Step 3: Sanitize and Validate 'email'
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);  // Sanitizing email (removes unwanted characters)
+
+    if (empty($email)) {
+        echo "Email is required.<br>";
+    } else {
+        // Validate email (checks if it is a valid email format)
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo "Invalid email format.<br>";
+        }
+    }
+
+    // Step 4: Sanitize and Validate 'age'
+    $age = filter_var($age, FILTER_SANITIZE_NUMBER_INT);  // Sanitizing age (removes any non-numeric characters)
+
+    if (empty($age)) {
+        echo "Age is required.<br>";
+    } else {
+        // Validate age (checks if the age is a valid number and greater than zero)
+        if (!filter_var($age, FILTER_VALIDATE_INT) || $age <= 0) {
+            echo "Age must be a positive number.<br>";
+        }
+    }
+
+    // Step 5: Output the sanitized and validated data
+    if (!empty($name) && !empty($email) && !empty($age)) {
+        echo "Name: " . htmlspecialchars($name) . "<br>";  // htmlspecialchars for XSS protection
+        echo "Emacl: " . htmlspecialchars($email) . "<br>"; // htmlspecialchars for XSS protection
+        echo "Age: " . htmlspecialchars($age) . "<br>";     // htmlspecialchars for XSS protection
+    }
+}
+?>
+```
+## File Uploading
+### Steps
+1. __Create an HTML Form__: The form should include `enctype="multipart/form-data"` in the `<form>` tag, and a file input field, so users can select a file to upload.
+2. ___Access the File Using `$_FILES`__: When the form is submitted, PHP populates the `$_FILES` array with information about the uploaded file.
+3. __Validate the Uploaded File__: Check the file size, type, and any errors to ensure it meets requirements.
+4. __Move the File to a Directory__: Use `move_uploaded_file()` to save the uploaded file to a specific location on the server.
+```html
+<form action="upload.php" method="post" enctype="multipart/form-data">
+  <label for="file">Choose a file:</label>
+  <input type="file" name="file" id="file" required>
+  <input type="submit" value="Upload">
+</form>
+```
+```php
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
+    $file = $_FILES['file'];
+
+    // Allowed file types (MIME types)
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    // Maximum file size (2 MB)
+    $maxFileSize = 2 * 1024 * 1024; // 2 MB in bytes
+
+    // Check for file upload errors
+    if ($file['error'] !== 0) {
+        echo "Error occurred during file upload. Error code: " . $file['error'];
+        exit;
+    }
+
+    // Validate file size
+    if ($file['size'] > $maxFileSize) {
+        echo "File is too large. Maximum allowed size is 2 MB.";
+        exit;
+    }
+
+    // Validate file type
+    if (!in_array($file['type'], $allowedTypes)) {
+        echo "Invalid file type. Only JPEG, PNG, and GIF files are allowed.";
+        exit;
+    }
+
+    // Generate a unique name for the file (to avoid overwriting)
+    $uploadDirectory = 'uploads/';
+    $uniqueName = uniqid() . '-' . basename($file['name']);
+    $destination = $uploadDirectory . $uniqueName;
+
+    // Ensure the upload directory exists
+    if (!is_dir($uploadDirectory)) {
+        mkdir($uploadDirectory, 0755, true);
+    }
+
+    // Move the uploaded file to the destination directory
+    if (move_uploaded_file($file['tmp_name'], $destination)) {
+        echo "File uploaded successfully!<br>";
+        echo "File Name: " . $uniqueName;
+    } else {
+        echo "Failed to upload file.";
+    }
+} else {
+    echo "No file uploaded.";
+}
+?>
+```
