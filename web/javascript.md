@@ -29,7 +29,7 @@
   - [Map](#map)
   - [String](#string)
   - [Type Conversion](#type-conversion)
-  - [Math Object](#math-object)Math Object
+  - [Math Object](#math-object)
 - [Prototype](#prototype)
 - [Thread](#thread)
 - [Execution Context](#execution-context)

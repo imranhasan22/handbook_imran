@@ -1,4 +1,4 @@
-Index
+# Contents
 
 - [Class](#class)
 - [Object](#object)
@@ -123,6 +123,8 @@ class SuperChild extends Child{
 
 variables used in method signature are called parameter, and variables used during call are called arguments.
 
+Instance method can call an instance methods directly. There is no need to use object.
+
 ## Method Overloading
 
 When more than one method with the same name is defined in the same class,it is known as method overloading as long as their parameter declarations are different.
@@ -187,6 +189,8 @@ class Test extends Parent{
 - variable can be used as common property(variable) of all objects of it's class as it's belong to class not object
 - don't make multiple copy for multiple object.
 - method can't use `this` or `super` keyword.
+- method can't use non-static member
+- don't need to use class or object name if both are in the same class
 
 **Belongs to the Class:** doen't make multiple instances for multiple object.
 
@@ -249,6 +253,7 @@ class Test{
 - class can't be inherited
 - method can't be overriden
 - variable can be inherited but can't modifyable
+- final instance variable can only be initialized through constructor
 
 ## this, super keyword
 
@@ -484,9 +489,10 @@ class Circle extends Shape{
 ### `interface`
 
 - only have abstract method
-- only `final` variable
+- only `final` and static variable
 - can't have constructor
 - multiple inheritance is possible
+- implemented class must define all the methods declared in the interface
 
 ```java
 interface Shape{
@@ -499,6 +505,11 @@ class Circle implements Shape{
 ```
 
 # String
+
+- `next()` stops reading at whitespace and returns only a single token.
+- `nextLine()` reads the entire line until a newline, capturing everything entered, including spaces.
+
+If you use `next()` before `nextLine()`, the newline character left in the input buffer by `next()` will cause `nextLine()` to read it as an empty line. To handle this, you may need an extra `nextLine()` to consume the newline left after `next()`.
 
 ## String
 
@@ -1236,40 +1247,45 @@ public class FileOutputStreamExample {
     }
 }
 ```
+
 # Memory Management
+
 ## Stack
+
 The stack is a region of memory that stores temporary variables created by each function (method) as it executes. Each thread in a JVM has its own stack, which contains frames. A frame is created whenever a method is called and contains the method's local variables, operand stack, and references to other objects in the heap.
 
-__Characteristics of Stack Memory__:
-- __Thread-specific__: Each thread has its own stack memory, isolated from others.
-- __Memory allocation and deallocation are automatic__: Memory for variables in the stack is allocated when a method is called and released when the method completes.
-- __LIFO__ (Last-In-First-Out): Stack follows the LIFO order, meaning the last frame pushed onto the stack is the first one removed.
-- __Stores__:
-    - Local variables
-    - Method calls
-    - Primitive values (like `int`, `float`, etc.)
-    - References to objects in the heap
+**Characteristics of Stack Memory**:
+
+- **Thread-specific**: Each thread has its own stack memory, isolated from others.
+- **Memory allocation and deallocation are automatic**: Memory for variables in the stack is allocated when a method is called and released when the method completes.
+- **LIFO** (Last-In-First-Out): Stack follows the LIFO order, meaning the last frame pushed onto the stack is the first one removed.
+- **Stores**:
+  - Local variables
+  - Method calls
+  - Primitive values (like `int`, `float`, etc.)
+  - References to objects in the heap
+
 ## Heap
+
 The heap is a region of memory used for dynamic memory allocation. All objects and their corresponding instance variables are stored in the heap. Unlike stack memory, which is thread-specific, the heap is shared among all threads within the application.
 
-__Characteristics of Heap Memory__:
-- __Shared among all threads__: Any object created is accessible to any thread (with proper synchronization).
-- __Used for dynamic memory allocation__: Objects created using `new` are stored here.
-- __Garbage collection__: Unused or unreferenced objects in the heap are automatically deallocated by the JVM’s garbage collector.
-- __Stores__:
-    - Objects
-    - Instance variables
-    - Arrays
+**Characteristics of Heap Memory**:
+
+- **Shared among all threads**: Any object created is accessible to any thread (with proper synchronization).
+- **Used for dynamic memory allocation**: Objects created using `new` are stored here.
+- **Garbage collection**: Unused or unreferenced objects in the heap are automatically deallocated by the JVM’s garbage collector.
+- **Stores**:
+  - Objects
+  - Instance variables
+  - Arrays
+
 ## Key Differences
-| Feature                | Stack                                      | Heap                                  |
-|------------------------|--------------------------------------------|---------------------------------------|
-| **Memory Allocation**  | Static or Fixed during execution           | Dynamic, based on runtime requirements|
-| **Thread Safety**      | Thread-specific (No concurrency issues)    | Shared (Needs synchronization)        |
-| **Storage Contents**   | Local variables, references to objects     | Objects, instance variables           |
-| **Access Speed**       | Faster access due to small, fixed size     | Slower due to large, dynamic size     |
-| **Lifetime**           | Exists only for the duration of method calls | Exists as long as the object is in use |
-| **Management**         | Managed by stack frames (automatic)        | Managed by garbage collection         |
 
-
-
-
+| Feature               | Stack                                        | Heap                                   |
+| --------------------- | -------------------------------------------- | -------------------------------------- |
+| **Memory Allocation** | Static or Fixed during execution             | Dynamic, based on runtime requirements |
+| **Thread Safety**     | Thread-specific (No concurrency issues)      | Shared (Needs synchronization)         |
+| **Storage Contents**  | Local variables, references to objects       | Objects, instance variables            |
+| **Access Speed**      | Faster access due to small, fixed size       | Slower due to large, dynamic size      |
+| **Lifetime**          | Exists only for the duration of method calls | Exists as long as the object is in use |
+| **Management**        | Managed by stack frames (automatic)          | Managed by garbage collection          |
