@@ -528,3 +528,92 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
 }
 ?>
 ```
+# Database Interaction (MySQL)
+## Database Connection
+```php
+<?php
+// Step 1: Database credentials
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "test_db";
+
+// Step 2: Create a connection
+$conn = mysqli_connect($servername, $username, $password, $database);
+
+// Step 3: Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+echo "Connected successfully";
+?>
+```
+## CRUD
+### Create
+```php
+<?php
+
+$name = "John Doe";
+$email = "john@example.com";
+$sql = "INSERT INTO users (name, email) VALUES (?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ss", $name, $email); // 'ss' means two string values
+$stmt->execute();
+
+echo "New record created successfully";
+
+$stmt->close();
+$conn->close();
+?>
+```
+### Read
+```php
+<?php
+
+$sql = "SELECT name, email FROM users";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo "Name: " . $row["name"] . " - Email: " . $row["email"] . "<br>";
+    }
+} else {
+    echo "No results found.";
+}
+
+$conn->close();
+?>
+```
+### Update
+```php
+<?php
+$name = "Jane Doe";
+$email = "jane@example.com";
+$userId = 1;
+$sql = "UPDATE users SET name = ?, email = ? WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ssi", $name, $email, $userId);
+$stmt->execute();
+
+echo "Record updated successfully";
+
+$stmt->close();
+$conn->close();
+?>
+```
+### Delete
+```php
+<?php
+
+$userId = 1;
+$sql = "DELETE FROM users WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+
+echo "Record deleted successfully";
+
+$stmt->close();
+$conn->close();
+?>
+```
