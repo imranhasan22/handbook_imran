@@ -5,7 +5,9 @@
 - [Constructor](#constructor)
 - [Method](#method)
 - [Access Modifier](#access-modifier)
+- [Package](#package)
 - [Keywords](#keywords)
+- [Package](#package)
 - [Interface](#interface)
 - [OOP](#oop)
 - [String](#string)
@@ -245,6 +247,43 @@ class Test{
 ## `default`
 
 - accessible anywhere within the same package
+
+# Package
+A package is a way to group related classes and interfaces together in a folder structure. Packages help organize code, avoid naming conflicts, and control access to classes. Java has two types of packages:
+
+1. __Built-in Packages__: Java provides several standard packages, like `java.lang`, `java.util`, and `java.io`, which contain commonly used classes and interfaces.
+2. __User-defined Packages__: Developers can create their own packages to group related classes as needed.
+
+## Declare Package
+To declare a package, you use the `package` keyword at the beginning of a Java file:
+```java
+package com.example.myapp;
+```
+After declaring a package, the file becomes part of that package, and all classes inside it are associated with it.
+
+- there must be not more than one public class per file
+- file name must be matched with the public class
+
+__Example:__
+```java
+// File: com/library/Book.java
+package com.library;
+
+public class Book {
+    private String title;
+    private String author;
+
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+
+    public void displayInfo() {
+        System.out.println("Title: " + title);
+        System.out.println("Author: " + author);
+    }
+}
+```
 
 # Keywords
 
