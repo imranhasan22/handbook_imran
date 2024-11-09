@@ -785,6 +785,71 @@ java.lang.Object
 - `throw`: Used to explicitly throw an exception.
 - `throws`: Used in method signatures to indicate that a method might throw an exception.
 
+## Catching Multiple Exception
+Catching multiple exceptions allows you to handle different types of exceptions that a block of code might throw. This is particularly useful when you have code that could throw multiple exceptions
+
+When handling multiple exceptions with separate `catch` blocks, it's crucial to place the __most specific exception types first__, followed by the __more general ones__. This is because Java uses a top-down approach to evaluate each `catch` block in sequence. Once a matching `catch` block is found, Java will execute it and skip the remaining ones.
+
+__Example:__
+```java
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class SpecificToGeneralExample {
+    public static void main(String[] args) {
+        try {
+            // Try to open and read a file
+            File file = new File("data.txt");
+            FileReader fr = new FileReader(file);
+
+            // Code to read from the file would go here
+
+        } catch (FileNotFoundException e) {
+            // This is the most specific exception, so it should be caught first
+            System.out.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            // This is more general than FileNotFoundException
+            System.out.println("I/O error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            // This is the most general exception, so it should be caught last
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+}
+```
+
+### using pipe
+You can catch multiple exceptions in a single catch block by using a pipe (|) to separate the exception types. This feature helps reduce code duplication and makes the code more readable. 
+
+__Example:__
+```java
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class MultipleExceptionExample {
+    public static void main(String[] args) {
+        try {
+            // Attempt to read from a file
+            File file = new File("numbers.txt");
+            Scanner scanner = new Scanner(file);
+
+            // Attempt to parse an integer from the file
+            int number = Integer.parseInt(scanner.nextLine());
+            System.out.println("Number is: " + number);
+
+            scanner.close();
+        } catch (FileNotFoundException | NumberFormatException e) {
+            // Handle both exceptions here
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+}
+```
+You cannot catch exceptions in the same hierarchy together (for example, `IOException | FileNotFoundException`). This would cause a compile-time error, as `FileNotFoundException` is a subclass of `IOException`.
+
 # Multitasking
 
 Multitasking is the capability of performing multiple tasks simultaneously. In Java, multitasking can be achieved using two main approaches:
