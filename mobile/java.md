@@ -285,6 +285,12 @@ public class Book {
 }
 ```
 
+To resolve name conflicts in package, use fully qualified name
+```java
+packageName.ClassName = new packageName.ClassName();
+```
+Package hierarchy is created and accessed through (`.`) dot operator.
+
 # Keywords
 
 ## `final`
