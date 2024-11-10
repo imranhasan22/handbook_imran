@@ -1363,7 +1363,7 @@ The activity or the whole application, where toolbar should be implement must co
 
     - `android:label` attribute from `<application>` tag or `<activity>` tag is the default label of toolbar.
 
-2. __Java__
+2. __Customize with Java__
 ```java
 ActionBar actionBar = getSupportActionBar();
 if (actionBar != null) {
@@ -1388,21 +1388,9 @@ if (actionBar != null) {
 ## Back Button
 ```java
 @Override
-public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-
-    if (id == android.R.id.home) {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-
-        if (currentFragment instanceof HomeFragment) {
-            return true;
-        } else {
-            getOnBackPressedDispatcher().onBackPressed();
-            return true;
-        }
-    }
-
-    return super.onOptionsItemSelected(item);
+public boolean onSupportNavigateUp() {
+    finish();
+    return true;
 }
 ```
 ## Menu Items
