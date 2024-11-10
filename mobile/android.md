@@ -67,6 +67,8 @@ __Components of an APK File:__
 - [Fragment](#fragment)
 - [Bottom Navigation](#bottom-navigation)
 - [Actionbar](#actionbar)
+- [Toolbar](#toolbar)
+- [AppBarLayout](#appbarlayout)
 - [Logging](#logging)
 - [Database](#database)
 - [Retrofit](#retrofit)
@@ -1355,7 +1357,7 @@ bottomNavigation.setSelectedItemId(R.id.action_save);
 - `bottomNavigation.setSelectedItemId(R.id.action_save);` - set the inital fragment
 - `return true` - set the active design of selected menu item
 # Actionbar
-It is a standard component provided by the `Android framework` that sits at the top of an activity window.  It typically displays the activity’s title, navigation options (like the back button). Automatically provided by Android when you use a theme that supports an ActionBar (e.g., Theme.AppCompat.Light.DarkActionBar).
+It is a component provided by the Android framework that serves as the primary toolbar at the top of the screen. It is responsible for displaying the app title, icon, and navigation options such as back, home, or up buttons. It also contains menu items, which often include search, settings, and other action-related icons. Automatically provided by Android when you use a theme that supports an ActionBar (e.g., Theme.AppCompat.Light.DarkActionBar).
 
 ## Basic Usage
 1. __Set up The Theme:__
@@ -1424,12 +1426,59 @@ public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     return super.onOptionsItemSelected(item);
 }
 ```
-## Toolbar
+# Toolbar
+
+It is a more flexible and customizable version of the `ActionBar`. It was introduced with Android 5.0 (Lollipop) as part of the Material Design guidelines. `Toolbar` provides all the functionality of the `ActionBar` but can be placed anywhere in your layout, not just at the top.
+
 It is a ViewGroup that can be added to any part of your layout and can act as a complete replacement for the ActionBar.
 
 Toolbar can replace the ActionBar. By using the `setSupportActionBar(Toolbar toolbar)` method in an `AppCompatActivity`, you can promote a Toolbar to act as the app’s ActionBar.
 ```java
+import androidx.appcompat.widget.Toolbar;
+...
+Toolbar toolbar = findViewById(R.id.toolbar);
 setSupportActionBar(toolbar);
+ActionBar actionBar = getSupportActionBar();
+```
+# AppBarLayout
+It is part of the Android `CoordinatorLayout` and is primarily used in more complex layouts to create collapsing toolbars or other dynamic app bar effects. It’s a container that helps handle scroll-based animations like collapsing or expanding headers, which is common in Material Design.
+
+__Define the XML Layout:__
+```xml
+<androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.google.android.material.appbar.AppBarLayout android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_height="200dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main content, such as a RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+```
+
+__Setting up the Toolbar:__
+```java
+// Set up the Toolbar as the ActionBar
+Toolbar toolbar = findViewById(R.id.toolbar);
+setSupportActionBar(toolbar);
+
+// Set the title for the collapsing toolbar layout
+CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
+collapsingToolbar.setTitle("Collapsible AppBar");
 ```
 # Logging
 It allow developers to track the flow of their application, debug issues, and monitor behavior during runtime. Android provides a built-in logging framework through the `android.util.Log` class, which allows developers to output log messages of varying severity levels.
