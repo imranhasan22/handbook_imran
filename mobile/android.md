@@ -555,6 +555,27 @@ textView.setMovementMethod(LinkMovementMethod.getInstance()); // Handle clicks o
     - `fitEnd` - scale the image to fit within the view and align it to the bottom right.
     - `fitCenter` - scale the image to fit within the view and center it.
 - `android:adjustViewBounds` - adjust the bounds to maintain the aspect ratio. Possible values are true or false.
+### Use Image from Other Resources
+1. __Add Glide Dependency:__
+
+```xml
+implementation 'com.github.bumptech.glide:glide:4.12.0'
+annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+```
+
+2. __Define ImageView in XML Layout__
+
+3. __Load Image from URL using Glide:__
+
+```java
+String imageUrl = "https://example.com/path/to/image.jpg";
+
+Glide.with(this)
+        .load(imageUrl)
+        .placeholder(R.drawable.placeholder)
+        .error(R.drawable.error_image)
+        .into(imageView);
+```
 
 Always try to use `png` images while working with android studio.
 ## RatingBar
