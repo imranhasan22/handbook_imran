@@ -2,11 +2,12 @@
 
 - [Introduction](#introduction)
 - [Development Boards](#development-boards)
-- [ESP 32 Board](#esp-32-board)
-- [Arduino](#arduino---programming)
+  - [ESP 32 Board](#esp-32-board)
+- [Arduino Programming](#arduino---programming)
 - [Components](#components)
   - [Breadboard](#breadboard)
   - [Buzzer](#buzzer)
+  - [Ultrasonic Sonar Sensor](#ultrasonic-sonar-sensor)
 
 # Introduction
 
@@ -526,4 +527,63 @@ digitalWrite(buzzerPin, HIGH/LOW); // Turn ON/OFF buzzer
 __Passive Buzzer:__ For a passive buzzer, you use PWM signals to generate tones.
 ```cpp
 tone(buzzerPin, 1000); // Play 1kHz tone
+...
+noTone(buzzerPin); 
 ```
+
+## Ultrasonic Sonar Sensor
+Sonar sensors, like the HC-SR04, are used for distance measurement by emitting ultrasonic waves and measuring their echo.
+
+### Structure
+The HC-SR04 sensor has four pins:
+
+- __VCC__: Power supply (5V).
+- __GND__: Ground.
+- __TRIG__: Trigger pin (to send ultrasonic signals).
+- __ECHO__: Echo pin (to receive the reflected signal).
+
+### Hardware Setup
+- Connect VCC to the ESP32's VIN (5V).
+- Connect GND to the ESP32's GND.
+- Connect the TRIG pin to a GPIO pin (e.g., GPIO5).
+- Connect the ECHO pin to another GPIO pin (e.g., GPIO18).
+
+### Controlling
+```cpp
+#define TRIG_PIN 5   // GPIO5 connected to TRIG
+#define ECHO_PIN 18  // GPIO18 connected to ECHO
+
+void setup() {
+    Serial.begin(115200);             // Start Serial communication
+    pinMode(TRIG_PIN, OUTPUT);        // Set TRIG as OUTPUT
+    pinMode(ECHO_PIN, INPUT);         // Set ECHO as INPUT
+}
+
+void loop() {
+    // Send a HIGH pulse for 10 µs to the TRIG pin
+    digitalWrite(TRIG_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIG_PIN, LOW);
+
+    // Measure the duration of the ECHO pin HIGH
+    long duration = pulseIn(ECHO_PIN, HIGH);
+
+    // Calculate the distance in cm (duration / 2) * 0.034
+    float distance = (duration / 2.0) * 0.034;
+
+    // Print the distance
+    Serial.print("Distance: ");
+    Serial.print(distance);
+    Serial.println(" cm");
+
+    delay(500); // Delay before the next measurement
+}
+```
+### How It Works
+1. The ESP32 sends a HIGH pulse (`10 µs`) to the TRIG pin to emit ultrasonic waves.
+2. The sensor emits a sound wave at `40 kHz`.
+3. The wave hits an object and reflects back.
+4. The sensor sets the ECHO pin HIGH for the time it takes the wave to return.
+5. The ESP32 calculates the distance based on the time the ECHO pin stays HIGH.
