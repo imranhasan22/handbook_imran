@@ -3,6 +3,8 @@
 - [Introduction](#introduction)
 - [Development Boards](#development-boards)
 - [Microprocessor vs Microcontroller](#microprocessor-vs-microcontroller)
+- [ESP 32 Board](#esp-32-board)
+- [Components](#components)
 - [Arduino](#arduino---programming)
 
 # Introduction
@@ -58,6 +60,7 @@ It defines the logic of the robot’s behavior, allowing it to understand sensor
 A development board in robotics is a small, single-board computer or microcontroller board used to control and interact with sensors, actuators, and other electronic components in robotic systems. These boards are essential for prototyping and development in robotics, as they allow for programming, testing, and integration of various robotic functions. They come with input/output (I/O) pins, communication interfaces, and often support additional modules, making them versatile and widely used in both educational and professional robotics projects.
 
 ## Key Features of Development Boards for Robotics
+
 1. **Microcontroller or Processor**: The board's "brain" that executes code and processes data. Microcontrollers (like the ATmega on Arduino boards) and microprocessors (like the ARM Cortex on Raspberry Pi boards) are common choices.
 2. **I/O Pins**: These pins enable the board to interact with external components such as sensors, motors, LEDs, and displays. Pins can be digital (for on/off signals) or analog (for variable signals).
 3. **Power Supply Options**: Development boards are often designed to work with various power sources (battery, USB, or adapter) to meet different project needs.
@@ -67,38 +70,42 @@ A development board in robotics is a small, single-board computer or microcontro
 ## Examples of Development Boards
 
 ### 1. **Arduino Uno**
-   - **Description**: The Arduino Uno is one of the most popular microcontroller-based development boards, especially suited for beginners. It uses the ATmega328P microcontroller, which is an 8-bit microcontroller with 32 KB of flash memory for storing code.
-   - **Key Features**:
-     - 14 digital I/O pins and 6 analog inputs.
-     - Operates at 5V, making it compatible with many sensors and actuators.
-     - Simple programming via the Arduino IDE.
-   - **Example Project**: **Line-Following Robot**
-     - **Explanation**: In a line-following robot project, the Arduino Uno controls the motors and processes signals from infrared (IR) sensors. The IR sensors detect the contrast between a black line and a white surface. Based on this data, the Arduino adjusts motor speed and direction to keep the robot on track.
+
+- **Description**: The Arduino Uno is one of the most popular microcontroller-based development boards, especially suited for beginners. It uses the ATmega328P microcontroller, which is an 8-bit microcontroller with 32 KB of flash memory for storing code.
+- **Key Features**:
+  - 14 digital I/O pins and 6 analog inputs.
+  - Operates at 5V, making it compatible with many sensors and actuators.
+  - Simple programming via the Arduino IDE.
+- **Example Project**: **Line-Following Robot**
+  - **Explanation**: In a line-following robot project, the Arduino Uno controls the motors and processes signals from infrared (IR) sensors. The IR sensors detect the contrast between a black line and a white surface. Based on this data, the Arduino adjusts motor speed and direction to keep the robot on track.
 
 ### 2. **Raspberry Pi 4**
-   - **Description**: The Raspberry Pi 4 is a small, powerful single-board computer with a microprocessor, making it capable of running an operating system like Linux. It’s ideal for complex robotics projects that require high computing power.
-   - **Key Features**:
-     - Multiple USB ports, GPIO pins, HDMI output, and camera interface.
-     - Capable of handling more complex tasks like image processing, making it suitable for machine learning applications.
-     - Can connect to the internet via Ethernet or Wi-Fi.
-   - **Example Project**: **Obstacle-Avoiding Robot with Vision**
-     - **Explanation**: The Raspberry Pi 4 can be used to control a robot that avoids obstacles using camera input. By processing images from a camera feed, the Raspberry Pi can use machine learning algorithms (such as object detection) to identify obstacles. It can then adjust motor controls to navigate around obstacles.
+
+- **Description**: The Raspberry Pi 4 is a small, powerful single-board computer with a microprocessor, making it capable of running an operating system like Linux. It’s ideal for complex robotics projects that require high computing power.
+- **Key Features**:
+  - Multiple USB ports, GPIO pins, HDMI output, and camera interface.
+  - Capable of handling more complex tasks like image processing, making it suitable for machine learning applications.
+  - Can connect to the internet via Ethernet or Wi-Fi.
+- **Example Project**: **Obstacle-Avoiding Robot with Vision**
+  - **Explanation**: The Raspberry Pi 4 can be used to control a robot that avoids obstacles using camera input. By processing images from a camera feed, the Raspberry Pi can use machine learning algorithms (such as object detection) to identify obstacles. It can then adjust motor controls to navigate around obstacles.
 
 ### 3. **ESP32**
-   - **Description**: The ESP32 is a microcontroller board with built-in Wi-Fi and Bluetooth capabilities. It’s well-suited for IoT (Internet of Things) applications in robotics where remote control or data logging is required.
-   - **Key Features**:
-     - Dual-core processor and multiple GPIO pins.
-     - Supports low-power operation, making it suitable for battery-powered projects.
-     - Built-in Wi-Fi and Bluetooth for easy network connectivity.
-   - **Example Project**: **Remote-Controlled Car**
-     - **Explanation**: With the ESP32, you can create a small car that can be controlled remotely over Wi-Fi. By setting up a server on the ESP32, commands can be sent from a smartphone or computer to control the car’s movement. This can be extended to include additional functionalities like sending sensor data back to the user.
+
+- **Description**: The ESP32 is a microcontroller board with built-in Wi-Fi and Bluetooth capabilities. It’s well-suited for IoT (Internet of Things) applications in robotics where remote control or data logging is required.
+- **Key Features**:
+  - Dual-core processor and multiple GPIO pins.
+  - Supports low-power operation, making it suitable for battery-powered projects.
+  - Built-in Wi-Fi and Bluetooth for easy network connectivity.
+- **Example Project**: **Remote-Controlled Car**
+  - **Explanation**: With the ESP32, you can create a small car that can be controlled remotely over Wi-Fi. By setting up a server on the ESP32, commands can be sent from a smartphone or computer to control the car’s movement. This can be extended to include additional functionalities like sending sensor data back to the user.
 
 ## Choosing the Right Development Board
+
 The choice of board depends on the project requirements:
+
 - **Simple projects** (like controlling LEDs or making simple sensors interact) are well-suited to boards like the **Arduino Uno**.
 - **Complex projects** requiring higher computation power, such as **image processing or machine learning tasks**, are more appropriate for the **Raspberry Pi**.
 - **IoT-based robotics projects** where **connectivity** is essential benefit from using boards like the **ESP32**.
-
 
 # Microprocessor vs Microcontroller
 
@@ -122,16 +129,85 @@ The choice of board depends on the project requirements:
 | **Typical Clock Speed**       | Higher clock speeds, often >1 GHz                                                | Lower clock speeds, usually in the range of MHz                                |
 | **Data Processing**           | Suitable for processing large datasets, running AI models                        | Limited to smaller, control-oriented data processing                           |
 
+# ESP 32 Board
+
+## Power and Control Pins
+
+| **Board Label** | **ESP32 Function** | **Description**                                           |
+| --------------- | ------------------ | --------------------------------------------------------- |
+| **EN**          | EN                 | Enable pin. Active HIGH. Used to reset the chip.          |
+| **BOOT**        | GPIO0              | Boot mode selection pin. Pull LOW to enter flashing mode. |
+
+## Pin Labels and GPIO Mapping
+
+| **Board Label** | **ESP32 GPIO Number** | **Description**                                |
+| --------------- | --------------------- | ---------------------------------------------- |
+| **3U3**         | ---                   | 3.3V power output (regulated onboard).         |
+| **GND**         | ---                   | Ground pin. Common reference for the circuit.  |
+| **D15**         | GPIO15                | General-purpose I/O, ADC2 channel 3, touch T3. |
+| **D2**          | GPIO2                 | General-purpose I/O, ADC2 channel 2, touch T2. |
+| **D4**          | GPIO4                 | General-purpose I/O, ADC2 channel 0, touch T0. |
+| **RX2**         | GPIO16                | UART2 RX pin.                                  |
+| **TX2**         | GPIO17                | UART2 TX pin.                                  |
+| **D5**          | GPIO5                 | General-purpose I/O, HSPI_CS.                  |
+| **D18**         | GPIO18                | General-purpose I/O, SPI_CLK, PWM.             |
+| **D19**         | GPIO19                | General-purpose I/O, SPI_MISO, PWM.            |
+| **D21**         | GPIO21                | I2C SDA, general-purpose I/O.                  |
+| **RX0**         | GPIO3                 | UART0 RX pin (used for programming).           |
+| **TX0**         | GPIO1                 | UART0 TX pin (used for programming).           |
+| **D22**         | GPIO22                | I2C SCL, general-purpose I/O.                  |
+| **D23**         | GPIO23                | SPI_MOSI, general-purpose I/O.                 |
+
+| **Board Label** | **ESP32 GPIO Number** | **Description**                                |
+| --------------- | --------------------- | ---------------------------------------------- |
+| **VIN**         | ---                   | Input power pin (typically 5V).                |
+| **GND**         | ---                   | Ground pin. Common reference for the circuit.  |
+| **D13**         | GPIO13                | General-purpose I/O, ADC2 channel 4, touch T4. |
+| **D12**         | GPIO12                | General-purpose I/O, ADC2 channel 5, touch T5. |
+| **D14**         | GPIO14                | General-purpose I/O, ADC2 channel 6, touch T6. |
+| **D27**         | GPIO27                | General-purpose I/O, ADC2 channel 7, touch T7. |
+| **D26**         | GPIO26                | General-purpose I/O, DAC2, ADC2 channel 9.     |
+| **D25**         | GPIO25                | General-purpose I/O, DAC1, ADC2 channel 8.     |
+| **D33**         | GPIO33                | General-purpose I/O, ADC1 channel 5, touch T8. |
+| **D32**         | GPIO32                | General-purpose I/O, ADC1 channel 4, touch T9. |
+| **D35**         | GPIO35                | Input-only GPIO, ADC1 channel 7.               |
+| **D34**         | GPIO34                | Input-only GPIO, ADC1 channel 6.               |
+| **UN**          | GPIO39 (VN)           | Input-only GPIO, ADC1 channel 3.               |
+| **UP**          | GPIO36 (VP)           | Input-only GPIO, ADC1 channel 0.               |
+| **EN**          | EN                    | Chip enable pin. Active HIGH.                  |
+
+## Description
+
+### Power and Ground Pins
+
+#### VIN
+
+Input pin to supply power to the ESP32. Typically connected to a 5V source. Connect VIN with positive(+) voltage of the battery.
+
+#### GND
+
+Common reference point for all circuits. Always connect to the ground of external devices. Connect GND with negative(-) voltage of any external devices including battery and sensors.
+
+#### 3U3
+
+Provides a 3.3V output from the onboard voltage regulator. Can be used to power low-power sensors or modules. It provides positive(+) voltage.
+
 # Components
+
 ## Breadboard
+
 The breadboard is a white rectangular board with small embedded holes to insert electronic components.
+
 ### Layout
+
 ### Power Rails
-Along the top and bottom edges, there are two long rows.  These are typically used to distribute power and are labeled `+` for positive voltage and `-` for ground. Each rail is isolated and can provide different voltages for various parts of the circuit. They are connected `horizontally`.
+
+Along the top and bottom edges, there are two long rows. These are typically used to distribute power and are labeled `+` for positive voltage and `-` for ground. Each rail is isolated and can provide different voltages for various parts of the circuit. They are connected `horizontally`.
 
 It means a single horizontal line of a breadboard has the same connection. It is because the metal strip underneath the breadboard at the top and bottom are connected horizontally. Hence, it provides the same connection in a row. The two top and bottom parts of a breadboard are generally used for power connections.
 
 ### Terminal Strips
+
 **Arrangement:** Terminal strips are the main area where electronic components are inserted. Each column has a series of holes aligned `vertically`, and each row is grouped into 5-hole blocks.
 
 The vertical connection of the center part means a single vertical line in a breadboard provides the same connection. It is useful when we need to connect the different components in series.
