@@ -2,10 +2,11 @@
 
 - [Introduction](#introduction)
 - [Development Boards](#development-boards)
-- [Microprocessor vs Microcontroller](#microprocessor-vs-microcontroller)
 - [ESP 32 Board](#esp-32-board)
-- [Components](#components)
 - [Arduino](#arduino---programming)
+- [Components](#components)
+  - [Breadboard](#breadboard)
+  - [Buzzer](#buzzer)
 
 # Introduction
 
@@ -79,17 +80,7 @@ A development board in robotics is a small, single-board computer or microcontro
 - **Example Project**: **Line-Following Robot**
   - **Explanation**: In a line-following robot project, the Arduino Uno controls the motors and processes signals from infrared (IR) sensors. The IR sensors detect the contrast between a black line and a white surface. Based on this data, the Arduino adjusts motor speed and direction to keep the robot on track.
 
-### 2. **Raspberry Pi 4**
-
-- **Description**: The Raspberry Pi 4 is a small, powerful single-board computer with a microprocessor, making it capable of running an operating system like Linux. It’s ideal for complex robotics projects that require high computing power.
-- **Key Features**:
-  - Multiple USB ports, GPIO pins, HDMI output, and camera interface.
-  - Capable of handling more complex tasks like image processing, making it suitable for machine learning applications.
-  - Can connect to the internet via Ethernet or Wi-Fi.
-- **Example Project**: **Obstacle-Avoiding Robot with Vision**
-  - **Explanation**: The Raspberry Pi 4 can be used to control a robot that avoids obstacles using camera input. By processing images from a camera feed, the Raspberry Pi can use machine learning algorithms (such as object detection) to identify obstacles. It can then adjust motor controls to navigate around obstacles.
-
-### 3. **ESP32**
+### 2. **ESP32**
 
 - **Description**: The ESP32 is a microcontroller board with built-in Wi-Fi and Bluetooth capabilities. It’s well-suited for IoT (Internet of Things) applications in robotics where remote control or data logging is required.
 - **Key Features**:
@@ -99,15 +90,25 @@ A development board in robotics is a small, single-board computer or microcontro
 - **Example Project**: **Remote-Controlled Car**
   - **Explanation**: With the ESP32, you can create a small car that can be controlled remotely over Wi-Fi. By setting up a server on the ESP32, commands can be sent from a smartphone or computer to control the car’s movement. This can be extended to include additional functionalities like sending sensor data back to the user.
 
+### 3. **Raspberry Pi 4**
+
+- **Description**: The Raspberry Pi 4 is a small, powerful single-board computer with a microprocessor, making it capable of running an operating system like Linux. It’s ideal for complex robotics projects that require high computing power.
+- **Key Features**:
+  - Multiple USB ports, GPIO pins, HDMI output, and camera interface.
+  - Capable of handling more complex tasks like image processing, making it suitable for machine learning applications.
+  - Can connect to the internet via Ethernet or Wi-Fi.
+- **Example Project**: **Obstacle-Avoiding Robot with Vision**
+  - **Explanation**: The Raspberry Pi 4 can be used to control a robot that avoids obstacles using camera input. By processing images from a camera feed, the Raspberry Pi can use machine learning algorithms (such as object detection) to identify obstacles. It can then adjust motor controls to navigate around obstacles.
+
 ## Choosing the Right Development Board
 
 The choice of board depends on the project requirements:
 
 - **Simple projects** (like controlling LEDs or making simple sensors interact) are well-suited to boards like the **Arduino Uno**.
-- **Complex projects** requiring higher computation power, such as **image processing or machine learning tasks**, are more appropriate for the **Raspberry Pi**.
 - **IoT-based robotics projects** where **connectivity** is essential benefit from using boards like the **ESP32**.
+- **Complex projects** requiring higher computation power, such as **image processing or machine learning tasks**, are more appropriate for the **Raspberry Pi**.
 
-# Microprocessor vs Microcontroller
+## Microprocessor vs Microcontroller
 
 | **Feature**                   | **Microprocessor**                                                               | **Microcontroller**                                                            |
 | ----------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
@@ -191,30 +192,6 @@ Common reference point for all circuits. Always connect to the ground of externa
 #### 3U3
 
 Provides a 3.3V output from the onboard voltage regulator. Can be used to power low-power sensors or modules. It provides positive(+) voltage.
-
-# Components
-
-## Breadboard
-
-The breadboard is a white rectangular board with small embedded holes to insert electronic components.
-
-### Layout
-
-### Power Rails
-
-Along the top and bottom edges, there are two long rows. These are typically used to distribute power and are labeled `+` for positive voltage and `-` for ground. Each rail is isolated and can provide different voltages for various parts of the circuit. They are connected `horizontally`.
-
-It means a single horizontal line of a breadboard has the same connection. It is because the metal strip underneath the breadboard at the top and bottom are connected horizontally. Hence, it provides the same connection in a row. The two top and bottom parts of a breadboard are generally used for power connections.
-
-### Terminal Strips
-
-**Arrangement:** Terminal strips are the main area where electronic components are inserted. Each column has a series of holes aligned `vertically`, and each row is grouped into 5-hole blocks.
-
-The vertical connection of the center part means a single vertical line in a breadboard provides the same connection. It is useful when we need to connect the different components in series.
-
-**Electrical Connection:** In each 5-hole block, all five holes are electrically connected in a row (or column), allowing multiple component leads to be connected together. For example, if you insert the legs of an LED into one of these blocks, the current can flow through the connected path.
-
-**Central Divider/Gap:** The terminal strips are divided by a central channel that runs lengthwise. This gap is specifically designed to accommodate ICs. When you place an IC in this central gap, each pin on one side of the IC is isolated from the pins on the other side, making it easier to connect other components to individual pins.
 
 # Arduino - Programming
 
@@ -505,3 +482,48 @@ String myString = "Hello, Arduino!";
 | `libraryObject.begin()`     | Initializes the library, usually in the `setup()` function.       |
 | `libraryObject.read()`      | Reads data from the hardware component controlled by the library. |
 | `libraryObject.write(data)` | Sends data to the hardware component controlled by the library.   |
+
+# Components
+
+## Breadboard
+
+The breadboard is a white rectangular board with small embedded holes to insert electronic components.
+
+### Layout
+
+### Power Rails
+
+Along the top and bottom edges, there are two long rows. These are typically used to distribute power and are labeled `+` for positive voltage and `-` for ground. Each rail is isolated and can provide different voltages for various parts of the circuit. They are connected `horizontally`.
+
+It means a single horizontal line of a breadboard has the same connection. It is because the metal strip underneath the breadboard at the top and bottom are connected horizontally. Hence, it provides the same connection in a row. The two top and bottom parts of a breadboard are generally used for power connections.
+
+### Terminal Strips
+
+**Arrangement:** Terminal strips are the main area where electronic components are inserted. Each column has a series of holes aligned `vertically`, and each row is grouped into 5-hole blocks.
+
+The vertical connection of the center part means a single vertical line in a breadboard provides the same connection. It is useful when we need to connect the different components in series.
+
+**Electrical Connection:** In each 5-hole block, all five holes are electrically connected in a row (or column), allowing multiple component leads to be connected together. For example, if you insert the legs of an LED into one of these blocks, the current can flow through the connected path.
+
+**Central Divider/Gap:** The terminal strips are divided by a central channel that runs lengthwise. This gap is specifically designed to accommodate ICs. When you place an IC in this central gap, each pin on one side of the IC is isolated from the pins on the other side, making it easier to connect other components to individual pins.
+
+## Buzzer
+A buzzer is a simple component used to produce sound. Buzzers can be either active or passive:
+
+- __Active Buzzer__: Emits a constant tone when powered. Requires only HIGH/LOW signals.
+- __Passive Buzzer__: Needs a PWM (Pulse Width Modulation) signal to produce varying tones.
+
+Active Buzzer is used for alarm, simple feedback (button presses). Passive Buzzer is used for playing melodies, generating dynamic alerts or tones.
+
+### Hardware Setup
+- Connect the positive terminal (VCC) of the buzzer to a GPIO pin (e.g., GPIO23).
+- Connect the negative terminal (GND) of the buzzer to the GND pin on the ESP32.
+### Controlling 
+__Active Buzzer:__ With an active buzzer, you only need to send a HIGH signal to make it beep.
+```cpp
+digitalWrite(buzzerPin, HIGH/LOW); // Turn ON/OFF buzzer
+```
+__Passive Buzzer:__ For a passive buzzer, you use PWM signals to generate tones.
+```cpp
+tone(buzzerPin, 1000); // Play 1kHz tone
+```
