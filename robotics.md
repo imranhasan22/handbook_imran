@@ -8,6 +8,7 @@
   - [Breadboard](#breadboard)
   - [Buzzer](#buzzer)
   - [Ultrasonic Sonar Sensor](#ultrasonic-sonar-sensor)
+  - [Infrared Sensor](#infrared-sensor)
 
 # Introduction
 
@@ -509,46 +510,57 @@ The vertical connection of the center part means a single vertical line in a bre
 **Central Divider/Gap:** The terminal strips are divided by a central channel that runs lengthwise. This gap is specifically designed to accommodate ICs. When you place an IC in this central gap, each pin on one side of the IC is isolated from the pins on the other side, making it easier to connect other components to individual pins.
 
 ## Buzzer
+
 A buzzer is a simple component used to produce sound. Buzzers can be either active or passive:
 
-- __Active Buzzer__: Emits a constant tone when powered. Requires only HIGH/LOW signals.
-- __Passive Buzzer__: Needs a PWM (Pulse Width Modulation) signal to produce varying tones.
+- **Active Buzzer**: Emits a constant tone when powered. Requires only HIGH/LOW signals.
+- **Passive Buzzer**: Needs a PWM (Pulse Width Modulation) signal to produce varying tones.
 
 Active Buzzer is used for alarm, simple feedback (button presses). Passive Buzzer is used for playing melodies, generating dynamic alerts or tones.
 
 ### Hardware Setup
+
 - Connect the positive terminal (VCC) of the buzzer to a GPIO pin (e.g., GPIO23).
 - Connect the negative terminal (GND) of the buzzer to the GND pin on the ESP32.
-### Controlling 
-__Active Buzzer:__ With an active buzzer, you only need to send a HIGH signal to make it beep.
+
+### Controlling
+
+**Active Buzzer:** With an active buzzer, you only need to send a HIGH signal to make it beep.
+
 ```cpp
 digitalWrite(buzzerPin, HIGH/LOW); // Turn ON/OFF buzzer
 ```
-__Passive Buzzer:__ For a passive buzzer, you use PWM signals to generate tones.
+
+**Passive Buzzer:** For a passive buzzer, you use PWM signals to generate tones.
+
 ```cpp
 tone(buzzerPin, 1000); // Play 1kHz tone
 ...
-noTone(buzzerPin); 
+noTone(buzzerPin);
 ```
 
 ## Ultrasonic Sonar Sensor
+
 Sonar sensors, like the HC-SR04, are used for distance measurement by emitting ultrasonic waves and measuring their echo.
 
 ### Structure
+
 The HC-SR04 sensor has four pins:
 
-- __VCC__: Power supply (5V).
-- __GND__: Ground.
-- __TRIG__: Trigger pin (to send ultrasonic signals).
-- __ECHO__: Echo pin (to receive the reflected signal).
+- **VCC**: Power supply (5V).
+- **GND**: Ground.
+- **TRIG**: Trigger pin (to send ultrasonic signals).
+- **ECHO**: Echo pin (to receive the reflected signal).
 
 ### Hardware Setup
+
 - Connect VCC to the ESP32's VIN (5V).
 - Connect GND to the ESP32's GND.
 - Connect the TRIG pin to a GPIO pin (e.g., GPIO5).
 - Connect the ECHO pin to another GPIO pin (e.g., GPIO18).
 
 ### Controlling
+
 ```cpp
 #define TRIG_PIN 5   // GPIO5 connected to TRIG
 #define ECHO_PIN 18  // GPIO18 connected to ECHO
@@ -581,9 +593,71 @@ void loop() {
     delay(500); // Delay before the next measurement
 }
 ```
+
 ### How It Works
+
 1. The ESP32 sends a HIGH pulse (`10 µs`) to the TRIG pin to emit ultrasonic waves.
 2. The sensor emits a sound wave at `40 kHz`.
 3. The wave hits an object and reflects back.
 4. The sensor sets the ECHO pin HIGH for the time it takes the wave to return.
 5. The ESP32 calculates the distance based on the time the ECHO pin stays HIGH.
+
+### Applications
+
+- **Obstacle Detection**: Robots or vehicles can use sonar sensors to avoid collisions.
+- **Level Monitoring**: Measure water or material levels in a container.
+- **Automation**: Trigger actions (e.g., opening doors) based on proximity.
+
+## Infrared Sensor
+
+Infrared (IR) sensors are widely used for object detection, proximity sensing, and remote control systems. They work by emitting infrared light and detecting the reflected signal or decoding signals from IR remotes.
+
+### Types of IR Sensors
+
+- \*_IR Proximity Sensor_: Used for detecting nearby objects. Emits IR light and detects the reflected light.
+- \*_IR Receiver Module (e.g., TSOP1738)_: Decodes IR signals from a remote control.
+- \*_IR Transmitter and Receiver Pair_: Used in line-following robots or simple communication.
+
+### Structure
+
+An IR proximity sensor typically has 3 pins:
+
+- **VCC**: Power supply (3.3V or 5V).
+- **GND**: Ground.
+- **OUT**: Output pin (digital HIGH/LOW signal).
+
+### Hardware Setup
+
+- Connect VCC to the ESP32's 3.3V (or 5V if supported by the sensor).
+- Connect GND to the ESP32's GND.
+- Connect the OUT pin to a GPIO pin (e.g., GPIO23).
+
+### Controlling
+
+```cpp
+#define IR_PIN 23 // GPIO23 connected to the OUT pin of the IR sensor
+
+void setup() {
+    Serial.begin(115200);    // Start Serial communication
+    pinMode(IR_PIN, INPUT);  // Set IR_PIN as INPUT
+}
+
+void loop() {
+    int irValue = digitalRead(IR_PIN); // Read the sensor value
+
+    if (irValue == LOW) { // Object detected
+        Serial.println("Object Detected!");
+    } else {
+        Serial.println("No Object");
+    }
+
+    delay(100); // Small delay to reduce Serial output clutter
+}
+```
+
+### Applications
+
+- **Object Detection**: Detect nearby objects using IR proximity sensors like automatic door opening systems.
+- **Line-Following Robots**: Use an IR pair to follow a line or detect edges.
+- **Remote Control**: Use an IR receiver to decode and respond to remote control signals.
+- **Communication**: Simple data transmission using an IR transmitter and receiver.
