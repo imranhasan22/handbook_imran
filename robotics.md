@@ -10,6 +10,7 @@
   - [Ultrasonic Sonar Sensor](#ultrasonic-sonar-sensor)
   - [Infrared Sensor](#infrared-sensor)
   - [Servo Motor](#servo-motor)
+  - [Potentiometer](#potentiometer)
 
 # Introduction
 
@@ -732,3 +733,59 @@ void loop() {
     delay(1000);
 }
 ```
+## Potentiometer 
+A potentiometer is a variable resistor that allows you to adjust resistance manually. It's commonly used to control voltage or signal levels, such as adjusting the brightness of LEDs, volume control, or analog inputs for microcontrollers.
+
+### Structure
+A typical potentiometer has three terminals:
+
+- **VCC**: Connects to the power supply (3.3V or 5V).
+- **GND**: Connects to the ground.
+- **Output**: The variable voltage output based on the potentiometer’s position.
+
+The output voltage ranges between 0V and the supplied VCC, depending on the wiper's position.
+
+### Hardware Setup
+- VCC terminal to the ESP32’s 3V3 or 5V pin.
+- GND terminal to the ESP32’s GND.
+- Output terminal to an analog input pin on the ESP32 (e.g., GPIO34).
+
+### Standard Configuration of Pins
+- **Side Pins**:
+  - One side pin connects to VCC.
+  - The other side pin connects to GND.
+- **Middle Pin**:
+  - The middle pin is the Output (wiper). It provides a variable voltage between VCC and GND based on the potentiometer's position.
+
+### Using ESP32 ADC for Potentiometer
+ESP32 has analog-to-digital converters (ADC) that read analog input values and convert them into digital values. By default, ESP32’s ADC converts the input voltage (0–3.3V) to a digital value between 0 and 4095.
+
+### Controlling
+```cpp
+#define POT_PIN 34 // GPIO34 for potentiometer output
+
+void setup() {
+  Serial.begin(115200); // Initialize Serial Monitor
+  pinMode(POT_PIN, INPUT); // Set potentiometer pin as input
+  Serial.println("Potentiometer Reading Started");
+}
+
+void loop() {
+  int potValue = analogRead(POT_PIN); // Read the ADC value
+  float voltage = potValue * (3.3 / 4095.0); // Convert ADC value to voltage
+
+  // Display the results
+  Serial.print("ADC Value: ");
+  Serial.print(potValue);
+  Serial.print(" | Voltage: ");
+  Serial.print(voltage, 2); // Display voltage with 2 decimal places
+  Serial.println(" V");
+
+  delay(500); // Delay for readability
+}
+```
+
+### Applications
+- **User Interfaces**: Volume, brightness, or speed control knobs.
+- **Sensors**: As analog input devices in robotics and IoT.
+- **Calibration**: Used to fine-tune circuits during development or testing.
