@@ -616,9 +616,9 @@ Infrared (IR) sensors are widely used for object detection, proximity sensing, a
 
 ### Types of IR Sensors
 
-- \*_IR Proximity Sensor_: Used for detecting nearby objects. Emits IR light and detects the reflected light.
-- \*_IR Receiver Module (e.g., TSOP1738)_: Decodes IR signals from a remote control.
-- \*_IR Transmitter and Receiver Pair_: Used in line-following robots or simple communication.
+- **_IR Proximity Sensor**: Used for detecting nearby objects. Emits IR light and detects the reflected light.
+- **_IR Receiver Module (e.g., TSOP1738)**: Decodes IR signals from a remote control.
+- **_IR Transmitter and Receiver Pair**: Used in line-following robots or simple communication.
 
 ### Structure
 
@@ -701,10 +701,10 @@ A servo motor typically has 3 wires:
 **Install the Servo Library:**
 
 - Go to Tools > Manage Libraries.
-- Search for "Servo" and install the Servo Library by Michael Margolis.
+- Search for "ESP32 Servo" and install the Servo Library by Kevin Harrington.
 
 ```cpp
-#include <Servo.h>
+#include <ESP32Servo.h>
 
 Servo myServo; // Create a Servo object
 
