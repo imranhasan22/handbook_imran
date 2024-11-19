@@ -891,7 +891,7 @@ It serves as the entry point for all Java programs and controls the life cycle o
 - **Automatically Created:** The JVM automatically creates the main thread when the program starts.
 - **Entry Point:** It is the entry point of every Java application, starting with the `main()` method.
 - **Thread Name:** By default, the name of the main thread is `main`.
-- **Default Priority:** The main thread has a default priority of `5` (normal priority).
+- **Default Priority:** The main thread has a default priority of `5` (normal priority). All remaining threads default priority will be inherited from parent to child thread.
 - **Control Over Other Threads:** The main thread can create, start, and manage other threads. It continues to run until either the `main()` method completes or the JVM is instructed to exit.
 - **Execution Order:** Even though the main thread is the first to start, it does not necessarily finish first, especially if it creates other threads that continue running. The order in which threads finish depends on their tasks and execution.
 
