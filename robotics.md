@@ -306,19 +306,43 @@ Common reference point for all circuits. Always connect to the ground of externa
 
 ### 3. D13
 
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
 ### 4. D12
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
 
 ### 5. D14
 
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
 ### 6. D27
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
 
 ### 7. D26
 
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
 ### 8. D25
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
 
 ### 9. D33
 
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
 ### 10. D32
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
 
 ### 11. D35
 
@@ -354,9 +378,18 @@ Common reference point for all circuits. Always connect to the ground of externa
 
 ### 3. D15
 
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
 ### 4. D2
 
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
 ### 5. D4
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
 
 ### 6. RX2
 
