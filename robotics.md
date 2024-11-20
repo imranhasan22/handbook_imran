@@ -235,6 +235,65 @@ A servo motor expects a PWM signal with a specific frequency and a range of puls
 - 1.5 ms (90°): Servo moves to the midpoint angle (e.g., 90°).
 - 2 ms (180°): Servo rotates to the maximum angle (e.g., 180°).
 
+### Digital Signal
+
+A digital signal is a discrete signal that represents data using binary numbers (0s and 1s). It switches between fixed levels of high and low.
+
+**Characteristics:**
+
+1. **Discrete:** Digital signals have a limited number of values, typically two (HIGH or LOW).
+2. **Waveform:** They are represented as square waves.
+3. **Binary Representation:** Data is encoded as 0s and 1s.
+4. **Noise Resistance:** Digital signals are less prone to noise and degradation compared to analog signals.
+
+**Examples:**
+
+- Data transmission over the internet
+- Output from a digital temperature sensor like DS18B20
+- Signals in microcontrollers and digital electronics
+- Music files (e.g., MP3 format)
+
+#### Digital Device
+
+1. Push-button
+2. Motion Sensor
+3. Ultrasonic Sensor
+4. Infrared Sensor
+5. Hall Effect Sensor
+6. Touch Sensor
+7. Color Sensor
+8. Relay Modules
+9. Stepper Motor Drivers
+
+### Analog Signal
+
+An analog signal is a continuous signal that represents physical measurements. These signals vary over time and can take on any value within a range.
+
+**Characteristics:**
+
+1. **Continuous:** Analog signals have infinite possible values within a range.
+2. **Waveform:** They are generally represented as smooth sine waves.
+3. **Amplitude:** The signal's strength changes continuously over time.
+4. **Frequency:** It indicates how fast the signal oscillates.
+
+**Examples:**
+
+- Sound waves (e.g., human voice)
+- Voltage from sensors like LDR or thermistors
+- Video signals from traditional CRT TVs
+- Temperature or pressure readings
+
+#### Analog Device
+
+1. Potentiometers
+2. Temperature Sensors
+3. Light Sensors
+4. Sound Sensors
+5. Gas Sensors
+6. Pressure Sensors
+7. Force Sensors
+8. Moisture Sensors
+
 ## Description
 
 ### 1. VIN
@@ -664,6 +723,7 @@ Active Buzzer is used for alarm, simple feedback (button presses). Passive Buzze
 
 - Connect the positive terminal (VCC) of the buzzer to a GPIO pin (e.g., GPIO23).
 - Connect the negative terminal (GND) of the buzzer to the GND pin on the ESP32.
+- Connect the posiive terminal with register
 
 ### Controlling
 
