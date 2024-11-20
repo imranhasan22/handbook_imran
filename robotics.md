@@ -183,11 +183,18 @@ The choice of board depends on the project requirements:
 | **EN**          | EN                    | Chip enable pin. Active HIGH.                  |
 
 ## Pin Concpets
+
 ### ADC
+
 - ADC (Analog-to-Digital Converter) is a module that converts an analog voltage signal into a digital value.
-- The ESP32 has two ADC peripherals: ADC1 and ADC2, each with multiple channels.
-  - **ADC1**: Preferred for applications due to fewer restrictions compared to ADC2.
-  - **ADC2**: Shares resources with the Wi-Fi module, which can cause conflicts when Wi-Fi is in use.
+- The ESP32 has two ADC peripherals: ADC1 and ADC2.
+
+| **Feature**           | **ADC1**                                          | **ADC2**                                             |
+| --------------------- | ------------------------------------------------- | ---------------------------------------------------- |
+| **Channel Count**     | 8 channels (GPIO32–GPIO39)                        | 10 channels (GPIO0, GPIO2, GPIO4, GPIO12–27)         |
+| **Independent Use**   | Fully independent                                 | Shared with Wi-Fi; cannot be used with Wi-Fi active. |
+| **Power Consumption** | Low                                               | Higher when active.                                  |
+| **Best Use Cases**    | High-priority ADC tasks (e.g., critical sensors). | Auxiliary or backup ADC tasks.                       |
 
 Each channel corresponds to a specific GPIO pin.
 
@@ -197,10 +204,6 @@ ADC pins aren't meant to handle both digital and analog signal simultaneously.
 
 | **ADC1 Channel** | **GPIO Pin** | **Notes**                    |
 | ---------------- | ------------ | ---------------------------- |
-| ADC1_CH0         | GPIO36       | Input-only, analog/digital.  |
-| ADC1_CH1         | GPIO37       | Input-only, rarely used.     |
-| ADC1_CH2         | GPIO38       | Input-only, rarely used.     |
-| ADC1_CH3         | GPIO39       | Input-only, analog/digital.  |
 | ADC1_CH4         | GPIO32       | General-purpose GPIO/Analog. |
 | ADC1_CH5         | GPIO33       | General-purpose GPIO/Analog. |
 | ADC1_CH6         | GPIO34       | Input-only, analog/digital.  |
@@ -208,45 +211,131 @@ ADC pins aren't meant to handle both digital and analog signal simultaneously.
 
 **ADC2 Channels and GPIO Pins:**
 
-| **ADC2 Channel** | **GPIO Pin** | **Notes**                                 |
-| ---------------- | ------------ | ----------------------------------------- |
-| ADC2_CH0         | GPIO4        | General-purpose GPIO/Analog.              |
-| ADC2_CH1         | GPIO0        | General-purpose GPIO/Analog, boot issues. |
-| ADC2_CH2         | GPIO2        | General-purpose GPIO/Analog.              |
-| ADC2_CH3         | GPIO15       | General-purpose GPIO/Analog.              |
-| ADC2_CH4         | GPIO13       | General-purpose GPIO/Analog.              |
-| ADC2_CH5         | GPIO12       | General-purpose GPIO/Analog.              |
-| ADC2_CH6         | GPIO14       | General-purpose GPIO/Analog.              |
-| ADC2_CH7         | GPIO27       | General-purpose GPIO/Analog.              |
-| ADC2_CH8         | GPIO25       | General-purpose GPIO/Analog.              |
-| ADC2_CH9         | GPIO26       | General-purpose GPIO/Analog.              |
+| **ADC2 Channel** | **GPIO Pin** | **Notes**                    |
+| ---------------- | ------------ | ---------------------------- |
+| ADC2_CH0         | GPIO4        | General-purpose GPIO/Analog. |
+| ADC2_CH2         | GPIO2        | General-purpose GPIO/Analog. |
+| ADC2_CH5         | GPIO12       | General-purpose GPIO/Analog. |
+| ADC2_CH4         | GPIO13       | General-purpose GPIO/Analog. |
+| ADC2_CH6         | GPIO14       | General-purpose GPIO/Analog. |
+| ADC2_CH3         | GPIO15       | General-purpose GPIO/Analog. |
+| ADC2_CH8         | GPIO25       | General-purpose GPIO/Analog. |
+| ADC2_CH9         | GPIO26       | General-purpose GPIO/Analog. |
+| ADC2_CH7         | GPIO27       | General-purpose GPIO/Analog. |
+
+### PWM
+
+PWM (Pulse Width Modulation) is a technique used to create a square wave signal where the duty cycle (the ratio of the time the signal is HIGH to the total time of one cycle) is modulated to convey information or control power to devices.
+
+#### PWM for Servo Control
+
+A servo motor expects a PWM signal with a specific frequency and a range of pulse widths. The pulse width determines the angle of rotation of the servo. Typically, a servo operates at 50 Hz (20 ms period), with the pulse width ranging between:
+
+- 1 ms (0°): Servo rotates to the minimum angle (e.g., 0°).
+- 1.5 ms (90°): Servo moves to the midpoint angle (e.g., 90°).
+- 2 ms (180°): Servo rotates to the maximum angle (e.g., 180°).
 
 ## Description
 
-### Power and Ground Pins
-
-#### VIN
+### 1. VIN
 
 Input pin to supply power to the ESP32. Typically connected to a 5V source. Connect VIN with positive(+) voltage of the battery.
 
-#### GND
+### 2. GND
 
 Common reference point for all circuits. Always connect to the ground of external devices. Connect GND with negative(-) voltage of any external devices including battery and sensors.
 
-#### 3U3
+### 3. D13
 
-Provides a 3.3V output from the onboard voltage regulator. Can be used to power low-power sensors or modules. It provides positive(+) voltage.
+### 4. D12
 
-### Other
+### 5. D14
 
-#### D34(GPIO34), D35(GPIO35)
+### 6. D27
 
-It can only function as an input pin (it does not support output). It supports digital input and can read logic levels (HIGH or LOW). It can also function as an analog input((0-3.3V)), as it's connected to the ADC1 analog-to-digital converter.
+### 7. D26
+
+### 8. D25
+
+### 9. D33
+
+### 10. D32
+
+### 11. D35
+
+- Only function as an input pin (it does not support output).
+- Supports both analog and digital input and can read logic levels (HIGH or LOW). It function as an analog input((0-3.3V)), as it's connected to the ADC1 analog-to-digital converter.
+
+- `digitalRead(35)` read digital input
+- `analogRead(35)` read digital input
+
+### 12. D34
+
+- Only function as an input pin (it does not support output).
+- Supports both analog and digital input and can read logic levels (HIGH or LOW). It function as an analog input((0-3.3V)), as it's connected to the ADC1 analog-to-digital converter.
 
 - `digitalRead(34)` read digital input
 - `analogRead(34)` read digital input
 
-These pins do not have built-in pull-up or pull-down resistors, so external resistors may be needed for stable input signals.
+### 13. UN
+
+### 14. UP
+
+### 15. EN
+
+## Description
+
+### 1.3U3
+
+Provides a 3.3V output from the onboard voltage regulator. Can be used to power low-power sensors or modules. It provides positive(+) voltage.
+
+### 2. GND
+
+Common reference point for all circuits. Always connect to the ground of external devices. Connect GND with negative(-) voltage of any external devices including battery and sensors.
+
+### 3. D15
+
+### 4. D2
+
+### 5. D4
+
+### 6. RX2
+
+### 7. TX2
+
+### 8. D5
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
+### 9. D18
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
+### 10. D19
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
+### 11. D21
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
+### 12. RX0
+
+### 13. TX0
+
+### 14. D22
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
+
+### 15. D23
+
+- Digital Input and Output(LED)
+- PWM Output(Servo Motor)
 
 # Arduino - Programming
 
@@ -850,15 +939,18 @@ void loop() {
 - **Calibration**: Used to fine-tune circuits during development or testing.
 
 ## Push Button
+
 A push button is a simple input device that can send signals to the ESP32 when pressed or released.
 
 ### Structure
 
 There are only two terminals:
-  - One pin connects to GPIO (signal pin)
-  - The other pin connects to GND (ground)
+
+- One pin connects to GPIO (signal pin)
+- The other pin connects to GND (ground)
 
 ### Hardware Setup
+
 - Connect one terminal of the button to GPIO 13.
 - Connect the other terminal of the button to GND.
 - Connect the LED to GPIO 26 (with a resistor to limit current).
@@ -869,6 +961,7 @@ There are only two terminals:
 - When the button is pressed, the circuit is closed, and the GPIO detects the change.
 
 ### Controlling
+
 ```cpp
 #define BUTTON_PIN 34  // D34 pin
 
@@ -887,7 +980,9 @@ void loop() {
   delay(1000); // Debounce delay
 }
 ```
-__Push Button as Switch:__
+
+**Push Button as Switch:**
+
 ```cpp
 #define BUTTON_PIN 13 // GPIO connected to the push button
 #define LED_PIN 26    // GPIO connected to the LED
