@@ -191,6 +191,53 @@ Keep the micro usb port at left side the squared black box from lower side is th
 | **EN**          | EN                 | Enable pin. Active HIGH. Used to reset the chip.          |
 | **BOOT**        | GPIO0              | Boot mode selection pin. Pull LOW to enter flashing mode. |
 
+### Boot
+
+It is used to put the ESP32 into bootloader (flash) mode. This mode allows you to upload new firmware to the microcontroller.
+
+#### How to use
+
+**To Upload Code (Manual Mode):**
+
+- Press and hold the BOOT button.
+- While holding it, click the Upload button in your IDE.
+- Release the BOOT button once the upload starts.
+
+#### Flash Mode
+
+Flash mode is a special operational mode of the ESP32 microcontroller that allows it to receive firmware or code updates via a connected computer. During flash mode, the ESP32 enters its bootloader, enabling communication with tools like the Arduino IDE
+
+The BOOT button on an ESP32 development board plays a key role in manually initiating flash mode when the auto-reset circuit is not present or fails.
+
+#### Controlling
+
+```cpp
+#define BOOT_BUTTON_PIN 0  // GPIO 0 is the BOOT button
+
+void setup() {
+  pinMode(BOOT_BUTTON_PIN, INPUT_PULLUP); // Configure GPIO 0 with a pull-up resistor
+  Serial.begin(115200);
+}
+
+void loop() {
+  if (digitalRead(BOOT_BUTTON_PIN) == LOW) {
+    Serial.println("BOOT button pressed!");
+  }
+}
+```
+
+### EN
+
+The EN (Enable) button is connected to the reset pin (EN) of the ESP32. It acts as a hardware reset for the ESP32 chip.
+
+#### How to use
+
+1. Simply press the EN button to reset the ESP32.
+2. When the EN button is pressed:
+
+- The ESP32 is powered down momentarily.
+- Upon release, the ESP32 reboots and `executes the code from the beginning`.
+
 ## Pin Labels and GPIO Mapping
 
 | **Board Label** | **ESP32 GPIO Number** | **Description**                                |
