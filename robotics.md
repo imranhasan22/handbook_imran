@@ -137,6 +137,53 @@ The choice of board depends on the project requirements:
 
 # ESP 32 Board
 
+## Processor(ESP-WROOM32)
+
+- Dual-core Xtensa LX6 micro-processor running up to 240 MHz which works independently.
+- Integrated Wi-Fi(802.11b/g/n HT40) and Bluetooth(2.4GHZ)
+- 520 KB SRAM and 448 KB ROM
+- It includes bluetooth classic and bluetooth low energey protocol
+- The external part of ESP-WROOM32 board is called antena
+- Typically uses SPI flash with sizes ranging from 4 MB to 16 MB which is why it can load JSON/XML data and IoT services.
+
+## LED
+
+### Power LED
+
+It indicates that the board is powered and operational. It is connected to the power supply circuit of the board. The LED is directly connected to the 3.3V or 5V power supply line, depending on the voltage regulator.
+
+### Status LED
+
+It provides visual feedback for debugging or signaling application states. It can be controlled programmatically using the microcontroller's GPIO pins. It is commonly connected to GPIO2 pin.
+
+**Used to indicate events such as:**
+
+- Boot process completion.
+- Wi-Fi connection status.
+- Error codes in the program
+
+## Micro USB Port
+
+It is used for both powering the board and data communication between the board and a host computer.
+
+It supplies 5V to the board from a USB power source and the onboard 3.3V LDO Voltage Regulator steps this down to 3.3V to power the ESP32 chip and peripherals.
+
+It is used to upload to the microcontroller via the onboard USB-to-Serial converter.
+
+## LDO Voltage Regulator
+
+An LDO (Low Dropout) regulator is a type of linear voltage regulator that operates efficiently with a minimal voltage difference (dropout voltage) between its input and output.
+
+It converts a higher input voltage (e.g., 5V from USB or battery) to a lower, stable output voltage (e.g., 3.3V required by the ESP32).
+
+Keep the micro usb port at left side the rectangular black box from upper side wide from left to right is called LDO Voltage Regulator.
+
+## USB to TTL Converter (CP2102)
+
+It facilitates communication between the ESP32 microcontroller and a host computer. It converts USB signals (used by computers) to TTL (Transistor-Transistor Logic) level signals (used by microcontrollers like the ESP32). This chip is especially useful for programming, serial communication, and debugging.
+
+Keep the micro usb port at left side the squared black box from lower side is the CP2102 chip.
+
 ## Power and Control Pins
 
 | **Board Label** | **ESP32 Function** | **Description**                                           |
