@@ -716,6 +716,9 @@ void loop() {
   Serial.println("Client disconnected");
 }
 ```
+
+The ESP32/ESP8266 assigns itself an IP address (e.g., `192.168.4.1`) for clients to connect.
+
 #### Controlling LED
 ```cpp
 #include <WiFi.h> // Include Wi-Fi library
