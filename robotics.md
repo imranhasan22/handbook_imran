@@ -3,6 +3,8 @@
 - [Introduction](#introduction)
 - [Development Boards](#development-boards)
   - [ESP 32 Board](#esp-32-board)
+    - [Chip](#processoresp-wroom32)
+    - [Pin](#power-and-control-pins)
 - [Arduino Programming](#arduino---programming)
 - [Components](#components)
   - [Breadboard](#breadboard)
@@ -523,6 +525,268 @@ Common reference point for all circuits. Always connect to the ground of externa
 - Digital Input and Output(LED)
 - PWM Output(Servo Motor)
 
+## Wi-Fi Module
+
+The ESP32 can operate in three modes:
+
+1. **Station Mode (STA):** Connects to a Wi-Fi network as a client.
+2. **Access Point Mode (AP):** Creates its own Wi-Fi network.
+3. **AP+STA Mode:** Combines both modes.
+
+### STA
+
+In Station Mode (STA), the ESP32 connects to an existing Wi-Fi network as a client, similar to how your smartphone or laptop connects to a router. This mode is commonly used to:
+
+- Fetch or send data to the internet.
+- Communicate with local devices on the same network.
+- Interact with cloud services (e.g., Firebase, AWS, etc.).
+
+When operating in STA mode:
+
+1. ESP32 joins a Wi-Fi network using the SSID (Wi-Fi name) and password.
+2. The router assigns an IP address to ESP32, enabling communication.
+
+#### Steps to Use STA Mode
+
+1. Initialize the Wi-Fi library.
+2. Provide network credentials.
+3. Attempt to connect to the Wi-Fi.
+4. Monitor connection status.
+5. Once connected, retrieve the assigned IP address and confirm successful connection
+
+#### Wi-Fi Connection
+
+```cpp
+#include <WiFi.h> // Include Wi-Fi library for ESP32
+#include <HTTPClient.h>
+
+// Replace with your Wi-Fi network credentials
+const char* ssid = "**********";        // Wi-Fi name
+const char* password = "**********"; // Wi-Fi password
+
+void setup() {
+  Serial.begin(115200); // Initialize serial monitor for debugging
+
+  // Connect to Wi-Fi
+  WiFi.begin(ssid, password);
+  Serial.print("Connecting to Wi-Fi");
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+
+  Serial.println("\nConnected to Wi-Fi!");
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.localIP()); // Print ESP32's IP address
+
+  // Fetch data from server
+  fetchData();
+}
+
+void loop() {
+  // Re-fetch data every 10 seconds
+  fetchData();
+  delay(10000);
+}
+
+void fetchData() {
+  if (WiFi.status() == WL_CONNECTED) { // Ensure the Wi-Fi is still connected
+    HTTPClient http;
+
+    // Specify the server URL
+    String serverUrl = "http://jsonplaceholder.typicode.com/posts/1"; // Example API
+    http.begin(serverUrl); // Initialize HTTP connection
+
+    int httpResponseCode = http.GET(); // Send HTTP GET request
+
+    if (httpResponseCode > 0) { // If the request is successful
+      Serial.println("HTTP GET Successful!");
+      Serial.print("HTTP Response Code: ");
+      Serial.println(httpResponseCode);
+
+      // Get the response payload
+      String payload = http.getString();
+      Serial.println("Response:");
+      Serial.println(payload); // Print the fetched data
+    } else {
+      Serial.print("Error in HTTP request. Code: ");
+      Serial.println(httpResponseCode);
+    }
+    http.end(); // End the HTTP connection
+  } else {
+    Serial.println("Wi-Fi not connected. Unable to fetch data.");
+  }
+}
+```
+
+### AP
+In Access Point Mode (AP), the ESP32 creates its own Wi-Fi network. Devices such as smartphones or laptops can connect to this network to communicate directly with the ESP32. This is especially useful when there’s no existing Wi-Fi network available, or if you want to create a standalone system.
+
+### How It Works
+1. **ESP32 as an AP:**
+  -The ESP32 broadcasts its SSID (Wi-Fi name) and allows clients to connect.
+  - It assigns IP addresses to clients using a built-in DHCP server.
+2. **Communication:**
+  - The ESP32 can host a web server or exchange data directly with the connected devices.
+3. **Benefits:**
+  - Does not require an external router.
+  - Allows localized control and communication.
+
+#### Steps to Set Up ESP32 in AP Mode
+1. Initialize Wi-Fi in AP mode using `WiFi.softAP()`.
+2. Define the SSID and password for the ESP32 network.
+3. Optionally, set the IP address using `WiFi.softAPConfig()` (default IP is `192.168.4.1`).
+4. Create a web server to interact with clients.
+
+#### Configuring Wi-Fi Network
+```cpp
+#include <WiFi.h> // Use <ESP8266WiFi.h> if using ESP8266
+
+// Replace with your desired network name (SSID) and password
+const char* ssid = "MyESP32AP";
+const char* password = "securepassword";
+
+// Set up a basic web server on port 80
+WiFiServer server(80);
+
+void setup() {
+  // Start the serial monitor for debugging
+  Serial.begin(115200);
+  Serial.println();
+
+  // Configure ESP32/ESP8266 as an Access Point
+  Serial.println("Setting up Access Point...");
+  WiFi.softAP(ssid, password);
+
+  // Print the IP address of the AP
+  IPAddress IP = WiFi.softAPIP();
+  Serial.print("Access Point IP: ");
+  Serial.println(IP);
+
+  // Start the server
+  server.begin();
+  Serial.println("Server started");
+}
+
+void loop() {
+  // Check if a client has connected
+  WiFiClient client = server.available();
+  if (!client) {
+    Serial.print("Error");
+    return;
+  }
+
+  Serial.println("New Client Connected");
+
+  // Wait until the client sends data
+  while (!client.available()) {
+    delay(1);
+  }
+
+  // Read the request
+  String request = client.readStringUntil('\r');
+  Serial.println("Request:");
+  Serial.println(request);
+
+  // Respond to the client
+  String htmlResponse = R"rawliteral(
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>ESP32 Access Point</title>
+      </head>
+      <body>
+        <h1>Welcome to ESP32 Access Point!</h1>
+        <p>You are connected to the ESP32 network.</p>
+      </body>
+    </html>
+  )rawliteral";
+
+  // Send the response headers and content
+  client.println("HTTP/1.1 200 OK");
+  client.println("Content-type:text/html");
+  client.println("Connection: close");
+  client.println();
+  client.print(htmlResponse);
+
+  // Close the connection
+  client.stop();
+  Serial.println("Client disconnected");
+}
+```
+#### Controlling LED
+```cpp
+#include <WiFi.h> // Include Wi-Fi library
+
+const char* ssid = "ESP32_AccessPoint";  // Set Wi-Fi SSID
+const char* password = "12345678";       // Set Wi-Fi password (min 8 characters)
+
+const int ledPin = 2; // GPIO pin for the LED
+
+WiFiServer server(80); // Create a web server on port 80
+
+void setup() {
+  Serial.begin(115200); // Initialize serial communication
+  pinMode(ledPin, OUTPUT); // Set LED pin as output
+  digitalWrite(ledPin, LOW); // Turn LED off initially
+
+  // Start the ESP32 as an Access Point
+  WiFi.softAP(ssid, password);
+  Serial.println("Access Point Started");
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.softAPIP()); // Print the AP's IP address
+
+  server.begin(); // Start the server
+}
+
+void loop() {
+  WiFiClient client = server.available(); // Check for incoming clients
+
+  if (client) {
+    Serial.println("New Client Connected.");
+    String request = "";
+
+    while (client.connected()) {
+      if (client.available()) {
+        char c = client.read();
+        request += c;
+
+        // Break if end of HTTP request
+        if (c == '\n' && request.endsWith("\r\n\r\n")) {
+          break;
+        }
+      }
+    }
+
+    // Process HTTP request
+    if (request.indexOf("/LED=ON") != -1) {
+      digitalWrite(ledPin, HIGH); // Turn LED on
+    } else if (request.indexOf("/LED=OFF") != -1) {
+      digitalWrite(ledPin, LOW); // Turn LED off
+    }
+
+    // Send HTTP response
+    client.println("HTTP/1.1 200 OK");
+    client.println("Content-Type: text/html");
+    client.println("Connection: close");
+    client.println();
+
+    client.println("<!DOCTYPE HTML>");
+    client.println("<html>");
+    client.println("<head><title>ESP32 AP Mode</title></head>");
+    client.println("<body>");
+    client.println("<h1>ESP32 Access Point</h1>");
+    client.println("<button onclick=\"location.href='/LED=ON'\">Turn ON</button>");
+    client.println("<button onclick=\"location.href='/LED=OFF'\">Turn OFF</button>");
+    client.println("</body></html>");
+
+    client.stop(); // Close the connection
+    Serial.println("Client Disconnected.");
+  }
+}
+```
 # Arduino - Programming
 
 ## Sketch
