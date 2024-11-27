@@ -72,6 +72,7 @@ __Components of an APK File:__
 - [Logging](#logging)
 - [Database](#database)
 - [Retrofit](#retrofit)
+- [Google Map](#google-map)
 # Layouts
 ## LinearLayout
 It arranges its child views in a single direction, either vertically or horizontally. This makes it a straightforward choice for creating simple layouts where views are stacked in a single column or row.
@@ -1868,3 +1869,83 @@ public boolean onCreateOptionsMenu(Menu menu) {
     return true;
 }
 ```
+# Google Map
+1. Enable the Maps SDK for Android
+    - Navigate to **APIs & Services > Library**.
+    - Search for **Maps SDK for Android** and enable it.
+2. Generate an API Key:
+    - Navigate to **APIs & Services > Credentials**.
+    - Click **Create Credentials > API Key**.
+3. Add Dependency
+    ```
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    ```
+4. Add Permissions inside `manifest`
+    ```xml
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    ```
+5. Add Google Maps API Key inside `application`
+    ```xml
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="YOUR_API_KEY_HERE" />
+    ```
+6. Add a Map Fragment
+    ```xml
+    <fragment
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+    ```
+7. Initialize the Map
+    ```java
+    private GoogleMap mMap;
+    private Marker selectedMarker;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ...
+        // Obtain the SupportMapFragment and get notified when the map is ready to use.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Set initial location (e.g., Sydney, Australia)
+        LatLng initialLocation = new LatLng(-34, 151);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialLocation, 10));
+
+        // Set a listener for map clicks
+        mMap.setOnMapClickListener(latLng -> {
+            // Add a marker at the clicked location
+            if (selectedMarker != null) {
+                selectedMarker.remove(); // Remove previous marker
+            }
+            selectedMarker = mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title("Selected Location"));
+
+            // Display the coordinates in the TextView and a Toast
+            String coordinates = "Lat: " + latLng.latitude + ", Lng: " + latLng.longitude;
+            coordinatesTextView.setText(coordinates);
+            Toast.makeText(MainActivity.this, coordinates, Toast.LENGTH_SHORT).show();
+        });
+    }
+    ```
+
+
+
+
+
+
+
+
+
