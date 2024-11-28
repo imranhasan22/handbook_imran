@@ -1940,12 +1940,178 @@ public boolean onCreateOptionsMenu(Menu menu) {
         });
     }
     ```
+## Overlay 
+Overlays are additional graphics (such as images or shapes) displayed over the map, and the two main options for overlays are:
+1. **Ground Overlays**: Used to display an image or bitmap over a specific area on the map.
+2. **Tile Overlays**: Used to provide custom tiles for specific map areas.
+### Ground Overlay
+Ground overlays are used to display a static image over a specified latitude/longitude rectangle on the map.
+```java
+public void onMapReady(GoogleMap googleMap) {
+    ...
+    GroundOverlayOptions groundOverlayOptions = new GroundOverlayOptions()
+        .image(BitmapDescriptorFactory.fromResource(R.drawable.overlay_image))
+        .position(overlayLocation, 8600f, 6500f); // Specify width and height in meters
 
+    mMap.addGroundOverlay(groundOverlayOptions);
+    ...
+}
+```
+### Tile Overlay
+Tile overlays allow you to use custom tiles (e.g., generated tiles from a server or local assets) and overlay them on the map.
 
+1. Add the logic for creating custom tiles:
+```java
+import com.google.android.gms.maps.model.Tile;
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.android.gms.maps.model.UrlTileProvider;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 
+public class CustomTileProvider extends UrlTileProvider {
 
+    private static final String TILE_URL = "https://your-tile-server.com/tiles/%d/%d/%d.png";
 
+    public CustomTileProvider() {
+        super(256, 256); // Tile size
+    }
 
+    @Override
+    public URL getTileUrl(int x, int y, int zoom) {
+        try {
+            return new URL(String.format(TILE_URL, zoom, x, y));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
+```
+2. **Add the tile overlay to your map**
+```java
+TileOverlayOptions tileOverlayOptions = new TileOverlayOptions()
+    .tileProvider(new CustomTileProvider());
 
+    mMap.addTileOverlay(tileOverlayOptions);
+```
 
+**Polygon Overlay:**
+```java
+PolygonOptions polygonOptions = new PolygonOptions()
+    .add(new LatLng(37.7749, -122.4194),  // Vertex 1
+         new LatLng(37.7849, -122.4294),  // Vertex 2
+         new LatLng(37.7949, -122.4394))  // Vertex 3
+    .strokeColor(Color.RED)
+    .fillColor(Color.argb(50, 150, 50, 50));
+mMap.addPolygon(polygonOptions);
+```
+## Geocoder
+It converts geographic coordinates (latitude and longitude) into a human-readable address (known as reverse geocoding) and vice versa (known as forward geocoding). It uses the device’s network or GPS for location data.
+
+### Reverse Geocoding
+Reverse geocoding converts a geographic location (latitude and longitude) into a human-readable address.
+```java
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Bundle;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView textView = findViewById(R.id.textView);
+
+        // Example coordinates: Latitude and Longitude
+        double latitude = 37.7749;
+        double longitude = -122.4194;
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            // Get address list
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+
+                // Get address details
+                String fullAddress = address.getAddressLine(0); // Full address
+                String city = address.getLocality();           // City
+                String state = address.getAdminArea();         // State
+                String country = address.getCountryName();     // Country
+                String postalCode = address.getPostalCode();   // Postal code
+
+                // Display the address
+                textView.setText("Address: " + fullAddress +
+                        "\nCity: " + city +
+                        "\nState: " + state +
+                        "\nCountry: " + country +
+                        "\nPostal Code: " + postalCode);
+            } else {
+                textView.setText("No address found for this location.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            textView.setText("Unable to get address. Check your internet connection.");
+        }
+    }
+}
+```
+### Forward Geocoding
+Forward geocoding converts an address or location name into geographic coordinates.
+```java
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Bundle;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        TextView textView = findViewById(R.id.textView);
+
+        // Example address
+        String locationName = "1600 Amphitheatre Parkway, Mountain View, CA";
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            // Get coordinates list
+            List<Address> addresses = geocoder.getFromLocationName(locationName, 1);
+
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+
+                // Get latitude and longitude
+                double latitude = address.getLatitude();
+                double longitude = address.getLongitude();
+
+                // Display the coordinates
+                textView.setText("Address: " + locationName +
+                        "\nLatitude: " + latitude +
+                        "\nLongitude: " + longitude);
+            } else {
+                textView.setText("No coordinates found for this address.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            textView.setText("Unable to get coordinates. Check your internet connection.");
+        }
+    }
+}
+```
