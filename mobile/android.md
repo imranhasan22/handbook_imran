@@ -1947,13 +1947,21 @@ Overlays are additional graphics (such as images or shapes) displayed over the m
 ### Ground Overlay
 Ground overlays are used to display a static image over a specified latitude/longitude rectangle on the map.
 ```java
+private GroundOverlay currentOverlay;
+...
 public void onMapReady(GoogleMap googleMap) {
     ...
-    GroundOverlayOptions groundOverlayOptions = new GroundOverlayOptions()
-        .image(BitmapDescriptorFactory.fromResource(R.drawable.overlay_image))
-        .position(overlayLocation, 8600f, 6500f); // Specify width and height in meters
+    mMap.setOnMapClickListener(latLng -> {
+        if (currentOverlay != null) {
+            currentOverlay.remove();
+        }
 
-    mMap.addGroundOverlay(groundOverlayOptions);
+        GroundOverlayOptions groundOverlayOptions = new GroundOverlayOptions()
+            .image(BitmapDescriptorFactory.fromResource(R.drawable.bmw))
+            .position(latLng, 8600f, 6500f); // Specify width and height in meters
+
+        currentOverlay = mMap.addGroundOverlay(groundOverlayOptions);
+    })
     ...
 }
 ```
@@ -1999,12 +2007,37 @@ TileOverlayOptions tileOverlayOptions = new TileOverlayOptions()
 **Polygon Overlay:**
 ```java
 PolygonOptions polygonOptions = new PolygonOptions()
-    .add(new LatLng(37.7749, -122.4194),  // Vertex 1
-         new LatLng(37.7849, -122.4294),  // Vertex 2
-         new LatLng(37.7949, -122.4394))  // Vertex 3
+    .add( new LatLng(latLng.latitude + 0.01, latLng.longitude + 0.01), // Top-right
+        new LatLng(latLng.latitude + 0.01, latLng.longitude - 0.01), // Top-left
+        new LatLng(latLng.latitude - 0.01, latLng.longitude - 0.01), // Bottom-left
+        new LatLng(latLng.latitude - 0.01, latLng.longitude + 0.01)  // Bottom-right
+    )
     .strokeColor(Color.RED)
     .fillColor(Color.argb(50, 150, 50, 50));
 mMap.addPolygon(polygonOptions);
+```
+**Circle Overlay:**
+```java
+private Circle currentCircle;
+...
+@Override
+public void onMapReady(GoogleMap googleMap) {
+    mMap.setOnMapClickListener(latLng -> {
+        if (currentCircle != null) {
+            currentCircle.remove();
+        }
+
+        CircleOptions circleOptions = new CircleOptions()
+        .center(latLng) // Set the center of the circle
+        .radius(500)    // Set the radius in meters
+        .strokeWidth(5) // Set the stroke width
+        .strokeColor(0xFF0000FF) // Stroke color (ARGB, semi-transparent blue)
+        .fillColor(0x550000FF); // Fill color (ARGB, semi-transparent blue)
+
+        currentCircle = mMap.addCircle(circleOptions);
+
+    })
+}
 ```
 ## Geocoder
 It converts geographic coordinates (latitude and longitude) into a human-readable address (known as reverse geocoding) and vice versa (known as forward geocoding). It uses the device’s network or GPS for location data.
