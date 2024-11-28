@@ -2045,106 +2045,63 @@ It converts geographic coordinates (latitude and longitude) into a human-readabl
 ### Reverse Geocoding
 Reverse geocoding converts a geographic location (latitude and longitude) into a human-readable address.
 ```java
-import android.location.Address;
-import android.location.Geocoder;
-import android.os.Bundle;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+public String reverse_geocoding(double latitude, double longitude){
+    Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+    try {
+        // Get address list
+        List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
-public class MainActivity extends AppCompatActivity {
+        if (addresses != null && !addresses.isEmpty()) {
+            Address address = addresses.get(0);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+            // Get address details
+            String fullAddress = address.getAddressLine(0); // Full address
+            String city = address.getLocality();           // City
+            String state = address.getAdminArea();         // State
+            String country = address.getCountryName();     // Country
+            String postalCode = address.getPostalCode();   // Postal code
 
-        TextView textView = findViewById(R.id.textView);
-
-        // Example coordinates: Latitude and Longitude
-        double latitude = 37.7749;
-        double longitude = -122.4194;
-
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            // Get address list
-            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
-            if (addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-
-                // Get address details
-                String fullAddress = address.getAddressLine(0); // Full address
-                String city = address.getLocality();           // City
-                String state = address.getAdminArea();         // State
-                String country = address.getCountryName();     // Country
-                String postalCode = address.getPostalCode();   // Postal code
-
-                // Display the address
-                textView.setText("Address: " + fullAddress +
-                        "\nCity: " + city +
-                        "\nState: " + state +
-                        "\nCountry: " + country +
-                        "\nPostal Code: " + postalCode);
-            } else {
-                textView.setText("No address found for this location.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            textView.setText("Unable to get address. Check your internet connection.");
+            // Display the address
+            return "Address: " + fullAddress +
+                    "\nCity: " + city +
+                    "\nState: " + state +
+                    "\nCountry: " + country +
+                    "\nPostal Code: " + postalCode ;
+        } else {
+            return "No address found for this location.";
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+        return "Unable to get address. Check your internet connection.";
     }
 }
 ```
 ### Forward Geocoding
 Forward geocoding converts an address or location name into geographic coordinates.
 ```java
-import android.location.Address;
-import android.location.Geocoder;
-import android.os.Bundle;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+public String forward_geocoding(String locationName){
+    Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+    try {
+        // Get coordinates list
+        List<Address> addresses = geocoder.getFromLocationName(locationName, 1);
 
-public class MainActivity extends AppCompatActivity {
+        if (addresses != null && !addresses.isEmpty()) {
+            Address address = addresses.get(0);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+            // Get latitude and longitude
+            double latitude = address.getLatitude();
+            double longitude = address.getLongitude();
 
-        TextView textView = findViewById(R.id.textView);
-
-        // Example address
-        String locationName = "1600 Amphitheatre Parkway, Mountain View, CA";
-
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            // Get coordinates list
-            List<Address> addresses = geocoder.getFromLocationName(locationName, 1);
-
-            if (addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-
-                // Get latitude and longitude
-                double latitude = address.getLatitude();
-                double longitude = address.getLongitude();
-
-                // Display the coordinates
-                textView.setText("Address: " + locationName +
-                        "\nLatitude: " + latitude +
-                        "\nLongitude: " + longitude);
-            } else {
-                textView.setText("No coordinates found for this address.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            textView.setText("Unable to get coordinates. Check your internet connection.");
+            // Display the coordinates
+            return "Address: " + locationName +
+                    "\nLatitude: " + latitude +
+                    "\nLongitude: " + longitude;
+        } else {
+            return "No coordinates found for this address.";
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+        return "Unable to get coordinates. Check your internet connection.";
     }
 }
 ```
