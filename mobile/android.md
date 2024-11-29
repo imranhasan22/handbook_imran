@@ -444,6 +444,71 @@ for (int i = 1; i <= 20; i++) itemList.add("Item " + i);
 myAdapter = new MyAdapter(itemList);
 recyclerView.setAdapter(myAdapter);
 ```
+## Manage Data
+### Remove Data
+```java
+public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    ...
+  holder.removeButton.setOnClickListener(v -> {
+    itemList.remove(position);
+    notifyItemRemoved(position);
+    notifyItemRangeChanged(position, itemList.size());
+  });
+}
+...
+public MyViewHolder(@NonNull View itemView) {
+  ...
+  removeButton = itemView.findViewById(R.id.removeButton);
+}
+```
+### Update Data
+**Adaptar:**
+```java
+public void updateItem(int position, String updatedItem) {
+  if (position >= 0 && position < itemList.size()) {
+    itemList.set(position, updatedItem);
+    notifyItemChanged(position);
+  }
+}
+```
+**MainActivity:**
+```java
+adapter.notifyDataSetChanged();
+...
+String newItem = "Item " + (itemList.size() + 1);
+adapter.updateItem(newItem);
+```
+### Insert Data
+**Adaptar:**
+```java
+public void addItem(String newItem) {
+  itemList.add(newItem);
+  notifyItemInserted(itemList.size() - 1);
+}
+```
+**MainActivity:**
+```java
+adapter.notifyDataSetChanged();
+...
+String newItem = "Item " + (itemList.size() + 1);
+adapter.addItem(newItem);
+```
+## Animation
+**Adaptar:**
+```java
+public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+  ...
+  setAnimation(holder.itemView, position);
+}
+...
+private void setAnimation(View viewToAnimate, int position) {
+ if (position > lastPosition) { // Prevent re-animating on scroll
+   Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), android.R.anim.fade_in);
+   viewToAnimate.startAnimation(animation);
+   lastPosition = position;
+ }
+}
+```
 # Views
 ## ZoomControls
 ```java
