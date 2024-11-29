@@ -1334,6 +1334,115 @@ fragmentManager.beginTransaction().replace(R.id.layout_contaner, new BlankFragme
 ```
 - `layout_container` - where fragment should stay.
 - `BlankFragment` - class name of new fragment.
+
+## Passs Data Between Fragment
+**Send Data:**
+```java
+sendButton.setOnClickListener(v -> {
+    // Create the data to pass
+    Bundle bundle = new Bundle();
+    bundle.putString("message", "Hello from SenderFragment!");
+
+    // Create an instance of the target fragment and set arguments
+    ReceiverFragment receiverFragment = new ReceiverFragment();
+    receiverFragment.setArguments(bundle);
+
+    // Replace current fragment with ReceiverFragment
+    getParentFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, receiverFragment)
+            .addToBackStack(null) // Add to back stack for navigation
+            .commit();
+});
+```
+**Recieve Data:**
+```java
+// Retrieve the passed data
+Bundle arguments = getArguments();
+if (arguments != null) {
+    String message = arguments.getString("message");
+    textView.setText(message);
+}
+***Load Container:***
+```java
+// Load SenderFragment initially
+if (savedInstanceState == null) {
+    getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, new SenderFragment())
+            .commit();
+}
+```
+## Pass Data Between Fragment to Activity
+**Send Data:**
+```java
+public class SenderFragment extends Fragment {
+
+    private OnDataPassListener dataPassListener;
+
+    // Define an interface for communication
+    public interface OnDataPassListener {
+        void onDataPass(String data);
+    }
+
+    // Attach the fragment to the activity and ensure it implements the interface
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            dataPassListener = (OnDataPassListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnDataPassListener");
+        }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        sendButton.setOnClickListener(v -> {
+            // Send data to the activity
+            String dataToSend = "Hello from SenderFragment!";
+            dataPassListener.onDataPass(dataToSend);
+        });
+    }
+}
+```
+**Recieve Data:**
+```java
+protected void onCreate(Bundle savedInstanceState) {
+...
+    if (savedInstanceState == null) {
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, new SenderFragment())
+            .commit();
+    }
+}
+@Override
+public void onDataPass(String data) {
+    // Display the received data in the TextView
+    System.out.println(data);
+}
+```
+## Pass Data Between Activity to Fragment
+**Send Data:**
+```java
+// Create a bundle to pass data
+Bundle bundle = new Bundle();
+bundle.putString("message", "Hello from MainActivity!");
+
+// Create an instance of ReceiverFragment and set arguments
+ReceiverFragment receiverFragment = new ReceiverFragment();
+receiverFragment.setArguments(bundle);
+```
+**Recieve Data:**
+```java
+Bundle arguments = getArguments();
+if (arguments != null) {
+    String message = arguments.getString("message");
+    textView.setText(message);
+}
+```
 # Bottom Navigation
 __1. Menu Resource File:__
 ```xml
